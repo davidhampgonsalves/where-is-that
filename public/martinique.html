@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Martinique?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-60.979,14.785],[-60.961,14.75],[-60.947,14.761],[-60.927,14.771],[-60.903,14.777],[-60.879,14.777],[-60.886,14.772],[-60.892,14.768],[-60.895,14.764],[-60.893,14.757],[-60.914,14.736],[-60.926,14.756],[-60.934,14.75],[-60.937,14.731],[-60.935,14.709],[-60.926,14.713],[-60.919,14.712],[-60.913,14.709],[-60.907,14.703],[-60.935,14.689],[-60.927,14.681],[-60.939,14.675],[-60.937,14.666],[-60.929,14.664],[-60.92,14.675],[-60.887,14.661],[-60.894,14.66],[-60.898,14.658],[-60.902,14.656],[-60.907,14.654],[-60.905,14.649],[-60.901,14.639],[-60.893,14.631],[-60.873,14.62],[-60.87,14.614],[-60.869,14.608],[-60.865,14.602],[-60.855,14.599],[-60.848,14.596],[-60.845,14.589],[-60.844,14.579],[-60.845,14.571],[-60.832,14.579],[-60.836,14.566],[-60.836,14.553],[-60.833,14.541],[-60.825,14.53],[-60.831,14.527],[-60.833,14.524],[-60.835,14.521],[-60.838,14.517],[-60.825,14.51],[-60.82,14.497],[-60.817,14.481],[-60.81,14.469],[-60.81,14.462],[-60.823,14.457],[-60.835,14.428],[-60.845,14.414],[-60.856,14.409],[-60.871,14.408],[-60.882,14.413],[-60.887,14.428],[-60.881,14.438],[-60.869,14.441],[-60.86,14.447],[-60.859,14.462],[-60.868,14.476],[-60.882,14.471],[-60.898,14.461],[-60.914,14.462],[-60.913,14.472],[-60.92,14.473],[-60.948,14.469],[-61.006,14.476],[-61.022,14.474],[-61.046,14.464],[-61.061,14.462],[-61.07,14.467],[-61.092,14.497],[-61.091,14.504],[-61.092,14.508],[-61.097,14.512],[-61.106,14.517],[-61.079,14.545],[-61.052,14.557],[-61.044,14.565],[-61.033,14.55],[-61.018,14.545],[-61.003,14.551],[-60.996,14.565],[-60.999,14.571],[-60.999,14.571],[-61.007,14.582],[-61.014,14.596],[-61.016,14.613],[-61.031,14.608],[-61.044,14.605],[-61.054,14.605],[-61.065,14.606],[-61.086,14.605],[-61.092,14.606],[-61.096,14.61],[-61.102,14.622],[-61.106,14.626],[-61.12,14.636],[-61.142,14.65],[-61.16,14.667],[-61.167,14.685],[-61.168,14.691],[-61.17,14.696],[-61.174,14.701],[-61.178,14.706],[-61.182,14.713],[-61.18,14.72],[-61.177,14.726],[-61.175,14.733],[-61.177,14.745],[-61.183,14.756],[-61.19,14.766],[-61.219,14.796],[-61.226,14.808],[-61.229,14.822],[-61.226,14.836],[-61.219,14.846],[-61.212,14.853],[-61.211,14.854],[-61.171,14.876],[-61.136,14.877],[-61.102,14.866],[-61.058,14.839],[-61.019,14.822],[-61.002,14.811],[-60.998,14.804],[-60.996,14.795],[-60.991,14.788],[-60.979,14.785]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Martinique'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Martinique?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Martinique located? </h2>Martinique, is a overseas region of the Martinique region. It belongs to the country of France. Its postal identifier is FF.Martinique has an area of 220 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

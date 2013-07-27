@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is West?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[11.292,5.993],[11.275,5.981],[11.266,5.971],[11.278,5.964],[11.28,5.949],[11.274,5.933],[11.259,5.924],[11.264,5.914],[11.264,5.894],[11.266,5.883],[11.269,5.877],[11.274,5.872],[11.278,5.865],[11.28,5.852],[11.278,5.839],[11.275,5.829],[11.274,5.819],[11.28,5.807],[11.29,5.804],[11.301,5.806],[11.31,5.804],[11.314,5.79],[11.311,5.784],[11.297,5.778],[11.278,5.74],[11.273,5.732],[11.266,5.728],[11.257,5.726],[11.249,5.723],[11.242,5.704],[11.233,5.696],[11.211,5.684],[11.219,5.67],[11.211,5.654],[11.198,5.638],[11.19,5.622],[11.194,5.611],[11.194,5.604],[11.196,5.6],[11.206,5.583],[11.208,5.578],[11.21,5.567],[11.212,5.531],[11.21,5.514],[11.201,5.486],[11.197,5.478],[11.193,5.471],[11.19,5.468],[11.177,5.45],[11.191,5.431],[11.191,5.426],[11.19,5.42],[11.187,5.414],[11.183,5.403],[11.18,5.398],[11.176,5.395],[11.162,5.389],[11.16,5.388],[11.134,5.347],[11.129,5.341],[11.125,5.339],[11.119,5.338],[11.113,5.337],[11.106,5.335],[11.098,5.331],[11.086,5.32],[11.081,5.312],[11.079,5.304],[11.079,5.292],[11.082,5.27],[11.082,5.263],[11.075,5.235],[11.074,5.226],[11.075,5.215],[11.077,5.207],[11.082,5.195],[11.061,5.188],[11.035,5.175],[11.018,5.162],[11.003,5.144],[10.997,5.13],[10.994,5.117],[10.99,5.093],[10.98,5.059],[10.959,5.004],[10.957,4.996],[10.946,4.969],[10.936,4.961],[10.925,4.956],[10.901,4.956],[10.879,4.959],[10.866,4.962],[10.824,5.003],[10.812,5.011],[10.797,5.016],[10.787,5.013],[10.78,5.006],[10.776,5.002],[10.775,5],[10.774,4.997],[10.771,4.99],[10.765,4.981],[10.755,4.972],[10.745,4.965],[10.608,4.899],[10.592,4.896],[10.578,4.895],[10.504,4.908],[10.485,4.916],[10.476,4.924],[10.467,4.935],[10.445,4.944],[10.433,4.955],[10.416,5.003],[10.407,5.021],[10.396,5.038],[10.387,5.073],[10.374,5.089],[10.347,5.086],[10.336,5.083],[10.314,5.076],[10.303,5.074],[10.292,5.076],[10.282,5.08],[10.27,5.082],[10.26,5.08],[10.251,5.063],[10.246,5.05],[10.239,5.036],[10.226,5.024],[10.189,4.999],[10.184,4.991],[10.177,4.982],[10.151,4.929],[10.141,4.928],[10.138,4.927],[10.131,4.926],[10.128,4.926],[10.125,4.926],[10.12,4.927],[10.112,4.937],[10.105,4.969],[10.091,4.983],[10.087,4.986],[10.078,4.993],[10.073,4.999],[10.072,5.001],[10.069,5.012],[10.065,5.038],[10.062,5.046],[10.058,5.052],[10.02,5.072],[10.016,5.078],[10.011,5.087],[10.005,5.106],[9.998,5.119],[9.996,5.124],[9.995,5.128],[10.005,5.151],[10.004,5.193],[9.99,5.219],[9.987,5.235],[9.984,5.242],[9.977,5.251],[9.944,5.274],[9.931,5.28],[9.92,5.278],[9.91,5.272],[9.9,5.264],[9.89,5.261],[9.879,5.262],[9.863,5.284],[9.87,5.357],[9.908,5.386],[9.95,5.489],[9.955,5.507],[9.96,5.551],[9.969,5.567],[9.985,5.586],[10.063,5.654],[10.108,5.671],[10.112,5.682],[10.113,5.689],[10.096,5.728],[10.157,5.776],[10.165,5.78],[10.176,5.782],[10.191,5.78],[10.239,5.767],[10.25,5.763],[10.259,5.755],[10.265,5.744],[10.271,5.734],[10.278,5.726],[10.288,5.723],[10.299,5.732],[10.308,5.743],[10.324,5.803],[10.5,5.836],[10.518,5.836],[10.571,5.832],[10.594,5.84],[10.602,5.845],[10.644,5.912],[10.683,6.006],[10.687,6.016],[10.693,6.024],[10.71,6.029],[10.724,6.031],[10.794,6.018],[10.838,6.007],[10.855,6.031],[10.877,6.034],[10.922,6.049],[10.968,6.074],[10.979,6.084],[10.989,6.095],[10.996,6.11],[11.01,6.174],[11.004,6.221],[11.011,6.244],[11.091,6.236],[11.104,6.236],[11.117,6.238],[11.137,6.246],[11.149,6.253],[11.188,6.291],[11.267,6.272],[11.281,6.265],[11.296,6.254],[11.299,6.243],[11.298,6.233],[11.288,6.21],[11.285,6.198],[11.283,6.176],[11.285,6.158],[11.29,6.136],[11.307,6.093],[11.312,6.071],[11.313,6.054],[11.297,6.013],[11.292,5.993]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'West'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>West?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is West located? </h2>West, is a province It belongs to the country of Cameroon. Its postal identifier is OU.West has an area of 14080 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

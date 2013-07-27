@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Quang Ngai?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[109.078,14.672],[109.071,14.678],[109.05,14.683],[109.033,14.682],[108.979,14.673],[108.863,14.679],[108.814,14.673],[108.792,14.666],[108.745,14.636],[108.712,14.622],[108.667,14.596],[108.618,14.641],[108.596,14.696],[108.572,14.784],[108.56,14.811],[108.549,14.826],[108.535,14.831],[108.502,14.838],[108.483,14.845],[108.465,14.857],[108.442,14.878],[108.429,14.894],[108.393,14.964],[108.351,15.001],[108.335,15.012],[108.297,15.048],[108.327,15.086],[108.326,15.096],[108.322,15.111],[108.294,15.14],[108.28,15.16],[108.276,15.178],[108.279,15.197],[108.288,15.212],[108.313,15.241],[108.323,15.257],[108.336,15.285],[108.346,15.295],[108.358,15.306],[108.371,15.313],[108.386,15.316],[108.486,15.325],[108.534,15.337],[108.666,15.383],[108.693,15.389],[108.735,15.392],[108.759,15.396],[108.762,15.397],[108.766,15.394],[108.773,15.387],[108.775,15.375],[108.774,15.363],[108.774,15.351],[108.78,15.34],[108.776,15.335],[108.775,15.331],[108.773,15.325],[108.78,15.325],[108.781,15.331],[108.787,15.346],[108.794,15.345],[108.802,15.344],[108.822,15.346],[108.822,15.353],[108.796,15.356],[108.789,15.374],[108.796,15.395],[108.815,15.408],[108.815,15.415],[108.809,15.418],[108.806,15.421],[108.8,15.429],[108.808,15.425],[108.815,15.424],[108.821,15.425],[108.828,15.429],[108.833,15.414],[108.839,15.374],[108.846,15.366],[108.854,15.363],[108.878,15.344],[108.883,15.336],[108.881,15.299],[108.887,15.286],[108.912,15.264],[108.925,15.257],[108.932,15.254],[108.946,15.253],[108.952,15.25],[108.944,15.237],[108.933,15.227],[108.92,15.222],[108.904,15.223],[108.904,15.216],[108.914,15.216],[108.92,15.215],[108.923,15.211],[108.925,15.202],[108.91,15.209],[108.906,15.198],[108.903,15.169],[108.898,15.154],[108.882,15.161],[108.868,15.16],[108.863,15.153],[108.87,15.14],[108.876,15.14],[108.884,15.144],[108.892,15.141],[108.898,15.133],[108.898,15.12],[108.904,15.12],[108.904,15.128],[108.906,15.134],[108.91,15.147],[108.919,15.058],[108.943,14.98],[109.006,14.839],[108.986,14.837],[108.99,14.831],[109.013,14.822],[109.017,14.813],[109.037,14.784],[109.044,14.777],[109.081,14.73],[109.086,14.715],[109.095,14.667],[109.087,14.671],[109.081,14.678],[109.077,14.686],[109.078,14.672]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Quang Ngai'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Quang Ngai?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Quang Ngai located? </h2>Quang Ngai, is a province of the Nam Trung B? region. It belongs to the country of Vietnam. Its postal identifier is QG.Quang Ngai has an area of 4595 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

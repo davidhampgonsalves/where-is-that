@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Erzurum?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[42.564,39.952],[42.536,39.927],[42.503,39.913],[42.477,39.913],[42.463,39.912],[42.44,39.904],[42.418,39.88],[42.382,39.871],[42.307,39.881],[42.272,39.869],[42.353,39.792],[42.495,39.748],[42.481,39.741],[42.471,39.714],[42.473,39.579],[42.463,39.532],[42.431,39.491],[42.411,39.486],[42.374,39.481],[42.336,39.479],[42.199,39.426],[42.178,39.382],[42.184,39.336],[42.156,39.299],[42.087,39.266],[42.068,39.249],[42.037,39.227],[41.915,39.211],[41.873,39.192],[41.834,39.169],[41.748,39.171],[41.663,39.199],[41.639,39.214],[41.581,39.278],[41.483,39.353],[41.446,39.372],[41.365,39.387],[41.205,39.366],[41.163,39.423],[41.118,39.464],[41.058,39.469],[40.983,39.497],[40.886,39.567],[40.855,39.581],[40.827,39.569],[40.797,39.552],[40.708,39.522],[40.619,39.532],[40.622,39.594],[40.657,39.646],[40.68,39.688],[40.648,39.717],[40.606,39.73],[40.567,39.752],[40.549,39.77],[40.535,39.79],[40.531,39.818],[40.533,39.845],[40.467,39.913],[40.295,39.916],[40.242,39.937],[40.25,39.994],[40.281,40.047],[40.445,40.032],[40.481,40.037],[40.525,40.063],[40.567,40.095],[40.623,40.115],[40.748,40.149],[40.776,40.176],[40.8,40.212],[40.797,40.232],[40.731,40.237],[40.702,40.247],[40.637,40.258],[40.575,40.284],[40.55,40.346],[40.521,40.482],[40.489,40.542],[40.651,40.604],[40.691,40.612],[40.732,40.616],[40.792,40.629],[40.822,40.687],[40.857,40.698],[40.902,40.698],[40.944,40.709],[41.051,40.778],[41.127,40.813],[41.205,40.779],[41.329,40.765],[41.365,40.755],[41.373,40.722],[41.347,40.686],[41.333,40.601],[41.401,40.556],[41.494,40.582],[41.579,40.624],[41.657,40.641],[41.735,40.624],[41.821,40.588],[41.866,40.64],[41.868,40.685],[41.887,40.724],[41.927,40.755],[41.953,40.796],[41.946,40.839],[41.959,40.877],[41.99,40.898],[42.024,40.912],[42.092,40.917],[42.161,40.911],[42.221,40.921],[42.279,40.925],[42.299,40.848],[42.352,40.789],[42.388,40.77],[42.416,40.742],[42.437,40.703],[42.467,40.671],[42.507,40.64],[42.537,40.599],[42.531,40.564],[42.514,40.531],[42.538,40.431],[42.499,40.411],[42.457,40.397],[42.423,40.38],[42.391,40.36],[42.327,40.332],[42.181,40.294],[42.15,40.241],[42.186,40.208],[42.206,40.181],[42.231,40.16],[42.317,40.15],[42.349,40.141],[42.379,40.125],[42.395,40.108],[42.409,40.087],[42.425,40.076],[42.446,40.072],[42.485,40.059],[42.51,40.028],[42.535,39.988],[42.564,39.952]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Erzurum'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Erzurum?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Erzurum located? </h2>Erzurum, is a province It belongs to the country of Turkey. Its postal identifier is EM.Erzurum has an area of 23805 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Manufahi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[125.805,-8.753],[125.805,-8.756],[125.799,-8.812],[125.81,-8.857],[125.841,-8.882],[125.872,-8.898],[125.906,-8.915],[125.93,-8.943],[125.945,-8.967],[125.989,-8.992],[126.032,-9.023],[126.045,-9.045],[126.048,-9.057],[125.947,-9.126],[125.929,-9.132],[125.87,-9.123],[125.85,-9.124],[125.839,-9.13],[125.817,-9.148],[125.805,-9.152],[125.764,-9.152],[125.743,-9.157],[125.679,-9.193],[125.67,-9.193],[125.667,-9.186],[125.66,-9.15],[125.667,-9.132],[125.673,-9.116],[125.665,-9.094],[125.65,-9.08],[125.625,-9.068],[125.595,-9.055],[125.582,-9.032],[125.579,-8.999],[125.581,-8.98],[125.589,-8.966],[125.597,-8.947],[125.6,-8.928],[125.624,-8.916],[125.657,-8.916],[125.672,-8.907],[125.675,-8.878],[125.675,-8.86],[125.68,-8.835],[125.688,-8.796],[125.688,-8.795],[125.708,-8.793],[125.744,-8.774],[125.762,-8.756],[125.779,-8.751],[125.805,-8.753]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Manufahi'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Manufahi?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Manufahi located? </h2>Manufahi, is a district|regencies It belongs to the country of East Timor. Its postal identifier is MF.Manufahi has an area of 1293 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

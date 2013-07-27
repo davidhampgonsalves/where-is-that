@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Sirdaryo?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[68.987,40.092],[68.985,40.077],[68.977,40.065],[68.954,40.062],[68.882,40.071],[68.861,40.066],[68.826,40.042],[68.813,40.039],[68.79,40.071],[68.775,40.08],[68.762,40.062],[68.762,40.062],[68.764,40.053],[68.781,40.042],[68.785,40.034],[68.785,40.034],[68.783,40.014],[68.783,40.014],[68.784,40.004],[68.789,39.994],[68.877,39.901],[68.881,39.879],[68.881,39.879],[68.838,39.865],[68.815,39.892],[68.8,39.935],[68.78,39.97],[68.759,39.981],[68.752,39.973],[68.752,39.973],[68.755,39.954],[68.765,39.933],[68.787,39.896],[68.787,39.896],[68.787,39.882],[68.775,39.863],[68.771,39.861],[68.761,39.859],[68.757,39.858],[68.75,39.843],[68.75,39.843],[68.75,39.841],[68.75,39.841],[68.75,39.836],[68.748,39.827],[68.741,39.82],[68.728,39.825],[68.701,39.859],[68.685,39.868],[68.651,39.845],[68.64,39.848],[68.64,39.848],[68.643,39.858],[68.643,39.874],[68.648,39.883],[68.651,39.89],[68.653,39.895],[68.65,39.899],[68.645,39.902],[68.627,39.911],[68.623,39.915],[68.62,39.919],[68.621,39.923],[68.629,39.926],[68.636,39.926],[68.641,39.923],[68.645,39.919],[68.648,39.915],[68.652,39.916],[68.655,39.921],[68.658,39.954],[68.658,39.964],[68.656,39.969],[68.653,39.979],[68.645,39.997],[68.643,40],[68.642,40.001],[68.639,40.007],[68.635,40.016],[68.634,40.022],[68.633,40.028],[68.634,40.036],[68.638,40.047],[68.654,40.068],[68.697,40.112],[68.931,40.147],[68.977,40.121],[68.984,40.107],[68.987,40.092],[68.987,40.092]]],[[[68.708,40.908],[68.711,40.898],[68.713,40.874],[68.715,40.866],[68.721,40.864],[68.729,40.869],[68.734,40.869],[68.737,40.862],[68.74,40.845],[68.756,40.85],[68.778,40.847],[68.8,40.84],[68.815,40.831],[68.824,40.823],[68.836,40.806],[68.843,40.798],[68.85,40.794],[68.876,40.784],[68.888,40.777],[68.893,40.772],[68.903,40.756],[68.904,40.751],[68.902,40.74],[68.903,40.735],[68.91,40.73],[68.917,40.73],[68.924,40.731],[68.931,40.729],[68.945,40.719],[68.956,40.707],[68.958,40.694],[68.945,40.681],[68.96,40.674],[68.974,40.677],[68.988,40.684],[69.003,40.688],[69.013,40.684],[69.009,40.674],[68.993,40.653],[69.035,40.659],[69.054,40.658],[69.066,40.633],[69.084,40.622],[69.089,40.612],[69.085,40.604],[69.069,40.592],[69.068,40.584],[69.076,40.581],[69.086,40.586],[69.097,40.594],[69.106,40.599],[69.115,40.595],[69.121,40.588],[69.122,40.581],[69.097,40.573],[69.087,40.559],[69.076,40.523],[69.087,40.524],[69.098,40.523],[69.108,40.521],[69.117,40.515],[69.098,40.507],[69.1,40.499],[69.11,40.492],[69.117,40.485],[69.119,40.477],[69.122,40.469],[69.124,40.46],[69.12,40.451],[69.106,40.437],[69.1,40.429],[69.094,40.419],[69.092,40.412],[69.071,40.321],[69.085,40.293],[69.091,40.285],[69.093,40.27],[69.079,40.23],[69.074,40.217],[69.074,40.217],[69.042,40.23],[69.019,40.232],[68.856,40.213],[68.837,40.207],[68.802,40.191],[68.778,40.189],[68.72,40.197],[68.698,40.195],[68.642,40.184],[68.642,40.184],[68.642,40.184],[68.63,40.202],[68.633,40.21],[68.638,40.218],[68.651,40.256],[68.655,40.263],[68.66,40.268],[68.664,40.273],[68.67,40.28],[68.668,40.282],[68.664,40.282],[68.364,40.226],[68.137,40.229],[68.11,40.233],[68.106,40.237],[68.1,40.244],[68.096,40.252],[68.092,40.28],[68.095,40.296],[68.099,40.309],[68.217,40.516],[68.214,40.529],[68.205,40.528],[68.187,40.524],[68.17,40.522],[68.165,40.526],[68.162,40.531],[68.169,40.568],[68.17,40.592],[68.173,40.597],[68.177,40.6],[68.183,40.602],[68.196,40.605],[68.251,40.612],[68.264,40.622],[68.266,40.663],[68.267,40.663],[68.462,40.585],[68.462,40.585],[68.465,40.59],[68.477,40.599],[68.477,40.6],[68.492,40.599],[68.492,40.599],[68.5,40.606],[68.505,40.615],[68.514,40.619],[68.515,40.619],[68.526,40.618],[68.566,40.603],[68.593,40.6],[68.609,40.607],[68.614,40.609],[68.62,40.623],[68.601,40.63],[68.625,40.661],[68.627,40.667],[68.619,40.679],[68.612,40.691],[68.608,40.704],[68.609,40.716],[68.584,40.721],[68.574,40.725],[68.566,40.733],[68.56,40.752],[68.549,40.835],[68.553,40.851],[68.559,40.856],[68.561,40.857],[68.565,40.859],[68.565,40.86],[68.572,40.871],[68.573,40.881],[68.57,40.903],[68.571,40.914],[68.571,40.914],[68.575,40.912],[68.584,40.909],[68.589,40.907],[68.589,40.907],[68.6,40.93],[68.604,40.933],[68.628,40.945],[68.649,40.952],[68.649,40.952],[68.7,40.916],[68.708,40.908]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Sirdaryo'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Sirdaryo?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Sirdaryo located? </h2>Sirdaryo, is a region It belongs to the country of Uzbekistan. Its postal identifier is SI.Sirdaryo has an area of 4835 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

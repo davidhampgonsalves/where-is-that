@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Madhyamanchal?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[86.051,27.888],[86.055,27.888],[86.036,27.843],[86.032,27.819],[86.035,27.784],[86.034,27.762],[86.031,27.752],[86.024,27.747],[86.002,27.743],[85.996,27.741],[85.986,27.732],[85.972,27.715],[85.956,27.683],[85.944,27.665],[85.932,27.651],[85.893,27.613],[85.845,27.56],[85.841,27.546],[85.83,27.527],[85.823,27.518],[85.812,27.507],[85.807,27.501],[85.807,27.5],[85.807,27.5],[85.812,27.486],[85.814,27.48],[85.819,27.439],[85.795,27.416],[85.737,27.407],[85.725,27.401],[85.72,27.394],[85.719,27.385],[85.717,27.375],[85.707,27.362],[85.696,27.357],[85.683,27.356],[85.539,27.364],[85.532,27.366],[85.526,27.369],[85.504,27.385],[85.479,27.406],[85.454,27.417],[85.424,27.425],[85.392,27.43],[85.349,27.437],[85.286,27.469],[85.272,27.48],[85.263,27.49],[85.258,27.499],[85.258,27.501],[85.255,27.524],[85.252,27.53],[85.249,27.535],[85.244,27.541],[85.239,27.548],[85.236,27.554],[85.234,27.565],[85.226,27.628],[85.213,27.665],[85.208,27.673],[85.202,27.678],[85.191,27.682],[85.143,27.691],[85.091,27.712],[85.074,27.716],[85.061,27.718],[84.992,27.715],[84.981,27.713],[84.954,27.705],[84.933,27.704],[84.91,27.699],[84.889,27.686],[84.873,27.682],[84.861,27.681],[84.798,27.687],[84.786,27.718],[84.781,27.724],[84.774,27.731],[84.763,27.736],[84.69,27.738],[84.673,27.741],[84.669,27.745],[84.668,27.75],[84.673,27.757],[84.672,27.763],[84.669,27.771],[84.656,27.787],[84.649,27.797],[84.645,27.805],[84.644,27.812],[84.645,27.817],[84.647,27.823],[84.652,27.835],[84.655,27.842],[84.665,27.836],[84.668,27.833],[84.673,27.828],[84.678,27.822],[84.684,27.816],[84.692,27.812],[84.7,27.809],[84.71,27.808],[84.719,27.808],[84.727,27.809],[84.735,27.811],[84.742,27.818],[84.748,27.828],[84.751,27.848],[84.75,27.863],[84.745,27.877],[84.726,27.907],[84.722,27.916],[84.72,27.923],[84.721,27.934],[84.727,27.943],[84.757,27.97],[84.772,27.985],[84.823,28.073],[84.831,28.082],[84.841,28.09],[84.859,28.1],[84.879,28.107],[84.905,28.112],[84.916,28.117],[84.926,28.128],[84.938,28.149],[84.955,28.205],[84.965,28.221],[84.978,28.236],[85.019,28.264],[85.029,28.274],[85.049,28.309],[85.063,28.323],[85.082,28.332],[85.08,28.319],[85.087,28.304],[85.109,28.293],[85.134,28.292],[85.154,28.301],[85.173,28.305],[85.206,28.279],[85.224,28.272],[85.243,28.268],[85.259,28.267],[85.273,28.27],[85.301,28.281],[85.312,28.283],[85.326,28.278],[85.335,28.269],[85.345,28.262],[85.362,28.26],[85.378,28.266],[85.401,28.289],[85.415,28.297],[85.431,28.297],[85.446,28.292],[85.476,28.279],[85.497,28.283],[85.52,28.283],[85.544,28.281],[85.565,28.276],[85.585,28.264],[85.599,28.251],[85.612,28.251],[85.639,28.288],[85.647,28.294],[85.668,28.301],[85.675,28.307],[85.676,28.315],[85.676,28.325],[85.679,28.333],[85.693,28.336],[85.698,28.314],[85.7,28.269],[85.716,28.244],[85.734,28.222],[85.756,28.203],[85.783,28.188],[85.827,28.171],[85.848,28.159],[85.863,28.144],[85.867,28.133],[85.872,28.111],[85.889,28.091],[85.891,28.081],[85.89,28.072],[85.89,28.059],[85.898,28.036],[85.909,28.023],[85.944,27.995],[85.956,27.977],[85.956,27.957],[85.952,27.937],[85.951,27.917],[85.963,27.892],[85.98,27.885],[86.026,27.89],[86.051,27.888]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Madhyamanchal'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Madhyamanchal?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Madhyamanchal located? </h2>Madhyamanchal, is a district of the Central region. It belongs to the country of Nepal. Its postal identifier is MM.Madhyamanchal has an area of 9048 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

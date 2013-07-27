@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Anglesey?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[-4.656,53.32],[-4.644,53.319],[-4.626,53.321],[-4.619,53.317],[-4.604,53.308],[-4.59,53.298],[-4.581,53.285],[-4.577,53.272],[-4.573,53.266],[-4.564,53.26],[-4.558,53.253],[-4.564,53.242],[-4.572,53.239],[-4.582,53.242],[-4.602,53.253],[-4.623,53.276],[-4.633,53.283],[-4.641,53.284],[-4.67,53.283],[-4.677,53.285],[-4.694,53.303],[-4.694,53.31],[-4.667,53.324],[-4.656,53.32]]],[[[-4.203,53.298],[-4.191,53.297],[-4.178,53.298],[-4.155,53.302],[-4.143,53.303],[-4.137,53.305],[-4.128,53.315],[-4.122,53.317],[-4.115,53.316],[-4.103,53.311],[-4.098,53.31],[-4.069,53.31],[-4.055,53.308],[-4.043,53.303],[-4.063,53.289],[-4.098,53.25],[-4.122,53.242],[-4.147,53.239],[-4.172,53.231],[-4.196,53.22],[-4.215,53.207],[-4.219,53.204],[-4.22,53.201],[-4.221,53.197],[-4.221,53.19],[-4.222,53.182],[-4.225,53.181],[-4.229,53.182],[-4.265,53.167],[-4.28,53.155],[-4.344,53.132],[-4.354,53.13],[-4.367,53.131],[-4.392,53.138],[-4.393,53.136],[-4.399,53.133],[-4.407,53.131],[-4.413,53.132],[-4.414,53.138],[-4.414,53.147],[-4.412,53.156],[-4.41,53.159],[-4.402,53.164],[-4.39,53.173],[-4.385,53.182],[-4.396,53.187],[-4.411,53.182],[-4.433,53.163],[-4.448,53.159],[-4.449,53.162],[-4.482,53.18],[-4.484,53.181],[-4.492,53.179],[-4.495,53.18],[-4.496,53.182],[-4.495,53.191],[-4.495,53.193],[-4.495,53.196],[-4.496,53.204],[-4.5,53.211],[-4.52,53.223],[-4.553,53.262],[-4.571,53.275],[-4.571,53.283],[-4.565,53.293],[-4.563,53.308],[-4.564,53.33],[-4.559,53.363],[-4.561,53.378],[-4.571,53.393],[-4.554,53.401],[-4.425,53.427],[-4.413,53.427],[-4.344,53.42],[-4.325,53.419],[-4.287,53.406],[-4.277,53.401],[-4.272,53.389],[-4.269,53.377],[-4.266,53.372],[-4.267,53.369],[-4.254,53.363],[-4.24,53.358],[-4.235,53.358],[-4.234,53.353],[-4.235,53.346],[-4.235,53.34],[-4.232,53.338],[-4.231,53.335],[-4.215,53.324],[-4.209,53.312],[-4.207,53.304],[-4.203,53.298]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Anglesey'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Anglesey?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Anglesey located? </h2>Anglesey, is a unitary authority (wales of the Wales region. It belongs to the country of United Kingdom. Its postal identifier is AY.Anglesey has an area of 713 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is BanzartBanzart?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[10.218,37.129],[10.212,37.128],[10.164,37.115],[10.112,37.111],[10.105,37.108],[10.097,37.103],[10.087,37.093],[10.081,37.085],[10.072,37.076],[10.069,37.072],[10.067,37.068],[10.06,37.053],[10.025,36.996],[10.017,36.986],[10.001,36.961],[9.994,36.945],[9.992,36.941],[9.989,36.938],[9.986,36.935],[9.98,36.932],[9.972,36.929],[9.958,36.929],[9.944,36.93],[9.937,36.931],[9.884,36.951],[9.865,36.956],[9.844,36.958],[9.808,36.956],[9.801,36.953],[9.791,36.948],[9.774,36.936],[9.76,36.923],[9.748,36.906],[9.742,36.902],[9.732,36.898],[9.68,36.888],[9.593,36.857],[9.553,36.829],[9.542,36.826],[9.532,36.822],[9.523,36.815],[9.427,36.734],[9.418,36.728],[9.413,36.726],[9.408,36.725],[9.404,36.724],[9.4,36.725],[9.39,36.726],[9.386,36.728],[9.373,36.735],[9.367,36.741],[9.361,36.75],[9.353,36.768],[9.351,36.777],[9.35,36.784],[9.356,36.797],[9.358,36.801],[9.36,36.805],[9.362,36.809],[9.366,36.818],[9.368,36.824],[9.369,36.831],[9.37,36.839],[9.37,36.843],[9.367,36.847],[9.364,36.852],[9.354,36.859],[9.342,36.865],[9.306,36.875],[9.297,36.879],[9.287,36.884],[9.254,36.909],[9.249,36.914],[9.244,36.922],[9.231,36.951],[9.207,36.993],[9.198,37.018],[9.194,37.025],[9.189,37.03],[9.184,37.036],[9.171,37.045],[9.164,37.048],[9.158,37.05],[9.095,37.049],[9.091,37.05],[9.086,37.053],[9.081,37.057],[9.077,37.066],[9.075,37.072],[9.074,37.077],[9.076,37.091],[9.082,37.113],[9.083,37.128],[9.081,37.162],[9.079,37.167],[9.159,37.193],[9.172,37.199],[9.193,37.226],[9.211,37.234],[9.343,37.235],[9.381,37.248],[9.405,37.269],[9.419,37.276],[9.433,37.271],[9.443,37.267],[9.454,37.268],[9.465,37.273],[9.494,37.278],[9.517,37.287],[9.539,37.298],[9.553,37.31],[9.573,37.3],[9.592,37.303],[9.629,37.323],[9.649,37.332],[9.666,37.336],[9.711,37.336],[9.733,37.343],[9.745,37.345],[9.755,37.34],[9.763,37.334],[9.774,37.331],[9.859,37.329],[9.859,37.326],[9.861,37.316],[9.862,37.271],[9.831,37.251],[9.793,37.238],[9.772,37.213],[9.775,37.206],[9.791,37.178],[9.796,37.172],[9.802,37.169],[9.808,37.155],[9.816,37.152],[9.86,37.147],[9.88,37.15],[9.902,37.165],[9.914,37.178],[9.926,37.197],[9.925,37.213],[9.861,37.234],[9.852,37.233],[9.831,37.228],[9.82,37.228],[9.82,37.234],[9.844,37.248],[9.854,37.25],[9.86,37.254],[9.864,37.259],[9.868,37.262],[9.883,37.264],[9.98,37.246],[9.998,37.248],[10.051,37.267],[10.06,37.265],[10.076,37.245],[10.146,37.237],[10.179,37.213],[10.253,37.192],[10.272,37.179],[10.24,37.172],[10.225,37.167],[10.211,37.159],[10.206,37.175],[10.178,37.178],[10.146,37.171],[10.128,37.159],[10.136,37.142],[10.162,37.134],[10.192,37.133],[10.211,37.138],[10.218,37.129]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'BanzartBanzart'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>BanzartBanzart?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is BanzartBanzart located? </h2>BanzartBanzart, is a governorate It belongs to the country of Tunisia. Its postal identifier is BZ.BanzartBanzart has an area of 3602 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kurunegala?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[80.499,7.815],[80.494,7.799],[80.497,7.781],[80.506,7.776],[80.513,7.774],[80.521,7.759],[80.531,7.742],[80.537,7.725],[80.538,7.708],[80.541,7.705],[80.546,7.698],[80.549,7.665],[80.555,7.634],[80.573,7.616],[80.573,7.604],[80.57,7.592],[80.57,7.583],[80.566,7.575],[80.552,7.562],[80.55,7.541],[80.56,7.521],[80.566,7.511],[80.571,7.5],[80.574,7.488],[80.572,7.475],[80.566,7.468],[80.566,7.458],[80.554,7.452],[80.542,7.449],[80.55,7.436],[80.556,7.423],[80.545,7.418],[80.531,7.42],[80.516,7.412],[80.518,7.401],[80.516,7.39],[80.499,7.392],[80.483,7.403],[80.469,7.403],[80.466,7.383],[80.462,7.377],[80.458,7.371],[80.459,7.365],[80.461,7.36],[80.443,7.355],[80.422,7.357],[80.413,7.377],[80.398,7.391],[80.374,7.395],[80.352,7.386],[80.349,7.367],[80.35,7.347],[80.347,7.335],[80.34,7.325],[80.329,7.325],[80.28,7.314],[80.257,7.303],[80.235,7.287],[80.214,7.269],[80.194,7.257],[80.176,7.27],[80.151,7.298],[80.145,7.306],[80.143,7.315],[80.134,7.325],[80.106,7.32],[80.081,7.303],[80.052,7.294],[80.025,7.313],[80.001,7.312],[79.963,7.283],[79.941,7.274],[79.939,7.334],[79.902,7.531],[79.9,7.565],[79.902,7.6],[79.913,7.627],[79.928,7.653],[79.932,7.664],[79.939,7.674],[79.953,7.678],[79.965,7.684],[79.96,7.693],[79.947,7.696],[79.952,7.709],[79.959,7.721],[79.972,7.725],[79.986,7.726],[79.997,7.731],[80.004,7.74],[80.001,7.75],[79.995,7.761],[79.998,7.788],[80.008,7.812],[80.01,7.824],[80.013,7.835],[80.026,7.842],[80.038,7.85],[80.041,7.861],[80.046,7.871],[80.067,7.882],[80.071,7.891],[80.073,7.901],[80.079,7.915],[80.094,7.922],[80.093,7.92],[80.092,7.918],[80.098,7.92],[80.106,7.928],[80.106,7.94],[80.112,7.95],[80.133,7.938],[80.145,7.948],[80.133,7.97],[80.139,7.982],[80.147,7.993],[80.148,8.016],[80.147,8.043],[80.151,8.056],[80.153,8.068],[80.141,8.075],[80.128,8.08],[80.118,8.098],[80.114,8.117],[80.104,8.157],[80.104,8.177],[80.103,8.196],[80.124,8.184],[80.216,8.142],[80.236,8.137],[80.255,8.13],[80.27,8.119],[80.289,8.116],[80.322,8.104],[80.352,8.079],[80.368,8.063],[80.386,8.052],[80.405,8.053],[80.42,8.04],[80.421,8.028],[80.419,8.015],[80.422,7.994],[80.42,7.976],[80.422,7.958],[80.436,7.952],[80.452,7.951],[80.461,7.938],[80.463,7.921],[80.473,7.898],[80.477,7.874],[80.474,7.839],[80.499,7.815]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Kurunegala'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Kurunegala?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Kurunegala located? </h2>Kurunegala, is a district It belongs to the country of Sri Lanka. Its postal identifier is KG.Kurunegala has an area of 4892 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

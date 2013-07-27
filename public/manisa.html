@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Manisa?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[28.659,39.157],[28.709,39.113],[28.73,39.101],[28.881,39.075],[28.91,39.06],[28.974,38.982],[28.984,38.965],[28.991,38.948],[28.982,38.887],[29.015,38.84],[29.036,38.793],[29.032,38.73],[28.995,38.701],[28.918,38.654],[28.906,38.634],[28.877,38.608],[28.848,38.6],[28.852,38.565],[28.88,38.557],[28.903,38.535],[28.907,38.513],[28.908,38.489],[28.915,38.441],[28.908,38.393],[28.895,38.363],[28.875,38.338],[28.848,38.318],[28.838,38.303],[28.864,38.288],[28.894,38.287],[28.931,38.255],[28.838,38.239],[28.794,38.17],[28.798,38.144],[28.784,38.12],[28.743,38.104],[28.698,38.104],[28.562,38.106],[28.517,38.159],[28.476,38.262],[28.448,38.29],[28.403,38.299],[28.38,38.301],[28.345,38.309],[28.325,38.327],[28.299,38.331],[28.261,38.322],[28.163,38.309],[28.136,38.359],[28.095,38.395],[28.065,38.387],[28.034,38.388],[27.986,38.405],[27.939,38.407],[27.922,38.375],[27.899,38.342],[27.848,38.333],[27.806,38.363],[27.798,38.378],[27.786,38.41],[27.778,38.425],[27.7,38.453],[27.63,38.492],[27.614,38.547],[27.583,38.57],[27.563,38.573],[27.451,38.571],[27.38,38.576],[27.321,38.616],[27.295,38.685],[27.272,38.708],[27.256,38.713],[27.228,38.735],[27.233,38.756],[27.261,38.792],[27.291,38.817],[27.309,38.85],[27.315,38.888],[27.327,38.925],[27.382,38.954],[27.445,38.974],[27.51,39.017],[27.538,39.041],[27.545,39.094],[27.508,39.148],[27.492,39.184],[27.459,39.304],[27.42,39.38],[27.497,39.411],[27.543,39.395],[27.586,39.367],[27.656,39.352],[27.726,39.359],[27.768,39.357],[27.807,39.342],[27.823,39.34],[27.855,39.344],[27.871,39.345],[27.896,39.313],[27.866,39.272],[27.854,39.236],[27.893,39.222],[27.968,39.243],[27.985,39.236],[27.991,39.222],[28.074,39.153],[28.125,39.063],[28.171,39.05],[28.213,39.064],[28.256,39.071],[28.294,39.088],[28.321,39.116],[28.361,39.122],[28.405,39.119],[28.443,39.123],[28.48,39.131],[28.572,39.167],[28.659,39.157]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Manisa'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Manisa?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Manisa located? </h2>Manisa, is a province It belongs to the country of Turkey. Its postal identifier is MN.Manisa has an area of 12933 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

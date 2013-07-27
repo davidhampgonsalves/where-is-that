@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is South East?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[107.61,11.362],[107.602,11.36],[107.597,11.358],[107.59,11.352],[107.58,11.342],[107.57,11.327],[107.548,11.289],[107.534,11.257],[107.511,11.221],[107.506,11.21],[107.496,11.182],[107.477,11.149],[107.466,11.122],[107.462,11.095],[107.453,11.078],[107.437,11.052],[107.431,11.038],[107.441,11.023],[107.46,11.009],[107.477,11.001],[107.498,10.999],[107.515,11.002],[107.531,11],[107.545,10.992],[107.557,10.98],[107.569,10.96],[107.579,10.94],[107.588,10.912],[107.592,10.881],[107.591,10.851],[107.578,10.823],[107.563,10.802],[107.517,10.756],[107.483,10.798],[107.473,10.801],[107.458,10.802],[107.446,10.793],[107.423,10.77],[107.358,10.691],[107.342,10.684],[107.327,10.683],[107.313,10.687],[107.3,10.696],[107.292,10.708],[107.289,10.72],[107.29,10.734],[107.292,10.747],[107.289,10.759],[107.281,10.769],[107.267,10.774],[107.254,10.774],[107.241,10.769],[107.151,10.728],[107.146,10.722],[107.146,10.715],[107.146,10.705],[107.146,10.696],[107.144,10.686],[107.133,10.675],[107.117,10.665],[107.041,10.637],[107.032,10.636],[107.026,10.635],[107.024,10.656],[107.013,10.673],[106.984,10.699],[106.98,10.685],[106.99,10.674],[107.005,10.664],[107.012,10.655],[107.003,10.631],[107.003,10.617],[107.009,10.614],[107.009,10.612],[107.02,10.59],[107.022,10.585],[107.012,10.563],[107.015,10.556],[107.022,10.55],[107.027,10.544],[107.026,10.536],[107.019,10.534],[107.01,10.539],[106.998,10.549],[107.005,10.556],[106.992,10.57],[106.992,10.577],[106.997,10.585],[106.998,10.597],[106.998,10.625],[106.992,10.625],[106.985,10.597],[106.984,10.567],[106.992,10.54],[107.012,10.522],[107.004,10.518],[106.998,10.523],[106.995,10.526],[106.991,10.532],[106.983,10.558],[106.971,10.584],[106.957,10.603],[106.939,10.62],[106.92,10.634],[106.905,10.642],[106.891,10.645],[106.891,10.645],[106.882,10.652],[106.868,10.645],[106.857,10.645],[106.832,10.653],[106.809,10.668],[106.794,10.673],[106.786,10.68],[106.773,10.686],[106.768,10.685],[106.763,10.69],[106.759,10.697],[106.757,10.705],[106.756,10.717],[106.756,10.722],[106.753,10.735],[106.751,10.758],[106.747,10.77],[106.751,10.772],[106.754,10.773],[106.79,10.754],[106.794,10.753],[106.796,10.753],[106.799,10.755],[106.808,10.762],[106.813,10.765],[106.82,10.769],[106.829,10.771],[106.839,10.772],[106.848,10.771],[106.856,10.769],[106.863,10.766],[106.87,10.762],[106.875,10.761],[106.878,10.761],[106.88,10.761],[106.881,10.762],[106.882,10.764],[106.881,10.766],[106.88,10.773],[106.88,10.776],[106.881,10.777],[106.883,10.78],[106.884,10.782],[106.885,10.788],[106.885,10.797],[106.881,10.814],[106.853,10.865],[106.836,10.888],[106.832,10.917],[106.826,10.927],[106.817,10.939],[106.806,10.95],[106.797,10.961],[106.791,10.972],[106.788,10.981],[106.787,10.989],[106.788,11.008],[106.785,11.017],[106.784,11.026],[106.788,11.035],[106.801,11.046],[106.814,11.052],[106.827,11.056],[106.837,11.054],[106.846,11.05],[106.855,11.041],[106.865,11.033],[106.878,11.027],[106.89,11.025],[106.902,11.026],[106.912,11.029],[106.955,11.064],[106.973,11.095],[106.976,11.107],[106.975,11.122],[106.964,11.153],[106.954,11.171],[106.944,11.182],[106.935,11.188],[106.931,11.198],[106.934,11.215],[106.965,11.284],[106.987,11.295],[106.993,11.3],[106.998,11.309],[107.001,11.314],[107.009,11.322],[107.026,11.333],[107.047,11.354],[107.057,11.368],[107.067,11.387],[107.08,11.403],[107.084,11.409],[107.085,11.416],[107.087,11.434],[107.09,11.446],[107.096,11.459],[107.104,11.475],[107.119,11.488],[107.14,11.499],[107.234,11.528],[107.309,11.566],[107.347,11.56],[107.375,11.561],[107.383,11.56],[107.388,11.556],[107.39,11.552],[107.391,11.547],[107.392,11.54],[107.391,11.522],[107.392,11.514],[107.398,11.506],[107.409,11.502],[107.428,11.498],[107.449,11.491],[107.459,11.483],[107.463,11.474],[107.462,11.468],[107.459,11.464],[107.45,11.455],[107.445,11.45],[107.443,11.441],[107.444,11.431],[107.449,11.417],[107.457,11.41],[107.468,11.407],[107.483,11.408],[107.527,11.403],[107.61,11.362]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'South East'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>South East?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is South East located? </h2>South East, is a region It belongs to the country of Vietnam.South East has an area of 5934 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Zambales?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[120.247,15.614],[120.169,15.48],[120.144,15.406],[120.164,15.343],[120.195,15.321],[120.273,15.293],[120.308,15.274],[120.331,15.251],[120.349,15.225],[120.381,15.169],[120.369,15.156],[120.362,15.144],[120.36,15.131],[120.363,15.114],[120.371,15.096],[120.384,15.084],[120.4,15.074],[120.416,15.061],[120.426,15.044],[120.428,15.029],[120.426,15.013],[120.428,14.995],[120.433,14.979],[120.46,14.942],[120.455,14.914],[120.442,14.886],[120.422,14.864],[120.398,14.855],[120.366,14.852],[120.342,14.842],[120.32,14.826],[120.297,14.802],[120.283,14.806],[120.283,14.807],[120.288,14.815],[120.292,14.826],[120.276,14.827],[120.268,14.829],[120.264,14.835],[120.263,14.846],[120.26,14.851],[120.253,14.852],[120.241,14.852],[120.23,14.86],[120.22,14.873],[120.209,14.88],[120.196,14.867],[120.201,14.843],[120.197,14.808],[120.187,14.775],[120.176,14.757],[120.162,14.756],[120.144,14.76],[120.128,14.767],[120.121,14.774],[120.116,14.785],[120.09,14.794],[120.08,14.804],[120.088,14.807],[120.093,14.812],[120.097,14.818],[120.101,14.826],[120.096,14.823],[120.08,14.818],[120.057,14.893],[120.05,14.931],[120.057,15.022],[120.053,15.062],[120.018,15.206],[120.008,15.215],[120.003,15.22],[120.002,15.229],[120.005,15.247],[120.005,15.269],[120.001,15.277],[119.981,15.308],[119.964,15.341],[119.953,15.356],[119.897,15.411],[119.888,15.429],[119.891,15.437],[119.905,15.447],[119.909,15.452],[119.908,15.462],[119.907,15.469],[119.902,15.483],[119.921,15.471],[119.941,15.476],[119.957,15.491],[119.964,15.514],[119.962,15.521],[119.957,15.529],[119.952,15.535],[119.947,15.538],[119.944,15.542],[119.942,15.554],[119.938,15.565],[119.929,15.573],[119.928,15.569],[119.922,15.559],[119.904,15.597],[119.902,15.61],[119.905,15.621],[119.918,15.647],[119.922,15.661],[119.92,15.69],[119.902,15.705],[119.881,15.718],[119.867,15.743],[119.889,15.748],[119.894,15.764],[119.889,15.801],[119.892,15.801],[119.921,15.799],[119.946,15.802],[119.968,15.811],[120.008,15.853],[120.032,15.85],[120.083,15.824],[120.097,15.822],[120.125,15.823],[120.138,15.821],[120.15,15.811],[120.156,15.796],[120.162,15.764],[120.18,15.726],[120.233,15.652],[120.247,15.614]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Zambales'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Zambales?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Zambales located? </h2>Zambales, is a province of the Ilocos region. It belongs to the country of Philippines. Its postal identifier is ZM.Zambales has an area of 3677 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

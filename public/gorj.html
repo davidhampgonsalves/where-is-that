@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Gorj?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[23.776,44.723],[23.765,44.73],[23.753,44.734],[23.746,44.735],[23.74,44.733],[23.735,44.729],[23.733,44.721],[23.733,44.714],[23.734,44.707],[23.736,44.698],[23.737,44.689],[23.736,44.678],[23.732,44.663],[23.733,44.657],[23.734,44.651],[23.737,44.644],[23.738,44.637],[23.737,44.629],[23.732,44.624],[23.723,44.62],[23.676,44.618],[23.581,44.597],[23.489,44.55],[23.473,44.575],[23.463,44.585],[23.407,44.625],[23.342,44.656],[23.319,44.664],[23.145,44.7],[23.126,44.707],[23.103,44.718],[23.027,44.769],[22.937,44.842],[22.931,44.853],[22.928,44.864],[22.924,44.885],[22.922,44.895],[22.915,44.912],[22.913,44.921],[22.913,44.93],[22.918,44.947],[22.922,44.955],[22.923,44.964],[22.918,44.973],[22.906,44.982],[22.88,44.993],[22.863,45.004],[22.852,45.013],[22.845,45.022],[22.835,45.028],[22.823,45.033],[22.804,45.035],[22.757,45.031],[22.741,45.033],[22.723,45.04],[22.68,45.079],[22.641,45.092],[22.647,45.114],[22.641,45.122],[22.635,45.128],[22.625,45.13],[22.587,45.131],[22.575,45.134],[22.566,45.139],[22.563,45.147],[22.565,45.157],[22.573,45.171],[22.601,45.198],[22.669,45.24],[22.881,45.295],[22.892,45.296],[22.905,45.292],[22.912,45.285],[22.921,45.28],[22.933,45.277],[22.976,45.275],[22.985,45.272],[22.994,45.267],[23.002,45.262],[23.012,45.259],[23.027,45.26],[23.091,45.279],[23.116,45.28],[23.131,45.279],[23.161,45.269],[23.174,45.269],[23.189,45.272],[23.244,45.295],[23.26,45.299],[23.304,45.306],[23.339,45.317],[23.358,45.321],[23.383,45.321],[23.398,45.318],[23.412,45.313],[23.43,45.304],[23.439,45.303],[23.449,45.305],[23.467,45.315],[23.524,45.338],[23.586,45.353],[23.616,45.346],[23.664,45.345],[23.676,45.343],[23.695,45.336],[23.71,45.334],[23.728,45.333],[23.789,45.338],[23.798,45.338],[23.806,45.335],[23.824,45.326],[23.832,45.317],[23.836,45.307],[23.823,45.268],[23.821,45.248],[23.829,45.221],[23.839,45.203],[23.843,45.189],[23.842,45.177],[23.826,45.143],[23.822,45.129],[23.825,45.095],[23.825,45.082],[23.797,45.003],[23.786,44.981],[23.781,44.967],[23.779,44.948],[23.794,44.833],[23.789,44.78],[23.776,44.723]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Gorj'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Gorj?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Gorj located? </h2>Gorj, is a county It belongs to the country of Romania. Its postal identifier is GJ.Gorj has an area of 5549 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

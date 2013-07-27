@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Memel?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[20.989,55.291],[20.99,55.273],[20.925,55.283],[21,55.357],[21.042,55.416],[21.083,55.498],[21.093,55.582],[21.1,55.599],[21.094,55.604],[21.1,55.613],[21.091,55.633],[21.094,55.696],[21.085,55.723],[21.118,55.7],[21.132,55.656],[21.134,55.568],[21.132,55.556],[21.122,55.539],[21.12,55.527],[21.12,55.49],[21.109,55.473],[21.093,55.457],[21.087,55.441],[21.106,55.428],[21.106,55.421],[21.092,55.411],[21.074,55.392],[21.058,55.37],[21.051,55.349],[21.038,55.329],[20.989,55.291]]],[[[21.891,56.129],[21.881,56.125],[21.832,56.125],[21.818,56.124],[21.81,56.119],[21.799,56.112],[21.791,56.108],[21.781,56.106],[21.742,56.105],[21.731,56.101],[21.684,56.076],[21.677,56.055],[21.642,56.017],[21.632,56.009],[21.623,56.005],[21.6,56.002],[21.587,55.996],[21.583,55.99],[21.584,55.985],[21.586,55.979],[21.588,55.972],[21.584,55.931],[21.585,55.922],[21.589,55.913],[21.593,55.907],[21.612,55.891],[21.615,55.886],[21.618,55.879],[21.614,55.873],[21.6,55.867],[21.596,55.861],[21.591,55.858],[21.539,55.834],[21.525,55.824],[21.519,55.819],[21.516,55.814],[21.515,55.809],[21.517,55.802],[21.559,55.8],[21.568,55.802],[21.581,55.805],[21.6,55.815],[21.605,55.813],[21.607,55.809],[21.606,55.802],[21.607,55.796],[21.619,55.786],[21.626,55.78],[21.631,55.776],[21.632,55.772],[21.629,55.768],[21.624,55.763],[21.621,55.758],[21.625,55.752],[21.633,55.751],[21.645,55.751],[21.657,55.754],[21.705,55.754],[21.728,55.759],[21.745,55.76],[21.752,55.757],[21.755,55.753],[21.752,55.748],[21.751,55.742],[21.75,55.736],[21.748,55.731],[21.744,55.726],[21.746,55.72],[21.765,55.701],[21.769,55.695],[21.771,55.691],[21.775,55.677],[21.78,55.671],[21.788,55.664],[21.792,55.659],[21.795,55.653],[21.825,55.628],[21.878,55.602],[21.882,55.593],[21.879,55.588],[21.873,55.581],[21.866,55.578],[21.814,55.565],[21.816,55.555],[21.831,55.548],[21.834,55.543],[21.841,55.51],[21.846,55.502],[21.861,55.493],[21.865,55.485],[21.886,55.436],[21.897,55.43],[21.907,55.43],[21.924,55.439],[21.933,55.44],[21.943,55.437],[21.964,55.427],[22.004,55.416],[22.037,55.412],[22.043,55.408],[22.046,55.406],[22.046,55.397],[22.031,55.392],[22.023,55.365],[22.016,55.356],[22.002,55.347],[21.985,55.339],[21.91,55.29],[21.9,55.277],[21.903,55.269],[21.915,55.266],[21.946,55.263],[22.042,55.239],[22.051,55.233],[22.057,55.227],[22.069,55.205],[22.084,55.185],[22.086,55.179],[22.086,55.174],[22.08,55.158],[22.084,55.153],[22.093,55.152],[22.105,55.157],[22.123,55.167],[22.13,55.169],[22.156,55.171],[22.166,55.171],[22.176,55.167],[22.194,55.157],[22.205,55.154],[22.216,55.153],[22.237,55.156],[22.246,55.155],[22.254,55.152],[22.262,55.151],[22.272,55.151],[22.28,55.152],[22.298,55.146],[22.299,55.135],[22.295,55.13],[22.287,55.122],[22.283,55.113],[22.272,55.098],[22.27,55.091],[22.27,55.07],[22.251,55.071],[22.142,55.055],[22.129,55.047],[22.129,55.047],[22.118,55.038],[22.118,55.038],[22.1,55.03],[22.076,55.029],[22.05,55.034],[22.027,55.045],[22.018,55.061],[22.018,55.078],[22.015,55.089],[22.003,55.094],[21.977,55.092],[21.951,55.081],[21.942,55.079],[21.933,55.081],[21.908,55.09],[21.873,55.095],[21.853,55.103],[21.82,55.12],[21.75,55.128],[21.733,55.137],[21.716,55.15],[21.645,55.181],[21.605,55.193],[21.504,55.195],[21.467,55.212],[21.405,55.273],[21.375,55.29],[21.35,55.288],[21.268,55.249],[21.269,55.254],[21.265,55.277],[21.265,55.284],[21.271,55.288],[21.278,55.287],[21.286,55.287],[21.291,55.297],[21.289,55.305],[21.283,55.317],[21.274,55.327],[21.268,55.332],[21.26,55.336],[21.257,55.347],[21.257,55.369],[21.247,55.37],[21.189,55.339],[21.184,55.346],[21.183,55.349],[21.186,55.349],[21.224,55.399],[21.233,55.407],[21.248,55.418],[21.249,55.442],[21.237,55.483],[21.225,55.512],[21.223,55.52],[21.219,55.524],[21.209,55.53],[21.2,55.538],[21.195,55.547],[21.196,55.56],[21.198,55.567],[21.198,55.575],[21.195,55.585],[21.158,55.642],[21.15,55.659],[21.147,55.678],[21.141,55.688],[21.1,55.729],[21.09,55.735],[21.081,55.739],[21.075,55.745],[21.07,55.77],[21.061,55.789],[21.045,55.874],[21.045,55.918],[21.047,55.929],[21.056,55.943],[21.059,55.952],[21.059,56.038],[21.054,56.073],[21.091,56.078],[21.15,56.079],[21.19,56.085],[21.205,56.104],[21.212,56.131],[21.229,56.164],[21.255,56.186],[21.29,56.207],[21.327,56.225],[21.358,56.234],[21.403,56.235],[21.419,56.238],[21.559,56.298],[21.596,56.308],[21.684,56.311],[21.966,56.384],[21.962,56.374],[21.949,56.368],[21.913,56.357],[21.906,56.352],[21.903,56.345],[21.905,56.339],[21.91,56.333],[21.918,56.329],[21.927,56.323],[21.933,56.315],[21.934,56.294],[21.936,56.284],[21.939,56.276],[21.951,56.267],[21.957,56.262],[21.985,56.224],[21.99,56.215],[21.987,56.21],[21.978,56.208],[21.968,56.207],[21.959,56.205],[21.953,56.2],[21.946,56.19],[21.94,56.183],[21.935,56.179],[21.923,56.162],[21.899,56.133],[21.891,56.129]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Memel'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Memel?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Memel located? </h2>Memel, is a county It belongs to the country of Lithuania. Its postal identifier is KP.Memel has an area of 5377 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

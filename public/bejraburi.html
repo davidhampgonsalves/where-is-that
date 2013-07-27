@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Bejraburi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[99.888,13.239],[99.892,13.238],[99.895,13.239],[99.897,13.242],[99.897,13.245],[99.896,13.248],[99.895,13.251],[99.896,13.254],[99.9,13.259],[99.901,13.263],[99.902,13.271],[99.903,13.274],[99.906,13.276],[99.909,13.276],[99.924,13.273],[99.929,13.273],[99.932,13.274],[99.935,13.276],[99.937,13.279],[99.941,13.284],[99.944,13.287],[99.946,13.288],[99.957,13.291],[99.961,13.292],[99.967,13.259],[99.999,13.218],[100.057,13.17],[100.06,13.166],[100.067,13.16],[100.074,13.153],[100.077,13.143],[100.078,13.134],[100.088,13.096],[100.105,13.057],[100.102,13.04],[100.093,13.024],[100.06,12.98],[100.053,12.966],[100.043,12.934],[100.03,12.862],[100.024,12.847],[99.988,12.791],[99.974,12.751],[99.965,12.71],[99.961,12.668],[99.961,12.636],[99.961,12.636],[99.926,12.628],[99.919,12.628],[99.898,12.628],[99.886,12.626],[99.825,12.627],[99.817,12.624],[99.812,12.621],[99.808,12.618],[99.806,12.616],[99.762,12.582],[99.759,12.58],[99.753,12.58],[99.745,12.58],[99.715,12.584],[99.709,12.584],[99.674,12.576],[99.67,12.574],[99.665,12.57],[99.659,12.567],[99.652,12.564],[99.639,12.56],[99.635,12.558],[99.633,12.556],[99.629,12.55],[99.627,12.547],[99.625,12.545],[99.619,12.545],[99.611,12.546],[99.596,12.552],[99.59,12.556],[99.586,12.56],[99.583,12.566],[99.581,12.568],[99.578,12.571],[99.575,12.572],[99.571,12.573],[99.516,12.586],[99.494,12.588],[99.475,12.586],[99.436,12.575],[99.405,12.567],[99.403,12.576],[99.394,12.59],[99.344,12.617],[99.333,12.626],[99.324,12.636],[99.317,12.646],[99.31,12.654],[99.286,12.66],[99.277,12.666],[99.273,12.674],[99.271,12.694],[99.267,12.703],[99.256,12.71],[99.233,12.713],[99.224,12.718],[99.214,12.735],[99.213,12.753],[99.214,12.772],[99.211,12.793],[99.203,12.804],[99.183,12.823],[99.175,12.834],[99.172,12.844],[99.168,12.874],[99.155,12.905],[99.153,12.914],[99.154,12.927],[99.158,12.936],[99.163,12.945],[99.167,12.956],[99.165,12.976],[99.151,12.995],[99.132,13.011],[99.115,13.022],[99.093,13.039],[99.088,13.059],[99.094,13.081],[99.102,13.105],[99.105,13.13],[99.102,13.152],[99.102,13.172],[99.114,13.188],[99.133,13.195],[99.133,13.195],[99.173,13.2],[99.173,13.2],[99.186,13.212],[99.204,13.204],[99.242,13.186],[99.255,13.177],[99.257,13.174],[99.265,13.154],[99.27,13.146],[99.274,13.144],[99.278,13.143],[99.283,13.144],[99.286,13.145],[99.289,13.146],[99.318,13.164],[99.32,13.166],[99.322,13.169],[99.324,13.172],[99.324,13.176],[99.324,13.179],[99.322,13.191],[99.322,13.196],[99.322,13.2],[99.323,13.203],[99.325,13.206],[99.327,13.209],[99.334,13.215],[99.337,13.217],[99.339,13.22],[99.342,13.224],[99.347,13.227],[99.351,13.228],[99.355,13.228],[99.365,13.224],[99.368,13.222],[99.375,13.215],[99.378,13.213],[99.38,13.212],[99.384,13.21],[99.399,13.207],[99.402,13.206],[99.408,13.201],[99.41,13.199],[99.412,13.197],[99.416,13.194],[99.426,13.191],[99.43,13.191],[99.452,13.182],[99.458,13.18],[99.463,13.181],[99.469,13.185],[99.479,13.189],[99.483,13.188],[99.486,13.186],[99.489,13.184],[99.495,13.18],[99.5,13.179],[99.504,13.179],[99.507,13.181],[99.51,13.183],[99.512,13.185],[99.514,13.188],[99.517,13.191],[99.52,13.194],[99.526,13.197],[99.53,13.198],[99.583,13.192],[99.636,13.2],[99.643,13.201],[99.655,13.207],[99.661,13.211],[99.663,13.214],[99.665,13.216],[99.666,13.219],[99.667,13.223],[99.668,13.231],[99.667,13.264],[99.668,13.269],[99.669,13.272],[99.67,13.276],[99.672,13.278],[99.681,13.284],[99.683,13.286],[99.694,13.303],[99.696,13.305],[99.698,13.307],[99.704,13.312],[99.758,13.332],[99.765,13.333],[99.774,13.333],[99.794,13.329],[99.859,13.328],[99.864,13.308],[99.858,13.277],[99.858,13.269],[99.861,13.265],[99.863,13.263],[99.866,13.26],[99.87,13.252],[99.873,13.247],[99.878,13.245],[99.888,13.239]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Bejraburi'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Bejraburi?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Bejraburi located? </h2>Bejraburi, is a province It belongs to the country of Thailand. Its postal identifier is PE.Bejraburi has an area of 6516 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

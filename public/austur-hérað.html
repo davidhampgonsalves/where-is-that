@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Austur-Hérað?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-13.573,65.267],[-13.568,65.261],[-13.592,65.253],[-13.632,65.226],[-13.654,65.22],[-13.781,65.206],[-13.914,65.206],[-13.973,65.2],[-14.034,65.2],[-14.003,65.19],[-13.887,65.2],[-13.733,65.193],[-13.664,65.2],[-13.626,65.2],[-13.616,65.197],[-13.621,65.19],[-13.637,65.179],[-13.639,65.172],[-13.638,65.168],[-13.638,65.164],[-13.644,65.159],[-13.681,65.152],[-13.715,65.15],[-13.747,65.145],[-13.747,65.138],[-13.669,65.144],[-13.651,65.138],[-13.651,65.131],[-13.661,65.13],[-13.669,65.128],[-13.678,65.123],[-13.685,65.117],[-13.654,65.117],[-13.644,65.115],[-13.636,65.111],[-13.631,65.106],[-13.626,65.104],[-13.616,65.107],[-13.6,65.121],[-13.592,65.124],[-13.59,65.128],[-13.561,65.152],[-13.52,65.172],[-13.517,65.158],[-13.518,65.136],[-13.521,65.116],[-13.527,65.104],[-13.527,65.097],[-13.508,65.091],[-13.503,65.081],[-13.509,65.069],[-13.527,65.056],[-13.547,65.048],[-13.589,65.042],[-13.609,65.035],[-13.592,65.022],[-13.583,65.012],[-13.585,65.008],[-13.601,65.005],[-13.632,64.99],[-13.647,64.987],[-13.719,64.994],[-13.781,64.989],[-13.802,64.994],[-13.811,65.004],[-13.82,65.017],[-13.83,65.03],[-13.846,65.035],[-13.862,65.037],[-13.895,65.047],[-13.948,65.055],[-14.003,65.078],[-14.034,65.083],[-14.028,65.072],[-14.017,65.064],[-14.005,65.059],[-13.994,65.056],[-14.03,65.039],[-14.233,65.035],[-14.233,65.028],[-13.918,65.015],[-13.908,65.011],[-13.894,65.003],[-13.882,64.994],[-13.876,64.984],[-13.868,64.978],[-13.821,64.96],[-13.718,64.94],[-13.698,64.925],[-13.74,64.911],[-13.789,64.915],[-13.876,64.933],[-13.976,64.925],[-14.037,64.937],[-14.054,64.933],[-13.995,64.915],[-13.852,64.9],[-13.788,64.877],[-13.78,64.872],[-13.77,64.862],[-13.767,64.854],[-13.778,64.85],[-13.794,64.847],[-13.819,64.833],[-13.832,64.83],[-13.936,64.847],[-13.966,64.836],[-13.858,64.817],[-13.84,64.809],[-13.839,64.799],[-13.868,64.795],[-13.982,64.797],[-14.013,64.802],[-14.02,64.798],[-14.028,64.794],[-14.048,64.789],[-14.048,64.781],[-14.018,64.765],[-14.001,64.754],[-13.986,64.74],[-14.002,64.738],[-14.048,64.72],[-14.27,64.699],[-14.306,64.704],[-14.326,64.71],[-14.339,64.716],[-14.368,64.755],[-14.393,64.767],[-14.42,64.79],[-14.435,64.795],[-14.514,64.802],[-14.504,64.797],[-14.493,64.795],[-14.469,64.795],[-14.456,64.79],[-14.457,64.78],[-14.464,64.769],[-14.466,64.761],[-14.45,64.753],[-14.4,64.741],[-14.383,64.74],[-14.383,64.734],[-14.385,64.721],[-14.371,64.705],[-14.352,64.691],[-14.339,64.686],[-14.289,64.678],[-14.27,64.67],[-14.281,64.658],[-14.274,64.652],[-14.442,64.676],[-14.493,64.658],[-14.477,64.65],[-14.437,64.641],[-14.418,64.631],[-14.408,64.62],[-14.409,64.61],[-14.42,64.603],[-14.439,64.597],[-14.572,64.597],[-14.584,64.59],[-14.572,64.577],[-14.552,64.566],[-14.542,64.566],[-14.531,64.556],[-14.51,64.549],[-14.49,64.549],[-14.486,64.556],[-14.445,64.561],[-14.383,64.601],[-14.352,64.611],[-14.346,64.606],[-14.361,64.595],[-14.453,64.546],[-14.466,64.535],[-14.469,64.526],[-14.472,64.505],[-14.477,64.497],[-14.509,64.472],[-14.514,64.463],[-14.513,64.457],[-14.511,64.453],[-14.513,64.453],[-14.54,64.46],[-14.547,64.464],[-14.564,64.475],[-14.571,64.479],[-14.578,64.481],[-14.59,64.48],[-14.598,64.476],[-14.608,64.47],[-14.614,64.467],[-14.621,64.466],[-14.631,64.467],[-14.645,64.471],[-14.66,64.477],[-14.673,64.483],[-14.686,64.486],[-14.706,64.484],[-14.716,64.486],[-14.727,64.49],[-14.75,64.512],[-14.751,64.516],[-14.751,64.521],[-14.754,64.524],[-14.76,64.527],[-14.774,64.53],[-14.839,64.531],[-14.864,64.529],[-14.882,64.531],[-14.918,64.529],[-14.944,64.532],[-14.957,64.536],[-14.971,64.543],[-14.983,64.557],[-14.994,64.567],[-14.998,64.577],[-15,64.581],[-14.998,64.593],[-15.002,64.6],[-15.022,64.626],[-15.025,64.636],[-15.023,64.644],[-15.011,64.652],[-15.008,64.656],[-15.006,64.66],[-15.012,64.664],[-15.024,64.668],[-15.088,64.677],[-15.097,64.68],[-15.103,64.683],[-15.115,64.701],[-15.097,64.724],[-15.064,64.753],[-15.053,64.766],[-15.046,64.78],[-15.041,64.793],[-15.031,64.813],[-15.02,64.825],[-15.006,64.837],[-14.997,64.842],[-14.956,64.86],[-14.95,64.868],[-14.946,64.884],[-14.951,64.9],[-14.952,64.914],[-14.947,64.927],[-14.869,64.997],[-14.852,65.018],[-14.841,65.033],[-14.82,65.071],[-14.811,65.077],[-14.713,65.116],[-14.674,65.141],[-14.664,65.146],[-14.638,65.153],[-14.61,65.165],[-14.554,65.204],[-14.465,65.242],[-14.453,65.249],[-14.422,65.261],[-14.416,65.265],[-14.412,65.268],[-14.388,65.303],[-14.385,65.307],[-14.383,65.311],[-14.383,65.315],[-14.383,65.32],[-14.387,65.332],[-14.387,65.336],[-14.387,65.349],[-14.388,65.353],[-14.39,65.357],[-14.392,65.359],[-14.394,65.361],[-14.395,65.362],[-14.394,65.363],[-14.393,65.365],[-14.393,65.367],[-14.39,65.373],[-14.387,65.382],[-14.382,65.389],[-14.376,65.396],[-14.371,65.403],[-14.366,65.414],[-14.365,65.418],[-14.363,65.428],[-14.36,65.433],[-14.352,65.441],[-14.336,65.443],[-14.326,65.444],[-14.317,65.441],[-14.312,65.438],[-14.304,65.437],[-14.291,65.437],[-14.27,65.444],[-14.256,65.446],[-14.246,65.443],[-14.239,65.436],[-14.231,65.43],[-14.218,65.424],[-14.068,65.398],[-14.063,65.396],[-14.06,65.394],[-14.065,65.392],[-14.093,65.383],[-14.116,65.369],[-14.12,65.364],[-14.119,65.362],[-14.113,65.358],[-14.099,65.35],[-14.096,65.348],[-14.095,65.346],[-14.097,65.344],[-14.114,65.335],[-14.124,65.328],[-14.132,65.32],[-14.137,65.313],[-14.138,65.306],[-14.137,65.299],[-14.134,65.294],[-14.13,65.289],[-14.123,65.285],[-14.084,65.275],[-14.079,65.273],[-14.075,65.27],[-14.074,65.267],[-14.077,65.265],[-14.102,65.262],[-14.136,65.261],[-14.166,65.262],[-14.191,65.266],[-14.209,65.273],[-14.216,65.272],[-14.222,65.268],[-14.225,65.264],[-14.233,65.243],[-14.235,65.235],[-14.234,65.228],[-14.232,65.222],[-14.228,65.216],[-14.223,65.211],[-14.215,65.206],[-14.192,65.198],[-14.175,65.196],[-14.153,65.198],[-14.098,65.212],[-14.08,65.215],[-14.054,65.214],[-13.995,65.221],[-13.832,65.223],[-13.791,65.231],[-13.688,65.262],[-13.573,65.267]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Austur-Hérað'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Austur-Hérað?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Austur-Hérað located? </h2>Austur-Hérað, is a municipality of the Austurland region. It belongs to the country of Iceland. Its postal identifier is SM.Austur-Hérað has an area of 3843 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

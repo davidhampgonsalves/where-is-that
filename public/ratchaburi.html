@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ratchaburi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[100.079,13.684],[100.076,13.644],[100.077,13.638],[100.075,13.63],[100.071,13.624],[100.067,13.62],[100.059,13.614],[100.054,13.609],[100.053,13.606],[100.049,13.599],[100.045,13.574],[100.044,13.548],[100.039,13.529],[100.038,13.504],[100.026,13.504],[100.014,13.507],[100.01,13.506],[99.998,13.498],[99.978,13.492],[99.975,13.492],[99.971,13.492],[99.962,13.497],[99.956,13.5],[99.937,13.505],[99.934,13.507],[99.929,13.51],[99.926,13.511],[99.923,13.511],[99.921,13.511],[99.918,13.51],[99.916,13.507],[99.913,13.502],[99.911,13.492],[99.906,13.484],[99.903,13.479],[99.901,13.475],[99.894,13.46],[99.893,13.455],[99.892,13.449],[99.894,13.425],[99.892,13.42],[99.889,13.412],[99.882,13.4],[99.873,13.38],[99.859,13.328],[99.794,13.329],[99.774,13.333],[99.765,13.333],[99.758,13.332],[99.704,13.312],[99.698,13.307],[99.696,13.305],[99.694,13.303],[99.683,13.286],[99.681,13.284],[99.672,13.278],[99.67,13.276],[99.669,13.272],[99.668,13.269],[99.667,13.264],[99.668,13.231],[99.667,13.223],[99.666,13.219],[99.665,13.216],[99.663,13.214],[99.661,13.211],[99.655,13.207],[99.643,13.201],[99.636,13.2],[99.583,13.192],[99.53,13.198],[99.526,13.197],[99.52,13.194],[99.517,13.191],[99.514,13.188],[99.512,13.185],[99.51,13.183],[99.507,13.181],[99.504,13.179],[99.5,13.179],[99.495,13.18],[99.489,13.184],[99.486,13.186],[99.483,13.188],[99.479,13.189],[99.469,13.185],[99.463,13.181],[99.458,13.18],[99.452,13.182],[99.43,13.191],[99.426,13.191],[99.416,13.194],[99.412,13.197],[99.41,13.199],[99.408,13.201],[99.402,13.206],[99.399,13.207],[99.384,13.21],[99.38,13.212],[99.378,13.213],[99.375,13.215],[99.368,13.222],[99.365,13.224],[99.355,13.228],[99.351,13.228],[99.347,13.227],[99.342,13.224],[99.339,13.22],[99.337,13.217],[99.334,13.215],[99.327,13.209],[99.325,13.206],[99.323,13.203],[99.322,13.2],[99.322,13.196],[99.322,13.191],[99.324,13.179],[99.324,13.176],[99.324,13.172],[99.322,13.169],[99.32,13.166],[99.318,13.164],[99.289,13.146],[99.286,13.145],[99.283,13.144],[99.278,13.143],[99.274,13.144],[99.27,13.146],[99.265,13.154],[99.257,13.174],[99.255,13.177],[99.242,13.186],[99.204,13.204],[99.186,13.212],[99.187,13.213],[99.19,13.23],[99.186,13.25],[99.173,13.288],[99.173,13.301],[99.177,13.311],[99.183,13.319],[99.187,13.329],[99.187,13.339],[99.184,13.358],[99.189,13.408],[99.188,13.427],[99.152,13.582],[99.149,13.666],[99.153,13.689],[99.152,13.715],[99.147,13.724],[99.174,13.728],[99.192,13.728],[99.197,13.729],[99.204,13.731],[99.22,13.742],[99.233,13.748],[99.235,13.75],[99.239,13.756],[99.243,13.762],[99.248,13.766],[99.251,13.767],[99.256,13.767],[99.262,13.765],[99.272,13.76],[99.277,13.76],[99.281,13.761],[99.288,13.765],[99.293,13.768],[99.297,13.769],[99.302,13.767],[99.309,13.763],[99.311,13.761],[99.317,13.757],[99.323,13.754],[99.33,13.751],[99.338,13.75],[99.342,13.75],[99.354,13.752],[99.448,13.782],[99.47,13.798],[99.473,13.799],[99.479,13.797],[99.482,13.794],[99.484,13.791],[99.488,13.782],[99.49,13.779],[99.494,13.774],[99.499,13.77],[99.508,13.764],[99.514,13.761],[99.533,13.756],[99.537,13.755],[99.542,13.756],[99.548,13.759],[99.566,13.776],[99.572,13.784],[99.577,13.788],[99.581,13.79],[99.586,13.793],[99.597,13.795],[99.617,13.797],[99.674,13.82],[99.685,13.822],[99.689,13.822],[99.713,13.819],[99.744,13.818],[99.759,13.814],[99.763,13.814],[99.779,13.815],[99.797,13.815],[99.802,13.818],[99.807,13.823],[99.818,13.854],[99.821,13.858],[99.824,13.861],[99.831,13.864],[99.837,13.866],[99.839,13.867],[99.847,13.884],[99.866,13.932],[99.869,13.939],[99.88,13.945],[99.89,13.944],[99.924,13.936],[99.931,13.933],[99.934,13.931],[99.942,13.926],[99.945,13.922],[99.948,13.916],[99.951,13.904],[99.951,13.897],[99.951,13.883],[99.951,13.879],[99.955,13.864],[99.959,13.853],[99.96,13.849],[99.961,13.844],[99.961,13.832],[99.96,13.828],[99.954,13.813],[99.951,13.8],[99.951,13.796],[99.952,13.792],[99.953,13.786],[99.955,13.778],[99.955,13.774],[99.955,13.77],[99.953,13.763],[99.949,13.749],[99.948,13.745],[99.949,13.741],[99.952,13.737],[99.96,13.724],[99.967,13.718],[99.972,13.715],[99.977,13.713],[99.985,13.715],[99.99,13.716],[99.993,13.719],[100.016,13.738],[100.021,13.741],[100.025,13.741],[100.03,13.738],[100.036,13.728],[100.039,13.722],[100.04,13.716],[100.04,13.712],[100.038,13.705],[100.038,13.701],[100.04,13.697],[100.045,13.695],[100.059,13.694],[100.072,13.692],[100.079,13.684]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Ratchaburi'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Ratchaburi?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Ratchaburi located? </h2>Ratchaburi, is a province It belongs to the country of Thailand. Its postal identifier is RT.Ratchaburi has an area of 5421 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

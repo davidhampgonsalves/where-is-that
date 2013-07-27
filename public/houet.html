@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Houet?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-4.466,12.064],[-4.466,12.046],[-4.471,12.022],[-4.471,12.003],[-4.458,11.998],[-4.439,11.996],[-4.432,11.984],[-4.437,11.966],[-4.445,11.945],[-4.448,11.925],[-4.448,11.903],[-4.452,11.871],[-4.459,11.842],[-4.486,11.778],[-4.491,11.762],[-4.487,11.737],[-4.468,11.719],[-4.449,11.717],[-4.432,11.722],[-4.415,11.729],[-4.403,11.736],[-4.384,11.742],[-4.349,11.728],[-4.329,11.73],[-4.308,11.742],[-4.293,11.761],[-4.282,11.783],[-4.274,11.818],[-4.269,11.833],[-4.238,11.9],[-4.211,11.925],[-4.192,11.93],[-4.167,11.927],[-4.141,11.926],[-4.116,11.929],[-4.1,11.935],[-4.087,11.944],[-4.065,11.948],[-4.04,11.942],[-4.024,11.934],[-4.011,11.925],[-3.996,11.927],[-3.981,11.933],[-3.976,11.928],[-3.967,11.923],[-3.96,11.919],[-3.953,11.89],[-3.954,11.877],[-3.958,11.859],[-3.954,11.85],[-3.949,11.851],[-3.955,11.834],[-3.963,11.804],[-3.958,11.736],[-3.991,11.638],[-3.987,11.604],[-3.98,11.573],[-3.97,11.54],[-3.953,11.513],[-3.935,11.493],[-3.915,11.478],[-3.906,11.466],[-3.895,11.418],[-3.89,11.381],[-3.871,11.362],[-3.849,11.359],[-3.85,11.331],[-3.882,11.199],[-3.876,11.164],[-3.859,11.142],[-3.831,11.142],[-3.802,11.148],[-3.797,11.144],[-3.79,11.14],[-3.763,11.097],[-3.742,11.07],[-3.72,11.051],[-3.701,11.036],[-3.642,10.98],[-3.625,10.969],[-3.602,10.97],[-3.586,10.972],[-3.615,10.944],[-3.623,10.939],[-3.629,10.938],[-3.634,10.937],[-3.644,10.929],[-3.655,10.905],[-3.658,10.89],[-3.654,10.877],[-3.66,10.868],[-3.675,10.867],[-3.692,10.853],[-3.704,10.856],[-3.715,10.856],[-3.722,10.848],[-3.726,10.827],[-3.768,10.827],[-3.785,10.82],[-3.797,10.806],[-3.809,10.787],[-3.844,10.753],[-3.846,10.734],[-3.85,10.717],[-3.864,10.708],[-3.897,10.697],[-3.912,10.689],[-3.93,10.687],[-3.951,10.709],[-4.009,10.719],[-4.031,10.726],[-4.045,10.735],[-4.058,10.747],[-4.081,10.773],[-4.09,10.778],[-4.102,10.776],[-4.131,10.763],[-4.173,10.749],[-4.198,10.737],[-4.208,10.73],[-4.262,10.701],[-4.278,10.7],[-4.287,10.709],[-4.293,10.721],[-4.302,10.728],[-4.361,10.746],[-4.387,10.748],[-4.402,10.754],[-4.414,10.772],[-4.439,10.836],[-4.46,10.859],[-4.485,10.868],[-4.506,10.87],[-4.53,10.87],[-4.556,10.861],[-4.584,10.843],[-4.602,10.826],[-4.61,10.816],[-4.662,10.778],[-4.682,10.776],[-4.704,10.788],[-4.732,10.798],[-4.749,10.805],[-4.76,10.822],[-4.788,10.857],[-4.794,10.871],[-4.789,10.876],[-4.777,10.902],[-4.763,10.918],[-4.756,10.934],[-4.762,10.953],[-4.765,10.976],[-4.758,10.993],[-4.735,11.004],[-4.709,11.009],[-4.695,11.021],[-4.677,11.031],[-4.656,11.035],[-4.65,11.045],[-4.647,11.058],[-4.646,11.073],[-4.649,11.091],[-4.658,11.111],[-4.675,11.131],[-4.689,11.154],[-4.701,11.168],[-4.764,11.21],[-4.776,11.212],[-4.782,11.217],[-4.788,11.231],[-4.794,11.248],[-4.787,11.271],[-4.762,11.318],[-4.758,11.34],[-4.756,11.363],[-4.744,11.386],[-4.73,11.399],[-4.66,11.447],[-4.649,11.441],[-4.638,11.418],[-4.629,11.412],[-4.618,11.411],[-4.603,11.417],[-4.582,11.434],[-4.568,11.453],[-4.56,11.468],[-4.55,11.492],[-4.547,11.52],[-4.55,11.541],[-4.563,11.562],[-4.58,11.584],[-4.592,11.61],[-4.598,11.64],[-4.597,11.658],[-4.591,11.685],[-4.604,11.694],[-4.629,11.699],[-4.657,11.699],[-4.671,11.705],[-4.668,11.721],[-4.664,11.736],[-4.654,11.746],[-4.638,11.75],[-4.626,11.76],[-4.626,11.772],[-4.632,11.783],[-4.634,11.8],[-4.632,11.844],[-4.621,11.894],[-4.623,11.924],[-4.638,11.983],[-4.65,11.999],[-4.701,12.027],[-4.718,12.035],[-4.733,12.037],[-4.733,12.037],[-4.726,12.05],[-4.715,12.059],[-4.705,12.062],[-4.684,12.059],[-4.674,12.06],[-4.654,12.069],[-4.653,12.072],[-4.645,12.067],[-4.639,12.061],[-4.621,12.052],[-4.597,12.055],[-4.573,12.06],[-4.552,12.058],[-4.534,12.06],[-4.504,12.082],[-4.489,12.081],[-4.475,12.074],[-4.466,12.064]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Houet'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Houet?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Houet located? </h2>Houet, is a province It belongs to the country of Burkina Faso. Its postal identifier is HO.Houet has an area of 11437 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

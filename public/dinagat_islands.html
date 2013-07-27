@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Dinagat Islands?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[125.96,9.756],[125.96,9.747],[125.969,9.752],[125.973,9.755],[125.975,9.738],[125.973,9.715],[125.976,9.695],[125.99,9.686],[126.002,9.677],[125.998,9.656],[125.98,9.617],[125.985,9.606],[125.984,9.589],[125.979,9.575],[125.969,9.569],[125.954,9.566],[125.947,9.566],[125.953,9.582],[125.946,9.587],[125.935,9.59],[125.925,9.589],[125.925,9.596],[125.935,9.596],[125.939,9.596],[125.939,9.604],[125.918,9.617],[125.918,9.61],[125.916,9.619],[125.917,9.629],[125.925,9.651],[125.93,9.658],[125.934,9.66],[125.937,9.663],[125.939,9.673],[125.939,9.681],[125.938,9.692],[125.939,9.699],[125.929,9.715],[125.927,9.739],[125.935,9.76],[125.952,9.768],[125.958,9.761],[125.96,9.756]]],[[[125.644,9.611],[125.671,9.6],[125.693,9.604],[125.691,9.6],[125.69,9.597],[125.689,9.593],[125.685,9.589],[125.699,9.59],[125.706,9.585],[125.713,9.576],[125.723,9.575],[125.744,9.577],[125.754,9.576],[125.772,9.555],[125.781,9.549],[125.791,9.545],[125.849,9.537],[125.868,9.527],[125.901,9.497],[125.911,9.494],[125.923,9.494],[125.934,9.492],[125.729,9.313],[125.74,9.343],[125.745,9.359],[125.745,9.359],[125.737,9.371],[125.731,9.385],[125.726,9.393],[125.701,9.421],[125.692,9.429],[125.678,9.437],[125.664,9.443],[125.622,9.456],[125.584,9.463],[125.55,9.464],[125.517,9.461],[125.465,9.445],[125.462,9.459],[125.441,9.516],[125.438,9.526],[125.436,9.546],[125.399,9.681],[125.397,9.699],[125.4,9.717],[125.407,9.734],[125.456,9.813],[125.46,9.823],[125.471,9.809],[125.488,9.793],[125.507,9.78],[125.54,9.771],[125.569,9.757],[125.589,9.755],[125.585,9.731],[125.593,9.702],[125.604,9.673],[125.61,9.648],[125.62,9.63],[125.644,9.611]]],[[[126.143,9.85],[126.154,9.842],[126.166,9.829],[126.174,9.817],[126.18,9.801],[126.178,9.788],[126.156,9.779],[126.139,9.766],[126.131,9.761],[126.12,9.759],[126.093,9.761],[126.054,9.775],[126.042,9.775],[126.049,9.755],[126.034,9.766],[126.019,9.782],[125.994,9.816],[125.994,9.82],[125.996,9.825],[125.997,9.83],[125.994,9.837],[125.988,9.84],[125.98,9.84],[125.973,9.841],[125.966,9.85],[125.98,9.849],[125.993,9.85],[126.005,9.855],[126.014,9.864],[126.003,9.869],[125.989,9.877],[125.98,9.888],[125.983,9.902],[126.045,9.999],[126.049,10.008],[126.048,10.017],[126.046,10.026],[126.045,10.035],[126.052,10.045],[126.072,10.059],[126.081,10.056],[126.127,9.956],[126.138,9.902],[126.138,9.891],[126.133,9.881],[126.118,9.867],[126.111,9.857],[126.13,9.854],[126.143,9.85]]],[[[125.685,10.4],[125.684,10.364],[125.665,10.296],[125.662,10.27],[125.658,10.262],[125.655,10.264],[125.646,10.265],[125.639,10.261],[125.638,10.248],[125.646,10.24],[125.66,10.228],[125.668,10.215],[125.658,10.2],[125.665,10.193],[125.654,10.187],[125.657,10.176],[125.669,10.169],[125.685,10.172],[125.678,10.145],[125.677,10.128],[125.682,10.114],[125.699,10.094],[125.705,10.082],[125.707,10.069],[125.703,10.057],[125.697,10.041],[125.689,10.027],[125.682,10.021],[125.685,10.015],[125.693,9.974],[125.682,9.958],[125.691,9.942],[125.707,9.926],[125.72,9.912],[125.722,9.894],[125.715,9.881],[125.7,9.874],[125.679,9.877],[125.664,9.889],[125.661,9.904],[125.662,9.921],[125.658,9.939],[125.649,9.947],[125.621,9.955],[125.61,9.967],[125.62,9.966],[125.623,9.967],[125.615,9.972],[125.611,9.977],[125.612,9.982],[125.617,9.987],[125.617,9.994],[125.593,9.993],[125.583,10.01],[125.585,10.034],[125.597,10.056],[125.602,10.047],[125.608,10.043],[125.615,10.047],[125.617,10.059],[125.614,10.064],[125.601,10.08],[125.597,10.09],[125.589,10.09],[125.585,10.077],[125.578,10.077],[125.569,10.081],[125.559,10.084],[125.553,10.079],[125.545,10.069],[125.536,10.061],[125.521,10.062],[125.514,10.073],[125.513,10.087],[125.511,10.098],[125.497,10.103],[125.495,10.109],[125.496,10.135],[125.494,10.144],[125.509,10.151],[125.518,10.169],[125.519,10.191],[125.514,10.207],[125.522,10.21],[125.529,10.21],[125.536,10.206],[125.542,10.2],[125.539,10.215],[125.532,10.229],[125.53,10.242],[125.542,10.254],[125.537,10.257],[125.535,10.26],[125.533,10.264],[125.528,10.268],[125.532,10.284],[125.524,10.302],[125.522,10.317],[125.546,10.323],[125.558,10.325],[125.563,10.331],[125.563,10.354],[125.561,10.361],[125.557,10.366],[125.556,10.371],[125.563,10.378],[125.568,10.381],[125.575,10.381],[125.581,10.379],[125.586,10.367],[125.594,10.365],[125.603,10.367],[125.61,10.371],[125.615,10.381],[125.617,10.419],[125.624,10.444],[125.63,10.454],[125.638,10.46],[125.65,10.462],[125.657,10.456],[125.672,10.433],[125.685,10.4]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Dinagat Islands'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Dinagat Islands?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Dinagat Islands located? </h2>Dinagat Islands, is a province of the Northern Mindanao region. It belongs to the country of Philippines. Its postal identifier is DI.Dinagat Islands has an area of 2568 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

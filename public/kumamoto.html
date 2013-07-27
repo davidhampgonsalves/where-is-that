@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kumamoto?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[130.168,32.114],[130.15,32.111],[130.135,32.118],[130.128,32.132],[130.134,32.149],[130.123,32.159],[130.115,32.175],[130.111,32.193],[130.114,32.208],[130.121,32.213],[130.132,32.211],[130.153,32.204],[130.176,32.203],[130.188,32.196],[130.194,32.176],[130.191,32.165],[130.174,32.124],[130.168,32.114]]],[[[130.223,32.257],[130.215,32.253],[130.211,32.255],[130.211,32.266],[130.213,32.277],[130.217,32.287],[130.223,32.292],[130.229,32.293],[130.231,32.295],[130.232,32.299],[130.244,32.302],[130.26,32.295],[130.266,32.287],[130.263,32.281],[130.254,32.272],[130.243,32.263],[130.233,32.259],[130.223,32.257]]],[[[130.384,32.509],[130.392,32.509],[130.41,32.512],[130.44,32.524],[130.457,32.526],[130.469,32.512],[130.435,32.493],[130.393,32.397],[130.363,32.375],[130.359,32.38],[130.358,32.391],[130.359,32.413],[130.354,32.424],[130.343,32.422],[130.325,32.41],[130.285,32.408],[130.265,32.404],[130.242,32.396],[130.222,32.422],[130.213,32.437],[130.214,32.451],[130.219,32.456],[130.225,32.458],[130.239,32.46],[130.248,32.465],[130.268,32.484],[130.291,32.498],[130.306,32.504],[130.342,32.514],[130.363,32.527],[130.371,32.527],[130.377,32.523],[130.38,32.515],[130.384,32.509]]],[[[130.19,32.522],[130.199,32.48],[130.202,32.396],[130.204,32.388],[130.207,32.381],[130.209,32.373],[130.206,32.347],[130.204,32.339],[130.2,32.333],[130.191,32.324],[130.182,32.318],[130.158,32.31],[130.153,32.303],[130.134,32.265],[130.128,32.262],[130.106,32.252],[130.097,32.245],[130.075,32.221],[130.061,32.212],[130.037,32.2],[130.012,32.191],[129.996,32.191],[129.995,32.2],[130.009,32.252],[129.998,32.244],[129.987,32.244],[129.976,32.246],[129.959,32.238],[129.958,32.242],[129.962,32.252],[129.966,32.258],[129.997,32.282],[130.017,32.293],[130.03,32.295],[130.042,32.295],[130.053,32.297],[130.065,32.307],[130.055,32.307],[130.046,32.308],[130.031,32.314],[130.009,32.306],[129.992,32.315],[129.98,32.333],[129.976,32.355],[129.977,32.367],[129.981,32.376],[129.987,32.383],[129.996,32.389],[129.989,32.405],[129.995,32.424],[130.007,32.444],[130.02,32.461],[130.031,32.482],[130.026,32.502],[130.003,32.533],[130.016,32.533],[130.025,32.528],[130.033,32.522],[130.044,32.519],[130.057,32.521],[130.077,32.531],[130.103,32.537],[130.121,32.543],[130.14,32.548],[130.161,32.546],[130.19,32.522]]],[[[130.453,32.611],[130.45,32.603],[130.447,32.597],[130.453,32.591],[130.454,32.58],[130.451,32.563],[130.446,32.553],[130.432,32.55],[130.425,32.547],[130.428,32.537],[130.421,32.541],[130.409,32.549],[130.407,32.561],[130.411,32.574],[130.408,32.582],[130.4,32.586],[130.399,32.593],[130.414,32.614],[130.416,32.614],[130.417,32.61],[130.42,32.612],[130.428,32.618],[130.437,32.621],[130.446,32.617],[130.453,32.611]]],[[[131.209,33.03],[131.22,33],[131.235,32.975],[131.238,32.964],[131.24,32.955],[131.244,32.907],[131.246,32.894],[131.262,32.866],[131.324,32.822],[131.271,32.811],[131.258,32.804],[131.242,32.793],[131.236,32.784],[131.225,32.757],[131.21,32.735],[131.181,32.709],[131.175,32.701],[131.16,32.676],[131.147,32.663],[131.125,32.646],[131.113,32.631],[131.105,32.614],[131.1,32.586],[131.095,32.576],[131.086,32.571],[131.073,32.569],[131.059,32.569],[131.047,32.564],[131.035,32.553],[131.023,32.534],[131.004,32.487],[131,32.471],[131,32.46],[131.002,32.451],[131.006,32.439],[131.013,32.422],[131.022,32.411],[131.044,32.392],[131.054,32.381],[131.063,32.364],[131.069,32.348],[131.084,32.325],[131.088,32.314],[131.087,32.3],[131.081,32.287],[131.062,32.264],[131.05,32.246],[131.05,32.234],[131.055,32.223],[131.072,32.198],[131.078,32.184],[131.082,32.164],[131.076,32.156],[131.065,32.152],[131.053,32.153],[131.006,32.166],[130.997,32.163],[130.986,32.154],[130.967,32.132],[130.952,32.12],[130.937,32.115],[130.909,32.122],[130.897,32.122],[130.884,32.119],[130.852,32.102],[130.837,32.096],[130.823,32.092],[130.811,32.091],[130.742,32.094],[130.712,32.091],[130.674,32.112],[130.611,32.157],[130.59,32.163],[130.574,32.161],[130.564,32.154],[130.553,32.15],[130.539,32.146],[130.526,32.14],[130.472,32.127],[130.45,32.119],[130.424,32.113],[130.408,32.114],[130.393,32.118],[130.383,32.126],[130.356,32.153],[130.345,32.161],[130.345,32.162],[130.345,32.163],[130.349,32.167],[130.357,32.17],[130.359,32.173],[130.358,32.187],[130.359,32.191],[130.431,32.257],[130.441,32.283],[130.444,32.288],[130.457,32.295],[130.462,32.3],[130.464,32.309],[130.461,32.318],[130.462,32.327],[130.47,32.347],[130.477,32.349],[130.503,32.327],[130.513,32.338],[130.514,32.35],[130.51,32.379],[130.515,32.386],[130.541,32.416],[130.562,32.427],[130.572,32.452],[130.568,32.478],[130.551,32.492],[130.559,32.502],[130.57,32.506],[130.599,32.505],[130.591,32.519],[130.568,32.534],[130.565,32.546],[130.57,32.555],[130.641,32.608],[130.657,32.624],[130.669,32.649],[130.642,32.648],[130.478,32.622],[130.462,32.615],[130.448,32.622],[130.457,32.635],[130.476,32.647],[130.544,32.677],[130.566,32.693],[130.577,32.698],[130.592,32.697],[130.608,32.702],[130.617,32.704],[130.626,32.704],[130.626,32.712],[130.613,32.716],[130.602,32.726],[130.595,32.738],[130.592,32.749],[130.594,32.756],[130.598,32.763],[130.61,32.776],[130.613,32.781],[130.612,32.786],[130.608,32.79],[130.606,32.797],[130.593,32.816],[130.517,32.869],[130.471,32.91],[130.441,32.924],[130.433,32.942],[130.429,32.981],[130.445,32.99],[130.484,32.995],[130.498,33],[130.499,33.002],[130.502,33.01],[130.5,33.016],[130.499,33.034],[130.508,33.049],[130.522,33.062],[130.546,33.077],[130.564,33.092],[130.58,33.098],[130.618,33.101],[130.636,33.104],[130.65,33.113],[130.673,33.135],[130.685,33.14],[130.701,33.141],[130.716,33.139],[130.729,33.134],[130.787,33.101],[130.835,33.081],[130.871,33.071],[130.951,33.032],[130.977,33.029],[130.991,33.033],[130.995,33.045],[131.009,33.071],[131.01,33.08],[131.004,33.089],[130.986,33.11],[130.98,33.12],[130.973,33.145],[130.973,33.154],[130.978,33.161],[131.008,33.167],[131.029,33.177],[131.045,33.181],[131.059,33.181],[131.091,33.165],[131.125,33.142],[131.141,33.126],[131.172,33.074],[131.181,33.063],[131.201,33.042],[131.209,33.03]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Kumamoto'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Kumamoto?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Kumamoto located? </h2>Kumamoto, is a prefecture of the Kyushu region. It belongs to the country of Japan. Its postal identifier is KM.Kumamoto has an area of 7252 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

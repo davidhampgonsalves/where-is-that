@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Luimneach?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-8.185,52.281],[-8.199,52.286],[-8.203,52.287],[-8.212,52.288],[-8.257,52.282],[-8.264,52.282],[-8.272,52.283],[-8.283,52.287],[-8.289,52.29],[-8.293,52.294],[-8.295,52.297],[-8.3,52.307],[-8.303,52.31],[-8.305,52.313],[-8.309,52.316],[-8.315,52.317],[-8.33,52.321],[-8.338,52.32],[-8.348,52.316],[-8.352,52.312],[-8.355,52.308],[-8.358,52.305],[-8.371,52.299],[-8.381,52.291],[-8.389,52.29],[-8.434,52.286],[-8.48,52.277],[-8.499,52.277],[-8.518,52.28],[-8.527,52.283],[-8.533,52.286],[-8.551,52.302],[-8.555,52.304],[-8.562,52.306],[-8.582,52.309],[-8.588,52.312],[-8.593,52.315],[-8.596,52.317],[-8.601,52.323],[-8.605,52.33],[-8.607,52.333],[-8.61,52.336],[-8.614,52.338],[-8.619,52.34],[-8.634,52.343],[-8.639,52.344],[-8.642,52.347],[-8.649,52.353],[-8.652,52.356],[-8.656,52.358],[-8.659,52.36],[-8.662,52.363],[-8.665,52.366],[-8.668,52.373],[-8.676,52.376],[-8.692,52.377],[-8.729,52.375],[-8.794,52.379],[-8.803,52.379],[-8.841,52.362],[-8.851,52.354],[-8.855,52.352],[-8.859,52.35],[-8.865,52.348],[-8.873,52.345],[-8.877,52.342],[-8.879,52.339],[-8.881,52.336],[-8.883,52.332],[-8.885,52.329],[-8.888,52.326],[-8.892,52.324],[-8.896,52.322],[-8.957,52.309],[-8.97,52.305],[-8.976,52.302],[-8.974,52.299],[-8.971,52.296],[-8.97,52.294],[-8.973,52.293],[-8.991,52.298],[-9.001,52.303],[-9.017,52.312],[-9.026,52.316],[-9.082,52.327],[-9.11,52.329],[-9.121,52.332],[-9.129,52.331],[-9.141,52.327],[-9.185,52.303],[-9.217,52.294],[-9.229,52.306],[-9.232,52.309],[-9.237,52.312],[-9.242,52.314],[-9.257,52.318],[-9.271,52.324],[-9.289,52.327],[-9.293,52.329],[-9.296,52.331],[-9.302,52.337],[-9.308,52.342],[-9.313,52.344],[-9.329,52.349],[-9.332,52.351],[-9.333,52.355],[-9.331,52.36],[-9.326,52.363],[-9.311,52.368],[-9.307,52.37],[-9.305,52.373],[-9.305,52.377],[-9.309,52.382],[-9.313,52.386],[-9.325,52.393],[-9.327,52.395],[-9.329,52.399],[-9.329,52.403],[-9.326,52.411],[-9.324,52.415],[-9.32,52.419],[-9.317,52.422],[-9.313,52.424],[-9.31,52.427],[-9.31,52.431],[-9.314,52.436],[-9.317,52.44],[-9.321,52.443],[-9.326,52.449],[-9.328,52.453],[-9.329,52.458],[-9.325,52.465],[-9.322,52.47],[-9.32,52.474],[-9.318,52.482],[-9.316,52.485],[-9.313,52.488],[-9.309,52.49],[-9.305,52.492],[-9.301,52.495],[-9.299,52.499],[-9.3,52.506],[-9.304,52.512],[-9.309,52.517],[-9.321,52.524],[-9.33,52.531],[-9.339,52.541],[-9.341,52.549],[-9.344,52.558],[-9.357,52.569],[-9.363,52.575],[-9.358,52.575],[-9.35,52.574],[-9.336,52.578],[-9.272,52.577],[-9.236,52.582],[-9.22,52.586],[-9.207,52.594],[-9.192,52.601],[-9.07,52.624],[-9.052,52.632],[-9.044,52.621],[-9.026,52.618],[-9.005,52.621],[-8.991,52.625],[-8.985,52.631],[-8.979,52.64],[-8.971,52.649],[-8.96,52.652],[-8.785,52.666],[-8.751,52.673],[-8.739,52.673],[-8.738,52.673],[-8.738,52.673],[-8.738,52.673],[-8.723,52.674],[-8.707,52.672],[-8.695,52.666],[-8.69,52.656],[-8.682,52.651],[-8.666,52.653],[-8.638,52.659],[-8.635,52.662],[-8.632,52.676],[-8.627,52.68],[-8.619,52.681],[-8.615,52.678],[-8.612,52.675],[-8.607,52.673],[-8.592,52.673],[-8.579,52.674],[-8.568,52.676],[-8.558,52.68],[-8.552,52.686],[-8.549,52.693],[-8.545,52.698],[-8.535,52.701],[-8.528,52.701],[-8.52,52.703],[-8.513,52.706],[-8.507,52.71],[-8.505,52.721],[-8.509,52.734],[-8.509,52.744],[-8.477,52.755],[-8.467,52.742],[-8.463,52.736],[-8.461,52.726],[-8.46,52.723],[-8.459,52.721],[-8.457,52.702],[-8.455,52.698],[-8.45,52.688],[-8.438,52.685],[-8.418,52.683],[-8.333,52.683],[-8.302,52.691],[-8.293,52.69],[-8.283,52.688],[-8.268,52.681],[-8.261,52.676],[-8.258,52.671],[-8.256,52.667],[-8.24,52.663],[-8.187,52.665],[-8.192,52.647],[-8.195,52.638],[-8.206,52.621],[-8.208,52.615],[-8.212,52.596],[-8.214,52.59],[-8.218,52.585],[-8.225,52.581],[-8.228,52.577],[-8.229,52.573],[-8.225,52.563],[-8.224,52.555],[-8.224,52.54],[-8.224,52.532],[-8.225,52.526],[-8.228,52.519],[-8.23,52.516],[-8.232,52.514],[-8.234,52.513],[-8.236,52.512],[-8.24,52.511],[-8.246,52.511],[-8.252,52.511],[-8.263,52.513],[-8.269,52.513],[-8.281,52.512],[-8.296,52.507],[-8.312,52.501],[-8.314,52.5],[-8.315,52.491],[-8.315,52.479],[-8.318,52.474],[-8.323,52.471],[-8.328,52.472],[-8.332,52.475],[-8.333,52.479],[-8.332,52.49],[-8.333,52.494],[-8.334,52.497],[-8.334,52.499],[-8.335,52.501],[-8.337,52.502],[-8.342,52.503],[-8.347,52.504],[-8.351,52.503],[-8.355,52.502],[-8.357,52.501],[-8.366,52.494],[-8.379,52.488],[-8.382,52.485],[-8.384,52.482],[-8.386,52.478],[-8.387,52.474],[-8.388,52.463],[-8.393,52.455],[-8.393,52.452],[-8.39,52.447],[-8.378,52.44],[-8.373,52.438],[-8.37,52.438],[-8.369,52.438],[-8.365,52.438],[-8.356,52.437],[-8.344,52.435],[-8.338,52.434],[-8.326,52.435],[-8.318,52.434],[-8.309,52.43],[-8.27,52.407],[-8.262,52.406],[-8.243,52.407],[-8.236,52.403],[-8.229,52.396],[-8.216,52.378],[-8.208,52.37],[-8.2,52.366],[-8.172,52.365],[-8.169,52.362],[-8.168,52.355],[-8.177,52.33],[-8.178,52.324],[-8.173,52.321],[-8.168,52.319],[-8.163,52.317],[-8.158,52.315],[-8.155,52.312],[-8.157,52.307],[-8.159,52.303],[-8.185,52.281]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Luimneach'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Luimneach?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Luimneach located? </h2>Luimneach, is a county It belongs to the country of Ireland. Its postal identifier is LK.Luimneach has an area of 2718 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

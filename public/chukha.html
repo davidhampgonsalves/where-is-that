@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Chukha?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[89.624,27.141],[89.638,27.122],[89.658,27.072],[89.681,27.064],[89.687,27.054],[89.685,27.049],[89.683,27.044],[89.68,27.031],[89.743,27.03],[89.763,26.995],[89.768,26.982],[89.781,26.938],[89.764,26.906],[89.763,26.894],[89.765,26.89],[89.776,26.875],[89.781,26.862],[89.782,26.852],[89.781,26.839],[89.779,26.827],[89.776,26.819],[89.77,26.807],[89.768,26.805],[89.762,26.8],[89.755,26.786],[89.746,26.78],[89.736,26.756],[89.74,26.735],[89.748,26.725],[89.754,26.719],[89.755,26.716],[89.755,26.705],[89.755,26.701],[89.739,26.704],[89.685,26.725],[89.663,26.726],[89.628,26.713],[89.61,26.713],[89.597,26.721],[89.613,26.749],[89.611,26.766],[89.586,26.784],[89.546,26.798],[89.505,26.804],[89.443,26.797],[89.407,26.814],[89.369,26.838],[89.369,26.859],[89.365,26.875],[89.36,26.876],[89.352,26.876],[89.331,26.872],[89.327,26.873],[89.326,26.875],[89.327,26.879],[89.327,26.883],[89.324,26.889],[89.319,26.904],[89.312,26.91],[89.291,26.92],[89.286,26.921],[89.282,26.921],[89.279,26.919],[89.274,26.92],[89.271,26.922],[89.267,26.931],[89.302,26.952],[89.34,27],[89.344,27.021],[89.342,27.026],[89.338,27.034],[89.333,27.039],[89.328,27.043],[89.322,27.045],[89.31,27.047],[89.31,27.073],[89.307,27.092],[89.31,27.104],[89.315,27.111],[89.329,27.119],[89.331,27.137],[89.342,27.155],[89.351,27.166],[89.352,27.173],[89.349,27.178],[89.342,27.185],[89.338,27.19],[89.33,27.211],[89.4,27.209],[89.428,27.204],[89.441,27.2],[89.458,27.191],[89.466,27.189],[89.497,27.185],[89.507,27.189],[89.507,27.192],[89.508,27.195],[89.507,27.198],[89.506,27.202],[89.505,27.205],[89.504,27.212],[89.504,27.221],[89.519,27.26],[89.525,27.272],[89.529,27.282],[89.532,27.307],[89.548,27.296],[89.555,27.285],[89.558,27.274],[89.562,27.26],[89.565,27.256],[89.569,27.255],[89.576,27.257],[89.608,27.249],[89.613,27.246],[89.615,27.238],[89.558,27.203],[89.538,27.178],[89.539,27.17],[89.565,27.157],[89.576,27.15],[89.601,27.139],[89.624,27.141]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Chukha'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Chukha?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Chukha located? </h2>Chukha, is a district It belongs to the country of Bhutan. Its postal identifier is CK.Chukha has an area of 1852 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

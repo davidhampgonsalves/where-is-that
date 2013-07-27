@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Warwickshire?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-1.187,52.381],[-1.167,52.359],[-1.165,52.348],[-1.181,52.338],[-1.233,52.327],[-1.249,52.32],[-1.242,52.311],[-1.208,52.306],[-1.203,52.301],[-1.224,52.282],[-1.209,52.272],[-1.208,52.25],[-1.266,52.228],[-1.265,52.221],[-1.245,52.206],[-1.249,52.195],[-1.303,52.181],[-1.318,52.171],[-1.321,52.162],[-1.334,52.152],[-1.341,52.134],[-1.374,52.118],[-1.351,52.104],[-1.358,52.095],[-1.379,52.092],[-1.408,52.108],[-1.426,52.109],[-1.438,52.107],[-1.436,52.093],[-1.441,52.091],[-1.47,52.089],[-1.475,52.077],[-1.495,52.061],[-1.496,52.04],[-1.51,51.998],[-1.518,51.988],[-1.546,51.985],[-1.55,51.969],[-1.586,51.967],[-1.593,51.956],[-1.604,51.955],[-1.653,51.984],[-1.652,51.989],[-1.634,52.001],[-1.612,52.027],[-1.621,52.03],[-1.657,52.027],[-1.674,52.031],[-1.707,52.065],[-1.716,52.085],[-1.737,52.089],[-1.758,52.106],[-1.763,52.112],[-1.781,52.117],[-1.787,52.129],[-1.813,52.134],[-1.829,52.142],[-1.841,52.136],[-1.875,52.149],[-1.885,52.144],[-1.891,52.134],[-1.914,52.143],[-1.93,52.16],[-1.944,52.165],[-1.933,52.176],[-1.923,52.195],[-1.902,52.211],[-1.903,52.231],[-1.92,52.259],[-1.92,52.266],[-1.883,52.274],[-1.868,52.299],[-1.848,52.31],[-1.851,52.323],[-1.874,52.338],[-1.877,52.345],[-1.853,52.362],[-1.843,52.376],[-1.844,52.384],[-1.823,52.376],[-1.815,52.364],[-1.797,52.352],[-1.759,52.337],[-1.752,52.347],[-1.715,52.355],[-1.683,52.342],[-1.671,52.349],[-1.64,52.351],[-1.601,52.362],[-1.589,52.374],[-1.563,52.372],[-1.537,52.356],[-1.511,52.367],[-1.463,52.366],[-1.432,52.384],[-1.438,52.429],[-1.443,52.435],[-1.455,52.438],[-1.619,52.444],[-1.662,52.425],[-1.683,52.44],[-1.741,52.497],[-1.733,52.512],[-1.753,52.535],[-1.753,52.547],[-1.771,52.563],[-1.778,52.575],[-1.754,52.579],[-1.666,52.576],[-1.643,52.58],[-1.635,52.588],[-1.634,52.608],[-1.624,52.626],[-1.633,52.638],[-1.631,52.643],[-1.601,52.656],[-1.58,52.677],[-1.534,52.642],[-1.537,52.63],[-1.559,52.622],[-1.542,52.601],[-1.546,52.581],[-1.518,52.574],[-1.495,52.556],[-1.417,52.535],[-1.404,52.526],[-1.396,52.512],[-1.293,52.479],[-1.241,52.426],[-1.212,52.416],[-1.187,52.381]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Warwickshire'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Warwickshire?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Warwickshire located? </h2>Warwickshire, is a administrative county of the England region. It belongs to the country of United Kingdom. Its postal identifier is WR.Warwickshire has an area of 1965 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

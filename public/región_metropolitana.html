@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Región Metropolitana?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-70.702,-33.002],[-70.677,-33.013],[-70.653,-32.993],[-70.616,-32.974],[-70.491,-33.07],[-70.48,-33.071],[-70.468,-33.075],[-70.406,-33.086],[-70.388,-33.106],[-70.345,-33.139],[-70.327,-33.17],[-70.302,-33.171],[-70.243,-33.122],[-70.151,-33.058],[-70.107,-33.053],[-70.106,-33.055],[-70.096,-33.071],[-70.093,-33.092],[-70.11,-33.149],[-70.11,-33.169],[-70.101,-33.187],[-70.086,-33.201],[-70.052,-33.225],[-70.042,-33.239],[-70.011,-33.299],[-69.985,-33.294],[-69.941,-33.243],[-69.906,-33.238],[-69.87,-33.249],[-69.837,-33.266],[-69.815,-33.289],[-69.806,-33.344],[-69.788,-33.379],[-69.787,-33.399],[-69.795,-33.415],[-69.821,-33.443],[-69.832,-33.458],[-69.835,-33.474],[-69.839,-33.521],[-69.842,-33.533],[-69.85,-33.536],[-69.87,-33.543],[-69.876,-33.547],[-69.879,-33.558],[-69.878,-33.567],[-69.874,-33.575],[-69.874,-33.586],[-69.895,-33.643],[-69.896,-33.662],[-69.887,-33.679],[-69.86,-33.711],[-69.861,-33.726],[-69.873,-33.737],[-69.907,-33.76],[-69.915,-33.772],[-69.915,-33.793],[-69.898,-33.871],[-69.899,-33.889],[-69.909,-33.928],[-69.91,-33.956],[-69.901,-33.959],[-69.885,-33.954],[-69.866,-33.957],[-69.856,-33.985],[-69.856,-34.031],[-69.865,-34.107],[-69.869,-34.123],[-69.873,-34.131],[-69.874,-34.14],[-69.869,-34.157],[-69.863,-34.17],[-69.838,-34.209],[-69.83,-34.233],[-69.833,-34.243],[-69.903,-34.269],[-69.905,-34.274],[-69.907,-34.281],[-69.912,-34.284],[-69.948,-34.274],[-69.969,-34.27],[-69.99,-34.269],[-70.041,-34.277],[-70.048,-34.283],[-70.048,-34.283],[-70.061,-34.243],[-70.073,-34.226],[-70.09,-34.209],[-70.146,-34.175],[-70.156,-34.158],[-70.162,-34.142],[-70.166,-34.12],[-70.176,-34.097],[-70.189,-34.082],[-70.204,-34.071],[-70.222,-34.068],[-70.265,-34.072],[-70.289,-34.071],[-70.314,-34.06],[-70.33,-34.044],[-70.34,-34.025],[-70.349,-33.997],[-70.368,-33.967],[-70.394,-33.936],[-70.413,-33.916],[-70.438,-33.9],[-70.456,-33.899],[-70.586,-33.934],[-70.619,-33.937],[-70.681,-33.935],[-70.702,-33.938],[-70.715,-33.943],[-70.727,-33.949],[-70.742,-33.953],[-70.761,-33.957],[-70.79,-33.955],[-70.803,-33.955],[-70.812,-33.958],[-70.814,-33.965],[-70.81,-34],[-70.809,-34.001],[-70.81,-34.015],[-70.815,-34.027],[-70.822,-34.037],[-70.834,-34.047],[-70.892,-34.084],[-70.909,-34.098],[-70.949,-34.151],[-70.967,-34.163],[-70.988,-34.173],[-71.067,-34.186],[-71.095,-34.186],[-71.13,-34.182],[-71.156,-34.175],[-71.182,-34.165],[-71.298,-34.087],[-71.318,-34.082],[-71.333,-34.087],[-71.343,-34.096],[-71.356,-34.104],[-71.368,-34.103],[-71.378,-34.098],[-71.465,-34.047],[-71.525,-34.026],[-71.544,-34.022],[-71.558,-34.021],[-71.596,-34.031],[-71.605,-34.035],[-71.624,-34.04],[-71.673,-33.999],[-71.707,-33.986],[-71.712,-33.981],[-71.718,-33.971],[-71.597,-33.914],[-71.584,-33.905],[-71.573,-33.896],[-71.52,-33.836],[-71.497,-33.824],[-71.475,-33.819],[-71.43,-33.815],[-71.411,-33.808],[-71.401,-33.797],[-71.401,-33.781],[-71.418,-33.751],[-71.421,-33.73],[-71.406,-33.705],[-71.39,-33.69],[-71.367,-33.674],[-71.361,-33.656],[-71.36,-33.629],[-71.366,-33.574],[-71.367,-33.513],[-71.451,-33.433],[-71.462,-33.385],[-71.444,-33.337],[-71.066,-33.058],[-71.053,-33.044],[-70.967,-33.01],[-70.952,-32.999],[-70.946,-32.996],[-70.918,-32.985],[-70.893,-32.982],[-70.875,-32.981],[-70.798,-32.96],[-70.743,-32.958],[-70.702,-33.002]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Región Metropolitana'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Región Metropolitana?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Región Metropolitana located? </h2>Región Metropolitana, is a region It belongs to the country of Chile. Its postal identifier is RM.Región Metropolitana has an area of 16073 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

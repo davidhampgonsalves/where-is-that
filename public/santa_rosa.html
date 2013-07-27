@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Santa Rosa?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-90.052,14.433],[-90.07,14.378],[-90.084,14.377],[-90.081,14.358],[-90.082,14.355],[-90.084,14.354],[-90.089,14.356],[-90.094,14.358],[-90.105,14.358],[-90.14,14.352],[-90.142,14.35],[-90.155,14.339],[-90.191,14.253],[-90.177,14.243],[-90.13,14.23],[-90.125,14.228],[-90.121,14.225],[-90.114,14.218],[-90.083,14.193],[-90.058,14.17],[-90.053,14.16],[-90.055,14.138],[-90.05,14.098],[-90.05,14.095],[-90.052,14.089],[-90.054,14.081],[-90.06,14.07],[-90.077,14.045],[-90.083,14.039],[-90.085,14.038],[-90.099,14.036],[-90.11,14.033],[-90.116,14.03],[-90.119,14.027],[-90.125,14.016],[-90.141,13.987],[-90.157,13.977],[-90.16,13.976],[-90.164,13.976],[-90.174,13.98],[-90.213,13.989],[-90.219,13.991],[-90.238,14.007],[-90.266,14.023],[-90.284,14.018],[-90.29,14.013],[-90.292,14.01],[-90.293,14.004],[-90.293,13.999],[-90.292,13.995],[-90.289,13.988],[-90.285,13.984],[-90.28,13.979],[-90.279,13.975],[-90.271,13.933],[-90.27,13.931],[-90.269,13.929],[-90.267,13.928],[-90.261,13.925],[-90.259,13.921],[-90.255,13.913],[-90.245,13.878],[-90.233,13.855],[-90.231,13.85],[-90.23,13.845],[-90.231,13.827],[-90.237,13.802],[-90.399,13.874],[-90.506,13.909],[-90.558,13.92],[-90.584,13.923],[-90.627,13.932],[-90.627,14.056],[-90.625,14.061],[-90.621,14.065],[-90.61,14.068],[-90.598,14.07],[-90.595,14.071],[-90.593,14.073],[-90.59,14.082],[-90.582,14.096],[-90.577,14.101],[-90.564,14.109],[-90.56,14.112],[-90.557,14.116],[-90.556,14.118],[-90.557,14.121],[-90.558,14.126],[-90.573,14.139],[-90.575,14.141],[-90.578,14.147],[-90.579,14.161],[-90.572,14.164],[-90.553,14.167],[-90.551,14.168],[-90.544,14.172],[-90.528,14.187],[-90.516,14.203],[-90.516,14.205],[-90.519,14.209],[-90.527,14.213],[-90.532,14.214],[-90.536,14.213],[-90.551,14.208],[-90.554,14.207],[-90.561,14.207],[-90.567,14.208],[-90.581,14.21],[-90.585,14.211],[-90.587,14.212],[-90.589,14.216],[-90.589,14.22],[-90.586,14.231],[-90.58,14.242],[-90.565,14.256],[-90.536,14.266],[-90.529,14.271],[-90.51,14.288],[-90.49,14.297],[-90.482,14.3],[-90.477,14.302],[-90.474,14.302],[-90.472,14.304],[-90.464,14.313],[-90.461,14.316],[-90.458,14.318],[-90.455,14.319],[-90.453,14.32],[-90.451,14.321],[-90.449,14.323],[-90.444,14.329],[-90.442,14.341],[-90.448,14.388],[-90.429,14.433],[-90.388,14.497],[-90.371,14.504],[-90.367,14.504],[-90.36,14.502],[-90.357,14.5],[-90.355,14.497],[-90.354,14.485],[-90.353,14.482],[-90.352,14.48],[-90.35,14.478],[-90.345,14.479],[-90.339,14.483],[-90.32,14.5],[-90.314,14.506],[-90.306,14.509],[-90.297,14.509],[-90.285,14.514],[-90.273,14.501],[-90.271,14.499],[-90.267,14.496],[-90.265,14.495],[-90.251,14.497],[-90.238,14.499],[-90.128,14.519],[-90.123,14.495],[-90.114,14.482],[-90.078,14.453],[-90.052,14.433]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Santa Rosa'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Santa Rosa?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Santa Rosa located? </h2>Santa Rosa, is a department It belongs to the country of Guatemala. Its postal identifier is SR.Santa Rosa has an area of 3030 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

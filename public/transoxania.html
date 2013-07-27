@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Transoxania?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[65.138,39.464],[65.091,39.437],[64.99,39.359],[64.978,39.351],[64.966,39.348],[64.957,39.349],[64.945,39.348],[64.937,39.345],[64.931,39.341],[64.855,39.277],[64.845,39.267],[64.839,39.258],[64.838,39.253],[64.838,39.247],[64.839,39.243],[64.841,39.238],[64.846,39.229],[64.853,39.222],[64.885,39.191],[64.888,39.187],[64.891,39.182],[64.892,39.176],[64.889,39.168],[64.885,39.164],[64.879,39.161],[64.713,39.114],[64.659,39.099],[64.521,39.056],[64.474,39.031],[64.383,38.953],[64.368,38.94],[64.337,38.971],[64.313,38.983],[64.283,38.98],[64.206,38.95],[64.18,38.945],[64.15,38.95],[64.12,38.962],[63.709,39.191],[63.648,39.24],[63.541,39.356],[63.477,39.403],[62.593,39.891],[62.535,39.935],[62.524,39.94],[62.453,40.01],[62.442,40.036],[62.424,40.092],[62.421,40.115],[62.426,40.137],[62.434,40.155],[62.44,40.173],[62.436,40.195],[62.405,40.246],[62.401,40.266],[62.4,40.292],[62.396,40.312],[62.388,40.33],[62.362,40.37],[62.356,40.388],[62.353,40.431],[62.344,40.44],[62.261,40.476],[62.213,40.487],[62.192,40.499],[62.187,40.506],[62.396,40.703],[62.447,40.788],[62.435,40.822],[62.403,40.86],[62.239,40.999],[62.465,41.081],[62.465,41.095],[62.18,41.392],[62.535,41.493],[62.619,41.492],[62.651,41.437],[62.676,41.404],[62.844,41.255],[62.979,41.075],[63.002,41.064],[63.091,41.049],[63.222,41.01],[63.376,40.945],[63.677,40.804],[63.7,40.774],[63.737,40.746],[63.735,40.726],[63.854,40.758],[63.926,40.839],[63.985,40.933],[64.003,40.952],[64.023,40.965],[64.043,40.97],[64.062,40.966],[64.081,40.954],[64.102,40.93],[64.107,40.896],[64.109,40.831],[64.122,40.809],[64.165,40.797],[64.435,40.773],[64.458,40.789],[64.488,40.878],[64.507,40.886],[64.541,40.896],[64.673,40.9],[64.717,40.907],[64.749,40.918],[64.781,40.952],[64.793,40.951],[64.802,40.927],[64.823,40.826],[64.832,40.8],[64.847,40.77],[64.881,40.749],[64.916,40.733],[65.014,40.715],[65.317,40.699],[65.365,40.71],[65.342,40.648],[65.337,40.622],[65.335,40.596],[65.335,40.571],[65.337,40.551],[65.341,40.539],[65.34,40.528],[65.327,40.528],[65.275,40.536],[65.265,40.537],[65.255,40.535],[65.248,40.53],[65.236,40.517],[65.234,40.504],[65.208,40.441],[65.186,40.421],[65.167,40.408],[65.145,40.353],[65.134,40.336],[65.016,40.337],[64.994,40.343],[64.972,40.354],[64.952,40.367],[64.933,40.371],[64.91,40.371],[64.875,40.367],[64.859,40.36],[64.85,40.351],[64.847,40.342],[64.845,40.332],[64.845,40.324],[64.85,40.304],[64.875,40.285],[64.859,40.247],[64.85,40.241],[64.845,40.239],[64.844,40.237],[64.846,40.233],[64.857,40.219],[64.886,40.196],[64.902,40.181],[64.906,40.175],[64.905,40.171],[64.875,40.168],[64.868,40.167],[64.862,40.164],[64.854,40.159],[64.845,40.159],[64.83,40.15],[64.783,40.075],[64.769,40.061],[64.751,40.047],[64.733,40.038],[64.672,40.016],[64.664,40.003],[64.656,39.997],[64.653,39.993],[64.62,39.961],[64.604,39.933],[64.59,39.908],[64.606,39.883],[64.678,39.806],[64.706,39.791],[64.753,39.771],[64.754,39.765],[64.759,39.756],[64.763,39.748],[64.777,39.742],[64.796,39.741],[64.84,39.757],[64.855,39.754],[64.864,39.743],[64.983,39.7],[65.002,39.676],[65.01,39.654],[65.01,39.638],[65.013,39.616],[65.021,39.595],[65.041,39.586],[65.065,39.58],[65.08,39.573],[65.097,39.559],[65.113,39.542],[65.117,39.537],[65.124,39.526],[65.134,39.499],[65.135,39.492],[65.138,39.464]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Transoxania'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Transoxania?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Transoxania located? </h2>Transoxania, is a region It belongs to the country of Uzbekistan. Its postal identifier is BU.Transoxania has an area of 40172 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

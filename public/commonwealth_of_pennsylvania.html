@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Commonwealth of Pennsylvania?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-79.763,42.034],[-79.763,42],[-79.727,42],[-79.591,42],[-79.454,42],[-79.318,42],[-79.182,42],[-79.046,42],[-78.91,41.999],[-78.774,41.999],[-78.638,41.999],[-78.502,41.999],[-78.366,41.999],[-78.23,41.999],[-78.094,41.999],[-77.958,41.999],[-77.822,41.999],[-77.686,41.999],[-77.55,41.999],[-77.414,41.999],[-77.278,41.999],[-77.142,41.998],[-77.006,41.998],[-76.87,41.998],[-76.734,41.998],[-76.598,41.998],[-76.462,41.998],[-76.326,41.998],[-76.19,41.998],[-76.054,41.998],[-75.918,41.998],[-75.782,41.998],[-75.646,41.998],[-75.509,41.997],[-75.373,41.997],[-75.351,41.997],[-75.339,41.997],[-75.339,41.984],[-75.315,41.97],[-75.284,41.959],[-75.263,41.948],[-75.257,41.93],[-75.255,41.905],[-75.249,41.882],[-75.233,41.873],[-75.177,41.88],[-75.165,41.877],[-75.143,41.862],[-75.116,41.855],[-75.101,41.836],[-75.092,41.832],[-75.079,41.828],[-75.083,41.819],[-75.106,41.797],[-75.085,41.789],[-75.068,41.784],[-75.056,41.775],[-75.051,41.753],[-75.055,41.744],[-75.068,41.735],[-75.071,41.726],[-75.058,41.688],[-75.058,41.667],[-75.064,41.616],[-75.061,41.605],[-75.048,41.596],[-74.998,41.514],[-74.984,41.498],[-74.967,41.487],[-74.923,41.479],[-74.91,41.469],[-74.9,41.458],[-74.886,41.448],[-74.862,41.444],[-74.813,41.447],[-74.794,41.438],[-74.781,41.429],[-74.77,41.429],[-74.76,41.432],[-74.749,41.435],[-74.742,41.431],[-74.736,41.424],[-74.729,41.407],[-74.72,41.398],[-74.704,41.376],[-74.699,41.356],[-74.699,41.355],[-74.718,41.345],[-74.741,41.344],[-74.751,41.341],[-74.764,41.332],[-74.775,41.331],[-74.78,41.328],[-74.783,41.324],[-74.789,41.314],[-74.791,41.311],[-74.845,41.273],[-74.852,41.26],[-74.853,41.253],[-74.863,41.225],[-74.886,41.181],[-74.938,41.128],[-74.951,41.119],[-74.958,41.117],[-74.969,41.113],[-74.978,41.107],[-74.982,41.102],[-74.982,41.09],[-74.982,41.087],[-74.986,41.086],[-75.027,41.047],[-75.046,41.035],[-75.068,41.031],[-75.083,41.026],[-75.106,41.014],[-75.129,40.998],[-75.14,40.982],[-75.137,40.975],[-75.131,40.967],[-75.12,40.955],[-75.119,40.951],[-75.12,40.946],[-75.12,40.943],[-75.116,40.941],[-75.11,40.941],[-75.105,40.94],[-75.1,40.937],[-75.099,40.931],[-75.091,40.922],[-75.076,40.909],[-75.061,40.892],[-75.058,40.872],[-75.068,40.855],[-75.081,40.848],[-75.093,40.838],[-75.099,40.814],[-75.105,40.796],[-75.122,40.786],[-75.142,40.784],[-75.161,40.79],[-75.17,40.774],[-75.177,40.766],[-75.184,40.762],[-75.189,40.759],[-75.187,40.75],[-75.184,40.743],[-75.18,40.743],[-75.194,40.714],[-75.198,40.701],[-75.195,40.688],[-75.191,40.678],[-75.194,40.67],[-75.195,40.661],[-75.191,40.629],[-75.196,40.619],[-75.194,40.609],[-75.19,40.598],[-75.182,40.57],[-75.17,40.566],[-75.14,40.571],[-75.089,40.558],[-75.072,40.532],[-75.064,40.454],[-75.054,40.435],[-75.036,40.415],[-75.014,40.403],[-74.975,40.415],[-74.961,40.398],[-74.948,40.359],[-74.896,40.323],[-74.886,40.314],[-74.883,40.308],[-74.849,40.271],[-74.818,40.242],[-74.765,40.206],[-74.739,40.185],[-74.729,40.163],[-74.741,40.144],[-74.77,40.13],[-74.803,40.122],[-74.828,40.119],[-74.838,40.115],[-74.873,40.091],[-74.883,40.087],[-74.92,40.078],[-74.936,40.07],[-74.975,40.036],[-74.989,40.029],[-75.023,40.016],[-75.046,40.009],[-75.08,39.987],[-75.102,39.982],[-75.12,39.974],[-75.133,39.956],[-75.139,39.934],[-75.133,39.913],[-75.148,39.903],[-75.208,39.885],[-75.249,39.867],[-75.273,39.864],[-75.297,39.872],[-75.359,39.848],[-75.376,39.845],[-75.392,39.84],[-75.418,39.813],[-75.419,39.814],[-75.436,39.825],[-75.465,39.839],[-75.501,39.849],[-75.549,39.854],[-75.593,39.853],[-75.615,39.85],[-75.647,39.842],[-75.666,39.835],[-75.688,39.824],[-75.706,39.81],[-75.731,39.779],[-75.753,39.751],[-75.775,39.723],[-75.777,39.721],[-75.785,39.721],[-75.9,39.721],[-76.015,39.721],[-76.131,39.721],[-76.246,39.721],[-76.362,39.721],[-76.477,39.721],[-76.592,39.721],[-76.708,39.721],[-76.823,39.721],[-76.939,39.721],[-77.054,39.721],[-77.169,39.721],[-77.285,39.722],[-77.4,39.722],[-77.516,39.722],[-77.631,39.722],[-77.746,39.722],[-77.862,39.722],[-77.977,39.722],[-78.093,39.722],[-78.208,39.722],[-78.323,39.722],[-78.439,39.722],[-78.554,39.722],[-78.67,39.722],[-78.785,39.722],[-78.9,39.722],[-79.016,39.722],[-79.131,39.722],[-79.247,39.722],[-79.362,39.722],[-79.477,39.722],[-79.608,39.722],[-79.738,39.722],[-79.868,39.722],[-79.998,39.722],[-80.129,39.722],[-80.259,39.722],[-80.389,39.722],[-80.519,39.721],[-80.519,39.791],[-80.52,39.861],[-80.52,39.93],[-80.52,40],[-80.52,40.08],[-80.52,40.161],[-80.52,40.241],[-80.52,40.321],[-80.52,40.401],[-80.52,40.482],[-80.52,40.562],[-80.52,40.642],[-80.52,40.643],[-80.52,40.643],[-80.52,40.644],[-80.52,40.644],[-80.52,40.645],[-80.52,40.646],[-80.52,40.646],[-80.52,40.647],[-80.52,40.752],[-80.52,40.856],[-80.52,40.961],[-80.52,41.066],[-80.52,41.171],[-80.52,41.276],[-80.52,41.381],[-80.52,41.486],[-80.52,41.59],[-80.52,41.695],[-80.52,41.8],[-80.52,41.905],[-80.52,42.01],[-80.52,42.115],[-80.52,42.219],[-80.52,42.324],[-80.52,42.324],[-80.505,42.327],[-80.376,42.346],[-80.247,42.366],[-80.094,42.42],[-79.94,42.475],[-79.787,42.53],[-79.763,42.538],[-79.763,42.538],[-79.763,42.504],[-79.763,42.47],[-79.763,42.436],[-79.763,42.403],[-79.763,42.369],[-79.763,42.335],[-79.763,42.301],[-79.763,42.267],[-79.763,42.238],[-79.763,42.209],[-79.763,42.179],[-79.763,42.15],[-79.763,42.121],[-79.763,42.092],[-79.763,42.063],[-79.763,42.034]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Commonwealth of Pennsylvania'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Commonwealth of Pennsylvania?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Commonwealth of Pennsylvania located? </h2>Commonwealth of Pennsylvania, is a state It belongs to the country of United States of America. Its abbreviated name is Pa. and its postal identifier is PA.Commonwealth of Pennsylvania has an area of 119323 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

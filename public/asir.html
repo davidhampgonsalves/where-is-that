@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Asir?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[44.517,19.513],[44.517,19.387],[44.513,19.354],[44.505,19.332],[44.496,19.319],[44.48,19.308],[44.414,19.274],[44.391,19.255],[44.366,19.219],[44.359,19.193],[44.36,19.168],[44.395,19.042],[44.399,18.997],[44.399,18.962],[44.396,18.925],[44.389,18.897],[44.379,18.873],[44.367,18.853],[44.351,18.834],[44.332,18.817],[44.289,18.789],[44.243,18.767],[44.199,18.752],[44.129,18.739],[44.106,18.729],[44.082,18.714],[44.061,18.692],[44.047,18.667],[44.024,18.613],[44.012,18.593],[44,18.576],[43.968,18.544],[43.856,18.453],[43.694,18.291],[43.668,18.258],[43.648,18.222],[43.639,18.194],[43.638,18.169],[43.649,18.125],[43.664,18.081],[43.674,18.04],[43.676,17.998],[43.651,17.776],[43.641,17.736],[43.641,17.709],[43.644,17.685],[43.664,17.623],[43.666,17.57],[43.639,17.47],[43.638,17.439],[43.619,17.459],[43.577,17.483],[43.503,17.514],[43.487,17.518],[43.453,17.519],[43.435,17.523],[43.413,17.52],[43.391,17.512],[43.342,17.483],[43.259,17.603],[43.242,17.623],[43.222,17.64],[43.145,17.666],[43.126,17.68],[43.111,17.699],[43.079,17.762],[43.065,17.783],[43.04,17.807],[42.963,17.867],[42.947,17.893],[42.94,17.917],[42.943,17.959],[42.938,17.978],[42.925,17.993],[42.886,18],[42.878,17.998],[42.832,17.973],[42.79,17.943],[42.772,17.926],[42.759,17.907],[42.736,17.867],[42.691,17.702],[42.682,17.683],[42.668,17.668],[42.649,17.661],[42.629,17.661],[42.606,17.669],[42.582,17.685],[42.489,17.777],[42.472,17.801],[42.46,17.824],[42.452,17.845],[42.439,17.866],[42.42,17.885],[42.392,17.9],[42.368,17.905],[42.21,17.907],[42.188,17.913],[42.167,17.924],[42.145,17.948],[42.136,17.969],[42.123,18.005],[42.116,18.016],[42.101,18.031],[42.074,18.046],[42.051,18.052],[42.029,18.054],[41.962,18.045],[41.943,18.05],[41.927,18.065],[41.918,18.092],[41.916,18.115],[41.917,18.138],[41.938,18.258],[41.937,18.278],[41.933,18.296],[41.923,18.312],[41.884,18.322],[41.771,18.314],[41.806,18.441],[41.81,18.469],[41.81,18.495],[41.803,18.525],[41.734,18.723],[41.723,18.742],[41.706,18.759],[41.687,18.769],[41.666,18.776],[41.624,18.784],[41.58,18.787],[41.471,18.786],[41.451,18.791],[41.432,18.801],[41.415,18.818],[41.403,18.838],[41.395,18.858],[41.389,18.879],[41.384,18.92],[41.391,19.153],[41.394,19.171],[41.402,19.182],[41.418,19.174],[41.435,19.161],[41.455,19.151],[41.475,19.151],[41.494,19.16],[41.544,19.196],[41.588,19.221],[41.611,19.228],[41.632,19.231],[41.654,19.232],[41.765,19.221],[41.779,19.221],[41.795,19.224],[41.813,19.232],[41.832,19.245],[41.846,19.262],[41.855,19.282],[41.889,19.383],[41.889,19.408],[41.883,19.432],[41.841,19.5],[41.835,19.52],[41.832,19.547],[41.834,19.57],[41.864,19.7],[41.867,19.72],[41.865,19.741],[41.859,19.762],[41.847,19.782],[41.832,19.799],[41.819,19.808],[41.805,19.813],[41.786,19.816],[41.744,19.814],[41.699,19.797],[41.8,20.004],[41.814,20.053],[41.82,20.125],[41.828,20.151],[41.843,20.178],[41.865,20.197],[41.983,20.276],[42.004,20.295],[42.027,20.325],[42.034,20.35],[42.031,20.373],[42.018,20.391],[41.993,20.415],[41.986,20.445],[41.984,20.471],[42.032,20.625],[42.05,20.596],[42.153,20.399],[42.169,20.379],[42.189,20.363],[42.209,20.351],[42.231,20.345],[42.26,20.347],[42.293,20.357],[42.347,20.385],[42.381,20.408],[42.635,20.624],[42.833,20.725],[42.86,20.747],[42.899,20.783],[42.924,20.799],[42.952,20.81],[42.988,20.817],[43.05,20.818],[43.065,20.821],[43.086,20.827],[43.146,20.851],[43.179,20.86],[43.222,20.865],[43.25,20.864],[43.276,20.858],[43.341,20.838],[43.37,20.84],[43.404,20.851],[43.561,20.938],[43.668,20.976],[43.814,20.854],[43.869,20.793],[43.9,20.745],[43.96,20.67],[44.043,20.585],[44.056,20.561],[44.062,20.539],[44.064,20.521],[44.064,20.502],[44.063,20.498],[44.055,20.477],[44.047,20.459],[43.988,20.373],[43.969,20.334],[43.93,20.163],[43.929,20.138],[43.937,20.107],[43.952,20.083],[44.01,20.019],[44.106,19.867],[44.499,19.524],[44.517,19.513]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Asir'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Asir?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Asir located? </h2>Asir, is a region It belongs to the country of Saudi Arabia. Its postal identifier is AS.Asir has an area of 77377 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

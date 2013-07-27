@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Preili?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[27.102,56.171],[27.107,56.164],[27.122,56.144],[27.123,56.134],[27.127,56.118],[27.14,56.1],[27.118,56.095],[27.094,56.099],[27.085,56.092],[27.065,56.09],[27.041,56.079],[26.969,56.06],[26.931,56.059],[26.891,56.105],[26.888,56.129],[26.872,56.127],[26.848,56.124],[26.837,56.129],[26.823,56.13],[26.807,56.127],[26.775,56.115],[26.748,56.111],[26.719,56.111],[26.7,56.119],[26.687,56.126],[26.648,56.135],[26.625,56.121],[26.621,56.125],[26.61,56.132],[26.576,56.148],[26.571,56.154],[26.557,56.157],[26.544,56.142],[26.541,56.134],[26.508,56.132],[26.485,56.168],[26.455,56.18],[26.417,56.184],[26.381,56.197],[26.335,56.19],[26.301,56.183],[26.264,56.211],[26.249,56.216],[26.239,56.217],[26.219,56.222],[26.208,56.223],[26.194,56.226],[26.189,56.235],[26.191,56.257],[26.192,56.263],[26.195,56.269],[26.198,56.276],[26.198,56.284],[26.196,56.283],[26.192,56.285],[26.187,56.289],[26.184,56.291],[26.183,56.296],[26.184,56.315],[26.181,56.321],[26.167,56.337],[26.164,56.342],[26.163,56.363],[26.161,56.372],[26.157,56.38],[26.145,56.389],[26.109,56.406],[26.089,56.406],[26.153,56.429],[26.191,56.458],[26.199,56.473],[26.233,56.499],[26.257,56.512],[26.29,56.518],[26.309,56.516],[26.316,56.512],[26.321,56.507],[26.323,56.498],[26.353,56.475],[26.363,56.451],[26.412,56.465],[26.436,56.476],[26.446,56.483],[26.458,56.489],[26.475,56.494],[26.499,56.496],[26.529,56.494],[26.541,56.49],[26.559,56.486],[26.596,56.489],[26.597,56.495],[26.597,56.496],[26.593,56.497],[26.594,56.502],[26.595,56.507],[26.628,56.544],[26.706,56.546],[26.722,56.543],[26.744,56.559],[26.771,56.556],[26.816,56.54],[26.826,56.524],[26.775,56.512],[26.801,56.507],[26.808,56.498],[26.82,56.496],[26.833,56.495],[26.847,56.496],[26.858,56.493],[26.866,56.486],[26.902,56.479],[26.953,56.477],[26.958,56.461],[26.95,56.458],[26.933,56.455],[26.925,56.448],[26.915,56.433],[26.91,56.425],[26.9,56.418],[26.898,56.411],[26.952,56.373],[26.966,56.359],[26.991,56.331],[26.976,56.32],[26.951,56.32],[26.944,56.313],[26.947,56.304],[26.949,56.298],[26.96,56.284],[26.986,56.263],[26.989,56.248],[26.997,56.239],[27.002,56.231],[27.016,56.224],[27.029,56.215],[27.034,56.208],[27.036,56.198],[27.035,56.187],[27.038,56.18],[27.044,56.176],[27.054,56.173],[27.078,56.171],[27.102,56.171]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Preili'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Preili?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Preili located? </h2>Preili, is a district of the Latgale region. It belongs to the country of Latvia. Its postal identifier is PR.Preili has an area of 2030 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

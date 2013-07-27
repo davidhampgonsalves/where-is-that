@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Estambul?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[29.407,40.693],[29.417,40.687],[29.428,40.691],[29.429,40.601],[29.421,40.563],[29.358,40.573],[29.3,40.561],[29.239,40.554],[29.078,40.563],[29.047,40.56],[29.016,40.561],[28.933,40.588],[28.914,40.599],[28.928,40.606],[28.97,40.639],[28.986,40.645],[29.282,40.666],[29.323,40.677],[29.364,40.694],[29.384,40.706],[29.392,40.708],[29.399,40.703],[29.407,40.693]]],[[[29.232,41.241],[29.42,41.214],[29.619,41.179],[29.863,41.151],[29.863,41.142],[29.874,41.111],[29.877,41.08],[29.849,41.029],[29.795,41.007],[29.731,40.988],[29.673,40.957],[29.664,40.933],[29.647,40.91],[29.611,40.907],[29.582,40.925],[29.551,40.974],[29.504,41.005],[29.451,41.009],[29.407,40.984],[29.365,40.953],[29.34,40.943],[29.288,40.909],[29.254,40.875],[29.241,40.883],[29.22,40.88],[29.201,40.894],[29.145,40.914],[29.124,40.927],[29.103,40.947],[29.083,40.96],[29.028,40.982],[29.032,40.984],[29.033,40.984],[29.033,40.986],[29.035,40.99],[29.023,40.993],[29.018,41.004],[29.015,41.017],[29.008,41.03],[29.026,41.038],[29.046,41.055],[29.062,41.076],[29.076,41.114],[29.088,41.129],[29.091,41.141],[29.069,41.153],[29.093,41.18],[29.13,41.212],[29.17,41.233],[29.2,41.229],[29.206,41.229],[29.216,41.239],[29.232,41.241]]],[[[28.233,41.519],[28.384,41.447],[28.601,41.377],[28.908,41.267],[29.008,41.25],[29.013,41.248],[29.015,41.246],[29.018,41.244],[29.024,41.243],[29.032,41.245],[29.038,41.254],[29.045,41.256],[29.069,41.254],[29.094,41.246],[29.109,41.235],[29.1,41.21],[29.087,41.192],[29.069,41.175],[29.052,41.167],[29.041,41.164],[29.043,41.158],[29.051,41.15],[29.057,41.141],[29.064,41.134],[29.066,41.133],[29.071,41.13],[29.069,41.124],[29.064,41.12],[29.062,41.119],[29.059,41.1],[29.052,41.082],[29.042,41.066],[29.031,41.054],[29.023,41.049],[29.005,41.044],[28.997,41.04],[28.989,41.031],[28.988,41.026],[28.989,41.022],[28.99,41.017],[28.993,41.014],[28.992,41.008],[28.986,41.003],[28.982,41.002],[28.96,41.003],[28.952,41.009],[28.946,41.009],[28.94,41.007],[28.932,40.998],[28.928,40.996],[28.918,40.994],[28.899,40.984],[28.859,40.978],[28.85,40.975],[28.844,40.972],[28.84,40.968],[28.834,40.964],[28.822,40.962],[28.798,40.962],[28.786,40.966],[28.781,40.972],[28.77,40.979],[28.745,40.98],[28.625,40.968],[28.595,40.978],[28.604,41.009],[28.592,41.019],[28.585,41.022],[28.576,41.024],[28.583,41.046],[28.572,41.066],[28.552,41.08],[28.528,41.085],[28.533,41.071],[28.555,41.054],[28.563,41.037],[28.563,41.027],[28.56,41.012],[28.554,40.998],[28.541,40.99],[28.512,40.993],[28.461,41.033],[28.435,41.043],[28.402,41.047],[28.333,41.066],[28.298,41.071],[28.264,41.071],[28.256,41.073],[28.245,41.083],[28.237,41.085],[28.199,41.078],[28.182,41.078],[28.175,41.081],[28.163,41.136],[28.149,41.213],[28.163,41.273],[28.193,41.355],[28.182,41.421],[28.156,41.492],[28.157,41.492],[28.203,41.54],[28.233,41.519]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Estambul'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Estambul?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Estambul located? </h2>Estambul, is a province It belongs to the country of Turkey. Its postal identifier is IB.Estambul has an area of 5265 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

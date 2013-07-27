@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Somerset?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-2.713,51.32],[-2.668,51.312],[-2.663,51.303],[-2.639,51.299],[-2.634,51.289],[-2.621,51.283],[-2.591,51.283],[-2.567,51.296],[-2.539,51.3],[-2.493,51.289],[-2.488,51.276],[-2.458,51.273],[-2.423,51.282],[-2.405,51.299],[-2.346,51.3],[-2.29,51.325],[-2.28,51.327],[-2.267,51.316],[-2.275,51.307],[-2.271,51.296],[-2.243,51.285],[-2.236,51.264],[-2.253,51.245],[-2.266,51.209],[-2.349,51.118],[-2.352,51.105],[-2.348,51.095],[-2.322,51.083],[-2.335,51.065],[-2.324,51.042],[-2.364,51.016],[-2.371,51.007],[-2.371,50.999],[-2.339,50.989],[-2.338,50.983],[-2.401,50.965],[-2.433,50.97],[-2.437,50.969],[-2.441,50.953],[-2.452,50.951],[-2.471,50.963],[-2.496,50.995],[-2.542,51.002],[-2.545,50.999],[-2.542,50.989],[-2.55,50.979],[-2.561,50.977],[-2.574,50.983],[-2.599,50.976],[-2.595,50.957],[-2.605,50.944],[-2.606,50.924],[-2.616,50.911],[-2.608,50.89],[-2.614,50.885],[-2.653,50.887],[-2.715,50.868],[-2.759,50.867],[-2.789,50.855],[-2.808,50.861],[-2.823,50.853],[-2.92,50.841],[-2.949,50.822],[-2.963,50.85],[-2.977,50.86],[-2.994,50.858],[-3.003,50.861],[-3.03,50.852],[-3.027,50.869],[-3.048,50.878],[-3.044,50.899],[-3.048,50.906],[-3.09,50.908],[-3.148,50.897],[-3.178,50.915],[-3.157,50.949],[-3.222,50.944],[-3.268,50.947],[-3.321,50.979],[-3.371,50.981],[-3.374,51.009],[-3.38,51.017],[-3.4,51.02],[-3.422,51.029],[-3.444,51.026],[-3.475,51.036],[-3.508,51.031],[-3.515,51.026],[-3.518,51.013],[-3.529,51.007],[-3.6,51.012],[-3.608,51.024],[-3.594,51.039],[-3.588,51.055],[-3.596,51.063],[-3.636,51.062],[-3.678,51.082],[-3.716,51.083],[-3.751,51.107],[-3.775,51.111],[-3.813,51.129],[-3.826,51.142],[-3.827,51.171],[-3.821,51.177],[-3.77,51.173],[-3.724,51.179],[-3.718,51.205],[-3.72,51.221],[-3.715,51.23],[-3.714,51.232],[-3.712,51.238],[-3.64,51.226],[-3.559,51.228],[-3.434,51.21],[-3.404,51.192],[-3.385,51.186],[-3.271,51.189],[-3.199,51.203],[-3.163,51.207],[-3.097,51.204],[-3.058,51.208],[-3.029,51.22],[-3.022,51.214],[-3.035,51.199],[-3.022,51.192],[-3.005,51.213],[-3.001,51.22],[-3,51.233],[-3.001,51.24],[-3.005,51.245],[-3.008,51.254],[-3.008,51.292],[-3.011,51.311],[-3.022,51.323],[-3.002,51.319],[-2.992,51.322],[-2.992,51.322],[-2.991,51.321],[-2.989,51.318],[-2.988,51.317],[-2.988,51.317],[-2.978,51.312],[-2.976,51.293],[-2.957,51.29],[-2.93,51.299],[-2.889,51.286],[-2.884,51.287],[-2.879,51.302],[-2.837,51.294],[-2.789,51.297],[-2.786,51.301],[-2.789,51.304],[-2.816,51.319],[-2.818,51.322],[-2.812,51.327],[-2.73,51.323],[-2.713,51.32]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Somerset'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Somerset?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Somerset located? </h2>Somerset, is a administrative county of the England region. It belongs to the country of United Kingdom. Its abbreviated name is Somerset and its postal identifier is SM.Somerset has an area of 3437 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

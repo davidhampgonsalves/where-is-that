@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Khanh Hoa?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[109.329,12.221],[109.337,12.218],[109.343,12.213],[109.347,12.207],[109.349,12.201],[109.345,12.197],[109.334,12.19],[109.329,12.187],[109.323,12.194],[109.317,12.198],[109.309,12.198],[109.301,12.194],[109.304,12.192],[109.305,12.192],[109.306,12.191],[109.308,12.187],[109.288,12.189],[109.27,12.199],[109.255,12.211],[109.246,12.221],[109.246,12.228],[109.252,12.226],[109.267,12.224],[109.273,12.221],[109.273,12.225],[109.273,12.236],[109.292,12.228],[109.329,12.221]]],[[[109.405,12.571],[109.4,12.558],[109.384,12.563],[109.347,12.588],[109.342,12.596],[109.335,12.603],[109.323,12.606],[109.312,12.614],[109.32,12.628],[109.346,12.631],[109.369,12.628],[109.383,12.624],[109.39,12.614],[109.393,12.602],[109.401,12.583],[109.405,12.571]]],[[[109.343,12.853],[109.361,12.849],[109.372,12.844],[109.385,12.834],[109.378,12.832],[109.369,12.825],[109.376,12.816],[109.377,12.804],[109.376,12.79],[109.377,12.776],[109.421,12.691],[109.436,12.674],[109.452,12.674],[109.47,12.66],[109.473,12.656],[109.47,12.649],[109.464,12.646],[109.457,12.644],[109.452,12.639],[109.449,12.624],[109.453,12.583],[109.452,12.571],[109.441,12.565],[109.43,12.576],[109.417,12.606],[109.414,12.61],[109.409,12.613],[109.405,12.618],[109.404,12.629],[109.407,12.631],[109.424,12.647],[109.424,12.653],[109.404,12.687],[109.402,12.678],[109.396,12.673],[109.388,12.672],[109.377,12.674],[109.38,12.665],[109.382,12.656],[109.38,12.648],[109.377,12.639],[109.371,12.649],[109.364,12.656],[109.355,12.66],[109.342,12.66],[109.36,12.685],[109.363,12.691],[109.367,12.693],[109.377,12.697],[109.386,12.703],[109.39,12.712],[109.387,12.728],[109.369,12.75],[109.363,12.763],[109.363,12.793],[109.359,12.797],[109.348,12.795],[109.345,12.789],[109.343,12.781],[109.339,12.773],[109.304,12.751],[109.295,12.742],[109.27,12.712],[109.256,12.699],[109.242,12.694],[109.234,12.687],[109.205,12.647],[109.205,12.637],[109.208,12.598],[109.201,12.591],[109.202,12.576],[109.205,12.56],[109.205,12.55],[109.208,12.549],[109.21,12.549],[109.212,12.548],[109.211,12.543],[109.219,12.543],[109.222,12.554],[109.224,12.565],[109.228,12.575],[109.239,12.578],[109.239,12.584],[109.232,12.584],[109.232,12.591],[109.249,12.586],[109.247,12.572],[109.238,12.555],[109.232,12.54],[109.237,12.522],[109.25,12.51],[109.299,12.478],[109.304,12.47],[109.294,12.449],[109.295,12.439],[109.299,12.431],[109.304,12.427],[109.319,12.422],[109.337,12.41],[109.346,12.396],[109.335,12.386],[109.342,12.379],[109.335,12.372],[109.323,12.386],[109.316,12.377],[109.309,12.36],[109.298,12.351],[109.283,12.356],[109.273,12.368],[109.259,12.393],[109.216,12.44],[109.185,12.459],[109.157,12.455],[109.162,12.449],[109.167,12.438],[109.17,12.434],[109.16,12.438],[109.157,12.44],[109.15,12.44],[109.155,12.427],[109.171,12.411],[109.177,12.399],[109.197,12.403],[109.207,12.387],[109.211,12.363],[109.211,12.341],[109.214,12.333],[109.221,12.323],[109.23,12.314],[109.242,12.305],[109.242,12.297],[109.237,12.291],[109.225,12.296],[109.219,12.296],[109.215,12.29],[109.205,12.263],[109.183,12.273],[109.177,12.277],[109.183,12.268],[109.192,12.26],[109.211,12.249],[109.205,12.233],[109.209,12.222],[109.218,12.212],[109.225,12.201],[109.199,12.208],[109.189,12.206],[109.185,12.194],[109.191,12.2],[109.191,12.201],[109.205,12.194],[109.21,12.186],[109.211,12.173],[109.213,12.166],[109.213,12.163],[109.214,12.159],[109.222,12.15],[109.227,12.138],[109.223,12.129],[109.211,12.118],[109.21,12.11],[109.214,12.068],[109.221,12.051],[109.249,11.997],[109.259,11.987],[109.287,11.967],[109.287,11.961],[109.284,11.944],[109.284,11.94],[109.267,11.927],[109.266,11.91],[109.271,11.895],[109.281,11.884],[109.295,11.879],[109.295,11.871],[109.278,11.865],[109.262,11.866],[109.248,11.873],[109.239,11.886],[109.236,11.883],[109.229,11.881],[109.225,11.879],[109.217,11.909],[109.223,11.982],[109.211,12.016],[109.219,12.016],[109.196,12.075],[109.186,12.118],[109.177,12.13],[109.164,12.112],[109.176,12.089],[109.181,12.085],[109.183,12.081],[109.177,12.053],[109.183,12.043],[109.206,12.022],[109.211,12.006],[109.208,11.977],[109.199,11.948],[109.182,11.922],[109.157,11.899],[109.137,11.896],[109.126,11.864],[109.132,11.83],[109.164,11.824],[109.169,11.833],[109.183,11.853],[109.198,11.869],[109.205,11.868],[109.201,11.854],[109.194,11.841],[109.193,11.828],[109.205,11.81],[109.204,11.789],[109.198,11.788],[109.183,11.786],[109.17,11.787],[109.134,11.793],[109.114,11.798],[109.099,11.807],[109.086,11.819],[109.074,11.841],[109.066,11.873],[109.06,11.887],[109.05,11.898],[109.033,11.908],[108.97,11.926],[108.905,11.937],[108.891,11.943],[108.878,11.954],[108.868,11.976],[108.862,11.993],[108.843,12.033],[108.82,12.102],[108.81,12.124],[108.792,12.146],[108.778,12.158],[108.719,12.181],[108.707,12.271],[108.694,12.298],[108.681,12.303],[108.668,12.369],[108.665,12.412],[108.667,12.448],[108.671,12.469],[108.677,12.479],[108.683,12.484],[108.691,12.484],[108.713,12.48],[108.719,12.48],[108.727,12.482],[108.745,12.491],[108.756,12.495],[108.767,12.497],[108.777,12.497],[108.787,12.493],[108.823,12.474],[108.835,12.47],[108.848,12.475],[108.854,12.485],[108.865,12.518],[108.875,12.541],[108.879,12.556],[108.879,12.567],[108.875,12.575],[108.873,12.59],[108.875,12.61],[108.889,12.652],[108.898,12.67],[108.907,12.681],[108.915,12.686],[108.923,12.688],[108.933,12.689],[108.953,12.689],[108.962,12.691],[108.97,12.695],[109.037,12.753],[109.074,12.754],[109.089,12.761],[109.104,12.773],[109.132,12.808],[109.155,12.828],[109.175,12.839],[109.196,12.847],[109.215,12.85],[109.236,12.851],[109.277,12.849],[109.322,12.853],[109.343,12.853]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Khanh Hoa'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Khanh Hoa?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Khanh Hoa located? </h2>Khanh Hoa, is a province of the Nam Trung B? region. It belongs to the country of Vietnam. Its postal identifier is KH.Khanh Hoa has an area of 4894 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

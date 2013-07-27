@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Bolivar?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-78.866,-1.178],[-78.888,-1.218],[-78.89,-1.231],[-78.892,-1.269],[-78.896,-1.286],[-78.91,-1.314],[-78.916,-1.333],[-78.928,-1.383],[-78.924,-1.397],[-78.9,-1.432],[-78.889,-1.446],[-78.881,-1.459],[-78.881,-1.48],[-78.879,-1.489],[-78.874,-1.502],[-78.858,-1.528],[-78.853,-1.541],[-78.853,-1.557],[-78.857,-1.581],[-78.858,-1.604],[-78.856,-1.637],[-78.86,-1.664],[-78.87,-1.69],[-78.891,-1.721],[-78.926,-1.752],[-78.94,-1.756],[-78.975,-1.761],[-78.988,-1.767],[-78.997,-1.774],[-79.002,-1.782],[-79.005,-1.791],[-79.005,-1.809],[-79.009,-1.854],[-79.006,-1.886],[-79,-1.907],[-79,-1.918],[-79.026,-2.047],[-79.024,-2.06],[-79.021,-2.069],[-79.016,-2.078],[-79.015,-2.088],[-79.016,-2.099],[-79.021,-2.111],[-79.041,-2.139],[-79.076,-2.175],[-79.13,-2.204],[-79.127,-2.163],[-79.132,-2.154],[-79.14,-2.147],[-79.149,-2.146],[-79.159,-2.152],[-79.165,-2.158],[-79.172,-2.162],[-79.183,-2.163],[-79.195,-2.162],[-79.235,-2.154],[-79.22,-2.124],[-79.212,-2.09],[-79.205,-2.073],[-79.206,-2.065],[-79.212,-2.051],[-79.246,-1.995],[-79.278,-1.954],[-79.279,-1.945],[-79.275,-1.937],[-79.263,-1.929],[-79.259,-1.923],[-79.242,-1.857],[-79.232,-1.837],[-79.229,-1.823],[-79.234,-1.812],[-79.241,-1.801],[-79.249,-1.788],[-79.252,-1.775],[-79.253,-1.764],[-79.249,-1.745],[-79.25,-1.736],[-79.281,-1.692],[-79.292,-1.67],[-79.299,-1.66],[-79.306,-1.657],[-79.313,-1.657],[-79.318,-1.655],[-79.322,-1.65],[-79.327,-1.647],[-79.334,-1.645],[-79.34,-1.643],[-79.344,-1.638],[-79.341,-1.632],[-79.336,-1.628],[-79.328,-1.623],[-79.32,-1.617],[-79.292,-1.585],[-79.286,-1.584],[-79.281,-1.586],[-79.275,-1.589],[-79.271,-1.589],[-79.266,-1.586],[-79.261,-1.577],[-79.256,-1.568],[-79.252,-1.554],[-79.25,-1.541],[-79.255,-1.528],[-79.264,-1.52],[-79.296,-1.499],[-79.31,-1.485],[-79.319,-1.468],[-79.322,-1.447],[-79.321,-1.37],[-79.319,-1.359],[-79.314,-1.353],[-79.31,-1.351],[-79.305,-1.352],[-79.3,-1.349],[-79.294,-1.345],[-79.291,-1.34],[-79.292,-1.334],[-79.321,-1.314],[-79.33,-1.296],[-79.337,-1.291],[-79.343,-1.291],[-79.35,-1.297],[-79.362,-1.316],[-79.37,-1.322],[-79.378,-1.326],[-79.385,-1.324],[-79.388,-1.318],[-79.386,-1.306],[-79.37,-1.288],[-79.347,-1.25],[-79.328,-1.225],[-79.281,-1.203],[-79.235,-1.2],[-79.161,-1.163],[-79.138,-1.156],[-79.109,-1.152],[-79.096,-1.153],[-79.082,-1.155],[-79.076,-1.16],[-79.071,-1.167],[-79.064,-1.174],[-79.034,-1.194],[-79.015,-1.203],[-78.991,-1.209],[-78.968,-1.209],[-78.951,-1.203],[-78.924,-1.18],[-78.907,-1.172],[-78.895,-1.17],[-78.866,-1.178]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Bolivar'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Bolivar?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Bolivar located? </h2>Bolivar, is a province It belongs to the country of Ecuador. Its postal identifier is BO.Bolivar has an area of 4098 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

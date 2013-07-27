@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Paktika?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[68.886,33.411],[68.897,33.409],[68.904,33.41],[68.912,33.413],[68.917,33.414],[68.923,33.413],[68.945,33.405],[68.951,33.401],[68.954,33.397],[68.965,33.38],[68.981,33.362],[68.984,33.356],[68.986,33.349],[68.986,33.339],[68.982,33.292],[68.983,33.272],[68.991,33.213],[68.991,33.207],[68.99,33.203],[68.99,33.194],[68.994,33.183],[68.999,33.16],[69.004,33.154],[69.006,33.153],[69.01,33.153],[69.016,33.154],[69.031,33.159],[69.045,33.167],[69.072,33.188],[69.113,33.209],[69.162,33.227],[69.196,33.245],[69.204,33.252],[69.205,33.255],[69.204,33.258],[69.203,33.261],[69.203,33.265],[69.203,33.271],[69.205,33.274],[69.208,33.275],[69.214,33.275],[69.22,33.273],[69.224,33.272],[69.229,33.269],[69.231,33.267],[69.239,33.261],[69.27,33.241],[69.29,33.238],[69.309,33.24],[69.354,33.254],[69.37,33.255],[69.377,33.252],[69.381,33.25],[69.401,33.245],[69.39,33.206],[69.39,33.195],[69.392,33.192],[69.395,33.185],[69.399,33.174],[69.403,33.151],[69.403,33.14],[69.4,33.132],[69.371,33.096],[69.341,33.068],[69.345,33.043],[69.384,33.04],[69.478,33.011],[69.478,33.011],[69.468,32.995],[69.468,32.995],[69.487,32.886],[69.487,32.886],[69.477,32.857],[69.471,32.853],[69.445,32.836],[69.421,32.807],[69.387,32.786],[69.376,32.772],[69.376,32.772],[69.378,32.753],[69.383,32.745],[69.39,32.738],[69.399,32.733],[69.408,32.73],[69.414,32.726],[69.417,32.718],[69.419,32.701],[69.429,32.668],[69.429,32.668],[69.426,32.655],[69.414,32.636],[69.361,32.569],[69.343,32.556],[69.302,32.544],[69.282,32.533],[69.251,32.501],[69.233,32.463],[69.228,32.422],[69.228,32.422],[69.238,32.379],[69.264,32.323],[69.268,32.302],[69.268,32.302],[69.267,32.28],[69.26,32.237],[69.259,32.195],[69.252,32.153],[69.251,32.131],[69.251,32.131],[69.27,32.036],[69.302,31.96],[69.305,31.947],[69.305,31.947],[69.301,31.941],[69.299,31.938],[69.251,31.907],[69.224,31.882],[69.114,31.738],[69.1,31.724],[69.085,31.716],[69.071,31.698],[69.04,31.673],[69.004,31.651],[68.977,31.642],[68.941,31.644],[68.907,31.635],[68.843,31.607],[68.804,31.603],[68.777,31.619],[68.731,31.676],[68.705,31.702],[68.698,31.716],[68.695,31.757],[68.688,31.769],[68.676,31.775],[68.619,31.784],[68.561,31.812],[68.527,31.823],[68.505,31.823],[68.481,31.816],[68.438,31.796],[68.419,31.783],[68.419,31.783],[68.422,31.773],[68.439,31.767],[68.461,31.764],[68.521,31.765],[68.54,31.763],[68.55,31.754],[68.55,31.754],[68.537,31.741],[68.515,31.73],[68.498,31.726],[68.461,31.731],[68.356,31.763],[68.316,31.765],[68.277,31.764],[68.255,31.767],[68.242,31.777],[68.232,31.79],[68.207,31.808],[68.185,31.819],[68.159,31.826],[68.138,31.825],[68.125,31.812],[68.104,31.769],[68.098,31.759],[68.098,31.759],[68.091,31.764],[68.054,31.782],[68.037,31.795],[68.029,31.802],[68.024,31.81],[68.019,31.819],[68.016,31.828],[68.013,31.838],[68.01,31.858],[68.009,31.874],[68.009,31.88],[68.01,31.885],[68.014,31.893],[68.044,31.932],[68.062,31.967],[68.073,31.994],[68.076,32.003],[68.077,32.007],[68.076,32.014],[68.069,32.051],[68.051,32.098],[68.078,32.151],[68.085,32.179],[68.085,32.188],[68.083,32.196],[68.07,32.238],[68.068,32.249],[68.07,32.257],[68.073,32.263],[68.083,32.275],[68.085,32.312],[68.078,32.353],[68.078,32.364],[68.081,32.375],[68.089,32.393],[68.09,32.4],[68.088,32.408],[68.084,32.419],[68.077,32.45],[68.057,32.503],[68.053,32.509],[68.05,32.513],[68.046,32.515],[68.025,32.523],[68.02,32.526],[67.976,32.562],[67.947,32.578],[67.937,32.589],[67.929,32.612],[67.837,32.672],[67.815,32.692],[67.815,32.697],[67.816,32.701],[67.819,32.707],[67.859,32.768],[67.908,32.817],[67.994,32.746],[68.035,32.723],[68.045,32.72],[68.053,32.72],[68.066,32.722],[68.126,32.726],[68.153,32.731],[68.179,32.74],[68.193,32.746],[68.233,32.772],[68.26,32.795],[68.267,32.806],[68.269,32.822],[68.271,32.832],[68.273,32.836],[68.283,32.843],[68.295,32.852],[68.364,32.909],[68.376,32.926],[68.383,32.938],[68.425,32.975],[68.47,33.091],[68.478,33.103],[68.49,33.116],[68.583,33.175],[68.643,33.232],[68.654,33.247],[68.664,33.263],[68.67,33.28],[68.675,33.298],[68.685,33.326],[68.697,33.34],[68.767,33.392],[68.769,33.393],[68.842,33.416],[68.868,33.42],[68.886,33.411]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Paktika'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Paktika?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Paktika located? </h2>Paktika, is a province It belongs to the country of Afghanistan. Its postal identifier is PK.Paktika has an area of 18813 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

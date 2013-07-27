@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Quezaltenango?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-91.519,15.156],[-91.536,15.15],[-91.587,15.131],[-91.59,15.13],[-91.592,15.128],[-91.594,15.12],[-91.589,15.091],[-91.564,15.001],[-91.56,14.986],[-91.553,14.976],[-91.536,14.962],[-91.536,14.95],[-91.538,14.945],[-91.538,14.938],[-91.537,14.932],[-91.521,14.914],[-91.519,14.911],[-91.518,14.909],[-91.511,14.907],[-91.492,14.909],[-91.47,14.91],[-91.462,14.891],[-91.459,14.861],[-91.448,14.851],[-91.428,14.818],[-91.44,14.778],[-91.47,14.74],[-91.511,14.713],[-91.526,14.719],[-91.538,14.72],[-91.545,14.719],[-91.565,14.705],[-91.571,14.702],[-91.576,14.701],[-91.579,14.701],[-91.584,14.702],[-91.59,14.704],[-91.601,14.707],[-91.605,14.707],[-91.607,14.706],[-91.611,14.702],[-91.616,14.694],[-91.618,14.691],[-91.622,14.684],[-91.63,14.676],[-91.634,14.675],[-91.636,14.675],[-91.642,14.679],[-91.648,14.68],[-91.652,14.679],[-91.654,14.677],[-91.657,14.671],[-91.666,14.662],[-91.674,14.662],[-91.68,14.664],[-91.692,14.666],[-91.697,14.669],[-91.7,14.672],[-91.697,14.689],[-91.683,14.722],[-91.681,14.734],[-91.682,14.737],[-91.684,14.739],[-91.687,14.74],[-91.69,14.74],[-91.694,14.74],[-91.697,14.738],[-91.7,14.737],[-91.704,14.734],[-91.712,14.728],[-91.725,14.713],[-91.761,14.697],[-91.768,14.686],[-91.776,14.659],[-91.781,14.649],[-91.799,14.623],[-91.803,14.614],[-91.807,14.605],[-91.81,14.591],[-91.813,14.584],[-91.815,14.58],[-91.825,14.569],[-91.856,14.523],[-91.897,14.514],[-91.927,14.512],[-91.938,14.513],[-91.997,14.538],[-92.001,14.539],[-92.003,14.539],[-92.009,14.536],[-92.017,14.531],[-92.04,14.599],[-92.05,14.616],[-92.052,14.618],[-92.061,14.62],[-92.12,14.626],[-92.125,14.627],[-92.134,14.63],[-92.137,14.633],[-92.138,14.636],[-92.134,14.642],[-92.1,14.68],[-92.072,14.702],[-92.061,14.708],[-92.039,14.712],[-91.951,14.736],[-91.889,14.73],[-91.861,14.728],[-91.851,14.729],[-91.842,14.732],[-91.832,14.738],[-91.819,14.762],[-91.817,14.765],[-91.812,14.77],[-91.799,14.779],[-91.795,14.783],[-91.793,14.787],[-91.792,14.79],[-91.765,14.845],[-91.763,14.848],[-91.756,14.861],[-91.749,14.898],[-91.74,14.91],[-91.738,14.92],[-91.739,14.927],[-91.738,14.931],[-91.736,14.934],[-91.729,14.938],[-91.721,14.942],[-91.692,14.969],[-91.683,14.98],[-91.68,14.99],[-91.673,15.033],[-91.677,15.049],[-91.696,15.065],[-91.708,15.092],[-91.699,15.122],[-91.68,15.149],[-91.662,15.168],[-91.627,15.196],[-91.621,15.202],[-91.616,15.221],[-91.549,15.204],[-91.541,15.198],[-91.542,15.188],[-91.538,15.179],[-91.519,15.156]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Quezaltenango'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Quezaltenango?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Quezaltenango located? </h2>Quezaltenango, is a department It belongs to the country of Guatemala. Its postal identifier is QZ.Quezaltenango has an area of 1915 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

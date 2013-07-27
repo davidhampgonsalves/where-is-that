@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is S.D.?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-96.556,45.942],[-96.563,45.931],[-96.566,45.928],[-96.57,45.922],[-96.572,45.917],[-96.581,45.856],[-96.588,45.839],[-96.608,45.813],[-96.638,45.764],[-96.642,45.759],[-96.65,45.751],[-96.659,45.744],[-96.686,45.729],[-96.759,45.699],[-96.769,45.692],[-96.792,45.674],[-96.83,45.654],[-96.839,45.649],[-96.846,45.643],[-96.859,45.622],[-96.863,45.601],[-96.836,45.576],[-96.787,45.535],[-96.767,45.512],[-96.73,45.451],[-96.708,45.422],[-96.688,45.409],[-96.609,45.403],[-96.566,45.394],[-96.537,45.378],[-96.526,45.369],[-96.503,45.355],[-96.493,45.348],[-96.466,45.31],[-96.459,45.3],[-96.454,45.297],[-96.454,45.296],[-96.454,45.258],[-96.454,45.038],[-96.454,44.818],[-96.454,44.599],[-96.454,44.379],[-96.454,44.159],[-96.454,43.939],[-96.454,43.72],[-96.454,43.5],[-96.595,43.499],[-96.599,43.496],[-96.596,43.49],[-96.593,43.484],[-96.591,43.478],[-96.59,43.471],[-96.592,43.46],[-96.593,43.451],[-96.593,43.442],[-96.588,43.433],[-96.583,43.428],[-96.564,43.412],[-96.557,43.404],[-96.539,43.39],[-96.536,43.386],[-96.533,43.375],[-96.533,43.324],[-96.537,43.299],[-96.539,43.295],[-96.543,43.292],[-96.549,43.29],[-96.555,43.289],[-96.57,43.29],[-96.577,43.289],[-96.58,43.285],[-96.579,43.278],[-96.57,43.267],[-96.563,43.262],[-96.557,43.258],[-96.556,43.255],[-96.559,43.251],[-96.568,43.244],[-96.571,43.239],[-96.572,43.234],[-96.571,43.229],[-96.565,43.223],[-96.557,43.221],[-96.549,43.221],[-96.533,43.221],[-96.51,43.218],[-96.503,43.218],[-96.493,43.219],[-96.487,43.219],[-96.481,43.217],[-96.477,43.213],[-96.474,43.208],[-96.471,43.197],[-96.462,43.154],[-96.459,43.144],[-96.456,43.136],[-96.455,43.13],[-96.455,43.122],[-96.466,43.082],[-96.47,43.075],[-96.474,43.069],[-96.507,43.045],[-96.509,43.041],[-96.509,43.035],[-96.505,43.029],[-96.501,43.026],[-96.5,43.023],[-96.499,43.018],[-96.501,43.011],[-96.508,42.997],[-96.512,42.992],[-96.513,42.991],[-96.513,42.989],[-96.512,42.985],[-96.511,42.966],[-96.515,42.954],[-96.519,42.948],[-96.537,42.932],[-96.539,42.93],[-96.54,42.923],[-96.542,42.896],[-96.544,42.888],[-96.546,42.884],[-96.55,42.881],[-96.555,42.877],[-96.557,42.873],[-96.559,42.867],[-96.559,42.854],[-96.561,42.848],[-96.563,42.845],[-96.567,42.843],[-96.583,42.838],[-96.586,42.836],[-96.59,42.833],[-96.594,42.83],[-96.597,42.825],[-96.6,42.82],[-96.602,42.815],[-96.604,42.809],[-96.607,42.805],[-96.623,42.788],[-96.631,42.774],[-96.635,42.765],[-96.638,42.751],[-96.636,42.743],[-96.631,42.732],[-96.615,42.714],[-96.605,42.706],[-96.598,42.7],[-96.544,42.67],[-96.535,42.664],[-96.527,42.657],[-96.524,42.653],[-96.523,42.649],[-96.526,42.645],[-96.537,42.638],[-96.538,42.637],[-96.541,42.633],[-96.542,42.63],[-96.54,42.627],[-96.523,42.62],[-96.518,42.617],[-96.514,42.613],[-96.51,42.609],[-96.504,42.6],[-96.501,42.594],[-96.5,42.588],[-96.5,42.58],[-96.499,42.574],[-96.495,42.568],[-96.489,42.566],[-96.482,42.554],[-96.483,42.518],[-96.611,42.534],[-96.629,42.543],[-96.639,42.556],[-96.643,42.576],[-96.652,42.592],[-96.694,42.615],[-96.705,42.627],[-96.706,42.64],[-96.701,42.648],[-96.695,42.655],[-96.692,42.665],[-96.697,42.672],[-96.709,42.677],[-96.723,42.681],[-96.733,42.682],[-96.775,42.68],[-96.787,42.682],[-96.799,42.687],[-96.805,42.692],[-96.808,42.699],[-96.815,42.709],[-96.826,42.721],[-96.839,42.732],[-96.857,42.74],[-96.947,42.745],[-96.965,42.75],[-96.976,42.757],[-96.983,42.764],[-96.992,42.769],[-97.019,42.773],[-97.041,42.782],[-97.051,42.784],[-97.104,42.785],[-97.127,42.79],[-97.15,42.798],[-97.172,42.81],[-97.208,42.835],[-97.238,42.864],[-97.255,42.876],[-97.276,42.884],[-97.301,42.887],[-97.5,42.86],[-97.527,42.86],[-97.6,42.873],[-97.622,42.87],[-97.661,42.854],[-97.685,42.853],[-97.696,42.856],[-97.717,42.865],[-97.729,42.867],[-97.77,42.86],[-97.839,42.872],[-97.864,42.867],[-97.875,42.863],[-97.887,42.858],[-97.895,42.849],[-97.898,42.836],[-97.911,42.809],[-97.915,42.805],[-97.921,42.802],[-97.942,42.788],[-97.953,42.784],[-97.98,42.782],[-98.007,42.784],[-98.078,42.803],[-98.09,42.808],[-98.094,42.82],[-98.105,42.828],[-98.243,42.872],[-98.284,42.9],[-98.326,42.921],[-98.331,42.922],[-98.343,42.922],[-98.349,42.923],[-98.454,42.975],[-98.462,42.98],[-98.482,42.998],[-98.485,43],[-98.491,43],[-98.577,43],[-98.747,43],[-98.918,43],[-99.088,43],[-99.259,43],[-99.429,43],[-99.599,43],[-99.77,43],[-99.94,43],[-100.11,43],[-100.281,43],[-100.451,43],[-100.621,43],[-100.792,43],[-100.962,43],[-101.133,43],[-101.303,43],[-101.473,43],[-101.644,43],[-101.814,43],[-101.984,43],[-102.155,43],[-102.325,43],[-102.496,43],[-102.666,43],[-102.836,43],[-103.007,43],[-103.177,43],[-103.347,43],[-103.518,43],[-103.688,43],[-103.858,43],[-104.029,43],[-104.029,43.125],[-104.03,43.25],[-104.03,43.375],[-104.031,43.5],[-104.031,43.625],[-104.032,43.75],[-104.032,43.875],[-104.033,44],[-104.034,44.125],[-104.034,44.25],[-104.035,44.375],[-104.035,44.5],[-104.036,44.625],[-104.036,44.75],[-104.037,44.875],[-104.037,45],[-104.005,45],[-104.005,45.012],[-104.005,45.074],[-104.006,45.183],[-104.007,45.291],[-104.007,45.4],[-104.008,45.508],[-104.009,45.617],[-104.01,45.725],[-104.01,45.834],[-104.011,45.942],[-103.778,45.942],[-103.545,45.942],[-103.312,45.942],[-103.079,45.942],[-102.846,45.942],[-102.613,45.942],[-102.38,45.942],[-102.147,45.942],[-101.914,45.942],[-101.681,45.942],[-101.449,45.942],[-101.216,45.942],[-100.983,45.942],[-100.75,45.942],[-100.517,45.942],[-100.284,45.942],[-100.051,45.942],[-99.818,45.942],[-99.585,45.942],[-99.352,45.942],[-99.119,45.942],[-98.886,45.942],[-98.653,45.942],[-98.42,45.942],[-98.187,45.942],[-97.954,45.942],[-97.721,45.942],[-97.488,45.942],[-97.255,45.942],[-97.022,45.942],[-96.789,45.942],[-96.556,45.942]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'S.D.'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>S.D.?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is S.D. located? </h2>S.D., is a state It belongs to the country of United States of America. Its abbreviated name is S.D. and its postal identifier is SD.S.D. has an area of 198633 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

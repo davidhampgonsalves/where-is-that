@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ngöbe Buglé?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-81.842,9.138],[-81.819,9.121],[-81.815,9.117],[-81.816,9.108],[-81.824,9.105],[-81.834,9.107],[-81.842,9.11],[-81.842,9.104],[-81.834,9.094],[-81.827,9.071],[-81.821,9.062],[-81.815,9.058],[-81.804,9.056],[-81.777,9.055],[-81.767,9.052],[-81.737,9.037],[-81.726,9.028],[-81.706,8.999],[-81.702,8.994],[-81.688,8.984],[-81.628,8.899],[-81.587,8.856],[-81.568,8.843],[-81.562,8.834],[-81.551,8.823],[-81.539,8.813],[-81.53,8.809],[-81.522,8.807],[-81.513,8.797],[-81.506,8.794],[-81.496,8.795],[-81.476,8.802],[-81.419,8.788],[-81.4,8.794],[-81.379,8.791],[-81.358,8.785],[-81.348,8.778],[-81.333,8.777],[-81.232,8.788],[-81.216,8.788],[-81.216,8.783],[-81.223,8.758],[-81.211,8.684],[-81.215,8.623],[-81.211,8.586],[-81.205,8.565],[-81.196,8.552],[-81.188,8.544],[-81.184,8.536],[-81.18,8.527],[-81.172,8.511],[-81.156,8.496],[-81.184,8.489],[-81.192,8.489],[-81.203,8.492],[-81.225,8.501],[-81.266,8.512],[-81.282,8.522],[-81.329,8.558],[-81.337,8.56],[-81.363,8.555],[-81.411,8.559],[-81.415,8.568],[-81.421,8.572],[-81.432,8.577],[-81.463,8.584],[-81.489,8.597],[-81.49,8.556],[-81.499,8.516],[-81.523,8.46],[-81.526,8.444],[-81.527,8.429],[-81.522,8.379],[-81.522,8.379],[-81.548,8.386],[-81.592,8.372],[-81.61,8.348],[-81.624,8.314],[-81.634,8.297],[-81.656,8.282],[-81.68,8.277],[-81.69,8.297],[-81.705,8.295],[-81.716,8.278],[-81.732,8.262],[-81.784,8.264],[-81.813,8.287],[-81.83,8.318],[-81.856,8.327],[-81.949,8.328],[-81.997,8.34],[-82.018,8.371],[-82.021,8.402],[-82.037,8.418],[-82.053,8.447],[-82.064,8.461],[-82.074,8.467],[-82.084,8.464],[-82.1,8.458],[-82.133,8.449],[-82.164,8.449],[-82.18,8.458],[-82.175,8.482],[-82.143,8.557],[-82.153,8.569],[-82.157,8.59],[-82.149,8.619],[-82.14,8.704],[-82.153,8.763],[-82.155,8.763],[-82.196,8.772],[-82.204,8.772],[-82.218,8.77],[-82.224,8.769],[-82.251,8.772],[-82.282,8.777],[-82.3,8.782],[-82.318,8.791],[-82.361,8.808],[-82.363,8.809],[-82.355,8.827],[-82.348,8.857],[-82.338,8.889],[-82.331,8.904],[-82.335,8.925],[-82.348,8.949],[-82.37,8.968],[-82.408,8.981],[-82.428,8.989],[-82.44,9],[-82.427,9.013],[-82.393,9.026],[-82.38,9.039],[-82.353,9.062],[-82.352,9.086],[-82.338,9.113],[-82.323,9.128],[-82.314,9.126],[-82.31,9.114],[-82.316,9.099],[-82.308,9.092],[-82.288,9.084],[-82.28,9.081],[-82.29,9.067],[-82.303,9.051],[-82.318,9.039],[-82.323,9.024],[-82.322,9.009],[-82.301,9.002],[-82.28,8.998],[-82.273,8.987],[-82.262,8.977],[-82.226,8.97],[-82.202,8.955],[-82.196,8.942],[-82.2,8.925],[-82.211,8.917],[-82.209,8.899],[-82.196,8.891],[-82.192,8.882],[-82.187,8.856],[-82.179,8.844],[-82.17,8.848],[-82.164,8.871],[-82.151,8.891],[-82.132,8.901],[-82.102,8.903],[-82.061,8.903],[-82.035,8.908],[-82.016,8.919],[-82.008,8.942],[-82.007,8.947],[-81.998,8.947],[-81.985,8.942],[-81.975,8.935],[-81.959,8.932],[-81.944,8.935],[-81.929,8.944],[-81.921,8.955],[-81.924,8.966],[-81.912,8.971],[-81.904,8.971],[-81.89,8.966],[-81.888,8.963],[-81.878,8.954],[-81.867,8.949],[-81.862,8.956],[-81.852,8.958],[-81.793,8.932],[-81.776,8.94],[-81.771,8.957],[-81.774,8.997],[-81.842,9.035],[-81.877,9.087],[-81.886,9.096],[-81.899,9.102],[-81.918,9.115],[-81.933,9.129],[-81.937,9.138],[-81.922,9.138],[-81.897,9.132],[-81.873,9.129],[-81.862,9.142],[-81.895,9.157],[-81.91,9.168],[-81.903,9.179],[-81.883,9.179],[-81.865,9.167],[-81.842,9.138]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Ngöbe Buglé'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Ngöbe Buglé?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Ngöbe Buglé located? </h2>Ngöbe Buglé, is a indigenous territory It belongs to the country of Panama. Its postal identifier is NB.Ngöbe Buglé has an area of 6093 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Latgale?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[27.243,56.789],[27.236,56.757],[27.259,56.716],[27.3,56.69],[27.332,56.677],[27.349,56.674],[27.418,56.692],[27.455,56.699],[27.464,56.699],[27.486,56.693],[27.48,56.681],[27.47,56.674],[27.472,56.663],[27.476,56.658],[27.488,56.653],[27.502,56.656],[27.512,56.655],[27.525,56.652],[27.542,56.645],[27.552,56.637],[27.58,56.619],[27.561,56.6],[27.561,56.576],[27.574,56.557],[27.567,56.542],[27.551,56.535],[27.538,56.532],[27.525,56.529],[27.507,56.528],[27.494,56.521],[27.487,56.515],[27.486,56.509],[27.487,56.499],[27.495,56.488],[27.496,56.478],[27.509,56.46],[27.55,56.479],[27.559,56.464],[27.56,56.457],[27.572,56.443],[27.582,56.434],[27.59,56.428],[27.592,56.424],[27.591,56.422],[27.596,56.419],[27.603,56.419],[27.608,56.42],[27.622,56.421],[27.62,56.407],[27.624,56.401],[27.622,56.392],[27.64,56.379],[27.67,56.372],[27.69,56.361],[27.69,56.355],[27.688,56.347],[27.69,56.332],[27.699,56.322],[27.711,56.311],[27.715,56.298],[27.687,56.276],[27.687,56.263],[27.694,56.261],[27.699,56.258],[27.7,56.255],[27.693,56.25],[27.684,56.247],[27.668,56.24],[27.652,56.25],[27.568,56.242],[27.552,56.245],[27.548,56.248],[27.535,56.261],[27.528,56.257],[27.524,56.248],[27.509,56.241],[27.489,56.235],[27.467,56.233],[27.447,56.23],[27.441,56.224],[27.448,56.209],[27.421,56.211],[27.412,56.207],[27.339,56.21],[27.296,56.203],[27.173,56.208],[27.162,56.211],[27.151,56.208],[27.126,56.196],[27.102,56.189],[27.1,56.186],[27.098,56.182],[27.098,56.18],[27.102,56.171],[27.078,56.171],[27.054,56.173],[27.044,56.176],[27.038,56.18],[27.035,56.187],[27.036,56.198],[27.034,56.208],[27.029,56.215],[27.016,56.224],[27.002,56.231],[26.997,56.239],[26.989,56.248],[26.986,56.263],[26.96,56.284],[26.949,56.298],[26.947,56.304],[26.944,56.313],[26.951,56.32],[26.976,56.32],[26.991,56.331],[26.966,56.359],[26.952,56.373],[26.898,56.411],[26.9,56.418],[26.91,56.425],[26.915,56.433],[26.925,56.448],[26.933,56.455],[26.95,56.458],[26.958,56.461],[26.953,56.477],[26.902,56.479],[26.866,56.486],[26.858,56.493],[26.847,56.496],[26.833,56.495],[26.82,56.496],[26.808,56.498],[26.801,56.507],[26.775,56.512],[26.826,56.524],[26.816,56.54],[26.771,56.556],[26.744,56.559],[26.729,56.578],[26.737,56.587],[26.75,56.596],[26.789,56.607],[26.792,56.61],[26.789,56.615],[26.78,56.621],[26.777,56.633],[26.781,56.645],[26.778,56.656],[26.778,56.664],[26.771,56.677],[26.773,56.681],[26.783,56.707],[26.908,56.818],[26.928,56.831],[26.966,56.81],[26.984,56.806],[27.018,56.807],[27.032,56.801],[27.058,56.8],[27.068,56.805],[27.096,56.809],[27.121,56.811],[27.133,56.808],[27.161,56.811],[27.186,56.794],[27.243,56.789]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Latgale'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Latgale?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Latgale located? </h2>Latgale, is a province It belongs to the country of Latvia. Its postal identifier is L.Latgale has an area of 2665 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

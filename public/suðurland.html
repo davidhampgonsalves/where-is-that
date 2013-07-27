@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Suðurland?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[-20.27,63.409],[-20.28,63.403],[-20.287,63.406],[-20.292,63.415],[-20.298,63.423],[-20.306,63.435],[-20.303,63.446],[-20.283,63.451],[-20.259,63.451],[-20.257,63.45],[-20.262,63.445],[-20.258,63.441],[-20.253,63.43],[-20.26,63.419],[-20.27,63.409]]],[[[-18.134,64.294],[-18.146,64.292],[-18.208,64.293],[-18.263,64.283],[-18.313,64.267],[-18.611,64.135],[-18.625,64.132],[-18.653,64.132],[-18.668,64.13],[-18.674,64.126],[-18.678,64.122],[-18.679,64.118],[-18.683,64.114],[-18.697,64.104],[-18.7,64.101],[-18.796,64.055],[-18.803,64.048],[-18.828,64.032],[-18.851,64.022],[-18.915,63.981],[-18.922,63.974],[-18.928,63.968],[-18.929,63.962],[-18.927,63.956],[-18.928,63.949],[-18.932,63.94],[-18.959,63.917],[-18.966,63.909],[-18.966,63.9],[-18.961,63.894],[-18.934,63.874],[-18.926,63.866],[-18.921,63.857],[-18.919,63.847],[-18.918,63.835],[-18.92,63.825],[-18.924,63.813],[-18.929,63.802],[-18.935,63.792],[-18.953,63.772],[-19.006,63.733],[-19.062,63.698],[-19.14,63.662],[-19.362,63.593],[-19.371,63.589],[-19.376,63.584],[-19.378,63.579],[-19.385,63.548],[-19.387,63.543],[-19.39,63.539],[-19.398,63.53],[-19.401,63.525],[-19.405,63.507],[-19.409,63.496],[-19.41,63.49],[-19.411,63.484],[-19.411,63.479],[-19.407,63.464],[-19.434,63.467],[-19.551,63.502],[-19.711,63.522],[-19.743,63.534],[-19.73,63.536],[-19.722,63.539],[-19.723,63.544],[-19.736,63.549],[-19.748,63.549],[-19.765,63.543],[-19.777,63.541],[-19.873,63.549],[-19.87,63.544],[-19.77,63.534],[-20.034,63.542],[-20.051,63.555],[-20.055,63.554],[-20.058,63.552],[-20.06,63.551],[-20.064,63.549],[-20.069,63.553],[-20.072,63.554],[-20.078,63.555],[-20.071,63.541],[-20.148,63.54],[-20.186,63.545],[-20.338,63.602],[-20.353,63.61],[-20.338,63.604],[-20.322,63.602],[-20.306,63.604],[-20.29,63.61],[-20.303,63.611],[-20.326,63.616],[-20.339,63.617],[-20.334,63.632],[-20.332,63.637],[-20.35,63.625],[-20.367,63.62],[-20.385,63.622],[-20.407,63.631],[-20.407,63.637],[-20.373,63.631],[-20.386,63.646],[-20.405,63.655],[-20.424,63.662],[-20.442,63.672],[-20.458,63.688],[-20.467,63.7],[-20.479,63.706],[-20.503,63.706],[-20.503,63.699],[-20.469,63.677],[-20.448,63.661],[-20.434,63.644],[-20.501,63.671],[-20.531,63.689],[-20.551,63.712],[-20.547,63.714],[-20.537,63.72],[-20.544,63.725],[-20.558,63.74],[-20.53,63.755],[-20.498,63.763],[-20.431,63.768],[-20.399,63.761],[-20.344,63.735],[-20.311,63.733],[-20.328,63.743],[-20.352,63.761],[-20.366,63.768],[-20.442,63.788],[-20.412,63.813],[-20.407,63.822],[-20.411,63.836],[-20.422,63.84],[-20.431,63.836],[-20.428,63.829],[-20.428,63.822],[-20.44,63.813],[-20.483,63.788],[-20.511,63.773],[-20.53,63.764],[-20.554,63.761],[-20.562,63.757],[-20.563,63.747],[-20.562,63.736],[-20.565,63.726],[-20.572,63.716],[-20.577,63.714],[-20.622,63.726],[-20.666,63.743],[-20.7,63.75],[-20.77,63.775],[-20.705,63.775],[-20.693,63.772],[-20.669,63.762],[-20.654,63.761],[-20.652,63.767],[-20.639,63.768],[-20.606,63.768],[-20.606,63.775],[-20.634,63.775],[-20.634,63.781],[-20.63,63.782],[-20.623,63.781],[-20.619,63.781],[-20.619,63.788],[-20.69,63.78],[-20.716,63.781],[-20.716,63.788],[-20.682,63.807],[-20.672,63.838],[-20.685,63.863],[-20.701,63.866],[-20.704,63.869],[-20.702,63.891],[-20.7,63.895],[-20.695,63.905],[-20.692,63.908],[-20.689,63.912],[-20.684,63.918],[-20.674,63.924],[-20.66,63.931],[-20.651,63.933],[-20.614,63.936],[-20.577,63.942],[-20.572,63.942],[-20.564,63.943],[-20.555,63.946],[-20.512,63.972],[-20.51,63.975],[-20.508,63.979],[-20.505,63.986],[-20.504,63.994],[-20.502,64],[-20.502,64.001],[-20.501,64.001],[-20.488,64.005],[-20.434,64.014],[-20.402,64.022],[-20.322,64.027],[-20.315,64.025],[-20.309,64.023],[-20.304,64.02],[-20.298,64.018],[-20.291,64.017],[-20.283,64.017],[-20.25,64.021],[-20.216,64.02],[-20.205,64.022],[-20.092,64.052],[-20.044,64.06],[-19.958,64.087],[-19.938,64.092],[-19.923,64.093],[-19.916,64.092],[-19.853,64.09],[-19.848,64.088],[-19.848,64.085],[-19.85,64.082],[-19.851,64.079],[-19.852,64.075],[-19.85,64.072],[-19.845,64.069],[-19.838,64.068],[-19.811,64.069],[-19.778,64.074],[-19.767,64.085],[-19.736,64.123],[-19.702,64.144],[-19.636,64.163],[-19.595,64.169],[-19.551,64.186],[-19.531,64.202],[-19.486,64.219],[-19.398,64.235],[-19.376,64.242],[-19.368,64.247],[-19.359,64.254],[-19.349,64.266],[-19.343,64.272],[-19.322,64.291],[-19.287,64.314],[-19.268,64.323],[-19.201,64.341],[-19.155,64.361],[-19.149,64.365],[-19.143,64.374],[-19.132,64.384],[-19.118,64.4],[-19.111,64.404],[-19.099,64.409],[-19.039,64.428],[-19.03,64.433],[-19.005,64.452],[-18.998,64.455],[-18.913,64.473],[-18.906,64.476],[-18.9,64.48],[-18.892,64.488],[-18.891,64.493],[-18.892,64.497],[-18.899,64.504],[-18.902,64.508],[-18.903,64.511],[-18.901,64.515],[-18.896,64.518],[-18.888,64.522],[-18.823,64.533],[-18.792,64.542],[-18.777,64.55],[-18.749,64.555],[-18.73,64.557],[-18.723,64.558],[-18.715,64.562],[-18.707,64.567],[-18.695,64.577],[-18.677,64.587],[-18.637,64.599],[-18.629,64.603],[-18.621,64.608],[-18.603,64.623],[-18.596,64.631],[-18.591,64.635],[-18.584,64.638],[-18.464,64.672],[-18.456,64.675],[-18.448,64.68],[-18.439,64.691],[-18.435,64.697],[-18.43,64.702],[-18.424,64.705],[-18.41,64.712],[-18.395,64.726],[-18.393,64.731],[-18.392,64.739],[-18.385,64.758],[-18.379,64.762],[-18.369,64.766],[-18.31,64.779],[-18.3,64.783],[-18.281,64.799],[-18.268,64.807],[-18.234,64.818],[-17.948,64.747],[-17.443,64.619],[-18.134,64.294]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Suðurland'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Suðurland?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Suðurland located? </h2>Suðurland, is a region of the Suðurland region. It belongs to the country of Iceland. Its postal identifier is SL.Suðurland has an area of 8306 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

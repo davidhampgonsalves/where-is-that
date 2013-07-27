@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Louth?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-6.339,54.103],[-6.328,54.098],[-6.314,54.1],[-6.3,54.104],[-6.285,54.106],[-6.27,54.098],[-6.27,54.098],[-6.207,54.062],[-6.191,54.057],[-6.184,54.054],[-6.17,54.04],[-6.164,54.037],[-6.142,54.035],[-6.134,54.033],[-6.126,54.03],[-6.107,54.014],[-6.111,54.001],[-6.143,53.979],[-6.161,53.975],[-6.185,53.98],[-6.209,53.989],[-6.223,53.996],[-6.237,53.994],[-6.307,54.012],[-6.36,54.016],[-6.36,54.009],[-6.348,54.004],[-6.354,53.994],[-6.366,53.981],[-6.373,53.965],[-6.378,53.935],[-6.379,53.917],[-6.373,53.899],[-6.351,53.882],[-6.317,53.871],[-6.243,53.865],[-6.243,53.858],[-6.254,53.84],[-6.255,53.822],[-6.245,53.807],[-6.223,53.796],[-6.243,53.783],[-6.248,53.756],[-6.246,53.73],[-6.251,53.728],[-6.309,53.716],[-6.318,53.715],[-6.415,53.718],[-6.442,53.716],[-6.448,53.717],[-6.454,53.72],[-6.46,53.73],[-6.461,53.736],[-6.46,53.74],[-6.457,53.743],[-6.444,53.755],[-6.442,53.758],[-6.442,53.761],[-6.446,53.765],[-6.456,53.768],[-6.464,53.769],[-6.498,53.769],[-6.501,53.769],[-6.507,53.772],[-6.526,53.783],[-6.535,53.794],[-6.538,53.797],[-6.543,53.8],[-6.552,53.802],[-6.559,53.805],[-6.564,53.813],[-6.571,53.825],[-6.582,53.838],[-6.584,53.841],[-6.584,53.845],[-6.584,53.853],[-6.584,53.857],[-6.586,53.861],[-6.587,53.864],[-6.607,53.875],[-6.684,53.905],[-6.633,53.924],[-6.632,53.924],[-6.63,53.929],[-6.63,53.934],[-6.635,53.938],[-6.638,53.942],[-6.638,53.944],[-6.639,53.947],[-6.639,53.95],[-6.639,53.951],[-6.638,53.955],[-6.637,53.959],[-6.633,53.964],[-6.631,53.966],[-6.618,53.976],[-6.615,53.977],[-6.609,53.98],[-6.607,53.98],[-6.601,53.982],[-6.595,53.981],[-6.591,53.98],[-6.582,53.975],[-6.577,53.974],[-6.57,53.974],[-6.563,53.975],[-6.559,53.977],[-6.557,53.978],[-6.553,53.983],[-6.551,53.988],[-6.551,53.992],[-6.553,53.997],[-6.554,53.998],[-6.554,54],[-6.554,54],[-6.554,54],[-6.554,54.001],[-6.553,54.004],[-6.553,54.012],[-6.554,54.015],[-6.561,54.029],[-6.563,54.032],[-6.566,54.035],[-6.567,54.036],[-6.57,54.038],[-6.579,54.041],[-6.594,54.043],[-6.606,54.045],[-6.606,54.045],[-6.601,54.049],[-6.601,54.049],[-6.596,54.053],[-6.588,54.054],[-6.572,54.05],[-6.564,54.049],[-6.479,54.068],[-6.451,54.069],[-6.451,54.067],[-6.447,54.063],[-6.441,54.058],[-6.434,54.056],[-6.427,54.056],[-6.401,54.061],[-6.378,54.064],[-6.372,54.067],[-6.372,54.067],[-6.367,54.076],[-6.368,54.084],[-6.37,54.091],[-6.369,54.098],[-6.355,54.111],[-6.355,54.111],[-6.347,54.11],[-6.339,54.103]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Louth'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Louth?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Louth located? </h2>Louth, is a county It belongs to the country of Ireland. Its postal identifier is LH.Louth has an area of 789 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Wardag?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[68.863,34.622],[68.85,34.588],[68.852,34.565],[68.842,34.532],[68.84,34.505],[68.842,34.493],[68.846,34.484],[68.85,34.478],[68.854,34.469],[68.86,34.456],[68.863,34.45],[68.867,34.446],[68.873,34.444],[68.905,34.437],[68.912,34.434],[68.946,34.413],[68.964,34.364],[68.969,34.349],[68.943,34.324],[68.923,34.299],[68.894,34.241],[68.88,34.233],[68.859,34.217],[68.841,34.197],[68.82,34.159],[68.81,34.125],[68.807,34.089],[68.812,34.078],[68.821,34.066],[68.844,34.049],[68.857,34.042],[68.867,34.034],[68.872,34.03],[68.886,34],[68.888,33.995],[68.888,33.993],[68.887,33.989],[68.883,33.986],[68.874,33.983],[68.826,33.975],[68.811,33.97],[68.798,33.964],[68.774,33.947],[68.762,33.934],[68.749,33.913],[68.746,33.91],[68.747,33.909],[68.748,33.906],[68.759,33.895],[68.762,33.886],[68.764,33.878],[68.757,33.842],[68.75,33.828],[68.745,33.822],[68.712,33.79],[68.688,33.771],[68.646,33.727],[68.639,33.722],[68.554,33.681],[68.546,33.678],[68.529,33.676],[68.519,33.676],[68.479,33.685],[68.466,33.689],[68.457,33.694],[68.454,33.697],[68.452,33.699],[68.451,33.706],[68.451,33.714],[68.456,33.731],[68.464,33.751],[68.465,33.759],[68.465,33.764],[68.456,33.787],[68.434,33.786],[68.425,33.784],[68.415,33.783],[68.41,33.784],[68.404,33.786],[68.398,33.791],[68.312,33.866],[68.308,33.871],[68.294,33.884],[68.246,33.909],[68.236,33.923],[68.23,33.927],[68.168,33.948],[68.155,33.951],[68.145,33.956],[68.138,33.973],[68.137,33.987],[68.129,34.012],[68.126,34.022],[68.125,34.031],[68.127,34.038],[68.127,34.045],[68.126,34.052],[68.123,34.063],[68.122,34.072],[68.121,34.08],[68.123,34.095],[68.122,34.102],[68.112,34.147],[68.107,34.157],[68.099,34.167],[68.069,34.19],[68.054,34.199],[68.032,34.203],[68.018,34.195],[68.015,34.193],[68.008,34.19],[68.002,34.188],[67.988,34.178],[67.959,34.166],[67.896,34.147],[67.88,34.145],[67.867,34.144],[67.821,34.147],[67.808,34.15],[67.797,34.154],[67.771,34.174],[67.74,34.192],[67.703,34.204],[67.673,34.209],[67.648,34.208],[67.58,34.196],[67.572,34.194],[67.563,34.19],[67.55,34.182],[67.543,34.176],[67.539,34.171],[67.533,34.149],[67.531,34.145],[67.527,34.142],[67.495,34.134],[67.479,34.133],[67.431,34.139],[67.413,34.152],[67.409,34.161],[67.409,34.172],[67.416,34.192],[67.422,34.2],[67.429,34.206],[67.51,34.232],[67.514,34.234],[67.516,34.238],[67.521,34.247],[67.524,34.253],[67.538,34.269],[67.548,34.278],[67.545,34.283],[67.533,34.291],[67.434,34.328],[67.422,34.331],[67.39,34.334],[67.384,34.336],[67.38,34.339],[67.381,34.344],[67.383,34.348],[67.405,34.358],[67.413,34.36],[67.417,34.362],[67.421,34.364],[67.425,34.367],[67.427,34.371],[67.428,34.376],[67.428,34.383],[67.428,34.389],[67.425,34.396],[67.42,34.403],[67.41,34.409],[67.401,34.411],[67.39,34.412],[67.347,34.41],[67.277,34.415],[67.27,34.418],[67.263,34.421],[67.256,34.425],[67.251,34.431],[67.248,34.439],[67.248,34.452],[67.255,34.468],[67.26,34.478],[67.265,34.485],[67.27,34.491],[67.275,34.495],[67.281,34.498],[67.288,34.5],[67.314,34.502],[67.32,34.504],[67.325,34.506],[67.342,34.517],[67.346,34.521],[67.347,34.527],[67.349,34.545],[67.346,34.552],[67.341,34.559],[67.311,34.58],[67.3,34.593],[67.29,34.62],[67.296,34.631],[67.299,34.635],[67.309,34.639],[67.317,34.642],[67.373,34.648],[67.46,34.662],[67.467,34.665],[67.495,34.679],[67.501,34.681],[67.507,34.681],[67.516,34.68],[67.528,34.677],[67.547,34.67],[67.555,34.665],[67.56,34.66],[67.565,34.656],[67.573,34.654],[67.604,34.651],[67.623,34.647],[67.639,34.644],[67.668,34.644],[67.706,34.648],[67.729,34.645],[67.913,34.602],[67.974,34.596],[67.997,34.635],[68.002,34.648],[68.006,34.653],[68.026,34.672],[68.032,34.68],[68.039,34.686],[68.046,34.69],[68.058,34.692],[68.067,34.692],[68.074,34.69],[68.085,34.685],[68.093,34.688],[68.104,34.695],[68.125,34.714],[68.139,34.734],[68.168,34.751],[68.283,34.8],[68.289,34.782],[68.291,34.762],[68.295,34.75],[68.3,34.742],[68.351,34.699],[68.356,34.69],[68.359,34.682],[68.361,34.667],[68.367,34.638],[68.37,34.633],[68.375,34.629],[68.381,34.627],[68.4,34.625],[68.407,34.625],[68.412,34.628],[68.42,34.635],[68.426,34.638],[68.442,34.642],[68.473,34.655],[68.532,34.686],[68.546,34.691],[68.556,34.692],[68.63,34.677],[68.644,34.671],[68.661,34.667],[68.666,34.666],[68.67,34.664],[68.688,34.652],[68.703,34.648],[68.716,34.646],[68.746,34.648],[68.754,34.647],[68.769,34.641],[68.804,34.633],[68.834,34.621],[68.85,34.619],[68.863,34.622]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Wardag'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Wardag?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Wardag located? </h2>Wardag, is a province It belongs to the country of Afghanistan. Its postal identifier is VR.Wardag has an area of 10158 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

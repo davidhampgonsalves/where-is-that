@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Edo?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[6.677,6.535],[6.646,6.497],[6.617,6.488],[6.582,6.494],[6.546,6.493],[6.485,6.467],[6.364,6.395],[6.269,6.356],[6.243,6.339],[6.201,6.287],[6.173,6.288],[6.153,6.32],[6.128,6.346],[6.094,6.349],[6.07,6.328],[6.056,6.299],[6.053,6.264],[6.085,6.208],[6.088,6.174],[6.1,6.135],[6.131,6.084],[6.19,6.029],[6.209,6.025],[6.222,6.014],[6.222,5.975],[6.211,5.937],[6.169,5.889],[6.114,5.847],[6.073,5.799],[6.021,5.762],[5.923,5.741],[5.906,5.74],[5.889,5.746],[5.887,5.762],[5.891,5.774],[5.886,5.785],[5.875,5.795],[5.87,5.807],[5.892,5.842],[5.896,5.878],[5.868,5.899],[5.835,5.918],[5.78,5.977],[5.663,6.04],[5.602,6.037],[5.546,6.003],[5.54,5.99],[5.53,5.982],[5.52,5.984],[5.502,5.991],[5.463,6.019],[5.426,6.021],[5.396,6.016],[5.331,6.02],[5.321,5.995],[5.326,5.962],[5.269,5.913],[5.251,5.906],[5.231,5.921],[5.223,5.973],[5.232,6.039],[5.185,6.093],[5.115,6.127],[5.116,6.158],[5.097,6.187],[5.086,6.195],[5.074,6.201],[5.062,6.201],[5.053,6.204],[5.05,6.218],[5.029,6.242],[5.005,6.263],[4.985,6.275],[4.979,6.284],[4.981,6.292],[4.987,6.299],[4.994,6.311],[4.999,6.34],[5.012,6.362],[5.034,6.369],[5.06,6.382],[5.074,6.407],[5.081,6.437],[5.097,6.462],[5.121,6.514],[5.103,6.567],[5.086,6.594],[5.077,6.598],[5.072,6.606],[5.072,6.638],[5.076,6.652],[5.08,6.684],[5.091,6.705],[5.122,6.743],[5.158,6.777],[5.171,6.805],[5.187,6.826],[5.187,6.851],[5.199,6.865],[5.216,6.872],[5.496,6.872],[5.542,6.836],[5.525,6.811],[5.515,6.783],[5.541,6.717],[5.563,6.72],[5.613,6.76],[5.641,6.758],[5.654,6.746],[5.686,6.739],[5.703,6.744],[5.714,6.752],[5.728,6.776],[5.733,6.789],[5.744,6.853],[5.754,6.878],[5.777,6.884],[5.776,6.899],[5.781,6.906],[5.785,6.908],[5.789,6.917],[5.786,6.93],[5.771,6.96],[5.774,6.995],[5.786,7.031],[5.813,7.059],[5.827,7.076],[5.832,7.1],[5.878,7.205],[5.876,7.215],[5.877,7.228],[5.898,7.253],[5.923,7.274],[5.939,7.285],[5.953,7.299],[5.962,7.332],[5.959,7.354],[5.953,7.368],[5.949,7.399],[5.96,7.42],[5.955,7.438],[5.925,7.457],[5.935,7.492],[5.948,7.504],[5.975,7.51],[5.987,7.516],[6.01,7.543],[6.028,7.573],[6.046,7.564],[6.066,7.568],[6.083,7.558],[6.079,7.538],[6.111,7.527],[6.119,7.505],[6.108,7.461],[6.132,7.427],[6.178,7.428],[6.225,7.447],[6.245,7.459],[6.264,7.463],[6.275,7.446],[6.289,7.434],[6.323,7.411],[6.351,7.379],[6.374,7.377],[6.412,7.387],[6.433,7.384],[6.458,7.362],[6.481,7.306],[6.494,7.288],[6.498,7.27],[6.511,7.251],[6.561,7.26],[6.602,7.277],[6.628,7.279],[6.644,7.267],[6.655,7.253],[6.657,7.236],[6.671,7.228],[6.697,7.22],[6.699,7.212],[6.715,7.177],[6.718,7.168],[6.719,7.149],[6.715,7.13],[6.703,7.094],[6.698,7.042],[6.69,7.018],[6.689,7.008],[6.689,6.964],[6.687,6.955],[6.661,6.9],[6.65,6.861],[6.649,6.844],[6.655,6.791],[6.651,6.663],[6.655,6.621],[6.675,6.564],[6.677,6.549],[6.677,6.535]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Edo'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Edo?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Edo located? </h2>Edo, is a state It belongs to the country of Nigeria. Its postal identifier is ED.Edo has an area of 19770 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

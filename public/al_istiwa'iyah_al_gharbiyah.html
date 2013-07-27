@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Al Istiwa'iyah al Gharbiyah?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[28.119,6.694],[28.132,6.693],[28.64,6.736],[28.615,6.602],[28.621,6.558],[28.611,6.522],[28.618,6.482],[28.602,6.448],[28.615,6.416],[28.625,6.358],[28.618,6.322],[28.622,6.292],[28.63,6.268],[28.669,6.208],[28.688,6.171],[28.704,6.119],[28.731,6.089],[28.776,6.064],[28.835,6.001],[28.862,5.958],[28.935,5.862],[28.962,5.839],[28.996,5.829],[29.024,5.817],[29.044,5.805],[29.062,5.791],[29.078,5.77],[29.112,5.751],[29.147,5.741],[29.585,5.698],[29.655,5.7],[29.704,5.729],[29.716,5.776],[29.748,5.869],[29.769,5.906],[29.839,5.997],[29.877,6.032],[29.893,6.06],[29.911,6.105],[29.929,6.203],[29.93,6.249],[29.918,6.288],[29.907,6.351],[29.91,6.438],[29.922,6.457],[29.938,6.467],[30.14,6.471],[30.184,6.477],[30.202,6.469],[30.221,6.454],[30.256,6.421],[30.289,6.378],[30.392,6.173],[30.435,6.12],[30.556,6.01],[30.666,5.926],[30.706,5.888],[30.73,5.857],[30.757,5.811],[30.778,5.787],[30.835,5.748],[30.908,5.681],[30.938,5.63],[30.96,5.581],[30.964,5.538],[30.953,5.502],[30.907,5.432],[30.889,5.389],[30.879,5.34],[30.863,5.044],[30.86,5.024],[30.856,5.011],[30.85,5],[30.838,4.989],[30.816,4.976],[30.677,4.931],[30.563,4.873],[30.517,4.839],[30.385,4.71],[30.35,4.692],[30.318,4.687],[30.292,4.693],[30.267,4.708],[30.202,4.767],[30.18,4.783],[30.158,4.791],[30.132,4.792],[30.111,4.787],[30.085,4.777],[30.062,4.761],[30.038,4.74],[30,4.698],[29.817,4.555],[29.787,4.539],[29.793,4.546],[29.796,4.556],[29.796,4.556],[29.788,4.561],[29.784,4.563],[29.774,4.568],[29.751,4.581],[29.745,4.584],[29.723,4.578],[29.715,4.58],[29.7,4.589],[29.672,4.614],[29.668,4.617],[29.66,4.622],[29.618,4.642],[29.606,4.644],[29.576,4.645],[29.546,4.658],[29.542,4.659],[29.535,4.661],[29.529,4.66],[29.513,4.652],[29.508,4.656],[29.498,4.666],[29.496,4.667],[29.494,4.669],[29.472,4.673],[29.457,4.67],[29.453,4.664],[29.449,4.657],[29.446,4.622],[29.443,4.605],[29.443,4.605],[29.444,4.595],[29.442,4.584],[29.424,4.566],[29.417,4.556],[29.411,4.533],[29.402,4.512],[29.39,4.494],[29.339,4.45],[29.329,4.435],[29.318,4.411],[29.304,4.387],[29.287,4.384],[29.267,4.388],[29.242,4.388],[29.231,4.376],[29.228,4.357],[29.225,4.349],[29.221,4.341],[29.196,4.337],[29.185,4.343],[29.173,4.348],[29.11,4.413],[29.098,4.421],[29.059,4.438],[29.056,4.437],[29.053,4.451],[29.042,4.456],[28.994,4.488],[28.991,4.491],[28.986,4.496],[28.925,4.481],[28.903,4.479],[28.856,4.483],[28.825,4.479],[28.822,4.479],[28.815,4.479],[28.79,4.489],[28.785,4.508],[28.783,4.531],[28.769,4.55],[28.76,4.553],[28.755,4.554],[28.747,4.55],[28.738,4.541],[28.724,4.534],[28.704,4.534],[28.695,4.533],[28.653,4.453],[28.638,4.432],[28.623,4.423],[28.582,4.413],[28.57,4.405],[28.566,4.394],[28.564,4.383],[28.557,4.374],[28.548,4.371],[28.538,4.372],[28.528,4.374],[28.519,4.375],[28.496,4.369],[28.482,4.359],[28.444,4.309],[28.425,4.291],[28.404,4.278],[28.381,4.276],[28.357,4.283],[28.349,4.293],[28.345,4.307],[28.336,4.328],[28.303,4.353],[28.261,4.351],[28.217,4.342],[28.177,4.347],[28.159,4.361],[28.14,4.38],[28.112,4.415],[28.108,4.434],[28.104,4.44],[28.102,4.442],[28.093,4.443],[28.085,4.444],[28.076,4.438],[28.06,4.42],[28.049,4.419],[28.019,4.463],[28.014,4.472],[28.011,4.48],[28.009,4.489],[28.009,4.499],[28.009,4.499],[28.012,4.522],[28.017,4.539],[28.017,4.539],[28.014,4.55],[27.962,4.558],[27.955,4.557],[27.951,4.556],[27.944,4.558],[27.934,4.568],[27.929,4.57],[27.92,4.566],[27.916,4.562],[27.918,4.561],[27.918,4.561],[27.917,4.559],[27.916,4.554],[27.914,4.55],[27.908,4.549],[27.891,4.556],[27.885,4.557],[27.857,4.553],[27.849,4.554],[27.843,4.557],[27.837,4.56],[27.819,4.58],[27.809,4.588],[27.801,4.591],[27.793,4.593],[27.777,4.596],[27.772,4.596],[27.765,4.612],[27.76,4.636],[27.758,4.677],[27.758,4.677],[27.761,4.697],[27.767,4.736],[27.767,4.736],[27.763,4.757],[27.759,4.767],[27.752,4.778],[27.744,4.788],[27.735,4.793],[27.726,4.793],[27.706,4.788],[27.699,4.788],[27.692,4.793],[27.686,4.798],[27.68,4.815],[27.672,4.856],[27.658,4.88],[27.641,4.891],[27.552,4.901],[27.542,4.904],[27.532,4.908],[27.514,4.923],[27.509,4.933],[27.505,4.954],[27.501,4.964],[27.493,4.973],[27.461,4.997],[27.454,5],[27.448,5.004],[27.441,5.008],[27.436,5.013],[27.436,5.013],[27.439,5.036],[27.443,5.058],[27.443,5.058],[27.442,5.065],[27.441,5.071],[27.431,5.084],[27.402,5.105],[27.385,5.144],[27.358,5.167],[27.301,5.205],[27.281,5.231],[27.264,5.26],[27.237,5.323],[27.233,5.339],[27.228,5.388],[27.22,5.413],[27.218,5.426],[27.218,5.426],[27.22,5.441],[27.26,5.551],[27.26,5.551],[27.259,5.56],[27.259,5.56],[27.261,5.578],[27.261,5.578],[27.257,5.586],[27.247,5.593],[27.24,5.592],[27.234,5.589],[27.231,5.588],[27.227,5.587],[27.222,5.585],[27.217,5.586],[27.211,5.595],[27.21,5.602],[27.21,5.602],[27.215,5.616],[27.216,5.634],[27.219,5.64],[27.218,5.646],[27.201,5.657],[27.196,5.662],[27.194,5.668],[27.194,5.677],[27.19,5.692],[27.182,5.708],[27.17,5.721],[27.156,5.728],[27.136,5.734],[27.131,5.742],[27.131,5.752],[27.124,5.769],[27.115,5.776],[27.072,5.792],[27.063,5.791],[27.045,5.785],[27.036,5.785],[27.029,5.79],[27.022,5.805],[27.003,5.82],[26.991,5.848],[26.981,5.859],[26.937,5.849],[26.916,5.85],[26.904,5.867],[26.894,5.89],[26.882,5.892],[26.865,5.886],[26.842,5.885],[26.819,5.895],[26.811,5.913],[26.805,5.957],[26.794,5.971],[26.776,5.982],[26.705,6.01],[26.634,6.007],[26.602,6.011],[26.543,6.031],[26.528,6.043],[26.518,6.061],[26.51,6.083],[26.499,6.1],[26.481,6.105],[26.44,6.077],[26.425,6.073],[26.421,6.094],[26.421,6.094],[26.429,6.113],[26.445,6.131],[26.465,6.145],[26.483,6.155],[26.5,6.168],[26.509,6.187],[26.509,6.187],[26.509,6.206],[26.496,6.221],[26.479,6.225],[26.465,6.225],[26.455,6.231],[26.455,6.255],[26.452,6.281],[26.436,6.292],[26.394,6.301],[26.376,6.313],[26.351,6.345],[26.335,6.361],[26.315,6.372],[26.3,6.378],[26.289,6.387],[26.283,6.408],[26.283,6.408],[26.285,6.426],[26.29,6.445],[26.29,6.445],[26.289,6.46],[26.27,6.466],[26.27,6.466],[26.277,6.478],[26.286,6.484],[26.296,6.49],[26.305,6.497],[26.324,6.537],[26.356,6.58],[26.372,6.61],[26.38,6.62],[26.379,6.631],[26.406,6.635],[27.935,6.817],[28.097,6.703],[28.106,6.699],[28.119,6.694]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Al Istiwa'iyah al Gharbiyah'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Al Istiwa'iyah al Gharbiyah?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Al Istiwa'iyah al Gharbiyah located? </h2>Al Istiwa'iyah al Gharbiyah, is a state of the Al Istiwa'iyah region. It belongs to the country of Sudan. Its postal identifier is WE.Al Istiwa'iyah al Gharbiyah has an area of 81275 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Cantabria?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-3.151,43.378],[-3.15,43.354],[-3.15,43.324],[-3.154,43.315],[-3.16,43.308],[-3.204,43.292],[-3.213,43.293],[-3.235,43.299],[-3.261,43.297],[-3.323,43.3],[-3.336,43.295],[-3.347,43.288],[-3.431,43.243],[-3.442,43.233],[-3.445,43.224],[-3.442,43.217],[-3.44,43.21],[-3.44,43.202],[-3.441,43.195],[-3.441,43.188],[-3.438,43.181],[-3.433,43.174],[-3.426,43.153],[-3.424,43.141],[-3.452,43.139],[-3.482,43.142],[-3.5,43.141],[-3.519,43.144],[-3.546,43.153],[-3.574,43.159],[-3.604,43.162],[-3.612,43.165],[-3.628,43.174],[-3.637,43.177],[-3.648,43.176],[-3.662,43.169],[-3.682,43.153],[-3.706,43.13],[-3.721,43.118],[-3.733,43.111],[-3.751,43.103],[-3.766,43.093],[-3.775,43.09],[-3.785,43.089],[-3.813,43.091],[-3.823,43.09],[-3.832,43.088],[-3.838,43.085],[-3.838,43.076],[-3.839,43.067],[-3.843,43.057],[-3.855,43.048],[-3.865,43.043],[-3.88,43.04],[-3.896,43.033],[-3.917,43.016],[-3.935,43.008],[-3.943,43.005],[-3.951,43.001],[-3.953,42.999],[-3.961,42.987],[-3.984,42.94],[-3.985,42.933],[-3.985,42.926],[-3.981,42.918],[-3.974,42.912],[-3.966,42.907],[-3.956,42.905],[-3.946,42.904],[-3.928,42.909],[-3.902,42.92],[-3.895,42.926],[-3.886,42.938],[-3.881,42.944],[-3.873,42.946],[-3.865,42.948],[-3.856,42.946],[-3.849,42.941],[-3.842,42.934],[-3.836,42.928],[-3.834,42.922],[-3.839,42.914],[-3.87,42.9],[-3.898,42.899],[-3.9,42.895],[-3.9,42.89],[-3.906,42.885],[-3.909,42.88],[-3.905,42.869],[-3.905,42.862],[-3.901,42.855],[-3.894,42.851],[-3.885,42.851],[-3.877,42.855],[-3.869,42.865],[-3.862,42.872],[-3.85,42.877],[-3.84,42.876],[-3.831,42.872],[-3.828,42.865],[-3.827,42.858],[-3.828,42.847],[-3.826,42.839],[-3.818,42.829],[-3.816,42.824],[-3.815,42.817],[-3.816,42.81],[-3.821,42.804],[-3.831,42.8],[-3.865,42.8],[-3.883,42.797],[-3.917,42.773],[-3.929,42.769],[-3.949,42.764],[-3.965,42.763],[-4,42.77],[-3.997,42.786],[-3.998,42.793],[-3.999,42.815],[-4,42.821],[-4.003,42.824],[-4.011,42.821],[-4.019,42.816],[-4.047,42.77],[-4.086,42.763],[-4.096,42.776],[-4.101,42.781],[-4.11,42.786],[-4.12,42.789],[-4.147,42.791],[-4.159,42.794],[-4.178,42.806],[-4.185,42.812],[-4.188,42.818],[-4.185,42.823],[-4.177,42.827],[-4.159,42.831],[-4.15,42.832],[-4.142,42.835],[-4.136,42.84],[-4.133,42.846],[-4.134,42.854],[-4.141,42.859],[-4.15,42.862],[-4.174,42.857],[-4.184,42.852],[-4.197,42.844],[-4.201,42.842],[-4.209,42.843],[-4.216,42.845],[-4.221,42.85],[-4.223,42.855],[-4.225,42.859],[-4.225,42.865],[-4.227,42.872],[-4.227,42.88],[-4.229,42.887],[-4.23,42.894],[-4.232,42.901],[-4.237,42.915],[-4.239,42.929],[-4.238,42.936],[-4.238,42.943],[-4.24,42.95],[-4.254,42.958],[-4.357,42.985],[-4.37,42.993],[-4.376,43],[-4.377,43.001],[-4.381,43.009],[-4.401,43.033],[-4.41,43.038],[-4.434,43.048],[-4.446,43.051],[-4.463,43.051],[-4.481,43.043],[-4.491,43.04],[-4.506,43.039],[-4.519,43.038],[-4.552,43.024],[-4.566,43.023],[-4.601,43.026],[-4.639,43.02],[-4.69,43.02],[-4.706,43.016],[-4.727,43.016],[-4.735,43.041],[-4.739,43.048],[-4.759,43.062],[-4.764,43.072],[-4.77,43.079],[-4.811,43.095],[-4.821,43.101],[-4.828,43.108],[-4.834,43.124],[-4.836,43.135],[-4.832,43.189],[-4.82,43.188],[-4.79,43.191],[-4.78,43.194],[-4.771,43.195],[-4.752,43.192],[-4.743,43.192],[-4.735,43.197],[-4.728,43.208],[-4.725,43.216],[-4.725,43.224],[-4.723,43.231],[-4.721,43.238],[-4.724,43.252],[-4.722,43.259],[-4.716,43.265],[-4.704,43.27],[-4.693,43.272],[-4.683,43.273],[-4.674,43.271],[-4.664,43.271],[-4.643,43.272],[-4.634,43.276],[-4.629,43.279],[-4.624,43.284],[-4.617,43.29],[-4.602,43.297],[-4.593,43.298],[-4.582,43.297],[-4.564,43.294],[-4.557,43.291],[-4.551,43.279],[-4.545,43.276],[-4.537,43.277],[-4.53,43.282],[-4.524,43.288],[-4.52,43.296],[-4.519,43.306],[-4.522,43.32],[-4.531,43.338],[-4.535,43.342],[-4.537,43.348],[-4.534,43.355],[-4.522,43.371],[-4.513,43.384],[-4.514,43.396],[-4.512,43.421],[-4.508,43.421],[-4.482,43.402],[-4.461,43.417],[-4.432,43.421],[-4.405,43.415],[-4.385,43.402],[-4.379,43.402],[-4.369,43.414],[-4.359,43.418],[-4.313,43.414],[-4.188,43.423],[-4.161,43.439],[-4.098,43.454],[-4.074,43.456],[-4.029,43.456],[-4.023,43.459],[-4.022,43.464],[-4.021,43.468],[-4.013,43.471],[-4.006,43.469],[-3.981,43.456],[-3.976,43.461],[-3.972,43.462],[-3.967,43.462],[-3.961,43.463],[-3.965,43.465],[-3.974,43.471],[-3.974,43.477],[-3.94,43.495],[-3.923,43.501],[-3.906,43.497],[-3.894,43.503],[-3.891,43.502],[-3.886,43.497],[-3.857,43.51],[-3.827,43.515],[-3.797,43.511],[-3.769,43.497],[-3.812,43.483],[-3.831,43.474],[-3.844,43.463],[-3.834,43.454],[-3.829,43.451],[-3.824,43.449],[-3.827,43.448],[-3.83,43.448],[-3.831,43.447],[-3.831,43.443],[-3.82,43.442],[-3.811,43.443],[-3.796,43.449],[-3.789,43.454],[-3.776,43.468],[-3.772,43.471],[-3.763,43.468],[-3.754,43.459],[-3.745,43.456],[-3.741,43.46],[-3.743,43.469],[-3.749,43.479],[-3.755,43.484],[-3.755,43.49],[-3.741,43.488],[-3.736,43.487],[-3.729,43.484],[-3.727,43.489],[-3.726,43.489],[-3.721,43.49],[-3.729,43.497],[-3.718,43.501],[-3.688,43.502],[-3.677,43.507],[-3.667,43.515],[-3.656,43.519],[-3.579,43.536],[-3.554,43.535],[-3.556,43.518],[-3.539,43.517],[-3.525,43.51],[-3.515,43.501],[-3.505,43.497],[-3.436,43.488],[-3.431,43.485],[-3.428,43.48],[-3.427,43.474],[-3.428,43.465],[-3.432,43.463],[-3.439,43.465],[-3.447,43.463],[-3.451,43.466],[-3.46,43.47],[-3.47,43.472],[-3.474,43.467],[-3.478,43.461],[-3.486,43.456],[-3.501,43.449],[-3.482,43.446],[-3.47,43.435],[-3.461,43.43],[-3.447,43.449],[-3.436,43.437],[-3.422,43.436],[-3.392,43.443],[-3.378,43.441],[-3.33,43.428],[-3.269,43.422],[-3.223,43.41],[-3.21,43.408],[-3.2,43.404],[-3.177,43.384],[-3.151,43.378]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Cantabria'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Cantabria?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Cantabria located? </h2>Cantabria, is a autonomous community It belongs to the country of Spain. Its postal identifier is CB.Cantabria has an area of 5559 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Canindeyú?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-55.446,-23.735],[-55.431,-23.929],[-55.421,-23.954],[-55.399,-23.977],[-55.368,-23.99],[-55.305,-23.994],[-55.273,-24],[-55.273,-24],[-55.273,-24],[-55.273,-24],[-55.273,-24],[-55.237,-24.013],[-55.201,-24.019],[-55.166,-24.017],[-55.132,-24],[-55.132,-24],[-55.132,-24],[-55.132,-24],[-55.106,-23.988],[-55.043,-23.989],[-55.012,-23.98],[-54.995,-23.973],[-54.962,-23.972],[-54.944,-23.969],[-54.927,-23.96],[-54.906,-23.933],[-54.893,-23.92],[-54.828,-23.887],[-54.697,-23.845],[-54.68,-23.837],[-54.655,-23.811],[-54.64,-23.804],[-54.613,-23.811],[-54.444,-23.9],[-54.423,-23.914],[-54.368,-23.985],[-54.274,-24.036],[-54.246,-24.05],[-54.267,-24.066],[-54.302,-24.09],[-54.325,-24.118],[-54.335,-24.149],[-54.332,-24.165],[-54.32,-24.197],[-54.315,-24.234],[-54.307,-24.247],[-54.283,-24.275],[-54.275,-24.298],[-54.262,-24.329],[-54.263,-24.358],[-54.272,-24.389],[-54.285,-24.411],[-54.324,-24.464],[-54.335,-24.497],[-54.335,-24.527],[-54.321,-24.596],[-54.322,-24.628],[-54.359,-24.731],[-54.359,-24.731],[-54.382,-24.722],[-54.396,-24.72],[-54.421,-24.721],[-54.445,-24.723],[-54.47,-24.723],[-54.493,-24.718],[-54.521,-24.707],[-54.55,-24.7],[-54.627,-24.689],[-54.636,-24.685],[-54.643,-24.678],[-54.649,-24.67],[-54.659,-24.645],[-54.664,-24.64],[-54.668,-24.639],[-54.677,-24.64],[-54.692,-24.644],[-54.698,-24.645],[-54.706,-24.644],[-54.714,-24.641],[-54.725,-24.636],[-54.734,-24.634],[-54.746,-24.635],[-54.753,-24.64],[-54.758,-24.644],[-54.764,-24.653],[-54.769,-24.658],[-54.774,-24.663],[-54.779,-24.666],[-54.784,-24.668],[-54.791,-24.669],[-54.796,-24.666],[-54.801,-24.659],[-54.801,-24.65],[-54.8,-24.644],[-54.8,-24.64],[-54.804,-24.637],[-54.812,-24.633],[-54.826,-24.631],[-54.863,-24.63],[-54.871,-24.629],[-54.879,-24.626],[-54.885,-24.62],[-54.887,-24.615],[-54.887,-24.61],[-54.885,-24.604],[-54.883,-24.599],[-54.883,-24.592],[-54.885,-24.583],[-54.896,-24.572],[-54.916,-24.562],[-54.992,-24.54],[-55.001,-24.54],[-55.016,-24.542],[-55.039,-24.551],[-55.052,-24.554],[-55.065,-24.552],[-55.079,-24.546],[-55.094,-24.533],[-55.098,-24.521],[-55.1,-24.51],[-55.095,-24.473],[-55.117,-24.467],[-55.228,-24.502],[-55.49,-24.543],[-55.51,-24.549],[-55.523,-24.556],[-55.632,-24.664],[-55.682,-24.699],[-55.696,-24.713],[-55.724,-24.753],[-55.751,-24.783],[-55.804,-24.754],[-55.814,-24.746],[-55.821,-24.735],[-55.828,-24.721],[-55.837,-24.698],[-55.856,-24.679],[-55.873,-24.666],[-55.902,-24.649],[-55.914,-24.635],[-55.924,-24.613],[-55.939,-24.572],[-55.96,-24.532],[-56.013,-24.464],[-56.034,-24.42],[-56.038,-24.414],[-56.044,-24.409],[-56.052,-24.405],[-56.071,-24.399],[-56.08,-24.395],[-56.088,-24.39],[-56.096,-24.382],[-56.103,-24.374],[-56.109,-24.365],[-56.114,-24.353],[-56.119,-24.337],[-56.123,-24.305],[-56.125,-24.294],[-56.13,-24.284],[-56.135,-24.279],[-56.157,-24.262],[-56.158,-24.249],[-56.159,-24.23],[-56.153,-24.183],[-56.154,-24.161],[-56.149,-24.145],[-56.146,-24.14],[-56.126,-24.116],[-56.122,-24.113],[-56.118,-24.11],[-56.113,-24.108],[-56.088,-24.103],[-56.083,-24.101],[-56.079,-24.098],[-56.066,-24.082],[-56.044,-24.062],[-56.031,-24.046],[-56.016,-24.032],[-56.011,-24.03],[-56.007,-24.028],[-56.003,-24.028],[-56,-24.028],[-55.994,-24.03],[-55.992,-24.023],[-55.998,-24],[-56.059,-23.849],[-56.047,-23.856],[-56.032,-23.862],[-56.026,-23.864],[-56.02,-23.865],[-56.014,-23.864],[-56.009,-23.862],[-56.001,-23.858],[-55.993,-23.855],[-55.957,-23.852],[-55.932,-23.847],[-55.907,-23.837],[-55.897,-23.831],[-55.891,-23.825],[-55.877,-23.802],[-55.867,-23.793],[-55.824,-23.771],[-55.721,-23.701],[-55.699,-23.689],[-55.685,-23.684],[-55.657,-23.683],[-55.647,-23.681],[-55.639,-23.678],[-55.598,-23.656],[-55.587,-23.646],[-55.58,-23.636],[-55.572,-23.597],[-55.554,-23.552],[-55.544,-23.537],[-55.534,-23.531],[-55.534,-23.534],[-55.534,-23.57],[-55.531,-23.603],[-55.512,-23.629],[-55.468,-23.673],[-55.446,-23.735]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Canindeyú'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Canindeyú?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Canindeyú located? </h2>Canindeyú, is a department It belongs to the country of Paraguay. Its postal identifier is CY.Canindeyú has an area of 14885 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

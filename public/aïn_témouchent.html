@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Aïn Témouchent?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-0.669,35.332],[-0.754,35.318],[-0.768,35.308],[-0.8,35.274],[-0.814,35.266],[-0.831,35.264],[-0.846,35.264],[-0.87,35.261],[-0.881,35.254],[-0.887,35.243],[-0.885,35.231],[-0.878,35.217],[-0.875,35.2],[-0.878,35.18],[-0.89,35.16],[-0.905,35.151],[-0.923,35.147],[-0.939,35.146],[-0.959,35.138],[-0.973,35.125],[-1.001,35.087],[-1.048,35.097],[-1.272,35.196],[-1.279,35.196],[-1.286,35.196],[-1.298,35.193],[-1.303,35.191],[-1.31,35.189],[-1.319,35.188],[-1.331,35.188],[-1.338,35.191],[-1.342,35.195],[-1.344,35.2],[-1.345,35.21],[-1.347,35.219],[-1.345,35.223],[-1.332,35.232],[-1.329,35.235],[-1.327,35.238],[-1.326,35.243],[-1.325,35.266],[-1.322,35.278],[-1.321,35.284],[-1.322,35.29],[-1.327,35.298],[-1.333,35.302],[-1.341,35.304],[-1.348,35.304],[-1.355,35.303],[-1.358,35.305],[-1.36,35.309],[-1.361,35.318],[-1.362,35.32],[-1.359,35.322],[-1.332,35.35],[-1.314,35.354],[-1.295,35.365],[-1.278,35.378],[-1.268,35.39],[-1.259,35.41],[-1.247,35.458],[-1.237,35.476],[-1.225,35.491],[-1.19,35.566],[-1.183,35.577],[-1.171,35.581],[-1.148,35.582],[-1.143,35.587],[-1.117,35.617],[-1.106,35.623],[-1.105,35.621],[-1.077,35.567],[-1.045,35.543],[-1.016,35.532],[-1.007,35.525],[-1.005,35.517],[-1.012,35.508],[-1.02,35.5],[-1.055,35.477],[-1.063,35.467],[-1.069,35.454],[-1.072,35.436],[-1.071,35.425],[-1.067,35.416],[-1.059,35.412],[-1.05,35.415],[-1.039,35.426],[-1.031,35.444],[-1.024,35.453],[-1.018,35.456],[-1.008,35.454],[-0.985,35.442],[-0.972,35.439],[-0.954,35.437],[-0.741,35.482],[-0.715,35.482],[-0.689,35.476],[-0.672,35.462],[-0.634,35.422],[-0.629,35.41],[-0.633,35.398],[-0.655,35.386],[-0.661,35.381],[-0.663,35.375],[-0.661,35.37],[-0.655,35.362],[-0.652,35.354],[-0.652,35.346],[-0.669,35.332]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Aïn Témouchent'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Aïn Témouchent?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Aïn Témouchent located? </h2>Aïn Témouchent, is a province It belongs to the country of Algeria. Its postal identifier is AT.Aïn Témouchent has an area of 1957 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

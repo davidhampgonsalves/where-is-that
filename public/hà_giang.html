@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Hà Giang?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[105.389,23.276],[105.399,23.275],[105.407,23.278],[105.414,23.279],[105.426,23.273],[105.431,23.268],[105.444,23.246],[105.444,23.245],[105.444,23.245],[105.464,23.206],[105.474,23.195],[105.517,23.168],[105.528,23.156],[105.535,23.137],[105.535,23.099],[105.522,23.096],[105.517,23.094],[105.513,23.091],[105.51,23.087],[105.498,23.024],[105.488,23.008],[105.478,23.001],[105.466,23.003],[105.455,23.005],[105.443,23.005],[105.433,23.001],[105.423,22.992],[105.414,22.982],[105.393,22.951],[105.377,22.932],[105.359,22.914],[105.302,22.876],[105.296,22.866],[105.303,22.855],[105.452,22.775],[105.475,22.752],[105.489,22.73],[105.52,22.663],[105.568,22.592],[105.5,22.581],[105.407,22.597],[105.344,22.601],[105.235,22.639],[105.197,22.648],[105.18,22.645],[105.17,22.637],[105.165,22.605],[105.16,22.588],[105.135,22.526],[105.125,22.509],[105.096,22.478],[105.083,22.46],[105.073,22.441],[105.066,22.423],[105.049,22.357],[105.041,22.346],[105.032,22.342],[105.021,22.343],[104.992,22.353],[104.976,22.356],[104.957,22.354],[104.946,22.345],[104.94,22.332],[104.939,22.318],[104.939,22.305],[104.938,22.292],[104.935,22.28],[104.929,22.268],[104.889,22.21],[104.848,22.17],[104.82,22.168],[104.796,22.172],[104.77,22.181],[104.749,22.201],[104.723,22.239],[104.708,22.254],[104.69,22.264],[104.668,22.268],[104.651,22.269],[104.628,22.258],[104.612,22.237],[104.605,22.233],[104.599,22.234],[104.594,22.24],[104.592,22.253],[104.593,22.267],[104.602,22.298],[104.601,22.315],[104.595,22.332],[104.58,22.35],[104.565,22.362],[104.55,22.371],[104.517,22.386],[104.482,22.405],[104.471,22.419],[104.466,22.437],[104.466,22.467],[104.464,22.481],[104.458,22.5],[104.446,22.526],[104.44,22.553],[104.442,22.566],[104.45,22.572],[104.469,22.572],[104.476,22.573],[104.479,22.577],[104.479,22.583],[104.473,22.593],[104.436,22.635],[104.43,22.644],[104.422,22.651],[104.412,22.657],[104.381,22.662],[104.37,22.668],[104.365,22.674],[104.362,22.687],[104.362,22.693],[104.362,22.693],[104.449,22.745],[104.469,22.765],[104.533,22.815],[104.551,22.833],[104.553,22.836],[104.562,22.835],[104.563,22.83],[104.561,22.825],[104.565,22.82],[104.571,22.817],[104.574,22.813],[104.579,22.809],[104.588,22.807],[104.594,22.809],[104.604,22.82],[104.61,22.823],[104.629,22.821],[104.663,22.811],[104.683,22.812],[104.701,22.819],[104.715,22.827],[104.728,22.839],[104.763,22.885],[104.774,22.897],[104.824,22.924],[104.828,22.934],[104.827,22.955],[104.798,23.086],[104.811,23.096],[104.836,23.1],[104.861,23.12],[104.865,23.134],[104.867,23.15],[104.87,23.164],[104.881,23.172],[104.895,23.171],[104.921,23.156],[104.935,23.155],[104.945,23.16],[104.981,23.191],[105.016,23.207],[105.047,23.227],[105.061,23.233],[105.142,23.254],[105.146,23.257],[105.148,23.261],[105.15,23.265],[105.155,23.267],[105.158,23.266],[105.166,23.261],[105.169,23.26],[105.176,23.258],[105.182,23.255],[105.19,23.252],[105.201,23.254],[105.217,23.266],[105.224,23.282],[105.228,23.301],[105.236,23.32],[105.246,23.33],[105.28,23.359],[105.294,23.367],[105.312,23.366],[105.32,23.355],[105.324,23.337],[105.332,23.318],[105.344,23.304],[105.36,23.292],[105.376,23.282],[105.389,23.276]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Hà Giang'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Hà Giang?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Hà Giang located? </h2>Hà Giang, is a province of the Ðông B?c region. It belongs to the country of Vietnam. Its postal identifier is HG.Hà Giang has an area of 7930 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

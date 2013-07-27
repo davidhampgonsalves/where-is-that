@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Bangui?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[18.027,5.801],[18.038,5.8],[18.05,5.802],[18.071,5.81],[18.084,5.812],[18.094,5.81],[18.104,5.805],[18.121,5.792],[18.127,5.79],[18.132,5.791],[18.136,5.793],[18.144,5.795],[18.224,5.802],[18.244,5.8],[18.256,5.797],[18.262,5.792],[18.264,5.786],[18.266,5.778],[18.266,5.769],[18.267,5.76],[18.27,5.754],[18.275,5.749],[18.279,5.748],[18.291,5.753],[18.306,5.756],[18.338,5.756],[18.36,5.753],[18.378,5.749],[18.389,5.743],[18.397,5.738],[18.402,5.733],[18.403,5.728],[18.403,5.722],[18.402,5.717],[18.399,5.712],[18.397,5.709],[18.393,5.706],[18.383,5.701],[18.379,5.698],[18.375,5.694],[18.373,5.686],[18.374,5.678],[18.379,5.666],[18.392,5.643],[18.396,5.632],[18.399,5.619],[18.398,5.584],[18.4,5.574],[18.406,5.565],[18.413,5.563],[18.423,5.565],[18.458,5.582],[18.505,5.599],[18.591,5.644],[18.601,5.652],[18.608,5.663],[18.612,5.673],[18.615,5.687],[18.616,5.701],[18.615,5.724],[18.617,5.731],[18.622,5.735],[18.635,5.731],[18.687,5.668],[18.723,5.654],[18.741,5.653],[18.854,5.636],[18.865,5.627],[18.872,5.61],[18.887,5.512],[18.898,5.493],[18.913,5.475],[18.948,5.449],[18.97,5.438],[18.98,5.429],[18.992,5.412],[19.013,5.375],[19.022,5.352],[19.025,5.334],[19.02,5.31],[18.994,5.234],[18.989,5.21],[18.991,5.186],[18.999,5.162],[19.091,5.036],[19.107,4.999],[19.107,4.995],[19.103,4.962],[19.106,4.933],[19.107,4.932],[19.107,4.932],[19.083,4.91],[19.069,4.891],[19.058,4.868],[19.049,4.837],[19.044,4.827],[19.035,4.818],[19.026,4.812],[19.019,4.804],[19.011,4.765],[18.998,4.751],[18.98,4.74],[18.962,4.725],[18.928,4.667],[18.923,4.663],[18.904,4.656],[18.9,4.652],[18.898,4.651],[18.886,4.622],[18.852,4.594],[18.828,4.56],[18.777,4.434],[18.753,4.401],[18.721,4.378],[18.674,4.362],[18.654,4.357],[18.634,4.356],[18.614,4.36],[18.595,4.371],[18.576,4.373],[18.556,4.354],[18.542,4.328],[18.537,4.306],[18.537,4.306],[18.545,4.289],[18.572,4.266],[18.578,4.255],[18.584,4.236],[18.619,4.17],[18.632,4.131],[18.646,4.046],[18.646,4.046],[18.645,3.983],[18.641,3.958],[18.634,3.936],[18.613,3.902],[18.611,3.879],[18.611,3.879],[18.611,3.877],[18.612,3.867],[18.612,3.867],[18.611,3.867],[18.534,3.901],[18.508,3.906],[18.499,3.911],[18.49,3.92],[18.474,3.941],[18.468,3.952],[18.461,3.962],[18.451,3.968],[18.436,3.975],[18.421,3.983],[18.411,3.994],[18.406,4.001],[18.403,4.008],[18.395,4.022],[18.353,4.069],[18.342,4.086],[18.338,4.1],[18.345,4.126],[18.347,4.138],[18.346,4.152],[18.341,4.182],[18.34,4.196],[18.343,4.215],[18.342,4.224],[18.305,4.302],[18.295,4.313],[18.281,4.321],[18.26,4.326],[18.23,4.331],[18.219,4.335],[18.205,4.344],[18.19,4.36],[18.16,4.419],[18.147,4.436],[18.132,4.448],[18.111,4.453],[18.096,4.45],[18.079,4.444],[18.064,4.442],[18.052,4.445],[18.041,4.456],[18.029,4.461],[18.017,4.463],[18.006,4.464],[17.998,4.466],[17.972,4.474],[17.95,4.478],[17.937,4.478],[17.932,4.476],[17.926,4.474],[17.921,4.47],[17.915,4.465],[17.91,4.458],[17.901,4.455],[17.891,4.456],[17.869,4.465],[17.858,4.467],[17.845,4.467],[17.839,4.47],[17.832,4.479],[17.828,4.488],[17.825,4.502],[17.821,4.509],[17.813,4.514],[17.765,4.534],[17.754,4.535],[17.744,4.532],[17.734,4.528],[17.721,4.526],[17.676,4.525],[17.668,4.523],[17.663,4.519],[17.659,4.514],[17.653,4.511],[17.643,4.511],[17.63,4.514],[17.601,4.525],[17.586,4.534],[17.557,4.563],[17.548,4.576],[17.541,4.591],[17.509,4.727],[17.499,4.749],[17.465,4.794],[17.455,4.802],[17.441,4.81],[17.362,4.847],[17.32,4.874],[17.278,4.916],[17.253,4.935],[17.231,4.959],[17.22,4.969],[17.173,4.994],[17.16,5.004],[17.149,5.018],[17.144,5.028],[17.13,5.034],[17.12,5.036],[17.037,5.024],[16.996,5.083],[16.995,5.087],[16.995,5.09],[16.996,5.092],[16.998,5.094],[17,5.095],[17.004,5.096],[17.018,5.098],[17.025,5.1],[17.031,5.104],[17.045,5.117],[17.055,5.124],[17.069,5.13],[17.105,5.141],[17.114,5.147],[17.118,5.155],[17.118,5.165],[17.054,5.265],[17.033,5.288],[16.932,5.362],[16.919,5.369],[16.902,5.369],[16.878,5.366],[16.839,5.356],[16.8,5.353],[16.773,5.357],[16.755,5.367],[16.73,5.384],[16.708,5.379],[16.673,5.363],[16.526,5.275],[16.512,5.34],[16.5,5.37],[16.497,5.388],[16.497,5.412],[16.517,5.519],[16.515,5.568],[16.551,5.583],[16.601,5.62],[16.658,5.675],[16.673,5.692],[16.691,5.725],[16.708,5.748],[16.749,5.779],[16.872,5.822],[16.928,5.829],[16.937,5.834],[16.945,5.84],[16.955,5.849],[16.979,5.859],[16.977,5.81],[16.981,5.794],[17.002,5.765],[17.021,5.726],[17.044,5.72],[17.1,5.713],[17.583,5.721],[17.622,5.735],[17.815,5.841],[17.823,5.849],[17.831,5.857],[17.839,5.868],[17.85,5.88],[17.866,5.89],[17.896,5.898],[17.913,5.896],[17.926,5.891],[17.946,5.876],[17.998,5.853],[18.004,5.846],[18.007,5.835],[18.007,5.819],[18.009,5.812],[18.015,5.807],[18.027,5.801]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Bangui'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Bangui?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Bangui located? </h2>Bangui, is a autonomous commune It belongs to the country of Central African Republic. Its postal identifier is BG.Bangui has an area of 31800 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

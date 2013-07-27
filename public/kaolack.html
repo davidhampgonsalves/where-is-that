@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kaolack?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-15.097,14.603],[-15.063,14.6],[-15.039,14.605],[-15.02,14.613],[-14.932,14.666],[-14.915,14.673],[-14.898,14.677],[-14.886,14.668],[-14.863,14.638],[-14.844,14.622],[-14.818,14.61],[-14.655,14.563],[-14.639,14.557],[-14.632,14.55],[-14.631,14.538],[-14.631,14.526],[-14.633,14.511],[-14.634,14.323],[-14.611,14.258],[-14.598,14.239],[-14.593,14.222],[-14.589,14.146],[-14.579,14.101],[-14.577,14.082],[-14.577,14.065],[-14.586,14.024],[-14.591,14.016],[-14.595,14.01],[-14.604,14.006],[-14.613,14.002],[-14.617,14],[-14.619,13.999],[-14.623,13.981],[-14.622,13.963],[-14.624,13.951],[-14.626,13.944],[-14.629,13.939],[-14.687,13.884],[-14.711,13.866],[-14.716,13.863],[-14.762,13.852],[-14.772,13.848],[-14.777,13.847],[-14.79,13.846],[-14.802,13.844],[-14.813,13.84],[-14.826,13.826],[-14.838,13.809],[-14.856,13.779],[-14.86,13.765],[-14.86,13.765],[-14.88,13.781],[-14.916,13.793],[-14.92,13.793],[-15.017,13.797],[-15.077,13.819],[-15.097,13.82],[-15.098,13.82],[-15.098,13.82],[-15.171,13.794],[-15.246,13.747],[-15.268,13.742],[-15.273,13.746],[-15.276,13.748],[-15.296,13.773],[-15.296,13.773],[-15.305,13.782],[-15.348,13.789],[-15.363,13.783],[-15.395,13.772],[-15.437,13.741],[-15.468,13.709],[-15.479,13.691],[-15.489,13.671],[-15.497,13.649],[-15.501,13.628],[-15.503,13.589],[-15.519,13.583],[-16.085,13.585],[-16.086,13.585],[-16.089,13.592],[-16.094,13.612],[-16.108,13.629],[-16.14,13.658],[-16.148,13.668],[-16.154,13.678],[-16.157,13.692],[-16.162,13.725],[-16.166,13.738],[-16.173,13.746],[-16.18,13.751],[-16.196,13.761],[-16.227,13.786],[-16.237,13.796],[-16.241,13.805],[-16.242,13.814],[-16.241,13.828],[-16.24,13.835],[-16.238,13.842],[-16.232,13.848],[-16.218,13.86],[-16.206,13.875],[-16.201,13.883],[-16.198,13.89],[-16.197,13.898],[-16.197,13.906],[-16.209,13.974],[-16.215,13.984],[-16.228,13.995],[-16.248,14.021],[-16.249,14.029],[-16.245,14.036],[-16.235,14.051],[-16.232,14.059],[-16.23,14.07],[-16.231,14.083],[-16.235,14.104],[-16.242,14.115],[-16.249,14.123],[-16.263,14.135],[-16.291,14.153],[-16.297,14.157],[-16.302,14.16],[-16.308,14.161],[-16.372,14.163],[-16.365,14.168],[-16.38,14.168],[-16.366,14.187],[-16.356,14.221],[-16.306,14.294],[-16.278,14.326],[-16.267,14.335],[-16.257,14.34],[-16.225,14.342],[-16.165,14.355],[-16.113,14.36],[-16.104,14.359],[-16.104,14.354],[-16.108,14.347],[-16.137,14.312],[-16.14,14.305],[-16.139,14.296],[-16.13,14.27],[-16.129,14.263],[-16.129,14.255],[-16.131,14.226],[-16.129,14.218],[-16.126,14.211],[-16.119,14.203],[-16.112,14.197],[-16.104,14.192],[-16.097,14.189],[-16.082,14.185],[-16.077,14.184],[-16.071,14.181],[-16.065,14.177],[-16.06,14.173],[-16.042,14.154],[-16.036,14.15],[-16.032,14.146],[-16.029,14.142],[-16.029,14.137],[-16.03,14.132],[-16.029,14.126],[-16.027,14.121],[-16.023,14.116],[-15.978,14.098],[-15.969,14.097],[-15.959,14.098],[-15.951,14.096],[-15.943,14.091],[-15.938,14.091],[-15.934,14.093],[-15.922,14.106],[-15.914,14.11],[-15.901,14.113],[-15.876,14.116],[-15.858,14.121],[-15.851,14.128],[-15.849,14.134],[-15.851,14.16],[-15.85,14.166],[-15.847,14.18],[-15.828,14.218],[-15.803,14.281],[-15.8,14.295],[-15.799,14.385],[-15.797,14.392],[-15.782,14.428],[-15.778,14.435],[-15.703,14.512],[-15.612,14.582],[-15.602,14.585],[-15.594,14.586],[-15.562,14.585],[-15.531,14.586],[-15.464,14.602],[-15.457,14.607],[-15.453,14.614],[-15.416,14.72],[-15.3,14.651],[-15.249,14.633],[-15.097,14.603]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Kaolack'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Kaolack?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Kaolack located? </h2>Kaolack, is a region It belongs to the country of Senegal.Kaolack has an area of 15286 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

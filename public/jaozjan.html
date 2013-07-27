@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Jaozjan?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[65.821,37.536],[65.829,37.526],[65.836,37.519],[65.855,37.508],[66.079,37.441],[66.098,37.429],[66.125,37.399],[66.143,37.385],[66.163,37.377],[66.174,37.376],[66.208,37.377],[66.218,37.375],[66.232,37.366],[66.242,37.364],[66.251,37.36],[66.251,37.36],[66.25,37.353],[66.248,37.321],[66.248,37.316],[66.249,37.309],[66.252,37.306],[66.255,37.303],[66.258,37.301],[66.26,37.299],[66.271,37.295],[66.333,37.281],[66.348,37.281],[66.357,37.278],[66.392,37.262],[66.402,37.256],[66.409,37.25],[66.415,37.239],[66.419,37.23],[66.424,37.224],[66.426,37.22],[66.428,37.215],[66.429,37.211],[66.429,37.203],[66.432,37.188],[66.435,37.185],[66.448,37.17],[66.495,37.13],[66.504,37.112],[66.502,37.107],[66.499,37.098],[66.499,37.096],[66.496,37.092],[66.476,37.042],[66.467,37.014],[66.463,36.99],[66.467,36.973],[66.482,36.953],[66.51,36.917],[66.534,36.894],[66.54,36.886],[66.544,36.88],[66.544,36.875],[66.543,36.872],[66.541,36.868],[66.541,36.861],[66.545,36.85],[66.555,36.838],[66.56,36.828],[66.569,36.798],[66.568,36.789],[66.565,36.784],[66.56,36.782],[66.544,36.78],[66.539,36.779],[66.523,36.77],[66.516,36.768],[66.51,36.768],[66.504,36.768],[66.484,36.774],[66.479,36.775],[66.474,36.775],[66.47,36.775],[66.436,36.763],[66.426,36.757],[66.418,36.746],[66.417,36.739],[66.422,36.732],[66.44,36.72],[66.45,36.715],[66.462,36.705],[66.466,36.652],[66.471,36.637],[66.48,36.623],[66.504,36.604],[66.527,36.588],[66.489,36.572],[66.483,36.571],[66.47,36.569],[66.457,36.57],[66.426,36.568],[66.351,36.551],[66.234,36.535],[66.139,36.531],[66.098,36.54],[66.071,36.538],[66.048,36.53],[66.005,36.508],[66,36.504],[65.997,36.501],[65.987,36.489],[65.977,36.48],[65.967,36.475],[65.876,36.46],[65.848,36.45],[65.787,36.413],[65.736,36.371],[65.712,36.357],[65.69,36.351],[65.58,36.34],[65.527,36.34],[65.511,36.331],[65.507,36.326],[65.502,36.317],[65.501,36.308],[65.502,36.299],[65.508,36.266],[65.508,36.258],[65.491,36.097],[65.514,36.079],[65.526,36.064],[65.531,36.055],[65.534,36.045],[65.536,36.036],[65.536,36.03],[65.525,36.005],[65.524,35.986],[65.527,35.978],[65.533,35.974],[65.662,35.99],[65.67,35.992],[65.677,35.995],[65.685,36],[65.684,35.994],[65.682,35.984],[65.68,35.98],[65.678,35.976],[65.675,35.972],[65.671,35.969],[65.668,35.967],[65.664,35.965],[65.648,35.959],[65.63,35.949],[65.621,35.946],[65.593,35.938],[65.59,35.936],[65.58,35.929],[65.576,35.928],[65.572,35.928],[65.567,35.93],[65.557,35.937],[65.55,35.943],[65.545,35.948],[65.54,35.955],[65.538,35.958],[65.534,35.96],[65.531,35.96],[65.525,35.959],[65.518,35.956],[65.515,35.953],[65.514,35.95],[65.513,35.946],[65.512,35.944],[65.51,35.941],[65.505,35.936],[65.5,35.928],[65.493,35.922],[65.489,35.919],[65.484,35.918],[65.415,35.91],[65.367,35.915],[65.321,35.929],[65.316,35.931],[65.308,35.936],[65.304,35.937],[65.299,35.937],[65.289,35.934],[65.279,35.93],[65.276,35.929],[65.272,35.931],[65.269,35.935],[65.268,35.942],[65.267,35.945],[65.265,35.947],[65.262,35.948],[65.257,35.948],[65.246,35.946],[65.206,35.942],[65.197,35.938],[65.186,35.932],[65.181,35.931],[65.174,35.931],[65.162,35.932],[65.145,35.937],[65.116,35.958],[65.11,35.962],[65.106,35.967],[65.104,35.97],[65.102,35.974],[65.102,35.979],[65.102,35.984],[65.103,35.989],[65.107,35.994],[65.114,35.999],[65.13,36.008],[65.149,36.016],[65.154,36.018],[65.159,36.022],[65.165,36.027],[65.178,36.042],[65.182,36.049],[65.183,36.053],[65.179,36.066],[65.171,36.1],[65.182,36.11],[65.186,36.112],[65.194,36.118],[65.198,36.122],[65.205,36.132],[65.213,36.142],[65.216,36.147],[65.218,36.153],[65.218,36.165],[65.218,36.172],[65.216,36.178],[65.214,36.184],[65.212,36.19],[65.212,36.198],[65.211,36.245],[65.242,36.339],[65.245,36.346],[65.253,36.353],[65.259,36.357],[65.278,36.361],[65.443,36.366],[65.454,36.365],[65.457,36.365],[65.459,36.366],[65.46,36.371],[65.465,36.379],[65.485,36.386],[65.474,36.407],[65.47,36.417],[65.463,36.439],[65.451,36.471],[65.436,36.491],[65.433,36.499],[65.432,36.508],[65.439,36.539],[65.449,36.571],[65.449,36.574],[65.448,36.579],[65.442,36.586],[65.437,36.591],[65.431,36.595],[65.406,36.606],[65.4,36.611],[65.396,36.615],[65.392,36.62],[65.392,36.623],[65.394,36.627],[65.402,36.633],[65.408,36.637],[65.414,36.645],[65.417,36.65],[65.429,36.694],[65.438,36.725],[65.445,36.749],[65.445,36.753],[65.445,36.759],[65.441,36.767],[65.434,36.777],[65.421,36.791],[65.413,36.798],[65.407,36.806],[65.404,36.812],[65.392,36.854],[65.34,36.907],[65.332,36.937],[65.331,36.951],[65.332,36.965],[65.339,36.996],[65.367,37.07],[65.482,37.235],[65.488,37.242],[65.488,37.242],[65.501,37.243],[65.537,37.257],[65.583,37.308],[65.611,37.331],[65.624,37.345],[65.629,37.366],[65.629,37.388],[65.621,37.431],[65.626,37.453],[65.636,37.474],[65.648,37.494],[65.648,37.494],[65.648,37.494],[65.648,37.494],[65.658,37.511],[65.669,37.521],[65.681,37.527],[65.698,37.53],[65.739,37.529],[65.752,37.538],[65.759,37.564],[65.761,37.579],[65.776,37.573],[65.796,37.57],[65.804,37.566],[65.821,37.536]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Jaozjan'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Jaozjan?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Jaozjan located? </h2>Jaozjan, is a province It belongs to the country of Afghanistan. Its postal identifier is JW.Jaozjan has an area of 11271 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Nord-Ouest?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[-72.776,19.944],[-72.674,19.921],[-72.649,19.907],[-72.628,19.897],[-72.569,19.88],[-72.565,19.876],[-72.573,19.87],[-72.583,19.856],[-72.59,19.844],[-72.598,19.838],[-72.609,19.828],[-72.622,19.817],[-72.633,19.818],[-72.643,19.824],[-72.659,19.828],[-72.673,19.825],[-72.676,19.813],[-72.676,19.807],[-72.706,19.811],[-72.731,19.794],[-72.747,19.785],[-72.768,19.78],[-72.83,19.73],[-72.906,19.717],[-72.947,19.724],[-72.988,19.727],[-73.028,19.737],[-73.067,19.733],[-73.114,19.686],[-73.122,19.632],[-73.121,19.629],[-73.122,19.629],[-73.127,19.627],[-73.132,19.622],[-73.138,19.617],[-73.149,19.615],[-73.164,19.618],[-73.186,19.627],[-73.208,19.638],[-73.221,19.65],[-73.241,19.631],[-73.284,19.626],[-73.38,19.63],[-73.398,19.635],[-73.409,19.636],[-73.417,19.64],[-73.434,19.659],[-73.444,19.663],[-73.458,19.672],[-73.463,19.692],[-73.465,19.713],[-73.468,19.725],[-73.432,19.779],[-73.427,19.79],[-73.417,19.791],[-73.365,19.814],[-73.365,19.821],[-73.42,19.821],[-73.404,19.833],[-73.385,19.834],[-73.365,19.833],[-73.345,19.834],[-73.223,19.887],[-73.187,19.911],[-73.167,19.938],[-73.155,19.924],[-73.144,19.92],[-73.115,19.923],[-73.101,19.921],[-73.074,19.912],[-73.06,19.91],[-73.048,19.911],[-73.042,19.911],[-73.022,19.917],[-73.007,19.918],[-72.992,19.917],[-72.978,19.912],[-72.967,19.903],[-72.96,19.918],[-72.941,19.928],[-72.918,19.93],[-72.899,19.923],[-72.872,19.934],[-72.84,19.942],[-72.807,19.946],[-72.776,19.944]]],[[[-72.762,20.067],[-72.668,20.032],[-72.628,20.008],[-72.639,19.985],[-72.655,19.991],[-72.74,20.002],[-72.779,20.017],[-72.828,20.027],[-72.844,20.034],[-72.856,20.032],[-72.868,20.028],[-72.878,20.026],[-72.899,20.03],[-72.924,20.038],[-72.946,20.049],[-72.96,20.061],[-72.956,20.061],[-72.953,20.062],[-72.947,20.067],[-72.901,20.082],[-72.851,20.089],[-72.822,20.09],[-72.802,20.087],[-72.785,20.08],[-72.762,20.067]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Nord-Ouest'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Nord-Ouest?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Nord-Ouest located? </h2>Nord-Ouest, is a department It belongs to the country of Haiti. Its postal identifier is NO.Nord-Ouest has an area of 2100 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

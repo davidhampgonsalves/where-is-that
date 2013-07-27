@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Uppsala?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[18.439,60.456],[18.466,60.443],[18.475,60.431],[18.458,60.432],[18.435,60.442],[18.42,60.444],[18.43,60.43],[18.475,60.382],[18.485,60.367],[18.494,60.357],[18.508,60.356],[18.53,60.368],[18.533,60.354],[18.537,60.345],[18.55,60.327],[18.555,60.325],[18.562,60.323],[18.568,60.321],[18.571,60.317],[18.567,60.308],[18.558,60.307],[18.514,60.321],[18.459,60.354],[18.402,60.37],[18.389,60.391],[18.385,60.418],[18.389,60.468],[18.388,60.479],[18.375,60.5],[18.379,60.508],[18.39,60.51],[18.406,60.506],[18.411,60.501],[18.423,60.491],[18.427,60.486],[18.427,60.482],[18.425,60.477],[18.424,60.471],[18.427,60.465],[18.439,60.456]]],[[[17.671,60.504],[17.742,60.499],[17.742,60.506],[17.727,60.535],[17.762,60.563],[17.816,60.585],[17.919,60.6],[17.949,60.599],[17.975,60.588],[17.996,60.553],[17.994,60.541],[17.988,60.531],[17.979,60.523],[17.968,60.519],[17.968,60.512],[17.994,60.511],[18.019,60.502],[18.064,60.478],[18.099,60.465],[18.103,60.459],[18.109,60.443],[18.112,60.437],[18.144,60.414],[18.179,60.399],[18.262,60.382],[18.246,60.377],[18.22,60.364],[18.207,60.355],[18.207,60.348],[18.221,60.339],[18.228,60.334],[18.235,60.327],[18.251,60.334],[18.278,60.349],[18.297,60.355],[18.314,60.357],[18.326,60.356],[18.359,60.348],[18.428,60.349],[18.448,60.342],[18.447,60.338],[18.446,60.33],[18.446,60.321],[18.448,60.314],[18.452,60.31],[18.475,60.3],[18.475,60.293],[18.462,60.291],[18.45,60.292],[18.438,60.292],[18.427,60.286],[18.566,60.259],[18.605,60.238],[18.564,60.228],[18.401,60.26],[18.369,60.279],[18.317,60.321],[18.331,60.286],[18.37,60.259],[18.415,60.235],[18.448,60.211],[18.431,60.21],[18.417,60.216],[18.393,60.232],[18.4,60.208],[18.42,60.194],[18.468,60.176],[18.493,60.161],[18.506,60.156],[18.523,60.156],[18.535,60.159],[18.544,60.164],[18.548,60.172],[18.549,60.174],[18.548,60.144],[18.55,60.129],[18.555,60.122],[18.504,60.078],[18.473,60.057],[18.461,60.043],[18.46,60.033],[18.467,60.026],[18.476,60.021],[18.485,60.018],[18.491,60.014],[18.494,60.011],[18.489,60.007],[18.451,59.995],[18.437,59.989],[18.427,59.98],[18.421,59.964],[18.421,59.922],[18.412,59.901],[18.39,59.882],[18.343,59.865],[18.274,59.848],[18.211,59.84],[18.178,59.829],[18.153,59.813],[18.127,59.779],[18.111,59.762],[18.09,59.753],[18.009,59.752],[17.871,59.709],[17.81,59.7],[17.781,59.692],[17.769,59.693],[17.736,59.705],[17.716,59.709],[17.681,59.71],[17.673,59.709],[17.666,59.705],[17.654,59.693],[17.657,59.707],[17.657,59.722],[17.665,59.73],[17.687,59.731],[17.671,59.742],[17.645,59.751],[17.625,59.764],[17.632,59.787],[17.611,59.797],[17.603,59.804],[17.598,59.813],[17.583,59.789],[17.568,59.77],[17.548,59.757],[17.519,59.752],[17.372,59.752],[17.391,59.744],[17.414,59.74],[17.489,59.739],[17.495,59.734],[17.485,59.721],[17.462,59.703],[17.452,59.691],[17.447,59.68],[17.455,59.67],[17.47,59.667],[17.481,59.66],[17.475,59.642],[17.49,59.633],[17.519,59.59],[17.536,59.573],[17.537,59.589],[17.529,59.613],[17.516,59.636],[17.502,59.649],[17.514,59.658],[17.515,59.67],[17.509,59.694],[17.514,59.71],[17.528,59.716],[17.543,59.721],[17.557,59.731],[17.551,59.733],[17.536,59.738],[17.597,59.738],[17.618,59.73],[17.604,59.71],[17.609,59.708],[17.613,59.702],[17.618,59.697],[17.564,59.677],[17.564,59.661],[17.575,59.651],[17.578,59.65],[17.567,59.638],[17.562,59.623],[17.564,59.609],[17.57,59.599],[17.577,59.591],[17.594,59.58],[17.595,59.572],[17.59,59.563],[17.542,59.518],[17.535,59.507],[17.534,59.5],[17.532,59.5],[17.525,59.505],[17.52,59.512],[17.516,59.518],[17.532,59.526],[17.545,59.54],[17.548,59.554],[17.533,59.56],[17.525,59.558],[17.506,59.549],[17.495,59.546],[17.487,59.548],[17.435,59.574],[17.405,59.598],[17.403,59.601],[17.38,59.606],[17.374,59.62],[17.378,59.638],[17.386,59.656],[17.374,59.648],[17.365,59.639],[17.354,59.631],[17.341,59.628],[17.337,59.624],[17.346,59.614],[17.365,59.598],[17.376,59.581],[17.396,59.561],[17.407,59.542],[17.392,59.526],[17.41,59.501],[17.412,59.491],[17.413,59.474],[17.406,59.474],[17.373,59.498],[17.362,59.505],[17.353,59.499],[17.361,59.488],[17.364,59.478],[17.344,59.478],[17.23,59.526],[17.221,59.536],[17.209,59.545],[17.154,59.545],[17.13,59.551],[17.103,59.564],[17.101,59.567],[17.092,59.569],[17.084,59.575],[17.07,59.587],[17.065,59.595],[17.061,59.605],[17.056,59.61],[17.038,59.6],[17.028,59.597],[17.008,59.595],[17.022,59.58],[17.058,59.562],[17.07,59.546],[16.957,59.547],[16.947,59.563],[16.917,59.641],[16.9,59.669],[16.797,59.785],[16.788,59.798],[16.791,59.807],[16.839,59.823],[16.852,59.834],[16.859,59.846],[16.856,59.87],[16.856,59.879],[16.859,59.884],[16.867,59.885],[16.882,59.884],[16.951,59.871],[17.007,59.865],[17.014,59.862],[17.027,59.848],[17.037,59.842],[17.05,59.839],[17.069,59.841],[17.087,59.848],[17.129,59.867],[17.181,59.885],[17.195,59.898],[17.204,59.915],[17.21,59.939],[17.211,59.956],[17.208,59.967],[17.199,59.973],[17.183,59.977],[17.171,59.983],[17.164,59.991],[17.166,59.997],[17.168,60.001],[17.18,60.01],[17.211,60.042],[17.221,60.048],[17.232,60.05],[17.258,60.048],[17.271,60.05],[17.288,60.059],[17.308,60.077],[17.386,60.201],[17.394,60.225],[17.389,60.24],[17.369,60.251],[17.226,60.31],[17.217,60.385],[17.224,60.404],[17.246,60.428],[17.264,60.439],[17.281,60.446],[17.316,60.486],[17.377,60.624],[17.38,60.625],[17.396,60.632],[17.414,60.638],[17.547,60.649],[17.575,60.648],[17.594,60.639],[17.609,60.631],[17.646,60.619],[17.659,60.608],[17.647,60.6],[17.611,60.589],[17.604,60.584],[17.607,60.57],[17.622,60.547],[17.625,60.536],[17.638,60.516],[17.671,60.504]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Uppsala'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Uppsala?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Uppsala located? </h2>Uppsala, is a county It belongs to the country of Sweden. Its postal identifier is UP.Uppsala has an area of 6677 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

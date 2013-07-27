@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kandaal?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[104.999,11.889],[105.03,11.846],[105.068,11.828],[105.071,11.826],[105.074,11.822],[105.075,11.816],[105.074,11.812],[105.07,11.81],[105.061,11.809],[105.058,11.808],[105.055,11.806],[105.053,11.802],[105.052,11.799],[105.051,11.794],[105.052,11.777],[105.053,11.772],[105.073,11.763],[105.155,11.747],[105.157,11.737],[105.157,11.734],[105.157,11.726],[105.156,11.72],[105.152,11.712],[105.135,11.688],[105.134,11.687],[105.133,11.685],[105.131,11.682],[105.13,11.677],[105.131,11.668],[105.133,11.659],[105.136,11.652],[105.137,11.648],[105.134,11.633],[105.112,11.595],[105.115,11.586],[105.117,11.579],[105.137,11.544],[105.142,11.538],[105.149,11.532],[105.199,11.505],[105.272,11.446],[105.286,11.437],[105.295,11.426],[105.295,11.404],[105.272,11.392],[105.263,11.384],[105.269,11.341],[105.289,11.261],[105.29,11.233],[105.282,11.21],[105.25,11.176],[105.237,11.155],[105.222,11.104],[105.199,11.05],[105.194,11.022],[105.194,10.994],[105.209,10.892],[105.209,10.892],[105.112,10.91],[105.097,10.915],[105.086,10.93],[105.084,10.943],[105.078,10.947],[105.056,10.936],[105.043,10.927],[105.038,10.923],[105.038,10.923],[105.034,10.93],[105.033,10.933],[105.031,10.936],[105.022,10.968],[105.019,10.975],[105.016,10.979],[105.014,10.982],[105.012,10.984],[105.01,10.989],[105.009,11.01],[105.017,11.041],[105.013,11.089],[105.014,11.113],[105.027,11.161],[105.027,11.17],[105.02,11.185],[105,11.199],[104.981,11.214],[104.969,11.225],[104.949,11.255],[104.943,11.259],[104.938,11.263],[104.936,11.265],[104.935,11.268],[104.933,11.283],[104.935,11.329],[104.931,11.335],[104.929,11.336],[104.923,11.339],[104.888,11.346],[104.882,11.349],[104.879,11.351],[104.876,11.353],[104.871,11.353],[104.865,11.353],[104.834,11.345],[104.803,11.343],[104.79,11.341],[104.782,11.337],[104.78,11.336],[104.77,11.338],[104.744,11.355],[104.787,11.411],[104.784,11.415],[104.773,11.416],[104.693,11.414],[104.666,11.424],[104.651,11.446],[104.666,11.571],[104.67,11.612],[104.7,11.683],[104.708,11.724],[104.711,11.729],[104.715,11.735],[104.724,11.746],[104.734,11.754],[104.743,11.758],[104.749,11.761],[104.754,11.765],[104.759,11.77],[104.761,11.782],[104.761,11.823],[104.768,11.849],[104.782,11.877],[104.787,11.882],[104.802,11.885],[104.819,11.892],[104.84,11.858],[104.842,11.84],[104.842,11.833],[104.843,11.827],[104.846,11.824],[104.852,11.825],[104.854,11.827],[104.856,11.829],[104.858,11.83],[104.861,11.829],[104.866,11.823],[104.869,11.82],[104.888,11.816],[104.895,11.81],[104.899,11.81],[104.904,11.811],[104.912,11.816],[104.917,11.817],[104.922,11.817],[104.926,11.816],[104.93,11.819],[104.934,11.824],[104.949,11.862],[104.953,11.867],[104.957,11.871],[104.964,11.872],[104.967,11.871],[104.972,11.868],[104.976,11.872],[104.98,11.893],[104.999,11.889]],[[104.808,11.435],[104.815,11.434],[104.826,11.435],[104.847,11.441],[104.853,11.444],[104.857,11.447],[104.868,11.461],[104.877,11.467],[104.883,11.468],[104.889,11.467],[104.91,11.45],[104.923,11.446],[104.926,11.448],[104.929,11.45],[104.938,11.473],[104.951,11.483],[104.963,11.496],[104.965,11.507],[104.968,11.551],[104.948,11.559],[104.946,11.561],[104.944,11.565],[104.941,11.594],[104.934,11.624],[104.925,11.653],[104.924,11.673],[104.921,11.677],[104.916,11.678],[104.872,11.681],[104.86,11.678],[104.86,11.675],[104.861,11.67],[104.865,11.661],[104.87,11.647],[104.815,11.646],[104.789,11.598],[104.784,11.578],[104.784,11.552],[104.785,11.544],[104.787,11.537],[104.794,11.528],[104.797,11.521],[104.796,11.511],[104.781,11.459],[104.808,11.435]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Kandaal'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Kandaal?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Kandaal located? </h2>Kandaal, is a province It belongs to the country of Cambodia. Its postal identifier is KN.Kandaal has an area of 3672 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

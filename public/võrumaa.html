@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Võrumaa?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[27.175,57.927],[27.231,57.912],[27.247,57.91],[27.257,57.91],[27.263,57.913],[27.267,57.916],[27.274,57.918],[27.281,57.917],[27.296,57.907],[27.299,57.892],[27.265,57.876],[27.256,57.866],[27.249,57.853],[27.253,57.848],[27.26,57.846],[27.268,57.848],[27.276,57.848],[27.283,57.845],[27.298,57.832],[27.321,57.829],[27.359,57.84],[27.394,57.844],[27.449,57.839],[27.546,57.818],[27.556,57.813],[27.537,57.812],[27.524,57.808],[27.525,57.808],[27.532,57.805],[27.553,57.795],[27.553,57.795],[27.526,57.788],[27.512,57.782],[27.512,57.782],[27.502,57.773],[27.498,57.756],[27.509,57.728],[27.507,57.715],[27.507,57.715],[27.49,57.705],[27.407,57.689],[27.391,57.681],[27.391,57.68],[27.384,57.675],[27.379,57.667],[27.377,57.657],[27.378,57.652],[27.38,57.648],[27.382,57.635],[27.385,57.632],[27.387,57.628],[27.385,57.607],[27.382,57.603],[27.382,57.603],[27.375,57.598],[27.362,57.595],[27.349,57.594],[27.336,57.592],[27.336,57.592],[27.328,57.584],[27.328,57.571],[27.335,57.554],[27.345,57.538],[27.353,57.528],[27.353,57.528],[27.352,57.528],[27.32,57.516],[27.165,57.547],[27.085,57.55],[27.061,57.556],[27.041,57.569],[27.004,57.599],[26.981,57.609],[26.946,57.616],[26.929,57.616],[26.911,57.614],[26.896,57.615],[26.885,57.622],[26.872,57.627],[26.854,57.623],[26.838,57.61],[26.828,57.595],[26.816,57.582],[26.796,57.572],[26.778,57.569],[26.7,57.571],[26.667,57.565],[26.634,57.555],[26.605,57.541],[26.598,57.534],[26.595,57.527],[26.59,57.521],[26.58,57.518],[26.57,57.52],[26.551,57.527],[26.542,57.529],[26.528,57.524],[26.515,57.518],[26.499,57.516],[26.481,57.528],[26.447,57.553],[26.431,57.562],[26.431,57.562],[26.428,57.576],[26.434,57.599],[26.43,57.603],[26.426,57.609],[26.425,57.613],[26.431,57.618],[26.449,57.625],[26.458,57.63],[26.462,57.636],[26.462,57.641],[26.44,57.654],[26.428,57.663],[26.426,57.666],[26.445,57.684],[26.465,57.694],[26.469,57.701],[26.467,57.708],[26.456,57.715],[26.443,57.72],[26.436,57.726],[26.433,57.737],[26.428,57.744],[26.428,57.75],[26.435,57.754],[26.445,57.757],[26.452,57.763],[26.457,57.777],[26.456,57.784],[26.447,57.792],[26.42,57.797],[26.393,57.809],[26.391,57.841],[26.39,57.845],[26.403,57.864],[26.393,57.875],[26.365,57.879],[26.365,57.888],[26.372,57.895],[26.383,57.905],[26.389,57.918],[26.388,57.927],[26.389,57.935],[26.392,57.94],[26.426,57.947],[26.54,57.956],[26.579,57.947],[26.589,57.943],[26.605,57.94],[26.634,57.938],[26.659,57.94],[26.683,57.945],[26.736,57.938],[26.767,57.93],[26.855,57.934],[26.876,57.931],[26.901,57.935],[26.928,57.94],[27.039,57.918],[27.047,57.922],[27.042,57.945],[27.057,57.953],[27.075,57.957],[27.086,57.957],[27.095,57.957],[27.111,57.952],[27.175,57.927]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Võrumaa'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Võrumaa?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Võrumaa located? </h2>Võrumaa, is a county It belongs to the country of Estonia. Its postal identifier is VR.Võrumaa has an area of 2441 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

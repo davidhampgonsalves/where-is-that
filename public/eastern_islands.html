@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Eastern Islands?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[168.819,-12.285],[168.802,-12.291],[168.798,-12.282],[168.806,-12.274],[168.812,-12.266],[168.823,-12.267],[168.826,-12.282],[168.819,-12.285]]],[[[166.963,-11.65],[166.946,-11.653],[166.939,-11.642],[166.944,-11.625],[166.958,-11.613],[166.976,-11.611],[166.985,-11.614],[166.985,-11.623],[166.98,-11.639],[166.963,-11.65]]],[[[166.933,-11.661],[166.918,-11.681],[166.864,-11.694],[166.848,-11.695],[166.836,-11.692],[166.829,-11.683],[166.829,-11.667],[166.816,-11.682],[166.803,-11.677],[166.772,-11.633],[166.74,-11.599],[166.747,-11.593],[166.763,-11.575],[166.771,-11.571],[166.826,-11.571],[166.836,-11.573],[166.851,-11.577],[166.864,-11.583],[166.87,-11.589],[166.866,-11.619],[166.867,-11.634],[166.874,-11.64],[166.897,-11.642],[166.921,-11.649],[166.933,-11.661]]],[[[166.522,-11.272],[166.527,-11.277],[166.546,-11.273],[166.564,-11.281],[166.572,-11.293],[166.561,-11.303],[166.569,-11.308],[166.574,-11.313],[166.582,-11.325],[166.573,-11.327],[166.564,-11.329],[166.556,-11.333],[166.548,-11.338],[166.553,-11.341],[166.556,-11.344],[166.558,-11.347],[166.561,-11.351],[166.51,-11.359],[166.496,-11.352],[166.497,-11.337],[166.508,-11.327],[166.521,-11.331],[166.525,-11.323],[166.527,-11.315],[166.528,-11.306],[166.527,-11.297],[166.518,-11.303],[166.507,-11.309],[166.497,-11.31],[166.486,-11.303],[166.5,-11.277],[166.509,-11.273],[166.516,-11.271],[166.522,-11.272]]],[[[166.117,-10.744],[166.109,-10.762],[166.144,-10.742],[166.13,-10.765],[166.096,-10.781],[166.057,-10.789],[166.027,-10.783],[166.035,-10.765],[166.028,-10.767],[166.007,-10.783],[165.992,-10.781],[165.981,-10.773],[165.97,-10.77],[165.955,-10.78],[165.901,-10.854],[165.876,-10.872],[165.875,-10.841],[165.871,-10.829],[165.863,-10.817],[165.856,-10.817],[165.828,-10.851],[165.794,-10.827],[165.777,-10.781],[165.795,-10.749],[165.799,-10.746],[165.803,-10.743],[165.806,-10.74],[165.809,-10.735],[165.815,-10.735],[165.82,-10.745],[165.829,-10.759],[165.839,-10.769],[165.843,-10.766],[165.848,-10.735],[165.856,-10.708],[165.871,-10.692],[165.894,-10.679],[165.922,-10.67],[166.026,-10.665],[166.058,-10.66],[166.075,-10.66],[166.078,-10.663],[166.081,-10.668],[166.085,-10.672],[166.092,-10.674],[166.139,-10.675],[166.152,-10.678],[166.163,-10.684],[166.171,-10.695],[166.152,-10.708],[166.133,-10.725],[166.117,-10.744]]],[[[165.745,-10.422],[165.736,-10.425],[165.728,-10.422],[165.723,-10.413],[165.724,-10.401],[165.726,-10.395],[165.732,-10.39],[165.746,-10.394],[165.755,-10.407],[165.753,-10.417],[165.745,-10.422]]],[[[166.243,-10.221],[166.242,-10.269],[166.249,-10.267],[166.252,-10.265],[166.267,-10.264],[166.28,-10.273],[166.27,-10.292],[166.251,-10.309],[166.237,-10.311],[166.236,-10.297],[166.238,-10.284],[166.231,-10.283],[166.229,-10.276],[166.236,-10.255],[166.239,-10.234],[166.239,-10.215],[166.243,-10.221]]],[[[167.193,-9.894],[167.185,-9.895],[167.173,-9.886],[167.166,-9.868],[167.17,-9.859],[167.181,-9.86],[167.192,-9.873],[167.196,-9.886],[167.193,-9.894]]],[[[167.108,-9.805],[167.104,-9.807],[167.092,-9.803],[167.104,-9.802],[167.108,-9.805]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Eastern Islands'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Eastern Islands?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Eastern Islands located? </h2>Eastern Islands, is a province It belongs to the country of Solomon Islands. Its postal identifier is TE.Eastern Islands has an area of 791 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

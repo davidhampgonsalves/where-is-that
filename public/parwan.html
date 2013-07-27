@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Parwan?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[69.264,35.392],[69.263,35.367],[69.251,35.322],[69.248,35.21],[69.244,35.192],[69.246,35.157],[69.283,35.162],[69.288,35.123],[69.28,35.068],[69.278,35.049],[69.282,35.029],[69.298,35.014],[69.324,35.003],[69.352,34.998],[69.368,34.99],[69.381,34.982],[69.4,34.961],[69.429,34.936],[69.489,34.933],[69.533,34.92],[69.566,34.91],[69.571,34.887],[69.567,34.846],[69.568,34.825],[69.564,34.775],[69.565,34.757],[69.569,34.744],[69.575,34.732],[69.58,34.724],[69.587,34.719],[69.592,34.71],[69.599,34.703],[69.604,34.699],[69.615,34.694],[69.615,34.687],[69.613,34.681],[69.604,34.649],[69.569,34.655],[69.557,34.655],[69.548,34.651],[69.543,34.639],[69.54,34.629],[69.536,34.619],[69.523,34.606],[69.509,34.598],[69.47,34.588],[69.448,34.591],[69.432,34.632],[69.42,34.678],[69.395,34.726],[69.378,34.738],[69.357,34.741],[69.347,34.75],[69.34,34.762],[69.307,34.806],[69.299,34.832],[69.257,34.853],[69.245,34.862],[69.228,34.873],[69.21,34.879],[69.19,34.882],[69.161,34.876],[69.07,34.881],[69.055,34.88],[68.983,34.895],[68.979,34.892],[68.941,34.842],[68.913,34.771],[68.909,34.757],[68.896,34.748],[68.872,34.704],[68.876,34.662],[68.863,34.622],[68.85,34.619],[68.834,34.621],[68.804,34.633],[68.769,34.641],[68.754,34.647],[68.746,34.648],[68.716,34.646],[68.703,34.648],[68.688,34.652],[68.67,34.664],[68.666,34.666],[68.661,34.667],[68.644,34.671],[68.63,34.677],[68.556,34.692],[68.546,34.691],[68.532,34.686],[68.473,34.655],[68.442,34.642],[68.426,34.638],[68.42,34.635],[68.412,34.628],[68.407,34.625],[68.4,34.625],[68.381,34.627],[68.375,34.629],[68.37,34.633],[68.367,34.638],[68.361,34.667],[68.359,34.682],[68.356,34.69],[68.351,34.699],[68.3,34.742],[68.295,34.75],[68.291,34.762],[68.289,34.782],[68.283,34.8],[68.271,34.808],[68.252,34.817],[68.249,34.82],[68.247,34.826],[68.252,34.856],[68.253,34.886],[68.25,34.908],[68.249,34.934],[68.237,34.963],[68.184,35.01],[68.192,35.018],[68.213,35.027],[68.241,35.035],[68.255,35.042],[68.267,35.05],[68.273,35.056],[68.276,35.061],[68.278,35.066],[68.278,35.07],[68.281,35.073],[68.288,35.073],[68.362,35.056],[68.376,35.055],[68.442,35.063],[68.504,35.058],[68.555,35.06],[68.576,35.064],[68.603,35.076],[68.607,35.087],[68.606,35.09],[68.604,35.095],[68.599,35.105],[68.597,35.11],[68.597,35.113],[68.6,35.117],[68.606,35.12],[68.652,35.128],[68.666,35.135],[68.74,35.181],[68.742,35.182],[68.749,35.19],[68.764,35.213],[68.781,35.23],[68.791,35.244],[68.801,35.252],[68.81,35.258],[68.816,35.261],[68.854,35.27],[68.896,35.246],[68.906,35.247],[68.914,35.248],[68.959,35.273],[68.966,35.285],[68.97,35.289],[68.979,35.294],[69.021,35.304],[69.028,35.308],[69.035,35.313],[69.044,35.325],[69.061,35.351],[69.069,35.357],[69.08,35.363],[69.131,35.382],[69.137,35.383],[69.144,35.387],[69.152,35.393],[69.162,35.404],[69.185,35.42],[69.221,35.413],[69.234,35.414],[69.241,35.415],[69.248,35.412],[69.264,35.392]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Parwan'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Parwan?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Parwan located? </h2>Parwan, is a province It belongs to the country of Afghanistan. Its postal identifier is PV.Parwan has an area of 5612 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

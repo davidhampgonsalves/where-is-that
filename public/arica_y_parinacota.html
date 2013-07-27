@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Arica y Parinacota?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-69.093,-18.023],[-69.082,-18.04],[-69.09,-18.083],[-69.127,-18.111],[-69.156,-18.14],[-69.142,-18.187],[-69.111,-18.218],[-69.101,-18.234],[-69.098,-18.257],[-69.097,-18.268],[-69.096,-18.277],[-69.082,-18.319],[-69.08,-18.328],[-69.083,-18.382],[-69.078,-18.399],[-69.042,-18.458],[-69.035,-18.478],[-69.036,-18.501],[-69.042,-18.549],[-69.043,-18.6],[-69.034,-18.649],[-69.011,-18.69],[-69.004,-18.702],[-69.002,-18.716],[-69.004,-18.729],[-69.011,-18.743],[-69.011,-18.744],[-69.011,-18.744],[-69.011,-18.745],[-68.955,-18.857],[-68.952,-18.867],[-68.952,-18.889],[-68.96,-18.908],[-68.99,-18.946],[-69.025,-18.988],[-69.056,-19.019],[-69.078,-19.05],[-69.136,-19.09],[-69.193,-19.103],[-69.246,-19.094],[-69.299,-19.09],[-69.343,-19.068],[-69.4,-19.054],[-69.462,-19.032],[-69.559,-19.028],[-69.59,-19.019],[-69.63,-19.001],[-69.66,-18.988],[-69.713,-18.988],[-69.788,-18.988],[-69.854,-19.001],[-69.903,-19.023],[-69.96,-19.032],[-70.013,-19.046],[-70.066,-19.068],[-70.115,-19.107],[-70.168,-19.129],[-70.212,-19.156],[-70.27,-19.171],[-70.277,-19.166],[-70.281,-19.16],[-70.275,-19.133],[-70.275,-19.123],[-70.277,-19.109],[-70.313,-19.022],[-70.316,-19.007],[-70.316,-18.938],[-70.334,-18.837],[-70.353,-18.797],[-70.357,-18.773],[-70.354,-18.763],[-70.343,-18.736],[-70.343,-18.708],[-70.341,-18.696],[-70.336,-18.676],[-70.336,-18.663],[-70.339,-18.654],[-70.348,-18.643],[-70.35,-18.636],[-70.349,-18.614],[-70.339,-18.578],[-70.334,-18.546],[-70.325,-18.524],[-70.322,-18.513],[-70.323,-18.502],[-70.328,-18.48],[-70.329,-18.472],[-70.323,-18.452],[-70.315,-18.441],[-70.314,-18.43],[-70.326,-18.414],[-70.359,-18.378],[-70.381,-18.36],[-70.404,-18.348],[-70.408,-18.345],[-70.409,-18.344],[-70.37,-18.325],[-70.319,-18.321],[-70.211,-18.331],[-70.16,-18.326],[-70.135,-18.319],[-70.064,-18.28],[-70.04,-18.273],[-70.011,-18.272],[-69.988,-18.264],[-69.971,-18.25],[-69.923,-18.196],[-69.884,-18.163],[-69.866,-18.144],[-69.844,-18.113],[-69.784,-17.981],[-69.781,-17.962],[-69.783,-17.944],[-69.791,-17.925],[-69.813,-17.888],[-69.819,-17.871],[-69.821,-17.846],[-69.83,-17.804],[-69.847,-17.769],[-69.858,-17.734],[-69.85,-17.691],[-69.819,-17.659],[-69.776,-17.657],[-69.73,-17.663],[-69.685,-17.656],[-69.639,-17.626],[-69.511,-17.506],[-69.511,-17.506],[-69.507,-17.585],[-69.498,-17.621],[-69.476,-17.652],[-69.395,-17.721],[-69.36,-17.759],[-69.335,-17.806],[-69.328,-17.841],[-69.327,-17.915],[-69.318,-17.951],[-69.303,-17.976],[-69.291,-17.976],[-69.278,-17.967],[-69.263,-17.964],[-69.243,-17.987],[-69.235,-17.993],[-69.228,-17.995],[-69.205,-18.001],[-69.175,-18.019],[-69.158,-18.026],[-69.141,-18.031],[-69.12,-18.03],[-69.105,-18.024],[-69.093,-18.023]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Arica y Parinacota'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Arica y Parinacota?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Arica y Parinacota located? </h2>Arica y Parinacota, is a region It belongs to the country of Chile.Arica y Parinacota has an area of 16283 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

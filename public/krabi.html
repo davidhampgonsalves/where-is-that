@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Krabi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[99.118,7.479],[99.1,7.467],[99.077,7.48],[99.057,7.504],[99.032,7.562],[99.028,7.572],[99.029,7.606],[99.027,7.623],[99.021,7.637],[99.023,7.639],[99.025,7.64],[99.026,7.641],[99.028,7.644],[99.035,7.644],[99.066,7.615],[99.076,7.609],[99.076,7.573],[99.086,7.537],[99.102,7.504],[99.118,7.479]]],[[[99.118,7.596],[99.109,7.594],[99.1,7.597],[99.093,7.601],[99.09,7.606],[99.088,7.612],[99.082,7.616],[99.075,7.619],[99.07,7.623],[99.045,7.663],[99.067,7.675],[99.105,7.669],[99.125,7.657],[99.128,7.644],[99.128,7.625],[99.124,7.607],[99.118,7.596]]],[[[98.913,8.314],[98.917,8.314],[98.932,8.322],[98.935,8.323],[98.943,8.324],[98.978,8.32],[98.988,8.318],[98.998,8.315],[99.002,8.315],[99.029,8.323],[99.035,8.326],[99.038,8.328],[99.046,8.34],[99.048,8.342],[99.061,8.352],[99.069,8.352],[99.082,8.352],[99.125,8.344],[99.133,8.34],[99.138,8.336],[99.141,8.334],[99.175,8.323],[99.181,8.322],[99.202,8.322],[99.211,8.323],[99.223,8.326],[99.236,8.333],[99.266,8.342],[99.278,8.324],[99.281,8.321],[99.305,8.304],[99.313,8.296],[99.316,8.293],[99.318,8.282],[99.319,8.265],[99.317,8.202],[99.315,8.197],[99.307,8.187],[99.305,8.184],[99.304,8.182],[99.303,8.18],[99.301,8.17],[99.299,8.166],[99.295,8.161],[99.293,8.158],[99.292,8.155],[99.294,8.14],[99.298,8.127],[99.297,8.116],[99.296,8.111],[99.293,8.107],[99.287,8.103],[99.287,8.097],[99.29,8.088],[99.307,8.054],[99.311,8.047],[99.321,8.039],[99.326,8.036],[99.329,8.033],[99.331,8.031],[99.333,8.028],[99.342,8.002],[99.344,7.998],[99.345,7.995],[99.345,7.99],[99.338,7.974],[99.336,7.969],[99.334,7.966],[99.331,7.965],[99.327,7.963],[99.326,7.96],[99.326,7.957],[99.338,7.943],[99.343,7.931],[99.346,7.92],[99.345,7.914],[99.342,7.906],[99.332,7.888],[99.328,7.883],[99.313,7.871],[99.296,7.852],[99.294,7.849],[99.294,7.844],[99.297,7.837],[99.3,7.833],[99.302,7.83],[99.305,7.828],[99.307,7.825],[99.309,7.823],[99.312,7.817],[99.313,7.813],[99.314,7.81],[99.315,7.794],[99.318,7.787],[99.34,7.751],[99.341,7.748],[99.34,7.742],[99.336,7.733],[99.312,7.694],[99.301,7.684],[99.26,7.656],[99.257,7.655],[99.256,7.657],[99.244,7.671],[99.231,7.678],[99.215,7.68],[99.206,7.686],[99.193,7.705],[99.173,7.72],[99.153,7.731],[99.138,7.744],[99.131,7.767],[99.125,7.767],[99.122,7.733],[99.112,7.706],[99.092,7.692],[99.056,7.699],[99.033,7.723],[99.028,7.789],[99.015,7.815],[99.056,7.847],[99.063,7.859],[99.064,7.878],[99.071,7.908],[99.07,7.925],[99.051,7.906],[99.041,7.902],[99.028,7.904],[99.023,7.91],[99.008,7.935],[99.001,7.943],[98.984,7.947],[98.968,7.956],[98.961,7.976],[98.962,7.986],[98.964,7.993],[98.964,7.998],[98.961,8.007],[98.954,8.015],[98.938,8.024],[98.93,8.031],[98.924,8.041],[98.922,8.049],[98.918,8.051],[98.905,8.048],[98.899,8.043],[98.892,8.025],[98.888,8.021],[98.873,8.017],[98.858,8.009],[98.844,8.003],[98.83,8.007],[98.825,8.014],[98.818,8.037],[98.813,8.045],[98.801,8.052],[98.795,8.049],[98.792,8.04],[98.789,8.035],[98.776,8.024],[98.77,8.024],[98.768,8.038],[98.766,8.047],[98.753,8.06],[98.748,8.068],[98.745,8.088],[98.748,8.137],[98.744,8.15],[98.748,8.182],[98.748,8.199],[98.744,8.215],[98.727,8.254],[98.713,8.226],[98.707,8.226],[98.703,8.299],[98.697,8.309],[98.677,8.303],[98.648,8.285],[98.638,8.288],[98.631,8.288],[98.631,8.281],[98.624,8.281],[98.622,8.293],[98.626,8.346],[98.632,8.354],[98.648,8.367],[98.649,8.369],[98.655,8.369],[98.666,8.381],[98.666,8.385],[98.666,8.389],[98.662,8.397],[98.661,8.407],[98.664,8.417],[98.673,8.436],[98.676,8.445],[98.677,8.452],[98.675,8.455],[98.673,8.457],[98.669,8.462],[98.667,8.464],[98.665,8.474],[98.661,8.53],[98.661,8.546],[98.663,8.556],[98.666,8.558],[98.669,8.559],[98.684,8.562],[98.691,8.564],[98.697,8.567],[98.7,8.571],[98.704,8.576],[98.709,8.585],[98.713,8.6],[98.713,8.625],[98.724,8.626],[98.731,8.629],[98.734,8.631],[98.736,8.634],[98.737,8.637],[98.747,8.664],[98.75,8.669],[98.753,8.671],[98.756,8.673],[98.759,8.674],[98.763,8.675],[98.767,8.674],[98.77,8.673],[98.774,8.671],[98.779,8.667],[98.793,8.65],[98.795,8.648],[98.799,8.646],[98.803,8.644],[98.811,8.643],[98.847,8.642],[98.852,8.641],[98.856,8.637],[98.862,8.63],[98.867,8.621],[98.871,8.619],[98.875,8.616],[98.889,8.612],[98.894,8.609],[98.898,8.605],[98.918,8.584],[98.925,8.569],[98.927,8.567],[98.928,8.564],[98.928,8.561],[98.926,8.559],[98.924,8.557],[98.921,8.555],[98.916,8.551],[98.911,8.547],[98.899,8.536],[98.886,8.517],[98.885,8.514],[98.885,8.511],[98.886,8.508],[98.892,8.496],[98.897,8.488],[98.903,8.483],[98.905,8.478],[98.907,8.475],[98.908,8.471],[98.909,8.467],[98.908,8.463],[98.908,8.459],[98.903,8.445],[98.9,8.44],[98.895,8.435],[98.894,8.432],[98.892,8.429],[98.891,8.417],[98.891,8.413],[98.891,8.41],[98.892,8.407],[98.896,8.401],[98.897,8.398],[98.898,8.39],[98.897,8.374],[98.898,8.358],[98.901,8.342],[98.904,8.328],[98.907,8.321],[98.91,8.315],[98.913,8.314]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Krabi'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Krabi?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Krabi located? </h2>Krabi, is a province It belongs to the country of Thailand. Its postal identifier is KR.Krabi has an area of 4387 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

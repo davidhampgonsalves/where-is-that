@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Nam Dinh?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[106.503,20.301],[106.505,20.297],[106.513,20.294],[106.521,20.298],[106.525,20.308],[106.549,20.292],[106.553,20.287],[106.556,20.278],[106.555,20.275],[106.551,20.273],[106.546,20.267],[106.54,20.257],[106.531,20.245],[106.52,20.236],[106.498,20.229],[106.473,20.215],[106.461,20.212],[106.395,20.205],[106.395,20.212],[106.402,20.212],[106.402,20.218],[106.395,20.218],[106.39,20.216],[106.381,20.212],[106.381,20.205],[106.388,20.198],[106.381,20.192],[106.361,20.184],[106.354,20.177],[106.341,20.15],[106.306,20.109],[106.284,20.095],[106.26,20.061],[106.236,20.048],[106.212,20.021],[106.197,20.013],[106.207,20.035],[106.211,20.04],[106.204,20.048],[106.196,20.034],[106.184,20.004],[106.176,19.992],[106.161,19.984],[106.124,19.975],[106.107,19.965],[106.102,19.98],[106.105,19.996],[106.111,20.014],[106.115,20.033],[106.114,20.033],[106.152,20.127],[106.162,20.174],[106.162,20.19],[106.159,20.205],[106.155,20.218],[106.149,20.225],[106.142,20.23],[106.134,20.231],[106.119,20.233],[106.113,20.235],[106.107,20.239],[106.102,20.246],[106.098,20.25],[106.094,20.252],[106.089,20.252],[106.082,20.251],[106.075,20.247],[106.067,20.242],[106.057,20.24],[106.048,20.241],[106.029,20.259],[106.02,20.264],[105.992,20.267],[105.977,20.271],[105.964,20.283],[105.954,20.31],[105.951,20.337],[105.952,20.391],[105.969,20.419],[105.979,20.426],[105.987,20.428],[105.993,20.424],[105.999,20.409],[106.005,20.405],[106.014,20.405],[106.026,20.413],[106.033,20.427],[106.04,20.446],[106.056,20.474],[106.071,20.483],[106.088,20.485],[106.103,20.483],[106.139,20.489],[106.154,20.488],[106.184,20.491],[106.19,20.487],[106.196,20.484],[106.202,20.483],[106.208,20.48],[106.215,20.475],[106.218,20.469],[106.218,20.461],[106.214,20.439],[106.214,20.424],[106.22,20.414],[106.234,20.41],[106.262,20.411],[106.272,20.406],[106.28,20.393],[106.28,20.379],[106.275,20.367],[106.268,20.357],[106.264,20.344],[106.268,20.332],[106.278,20.33],[106.292,20.334],[106.302,20.341],[106.323,20.361],[106.334,20.366],[106.349,20.365],[106.355,20.356],[106.386,20.341],[106.395,20.333],[106.41,20.316],[106.45,20.287],[106.455,20.285],[106.462,20.283],[106.475,20.283],[106.481,20.284],[106.487,20.286],[106.493,20.29],[106.501,20.3],[106.503,20.301]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Nam Dinh'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Nam Dinh?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Nam Dinh located? </h2>Nam Dinh, is a province of the Ð?ng B?ng Sông H?ng region. It belongs to the country of Vietnam. Its postal identifier is ND.Nam Dinh has an area of 1513 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

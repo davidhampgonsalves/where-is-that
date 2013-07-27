@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Taipé?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[121.689,25.169],[121.673,25.159],[121.645,25.149],[121.633,25.141],[121.635,25.131],[121.646,25.119],[121.653,25.106],[121.664,25.094],[121.677,25.082],[121.689,25.075],[121.729,25.06],[121.749,25.058],[121.764,25.063],[121.773,25.069],[121.775,25.078],[121.761,25.091],[121.76,25.101],[121.761,25.143],[121.893,25.114],[121.905,25.107],[121.899,25.094],[121.897,25.084],[121.9,25.066],[121.909,25.036],[121.919,25.022],[121.927,25.019],[121.954,25.022],[121.967,25.021],[121.983,25.017],[121.998,25.011],[122.005,25.002],[121.972,24.987],[121.969,24.991],[121.957,24.997],[121.934,24.993],[121.902,24.978],[121.888,24.969],[121.846,24.961],[121.84,24.951],[121.85,24.939],[121.844,24.926],[121.826,24.916],[121.813,24.912],[121.799,24.905],[121.786,24.891],[121.775,24.873],[121.755,24.861],[121.732,24.854],[121.681,24.826],[121.631,24.808],[121.617,24.8],[121.599,24.786],[121.591,24.769],[121.592,24.755],[121.596,24.744],[121.597,24.737],[121.582,24.727],[121.557,24.716],[121.538,24.704],[121.524,24.693],[121.505,24.687],[121.483,24.681],[121.474,24.7],[121.44,24.729],[121.435,24.748],[121.432,24.766],[121.444,24.779],[121.449,24.797],[121.417,24.84],[121.398,24.847],[121.37,24.845],[121.35,24.855],[121.355,24.879],[121.351,24.896],[121.331,24.914],[121.327,24.931],[121.331,24.951],[121.33,24.973],[121.344,24.987],[121.394,25],[121.407,25.012],[121.41,25.026],[121.409,25.04],[121.389,25.066],[121.373,25.074],[121.358,25.077],[121.345,25.087],[121.327,25.097],[121.304,25.108],[121.287,25.124],[121.33,25.131],[121.348,25.137],[121.372,25.155],[121.379,25.158],[121.387,25.159],[121.399,25.16],[121.412,25.155],[121.419,25.146],[121.424,25.137],[121.43,25.132],[121.443,25.136],[121.429,25.156],[121.407,25.176],[121.396,25.183],[121.399,25.192],[121.406,25.197],[121.413,25.2],[121.416,25.204],[121.424,25.221],[121.436,25.241],[121.461,25.262],[121.498,25.279],[121.54,25.287],[121.581,25.283],[121.598,25.271],[121.636,25.223],[121.65,25.197],[121.654,25.199],[121.664,25.201],[121.676,25.203],[121.684,25.201],[121.684,25.197],[121.68,25.193],[121.676,25.187],[121.676,25.179],[121.681,25.175],[121.689,25.169]],[[121.619,24.977],[121.648,25.01],[121.655,25.024],[121.641,25.035],[121.624,25.044],[121.623,25.062],[121.629,25.085],[121.623,25.1],[121.608,25.112],[121.599,25.146],[121.592,25.159],[121.586,25.17],[121.585,25.182],[121.587,25.194],[121.579,25.202],[121.564,25.206],[121.549,25.199],[121.538,25.19],[121.497,25.168],[121.483,25.154],[121.475,25.139],[121.468,25.13],[121.462,25.12],[121.477,25.106],[121.498,25.087],[121.503,25.065],[121.497,25.039],[121.512,25.016],[121.534,25.001],[121.548,24.986],[121.562,24.975],[121.581,24.971],[121.603,24.971],[121.619,24.977]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Taipé'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Taipé?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Taipé located? </h2>Taipé, is a special municipality of the Taipei region. It belongs to the country of Taiwan. Its postal identifier is TP.Taipé has an area of 1937 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

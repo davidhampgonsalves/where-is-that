@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Limburgo?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[5.916,51.756],[5.941,51.745],[5.944,51.746],[5.945,51.746],[5.94,51.743],[5.939,51.732],[5.939,51.732],[5.949,51.73],[5.978,51.73],[5.989,51.727],[6.012,51.716],[6.022,51.71],[6.022,51.71],[6.008,51.682],[6.031,51.663],[6.099,51.645],[6.099,51.645],[6.087,51.622],[6.082,51.608],[6.082,51.608],[6.086,51.596],[6.153,51.539],[6.193,51.51],[6.2,51.477],[6.205,51.459],[6.205,51.459],[6.201,51.439],[6.194,51.418],[6.192,51.399],[6.192,51.399],[6.207,51.388],[6.207,51.388],[6.202,51.379],[6.199,51.357],[6.193,51.345],[6.183,51.336],[6.158,51.325],[6.147,51.319],[6.096,51.259],[6.075,51.243],[6.065,51.232],[6.056,51.212],[6.053,51.19],[6.053,51.19],[6.06,51.171],[6.084,51.163],[6.134,51.185],[6.157,51.18],[6.157,51.18],[6.149,51.177],[6.126,51.165],[6.126,51.165],[6.147,51.153],[6.147,51.153],[6.132,51.14],[6.075,51.121],[5.983,51.075],[5.969,51.065],[5.95,51.04],[5.938,51.031],[5.919,51.03],[5.906,51.038],[5.894,51.048],[5.88,51.052],[5.852,51.043],[5.852,51.043],[5.858,51.02],[5.873,50.991],[5.874,50.966],[5.888,50.967],[5.914,50.976],[5.927,50.978],[5.941,50.977],[5.968,50.971],[6.003,50.974],[6.005,50.969],[6.005,50.969],[5.999,50.96],[5.995,50.952],[5.995,50.952],[5.997,50.938],[5.999,50.93],[6.007,50.924],[6.031,50.915],[6.063,50.908],[6.063,50.908],[6.061,50.904],[6.056,50.898],[6.054,50.892],[6.054,50.892],[6.063,50.871],[6.063,50.871],[6.062,50.863],[6.056,50.853],[6.045,50.845],[6.023,50.846],[6.009,50.841],[6,50.831],[6,50.831],[6.001,50.822],[6.003,50.813],[6.003,50.813],[5.998,50.801],[5.984,50.793],[5.968,50.795],[5.968,50.795],[5.973,50.782],[5.98,50.774],[5.99,50.769],[5.997,50.763],[5.997,50.763],[5.994,50.75],[5.994,50.75],[5.974,50.748],[5.902,50.749],[5.88,50.754],[5.793,50.752],[5.783,50.757],[5.762,50.771],[5.752,50.774],[5.751,50.773],[5.743,50.769],[5.733,50.759],[5.727,50.755],[5.727,50.755],[5.717,50.753],[5.706,50.755],[5.688,50.761],[5.698,50.784],[5.7,50.796],[5.684,50.799],[5.663,50.805],[5.64,50.815],[5.624,50.831],[5.622,50.853],[5.622,50.853],[5.685,50.898],[5.694,50.904],[5.694,50.904],[5.706,50.907],[5.717,50.91],[5.722,50.912],[5.722,50.912],[5.735,50.924],[5.752,50.948],[5.764,50.96],[5.754,50.963],[5.744,50.964],[5.722,50.96],[5.761,51],[5.777,51.024],[5.764,51.036],[5.766,51.049],[5.771,51.058],[5.771,51.058],[5.779,51.062],[5.791,51.055],[5.791,51.055],[5.798,51.062],[5.804,51.069],[5.811,51.083],[5.809,51.087],[5.807,51.09],[5.805,51.097],[5.805,51.097],[5.815,51.096],[5.826,51.097],[5.826,51.097],[5.826,51.097],[5.836,51.1],[5.845,51.104],[5.846,51.104],[5.823,51.119],[5.826,51.131],[5.837,51.138],[5.84,51.139],[5.84,51.139],[5.838,51.144],[5.829,51.157],[5.812,51.158],[5.781,51.153],[5.768,51.16],[5.747,51.178],[5.73,51.184],[5.718,51.185],[5.676,51.18],[5.659,51.179],[5.648,51.184],[5.638,51.191],[5.625,51.197],[5.568,51.208],[5.552,51.217],[5.568,51.221],[5.592,51.226],[5.601,51.225],[5.608,51.227],[5.615,51.232],[5.621,51.239],[5.63,51.273],[5.648,51.292],[5.655,51.299],[5.676,51.316],[5.773,51.335],[5.844,51.349],[5.875,51.354],[5.898,51.366],[5.934,51.385],[5.91,51.417],[5.876,51.447],[5.853,51.504],[5.838,51.567],[5.874,51.565],[5.912,51.557],[5.924,51.557],[5.951,51.559],[6,51.57],[6.009,51.568],[6.034,51.558],[6.049,51.566],[6.049,51.575],[6.044,51.583],[6.031,51.613],[6.027,51.617],[6.026,51.621],[6.006,51.641],[5.997,51.647],[5.987,51.651],[5.982,51.656],[5.989,51.666],[5.973,51.676],[5.96,51.712],[5.945,51.72],[5.904,51.723],[5.888,51.729],[5.88,51.741],[5.883,51.753],[5.863,51.759],[5.863,51.773],[5.872,51.777],[5.882,51.778],[5.887,51.778],[5.89,51.777],[5.894,51.773],[5.912,51.758],[5.916,51.756]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Limburgo'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Limburgo?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Limburgo located? </h2>Limburgo, is a province It belongs to the country of Netherlands. Its postal identifier is LI.Limburgo has an area of 2092 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

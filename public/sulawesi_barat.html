@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Sulawesi Barat?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[119.873,-1.955],[119.825,-2.046],[119.814,-2.06],[119.802,-2.072],[119.789,-2.078],[119.778,-2.079],[119.767,-2.077],[119.753,-2.082],[119.646,-2.176],[119.635,-2.194],[119.631,-2.213],[119.628,-2.262],[119.624,-2.28],[119.624,-2.294],[119.627,-2.302],[119.638,-2.309],[119.66,-2.318],[119.672,-2.325],[119.707,-2.354],[119.722,-2.372],[119.729,-2.384],[119.733,-2.396],[119.729,-2.413],[119.716,-2.439],[119.716,-2.45],[119.719,-2.46],[119.728,-2.475],[119.735,-2.487],[119.738,-2.502],[119.735,-2.527],[119.739,-2.565],[119.775,-2.613],[119.774,-2.624],[119.768,-2.644],[119.767,-2.655],[119.77,-2.665],[119.777,-2.674],[119.783,-2.68],[119.787,-2.687],[119.786,-2.695],[119.778,-2.707],[119.767,-2.718],[119.728,-2.738],[119.661,-2.758],[119.636,-2.756],[119.598,-2.747],[119.579,-2.746],[119.56,-2.746],[119.533,-2.751],[119.515,-2.759],[119.542,-2.803],[119.544,-2.814],[119.542,-2.827],[119.537,-2.847],[119.537,-2.869],[119.539,-2.888],[119.543,-2.907],[119.607,-3.059],[119.635,-3.097],[119.641,-3.11],[119.639,-3.121],[119.626,-3.127],[119.582,-3.137],[119.562,-3.145],[119.541,-3.156],[119.508,-3.181],[119.489,-3.189],[119.475,-3.193],[119.465,-3.192],[119.449,-3.186],[119.44,-3.185],[119.43,-3.187],[119.421,-3.193],[119.414,-3.204],[119.412,-3.215],[119.414,-3.227],[119.418,-3.236],[119.443,-3.266],[119.451,-3.276],[119.453,-3.281],[119.458,-3.318],[119.461,-3.356],[119.464,-3.37],[119.483,-3.427],[119.491,-3.486],[119.486,-3.483],[119.466,-3.477],[119.457,-3.471],[119.433,-3.475],[119.403,-3.461],[119.373,-3.442],[119.347,-3.431],[119.312,-3.426],[119.298,-3.428],[119.292,-3.434],[119.284,-3.446],[119.246,-3.476],[119.23,-3.485],[119.209,-3.49],[119.192,-3.487],[119.176,-3.481],[119.158,-3.478],[119.141,-3.482],[119.118,-3.5],[119.1,-3.505],[119.027,-3.51],[118.999,-3.525],[119.005,-3.56],[118.993,-3.557],[118.979,-3.542],[118.97,-3.54],[118.962,-3.546],[118.95,-3.569],[118.939,-3.574],[118.927,-3.566],[118.917,-3.547],[118.88,-3.443],[118.859,-3.411],[118.849,-3.39],[118.843,-3.368],[118.84,-3.348],[118.844,-3.329],[118.851,-3.312],[118.853,-3.296],[118.835,-3.26],[118.824,-3.193],[118.818,-3.172],[118.812,-3.162],[118.804,-3.156],[118.792,-3.151],[118.782,-3.144],[118.778,-3.132],[118.776,-3.122],[118.767,-3.102],[118.764,-3.091],[118.768,-3.084],[118.785,-3.064],[118.792,-3.06],[118.8,-3.062],[118.823,-3.071],[118.836,-3.074],[118.849,-3.068],[118.854,-3.053],[118.857,-2.973],[118.864,-2.943],[118.883,-2.924],[118.886,-2.91],[118.888,-2.882],[118.886,-2.869],[118.881,-2.861],[118.873,-2.855],[118.861,-2.848],[118.835,-2.841],[118.813,-2.844],[118.772,-2.862],[118.771,-2.839],[118.76,-2.797],[118.758,-2.776],[118.761,-2.765],[118.775,-2.745],[118.778,-2.735],[118.778,-2.69],[118.783,-2.673],[118.793,-2.65],[118.806,-2.63],[118.823,-2.621],[118.842,-2.628],[118.856,-2.641],[118.871,-2.654],[118.895,-2.656],[118.915,-2.648],[118.959,-2.619],[118.982,-2.597],[119.005,-2.585],[119.015,-2.577],[119.021,-2.567],[119.032,-2.532],[119.048,-2.513],[119.065,-2.503],[119.084,-2.495],[119.136,-2.454],[119.142,-2.442],[119.138,-2.379],[119.131,-2.355],[119.127,-2.255],[119.132,-2.244],[119.139,-2.231],[119.142,-2.217],[119.134,-2.203],[119.172,-2.149],[119.186,-2.121],[119.216,-2.01],[119.235,-1.982],[119.265,-1.963],[119.288,-1.958],[119.304,-1.961],[119.319,-1.967],[119.337,-1.97],[119.347,-1.959],[119.354,-1.935],[119.368,-1.847],[119.367,-1.833],[119.366,-1.828],[119.36,-1.824],[119.35,-1.816],[119.336,-1.798],[119.329,-1.781],[119.309,-1.695],[119.306,-1.652],[119.31,-1.63],[119.329,-1.593],[119.334,-1.573],[119.309,-1.505],[119.303,-1.494],[119.297,-1.411],[119.295,-1.405],[119.295,-1.399],[119.299,-1.388],[119.306,-1.38],[119.329,-1.361],[119.334,-1.35],[119.331,-1.33],[119.313,-1.285],[119.314,-1.246],[119.329,-1.214],[119.351,-1.189],[119.374,-1.169],[119.382,-1.159],[119.39,-1.145],[119.399,-1.133],[119.412,-1.128],[119.43,-1.124],[119.444,-1.113],[119.454,-1.096],[119.46,-1.058],[119.474,-1.021],[119.483,-0.963],[119.49,-0.946],[119.501,-0.932],[119.509,-0.919],[119.518,-0.877],[119.525,-0.86],[119.538,-0.85],[119.566,-0.834],[119.567,-0.836],[119.573,-0.878],[119.567,-0.994],[119.568,-1.027],[119.572,-1.052],[119.595,-1.119],[119.602,-1.151],[119.599,-1.169],[119.589,-1.184],[119.527,-1.224],[119.512,-1.237],[119.499,-1.255],[119.487,-1.289],[119.487,-1.311],[119.494,-1.329],[119.508,-1.34],[119.525,-1.349],[119.642,-1.394],[119.657,-1.403],[119.671,-1.417],[119.682,-1.434],[119.693,-1.461],[119.707,-1.565],[119.715,-1.592],[119.725,-1.613],[119.768,-1.669],[119.794,-1.696],[119.822,-1.729],[119.839,-1.757],[119.845,-1.775],[119.846,-1.792],[119.838,-1.819],[119.823,-1.872],[119.822,-1.887],[119.822,-1.908],[119.827,-1.924],[119.836,-1.939],[119.847,-1.949],[119.855,-1.954],[119.873,-1.955]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Sulawesi Barat'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Sulawesi Barat?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Sulawesi Barat located? </h2>Sulawesi Barat, is a province It belongs to the country of Indonesia. Its postal identifier is SR.Sulawesi Barat has an area of 16627 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

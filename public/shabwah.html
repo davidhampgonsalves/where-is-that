@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Shabwah?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[48.672,14.044],[48.565,14.046],[48.548,14.041],[48.504,14.003],[48.494,13.999],[48.486,13.999],[48.478,13.997],[48.469,13.989],[48.451,14.011],[48.416,14.017],[48.339,14.016],[48.341,14.013],[48.346,14.003],[48.304,14.002],[48.189,13.969],[48.194,13.993],[48.178,14.009],[48.155,14.02],[48.141,14.031],[48.134,14.023],[48.106,14.036],[48.017,14.057],[48.002,14.049],[47.949,14.033],[47.931,14.031],[47.918,14.021],[47.867,13.962],[47.821,13.939],[47.668,13.887],[47.646,13.873],[47.564,13.789],[47.436,13.678],[47.398,13.655],[47.324,13.633],[47.324,13.633],[47.315,13.684],[47.308,13.709],[47.306,13.748],[47.275,13.845],[47.223,13.952],[47.233,13.975],[47.246,13.994],[47.259,14.018],[47.254,14.051],[47.256,14.096],[47.242,14.138],[47.206,14.161],[47.068,14.168],[47.001,14.182],[46.936,14.205],[46.865,14.214],[46.789,14.204],[46.688,14.177],[46.608,14.144],[46.492,14.125],[46.475,14.149],[46.469,14.176],[46.434,14.238],[46.42,14.275],[46.397,14.302],[46.367,14.3],[46.336,14.285],[46.248,14.254],[46.218,14.232],[46.18,14.214],[46.135,14.2],[46.044,14.192],[46.022,14.212],[46.018,14.229],[46.009,14.246],[46.008,14.259],[46.004,14.271],[46.005,14.283],[46.002,14.294],[45.982,14.307],[45.94,14.324],[45.894,14.332],[45.859,14.355],[45.837,14.389],[45.781,14.537],[45.758,14.555],[45.715,14.564],[45.696,14.58],[45.697,14.604],[45.704,14.624],[45.717,14.645],[45.722,14.663],[45.704,14.678],[45.681,14.689],[45.569,14.689],[45.547,14.701],[45.535,14.716],[45.525,14.743],[45.528,14.798],[45.533,14.828],[45.54,14.854],[45.539,14.867],[45.537,14.875],[45.55,14.884],[45.555,14.897],[45.554,14.914],[45.562,14.954],[45.585,14.996],[45.593,15.017],[45.614,15.06],[45.753,15.173],[46.34,15.571],[47.749,15.675],[47.84,15.645],[47.852,15.613],[47.722,15.415],[47.678,15.365],[47.655,15.316],[47.644,15.281],[47.644,15.257],[47.615,15.171],[47.612,15.144],[47.613,15.119],[47.637,15.094],[47.679,15.04],[47.679,15.01],[47.664,14.981],[47.502,14.847],[47.478,14.819],[47.486,14.794],[47.597,14.718],[47.668,14.65],[47.745,14.601],[47.822,14.574],[47.925,14.56],[47.999,14.558],[48.024,14.549],[48.049,14.535],[48.069,14.513],[48.089,14.473],[48.099,14.442],[48.123,14.411],[48.137,14.384],[48.187,14.335],[48.26,14.3],[48.327,14.294],[48.404,14.296],[48.489,14.275],[48.58,14.233],[48.602,14.208],[48.617,14.187],[48.626,14.167],[48.628,14.15],[48.634,14.134],[48.662,14.085],[48.67,14.065],[48.672,14.052],[48.672,14.044]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Shabwah'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Shabwah?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Shabwah located? </h2>Shabwah, is a governorate It belongs to the country of Yemen. Its postal identifier is SH.Shabwah has an area of 38206 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

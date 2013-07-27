@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is L'Artibonite?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-72.676,19.807],[-72.664,19.783],[-72.643,19.767],[-72.64,19.745],[-72.619,19.748],[-72.598,19.733],[-72.607,19.699],[-72.595,19.682],[-72.571,19.672],[-72.557,19.633],[-72.54,19.592],[-72.513,19.566],[-72.482,19.543],[-72.447,19.529],[-72.417,19.538],[-72.417,19.564],[-72.397,19.563],[-72.378,19.58],[-72.361,19.581],[-72.346,19.574],[-72.327,19.565],[-72.322,19.502],[-72.284,19.468],[-72.244,19.449],[-72.227,19.413],[-72.232,19.386],[-72.227,19.357],[-72.211,19.329],[-72.2,19.302],[-72.246,19.241],[-72.252,19.168],[-72.225,19.143],[-72.234,19.122],[-72.232,19.097],[-72.225,19.068],[-72.239,19.017],[-72.233,18.967],[-72.23,18.941],[-72.244,18.908],[-72.247,18.877],[-72.271,18.864],[-72.318,18.87],[-72.365,18.867],[-72.389,18.89],[-72.416,18.909],[-72.442,18.919],[-72.467,18.929],[-72.477,18.944],[-72.488,18.959],[-72.512,18.958],[-72.536,18.96],[-72.612,18.971],[-72.675,18.973],[-72.692,18.961],[-72.706,18.944],[-72.709,18.946],[-72.814,19.053],[-72.818,19.079],[-72.776,19.095],[-72.738,19.097],[-72.716,19.104],[-72.707,19.119],[-72.713,19.137],[-72.728,19.147],[-72.746,19.154],[-72.762,19.163],[-72.773,19.176],[-72.797,19.216],[-72.803,19.232],[-72.797,19.237],[-72.796,19.238],[-72.797,19.24],[-72.796,19.246],[-72.786,19.254],[-72.775,19.277],[-72.769,19.287],[-72.758,19.292],[-72.742,19.295],[-72.726,19.295],[-72.714,19.293],[-72.728,19.32],[-72.739,19.326],[-72.759,19.328],[-72.771,19.336],[-72.774,19.356],[-72.773,19.376],[-72.769,19.389],[-72.762,19.383],[-72.754,19.377],[-72.744,19.374],[-72.734,19.376],[-72.723,19.383],[-72.723,19.391],[-72.726,19.399],[-72.728,19.422],[-72.731,19.426],[-72.728,19.426],[-72.714,19.423],[-72.709,19.42],[-72.702,19.415],[-72.692,19.41],[-72.68,19.409],[-72.699,19.446],[-72.709,19.451],[-72.761,19.454],[-72.774,19.463],[-72.783,19.477],[-72.796,19.492],[-72.815,19.505],[-72.878,19.532],[-72.932,19.564],[-72.95,19.568],[-72.967,19.575],[-73.002,19.603],[-73.009,19.605],[-73.019,19.601],[-73.081,19.622],[-73.091,19.623],[-73.111,19.628],[-73.121,19.629],[-73.122,19.632],[-73.114,19.686],[-73.067,19.733],[-73.028,19.737],[-72.988,19.727],[-72.947,19.724],[-72.906,19.717],[-72.83,19.73],[-72.768,19.78],[-72.747,19.785],[-72.731,19.794],[-72.706,19.811],[-72.676,19.807]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'L'Artibonite'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>L'Artibonite?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is L'Artibonite located? </h2>L'Artibonite, is a department It belongs to the country of Haiti. Its postal identifier is AR.L'Artibonite has an area of 4955 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kidal?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[1.168,20.734],[1.191,20.731],[1.212,20.731],[1.252,20.739],[1.273,20.74],[1.296,20.734],[1.31,20.723],[1.331,20.688],[1.346,20.669],[1.363,20.658],[1.407,20.645],[1.447,20.639],[1.465,20.634],[1.483,20.623],[1.52,20.617],[1.559,20.598],[1.623,20.551],[1.643,20.523],[1.65,20.487],[1.649,20.412],[1.659,20.398],[1.778,20.304],[1.799,20.295],[1.82,20.294],[1.838,20.296],[1.854,20.295],[1.87,20.284],[1.88,20.263],[1.883,20.244],[1.891,20.232],[1.913,20.231],[1.924,20.236],[1.941,20.251],[1.955,20.255],[1.967,20.254],[1.975,20.249],[1.983,20.242],[1.993,20.236],[2.056,20.215],[2.071,20.213],[2.097,20.224],[2.133,20.257],[2.138,20.261],[2.138,20.261],[2.161,20.275],[2.182,20.279],[2.2,20.274],[2.218,20.264],[2.279,20.218],[2.316,20.18],[2.348,20.138],[2.388,20.068],[2.4,20.057],[2.415,20.051],[2.439,20.046],[2.459,20.039],[2.495,20.02],[2.514,20.016],[2.525,20.015],[2.616,19.999],[2.671,19.996],[2.945,19.942],[3.072,19.889],[3.13,19.845],[3.146,19.838],[3.183,19.828],[3.198,19.821],[3.212,19.808],[3.216,19.794],[3.198,19.592],[3.199,19.554],[3.212,19.517],[3.217,19.511],[3.222,19.508],[3.227,19.504],[3.232,19.496],[3.231,19.489],[3.226,19.469],[3.225,19.46],[3.234,19.442],[3.247,19.427],[3.258,19.41],[3.26,19.388],[3.25,19.366],[3.25,19.366],[3.232,19.352],[3.211,19.341],[3.193,19.326],[3.192,19.326],[3.183,19.308],[3.178,19.269],[3.174,19.252],[3.174,19.252],[3.152,19.23],[3.139,19.222],[3.139,19.222],[3.134,19.213],[3.126,19.194],[3.111,19.171],[3.102,19.154],[3.104,19.136],[3.12,19.113],[3.138,19.096],[3.158,19.082],[3.179,19.07],[3.225,19.051],[3.284,18.996],[3.284,18.996],[3.308,18.982],[3.318,18.978],[3.333,18.976],[3.358,18.977],[3.439,18.996],[3.439,18.996],[4.228,19.142],[4.232,17.975],[3.688,17.975],[2.926,17.975],[1.976,17.975],[1.798,17.757],[1.204,17.629],[0.57,18.134],[0.362,18.351],[0.065,18.708],[-0.885,18.955],[-0.964,19.064],[-1.42,19.411],[-2.043,19.916],[-1.321,20.282],[-0.865,20.638],[-0.222,21.153],[0,21.838],[0.004,21.849],[1.146,21.102],[1.159,21.082],[1.177,21.018],[1.179,20.995],[1.167,20.886],[1.145,20.796],[1.144,20.776],[1.147,20.752],[1.154,20.739],[1.168,20.734]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Kidal'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Kidal?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Kidal located? </h2>Kidal, is a region of the Gao region. It belongs to the country of Mali. Its postal identifier is KD.Kidal has an area of 146441 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

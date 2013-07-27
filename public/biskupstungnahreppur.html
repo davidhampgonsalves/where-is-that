@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Biskupstungnahreppur?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-18.234,64.818],[-18.268,64.807],[-18.281,64.799],[-18.3,64.783],[-18.31,64.779],[-18.369,64.766],[-18.379,64.762],[-18.385,64.758],[-18.392,64.739],[-18.393,64.731],[-18.395,64.726],[-18.41,64.712],[-18.424,64.705],[-18.43,64.702],[-18.435,64.697],[-18.439,64.691],[-18.448,64.68],[-18.456,64.675],[-18.464,64.672],[-18.584,64.638],[-18.591,64.635],[-18.596,64.631],[-18.603,64.623],[-18.621,64.608],[-18.629,64.603],[-18.637,64.599],[-18.677,64.587],[-18.695,64.577],[-18.707,64.567],[-18.715,64.562],[-18.723,64.558],[-18.73,64.557],[-18.749,64.555],[-18.777,64.55],[-18.792,64.542],[-18.823,64.533],[-18.888,64.522],[-18.896,64.518],[-18.901,64.515],[-18.903,64.511],[-18.902,64.508],[-18.899,64.504],[-18.892,64.497],[-18.891,64.493],[-18.892,64.488],[-18.9,64.48],[-18.906,64.476],[-18.913,64.473],[-18.998,64.455],[-19.005,64.452],[-19.03,64.433],[-19.039,64.428],[-19.099,64.409],[-19.111,64.404],[-19.118,64.4],[-19.132,64.384],[-19.143,64.374],[-19.149,64.365],[-19.155,64.361],[-19.201,64.341],[-19.268,64.323],[-19.287,64.314],[-19.322,64.291],[-19.343,64.272],[-19.349,64.266],[-19.359,64.254],[-19.368,64.247],[-19.376,64.242],[-19.398,64.235],[-19.486,64.219],[-19.531,64.202],[-19.551,64.186],[-19.595,64.169],[-19.636,64.163],[-19.702,64.144],[-19.736,64.123],[-19.767,64.085],[-19.778,64.074],[-19.811,64.069],[-19.838,64.068],[-19.845,64.069],[-19.85,64.072],[-19.852,64.075],[-19.851,64.079],[-19.85,64.082],[-19.848,64.085],[-19.848,64.088],[-19.853,64.09],[-19.916,64.092],[-19.923,64.093],[-19.938,64.092],[-19.958,64.087],[-20.044,64.06],[-20.092,64.052],[-20.205,64.022],[-20.216,64.02],[-20.25,64.021],[-20.283,64.017],[-20.291,64.017],[-20.298,64.018],[-20.304,64.02],[-20.309,64.023],[-20.315,64.025],[-20.322,64.027],[-20.402,64.022],[-20.434,64.014],[-20.488,64.005],[-20.501,64.001],[-20.502,64.001],[-20.502,64],[-20.504,63.994],[-20.505,63.986],[-20.508,63.979],[-20.51,63.975],[-20.512,63.972],[-20.555,63.946],[-20.564,63.943],[-20.572,63.942],[-20.577,63.942],[-20.614,63.936],[-20.651,63.933],[-20.66,63.931],[-20.674,63.924],[-20.684,63.918],[-20.689,63.912],[-20.692,63.908],[-20.695,63.905],[-20.7,63.895],[-20.702,63.891],[-20.704,63.869],[-20.701,63.866],[-20.723,63.869],[-20.723,63.863],[-20.695,63.858],[-20.698,63.844],[-20.717,63.828],[-20.754,63.806],[-20.778,63.798],[-20.805,63.795],[-20.832,63.802],[-20.822,63.785],[-20.818,63.781],[-20.858,63.801],[-20.949,63.827],[-21.077,63.849],[-21.12,63.863],[-21.144,63.868],[-21.168,63.876],[-21.189,63.891],[-21.183,63.899],[-21.184,63.909],[-21.195,63.932],[-21.117,63.93],[-21.074,63.934],[-21.045,63.946],[-21.12,63.946],[-21.167,63.958],[-21.185,63.96],[-21.236,63.953],[-21.247,63.949],[-21.256,63.943],[-21.287,63.928],[-21.298,63.925],[-21.298,63.919],[-21.248,63.909],[-21.222,63.899],[-21.209,63.884],[-21.23,63.889],[-21.275,63.892],[-21.322,63.889],[-21.35,63.884],[-21.366,63.874],[-21.352,63.856],[-21.357,63.856],[-21.36,63.854],[-21.363,63.852],[-21.367,63.85],[-21.66,63.832],[-21.695,63.843],[-21.729,63.859],[-21.76,63.869],[-21.793,63.871],[-21.932,63.848],[-21.912,63.866],[-21.894,63.88],[-21.652,64],[-21.614,63.999],[-21.607,64.001],[-21.606,64.002],[-21.599,64.018],[-21.594,64.024],[-21.57,64.036],[-21.546,64.052],[-21.505,64.087],[-21.417,64.163],[-21.409,64.174],[-21.401,64.188],[-21.415,64.213],[-21.417,64.22],[-21.417,64.227],[-21.414,64.233],[-21.4,64.248],[-21.388,64.258],[-21.149,64.364],[-21.078,64.404],[-20.93,64.464],[-20.814,64.524],[-20.79,64.531],[-20.628,64.557],[-20.314,64.644],[-20.045,64.698],[-20.017,64.71],[-20.001,64.72],[-19.997,64.724],[-19.993,64.73],[-19.991,64.738],[-19.991,64.75],[-19.994,64.765],[-19.993,64.772],[-19.992,64.778],[-19.977,64.802],[-19.72,64.752],[-19.696,64.75],[-19.667,64.751],[-19.405,64.785],[-19.155,64.785],[-18.872,64.839],[-18.427,64.881],[-18.333,64.843],[-18.234,64.818]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Biskupstungnahreppur'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Biskupstungnahreppur?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Biskupstungnahreppur located? </h2>Biskupstungnahreppur, is a municipality of the Suðurland region. It belongs to the country of Iceland. Its postal identifier is SL.Biskupstungnahreppur has an area of 8803 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

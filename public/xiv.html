@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is XIV?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-72.944,-39.39],[-72.943,-39.408],[-72.953,-39.447],[-72.968,-39.506],[-72.976,-39.561],[-72.966,-39.589],[-72.943,-39.593],[-72.917,-39.592],[-72.885,-39.588],[-72.845,-39.582],[-72.789,-39.585],[-72.719,-39.597],[-72.651,-39.61],[-72.596,-39.616],[-72.545,-39.623],[-72.487,-39.643],[-72.434,-39.673],[-72.398,-39.71],[-72.374,-39.733],[-72.348,-39.731],[-72.32,-39.719],[-72.29,-39.714],[-72.264,-39.721],[-72.243,-39.733],[-72.221,-39.744],[-72.193,-39.747],[-72.141,-39.747],[-72.067,-39.745],[-71.992,-39.73],[-71.937,-39.69],[-71.903,-39.638],[-71.864,-39.575],[-71.827,-39.514],[-71.799,-39.466],[-71.787,-39.459],[-71.77,-39.455],[-71.755,-39.454],[-71.748,-39.455],[-71.744,-39.456],[-71.74,-39.458],[-71.735,-39.46],[-71.731,-39.461],[-71.727,-39.463],[-71.723,-39.465],[-71.719,-39.467],[-71.715,-39.47],[-71.711,-39.472],[-71.707,-39.475],[-71.703,-39.478],[-71.698,-39.481],[-71.694,-39.485],[-71.69,-39.489],[-71.685,-39.492],[-71.681,-39.496],[-71.677,-39.502],[-71.673,-39.507],[-71.669,-39.512],[-71.665,-39.518],[-71.663,-39.523],[-71.66,-39.527],[-71.658,-39.532],[-71.655,-39.536],[-71.653,-39.549],[-71.651,-39.563],[-71.648,-39.576],[-71.646,-39.589],[-71.645,-39.592],[-71.643,-39.595],[-71.642,-39.598],[-71.641,-39.601],[-71.641,-39.601],[-71.678,-39.568],[-71.69,-39.568],[-71.706,-39.583],[-71.715,-39.601],[-71.719,-39.623],[-71.717,-39.645],[-71.695,-39.673],[-71.699,-39.69],[-71.709,-39.708],[-71.715,-39.726],[-71.711,-39.747],[-71.693,-39.79],[-71.688,-39.811],[-71.685,-39.833],[-71.68,-39.848],[-71.67,-39.859],[-71.635,-39.883],[-71.622,-39.895],[-71.617,-39.91],[-71.626,-39.931],[-71.663,-39.995],[-71.668,-40],[-71.675,-40.004],[-71.681,-40.009],[-71.683,-40.018],[-71.681,-40.029],[-71.674,-40.05],[-71.672,-40.061],[-71.684,-40.099],[-71.722,-40.094],[-71.767,-40.077],[-71.801,-40.08],[-71.815,-40.093],[-71.815,-40.1],[-71.808,-40.108],[-71.804,-40.116],[-71.805,-40.124],[-71.81,-40.134],[-71.817,-40.164],[-71.817,-40.174],[-71.813,-40.185],[-71.814,-40.188],[-71.823,-40.203],[-71.824,-40.21],[-71.817,-40.227],[-71.803,-40.242],[-71.771,-40.267],[-71.751,-40.291],[-71.743,-40.296],[-71.731,-40.298],[-71.726,-40.295],[-71.725,-40.29],[-71.719,-40.286],[-71.706,-40.282],[-71.699,-40.283],[-71.687,-40.288],[-71.68,-40.295],[-71.676,-40.304],[-71.674,-40.314],[-71.675,-40.324],[-71.679,-40.34],[-71.72,-40.413],[-71.73,-40.421],[-71.743,-40.421],[-71.785,-40.411],[-71.797,-40.414],[-71.805,-40.426],[-71.842,-40.516],[-71.859,-40.542],[-71.863,-40.55],[-71.861,-40.559],[-71.893,-40.593],[-71.947,-40.626],[-72.011,-40.651],[-72.07,-40.661],[-72.148,-40.664],[-72.264,-40.671],[-72.398,-40.676],[-72.527,-40.673],[-72.634,-40.653],[-72.721,-40.618],[-72.79,-40.579],[-72.846,-40.547],[-72.886,-40.522],[-72.91,-40.494],[-72.928,-40.456],[-72.949,-40.399],[-72.993,-40.353],[-73.062,-40.342],[-73.137,-40.347],[-73.2,-40.353],[-73.26,-40.344],[-73.33,-40.325],[-73.397,-40.305],[-73.451,-40.296],[-73.499,-40.296],[-73.555,-40.296],[-73.613,-40.296],[-73.668,-40.296],[-73.709,-40.292],[-73.734,-40.284],[-73.745,-40.277],[-73.748,-40.273],[-73.748,-40.26],[-73.746,-40.249],[-73.737,-40.231],[-73.733,-40.22],[-73.724,-40.214],[-73.721,-40.209],[-73.722,-40.204],[-73.724,-40.198],[-73.727,-40.194],[-73.729,-40.195],[-73.729,-40.189],[-73.735,-40.18],[-73.735,-40.175],[-73.719,-40.165],[-73.714,-40.161],[-73.699,-40.132],[-73.698,-40.126],[-73.687,-40.126],[-73.674,-40.125],[-73.664,-40.12],[-73.66,-40.11],[-73.664,-40.067],[-73.668,-40.046],[-73.673,-40.031],[-73.7,-40],[-73.714,-39.978],[-73.711,-39.969],[-73.701,-39.964],[-73.683,-39.942],[-73.673,-39.935],[-73.662,-39.932],[-73.633,-39.935],[-73.611,-39.926],[-73.583,-39.905],[-73.537,-39.897],[-73.517,-39.888],[-73.498,-39.874],[-73.482,-39.859],[-73.467,-39.84],[-73.458,-39.834],[-73.444,-39.831],[-73.434,-39.833],[-73.424,-39.838],[-73.416,-39.843],[-73.413,-39.849],[-73.411,-39.871],[-73.404,-39.895],[-73.393,-39.909],[-73.379,-39.9],[-73.373,-39.88],[-73.376,-39.858],[-73.385,-39.836],[-73.396,-39.821],[-73.402,-39.804],[-73.395,-39.783],[-73.384,-39.761],[-73.379,-39.743],[-73.386,-39.722],[-73.399,-39.708],[-73.406,-39.695],[-73.396,-39.678],[-73.359,-39.664],[-73.346,-39.656],[-73.358,-39.647],[-73.317,-39.607],[-73.298,-39.583],[-73.29,-39.561],[-73.288,-39.551],[-73.283,-39.539],[-73.275,-39.528],[-73.265,-39.524],[-73.263,-39.518],[-73.26,-39.507],[-73.255,-39.495],[-73.241,-39.489],[-73.252,-39.468],[-73.25,-39.45],[-73.24,-39.434],[-73.224,-39.417],[-73.226,-39.411],[-73.245,-39.39],[-73.247,-39.386],[-73.246,-39.386],[-73.246,-39.386],[-73.246,-39.386],[-73.246,-39.386],[-73.22,-39.387],[-73.194,-39.388],[-73.168,-39.39],[-73.143,-39.391],[-73.131,-39.389],[-73.12,-39.388],[-73.108,-39.386],[-73.097,-39.385],[-73.093,-39.382],[-73.089,-39.38],[-73.085,-39.378],[-73.081,-39.376],[-73.075,-39.373],[-73.059,-39.368],[-73.035,-39.364],[-73.007,-39.367],[-72.979,-39.373],[-72.957,-39.38],[-72.944,-39.39]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'XIV'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>XIV?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is XIV located? </h2>XIV, is a region It belongs to the country of Chile. Its postal identifier is AR.XIV has an area of 16253 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

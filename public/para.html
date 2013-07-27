@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Para?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-55.039,5.667],[-55.075,5.65],[-55.087,5.628],[-55.089,5.626],[-55.089,5.616],[-55.089,5.615],[-55.085,5.617],[-55.075,5.615],[-55.072,5.617],[-55.067,5.62],[-55.061,5.623],[-55.055,5.622],[-55.053,5.619],[-55.055,5.615],[-55.055,5.61],[-55.051,5.609],[-55.048,5.604],[-55.047,5.594],[-55.049,5.538],[-55.03,5.532],[-55.01,5.531],[-54.628,5.559],[-54.613,5.524],[-54.608,5.489],[-54.608,5.468],[-54.61,5.454],[-54.613,5.442],[-54.617,5.432],[-54.622,5.421],[-54.655,5.375],[-54.669,5.379],[-54.679,5.365],[-54.738,5.252],[-54.75,5.22],[-54.756,5.211],[-54.792,5.18],[-54.799,5.17],[-54.803,5.163],[-54.824,5.086],[-54.835,5.028],[-54.851,4.981],[-54.859,4.975],[-54.866,4.975],[-54.873,4.98],[-54.875,4.988],[-54.875,4.995],[-54.871,5.011],[-54.871,5.051],[-54.873,5.061],[-54.876,5.071],[-54.884,5.08],[-54.892,5.087],[-54.897,5.096],[-54.897,5.105],[-54.893,5.126],[-54.894,5.137],[-54.897,5.147],[-54.903,5.158],[-54.911,5.168],[-54.92,5.176],[-54.973,5.212],[-54.982,5.221],[-54.988,5.231],[-54.991,5.242],[-54.994,5.302],[-54.999,5.312],[-55.005,5.319],[-55.026,5.323],[-55.324,5.32],[-55.35,5.315],[-55.36,5.301],[-55.362,5.291],[-55.358,5.282],[-55.353,5.276],[-55.349,5.27],[-55.347,5.263],[-55.348,5.257],[-55.351,5.248],[-55.387,5.189],[-55.42,5.155],[-55.469,5.12],[-55.503,5.08],[-55.511,5.076],[-55.522,5.074],[-55.527,5.07],[-55.535,5.058],[-55.54,5.053],[-55.544,5.048],[-55.547,5.043],[-55.55,5.03],[-55.554,5.025],[-55.56,5.021],[-55.571,5.018],[-55.574,5.015],[-55.585,5.01],[-55.603,5],[-55.633,4.987],[-55.677,4.978],[-55.688,4.982],[-55.698,4.991],[-55.706,5.013],[-55.708,5.028],[-55.709,5.04],[-55.712,5.051],[-55.718,5.062],[-55.731,5.074],[-55.742,5.082],[-55.753,5.087],[-55.817,5.108],[-55.837,5.111],[-55.858,5.109],[-55.881,5.105],[-55.93,5.091],[-55.941,5.09],[-55.952,5.091],[-55.999,5.103],[-56.001,5.121],[-56,5.154],[-55.97,5.381],[-55.917,5.54],[-55.904,5.525],[-55.9,5.512],[-55.89,5.502],[-55.89,5.491],[-55.896,5.481],[-55.906,5.471],[-55.913,5.455],[-55.914,5.441],[-55.91,5.429],[-55.907,5.413],[-55.9,5.407],[-55.891,5.405],[-55.846,5.417],[-55.834,5.416],[-55.795,5.406],[-55.491,5.43],[-55.479,5.433],[-55.472,5.437],[-55.464,5.44],[-55.458,5.437],[-55.453,5.432],[-55.446,5.426],[-55.44,5.428],[-55.437,5.434],[-55.435,5.44],[-55.43,5.445],[-55.421,5.445],[-55.406,5.452],[-55.399,5.457],[-55.396,5.462],[-55.394,5.474],[-55.392,5.481],[-55.387,5.487],[-55.382,5.494],[-55.381,5.501],[-55.381,5.507],[-55.386,5.514],[-55.401,5.526],[-55.405,5.532],[-55.406,5.539],[-55.399,5.552],[-55.396,5.566],[-55.393,5.574],[-55.385,5.581],[-55.379,5.588],[-55.376,5.595],[-55.377,5.602],[-55.381,5.609],[-55.386,5.614],[-55.39,5.62],[-55.387,5.626],[-55.376,5.635],[-55.359,5.639],[-55.349,5.643],[-55.344,5.649],[-55.344,5.656],[-55.347,5.662],[-55.352,5.673],[-55.255,5.662],[-55.222,5.662],[-55.115,5.683],[-55.089,5.682],[-55.039,5.667]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Para'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Para?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Para located? </h2>Para, is a district It belongs to the country of Suriname. Its postal identifier is PR.Para has an area of 5754 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

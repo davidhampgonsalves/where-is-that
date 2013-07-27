@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Eastern Highlands?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[145.868,-5.996],[145.881,-6.008],[145.893,-6.044],[145.906,-6.059],[145.922,-6.073],[145.935,-6.09],[145.941,-6.086],[145.957,-6.079],[145.964,-6.076],[145.968,-6.092],[145.968,-6.107],[145.983,-6.116],[146.113,-6.199],[146.123,-6.211],[146.129,-6.227],[146.129,-6.249],[146.039,-6.675],[146.032,-6.692],[146.022,-6.706],[145.999,-6.728],[145.992,-6.738],[145.991,-6.75],[145.995,-6.762],[146.001,-6.776],[146.005,-6.792],[146.007,-6.812],[146.019,-6.847],[146.02,-6.866],[146.015,-6.884],[146.007,-6.898],[145.998,-6.908],[145.957,-6.944],[145.945,-6.958],[145.937,-6.972],[145.932,-6.985],[145.906,-7.075],[145.9,-7.086],[145.894,-7.095],[145.889,-7.104],[145.846,-7.237],[145.302,-6.875],[145.341,-6.741],[145.342,-6.73],[145.337,-6.72],[145.317,-6.694],[145.311,-6.687],[145.304,-6.685],[145.208,-6.678],[145.201,-6.674],[145.074,-6.555],[145.052,-6.542],[145.037,-6.536],[145.022,-6.531],[145.009,-6.528],[145.001,-6.524],[144.993,-6.515],[144.986,-6.477],[144.986,-6.461],[144.997,-6.445],[145.006,-6.437],[145.049,-6.415],[145.06,-6.412],[145.074,-6.412],[145.09,-6.415],[145.138,-6.417],[145.152,-6.415],[145.164,-6.41],[145.174,-6.399],[145.202,-6.361],[145.215,-6.35],[145.237,-6.337],[145.246,-6.329],[145.254,-6.316],[145.26,-6.301],[145.263,-6.285],[145.264,-6.257],[145.251,-6.173],[145.245,-6.155],[145.236,-6.144],[145.227,-6.139],[145.207,-6.132],[145.197,-6.126],[145.162,-6.098],[145.155,-6.084],[145.15,-6.064],[145.154,-5.929],[145.166,-5.875],[145.241,-5.87],[145.266,-5.872],[145.35,-5.858],[145.365,-5.86],[145.378,-5.869],[145.42,-5.934],[145.437,-5.95],[145.458,-5.958],[145.492,-5.964],[145.513,-5.964],[145.526,-5.959],[145.535,-5.948],[145.542,-5.936],[145.551,-5.927],[145.564,-5.92],[145.588,-5.916],[145.607,-5.917],[145.628,-5.922],[145.638,-5.928],[145.653,-5.946],[145.661,-5.953],[145.67,-5.955],[145.801,-5.961],[145.804,-5.961],[145.819,-5.961],[145.84,-5.98],[145.868,-5.996]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Eastern Highlands'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Eastern Highlands?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Eastern Highlands located? </h2>Eastern Highlands, is a province It belongs to the country of Papua New Guinea. Its postal identifier is EH.Eastern Highlands has an area of 11284 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

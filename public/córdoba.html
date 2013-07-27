@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Córdoba?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-75.698,9.417],[-75.698,9.415],[-75.699,9.354],[-75.673,9.345],[-75.664,9.339],[-75.634,9.332],[-75.581,9.306],[-75.566,9.287],[-75.549,9.268],[-75.511,9.26],[-75.507,9.251],[-75.503,9.249],[-75.496,9.249],[-75.482,9.247],[-75.465,9.238],[-75.458,9.195],[-75.43,9.153],[-75.256,9.073],[-75.213,9.042],[-75.222,9.023],[-75.219,9.015],[-75.201,8.989],[-75.198,8.983],[-75.202,8.977],[-75.206,8.972],[-75.209,8.924],[-75.22,8.916],[-75.27,8.902],[-75.285,8.901],[-75.297,8.897],[-75.311,8.886],[-75.331,8.866],[-75.341,8.859],[-75.35,8.852],[-75.357,8.842],[-75.36,8.803],[-75.341,8.741],[-75.347,8.715],[-75.347,8.7],[-75.344,8.679],[-75.325,8.615],[-75.325,8.572],[-75.319,8.521],[-75.313,8.504],[-75.305,8.491],[-75.295,8.481],[-75.254,8.462],[-75.221,8.44],[-75.184,8.402],[-75.078,8.453],[-75.035,8.465],[-74.98,8.485],[-74.957,8.487],[-74.943,8.486],[-74.923,8.469],[-74.886,8.441],[-74.858,8.395],[-74.835,8.374],[-74.822,8.364],[-74.809,8.351],[-74.804,8.336],[-74.805,8.28],[-74.801,8.262],[-74.799,8.257],[-74.801,8.25],[-74.816,8.234],[-74.822,8.226],[-74.827,8.217],[-74.828,8.204],[-74.835,8.189],[-74.852,8.183],[-74.869,8.172],[-74.886,8.154],[-74.912,8.113],[-74.943,8.073],[-74.998,8.075],[-75.017,8.075],[-75.033,8.071],[-75.047,8.063],[-75.061,8.059],[-75.074,8.061],[-75.092,8.066],[-75.114,8.068],[-75.189,8.06],[-75.214,8.052],[-75.229,8.046],[-75.25,8.015],[-75.263,7.996],[-75.325,7.931],[-75.362,7.884],[-75.39,7.86],[-75.441,7.824],[-75.459,7.808],[-75.49,7.739],[-75.516,7.723],[-75.534,7.707],[-75.547,7.689],[-75.565,7.606],[-75.59,7.57],[-75.609,7.557],[-75.646,7.543],[-75.705,7.532],[-75.74,7.52],[-75.769,7.499],[-75.84,7.401],[-75.844,7.385],[-75.845,7.375],[-75.857,7.367],[-75.868,7.364],[-75.966,7.368],[-76.032,7.371],[-76.408,7.38],[-76.435,7.465],[-76.498,7.6],[-76.505,7.645],[-76.505,7.741],[-76.468,7.875],[-76.433,7.931],[-76.419,7.979],[-76.417,8.006],[-76.419,8.099],[-76.4,8.132],[-76.37,8.177],[-76.318,8.281],[-76.27,8.349],[-76.217,8.41],[-76.214,8.453],[-76.216,8.496],[-76.229,8.578],[-76.245,8.602],[-76.261,8.627],[-76.278,8.642],[-76.332,8.66],[-76.346,8.675],[-76.364,8.705],[-76.389,8.739],[-76.405,8.819],[-76.412,8.84],[-76.439,8.866],[-76.445,8.87],[-76.428,8.885],[-76.428,8.891],[-76.435,8.903],[-76.427,8.911],[-76.366,8.925],[-76.342,8.939],[-76.324,8.941],[-76.315,8.948],[-76.31,8.958],[-76.301,8.97],[-76.264,8.996],[-76.256,9.007],[-76.265,9.042],[-76.255,9.071],[-76.235,9.094],[-76.202,9.123],[-76.193,9.135],[-76.186,9.15],[-76.175,9.233],[-76.168,9.247],[-76.162,9.248],[-76.134,9.259],[-76.13,9.261],[-76.117,9.266],[-76.112,9.276],[-76.113,9.295],[-76.111,9.312],[-76.107,9.322],[-76.096,9.333],[-76.087,9.34],[-76.078,9.344],[-76.037,9.357],[-76.007,9.374],[-75.974,9.397],[-75.946,9.424],[-75.935,9.433],[-75.928,9.433],[-75.91,9.428],[-75.877,9.43],[-75.843,9.437],[-75.819,9.446],[-75.811,9.444],[-75.803,9.439],[-75.798,9.43],[-75.798,9.418],[-75.812,9.424],[-75.827,9.426],[-75.841,9.423],[-75.853,9.412],[-75.845,9.407],[-75.839,9.405],[-75.833,9.407],[-75.825,9.412],[-75.819,9.406],[-75.815,9.403],[-75.813,9.4],[-75.812,9.392],[-75.781,9.413],[-75.762,9.422],[-75.739,9.426],[-75.717,9.422],[-75.698,9.417]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Córdoba'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Córdoba?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Córdoba located? </h2>Córdoba, is a department It belongs to the country of Colombia. Its postal identifier is CO.Córdoba has an area of 25164 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

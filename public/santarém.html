@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Santarém?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-8.279,39.795],[-8.273,39.779],[-8.263,39.774],[-8.25,39.772],[-8.239,39.768],[-8.232,39.762],[-8.229,39.757],[-8.228,39.752],[-8.227,39.746],[-8.228,39.742],[-8.226,39.723],[-8.233,39.714],[-8.233,39.695],[-8.229,39.659],[-8.22,39.646],[-8.165,39.63],[-8.139,39.616],[-8.118,39.615],[-8.083,39.618],[-8.062,39.624],[-8.062,39.63],[-8.063,39.636],[-8.07,39.652],[-8.071,39.662],[-8.066,39.675],[-8.059,39.685],[-8.047,39.736],[-8.042,39.744],[-8.021,39.747],[-7.99,39.738],[-7.965,39.738],[-7.959,39.733],[-7.956,39.727],[-7.954,39.72],[-7.954,39.712],[-7.952,39.705],[-7.951,39.69],[-7.953,39.675],[-7.95,39.666],[-7.943,39.663],[-7.933,39.661],[-7.92,39.66],[-7.9,39.654],[-7.885,39.645],[-7.867,39.636],[-7.846,39.617],[-7.825,39.592],[-7.821,39.585],[-7.814,39.567],[-7.805,39.557],[-7.826,39.547],[-7.833,39.543],[-7.852,39.525],[-7.857,39.522],[-7.862,39.52],[-7.863,39.522],[-7.877,39.532],[-7.918,39.55],[-7.937,39.553],[-7.95,39.55],[-7.968,39.537],[-7.989,39.512],[-8.01,39.469],[-7.971,39.437],[-7.955,39.428],[-7.95,39.421],[-7.949,39.415],[-7.969,39.39],[-8.017,39.365],[-8.024,39.36],[-8.027,39.347],[-8.032,39.339],[-8.046,39.322],[-8.07,39.3],[-8.074,39.295],[-8.078,39.29],[-8.085,39.285],[-8.1,39.282],[-8.119,39.285],[-8.129,39.283],[-8.142,39.273],[-8.153,39.252],[-8.177,39.237],[-8.236,39.195],[-8.291,39.164],[-8.305,39.153],[-8.334,39.117],[-8.334,39.101],[-8.311,39.092],[-8.3,39.087],[-8.291,39.08],[-8.288,39.07],[-8.284,39.062],[-8.278,39.054],[-8.267,39.047],[-8.26,39.036],[-8.257,39.028],[-8.255,39.021],[-8.241,39.012],[-8.197,39.001],[-8.206,38.988],[-8.212,38.985],[-8.225,38.984],[-8.23,38.983],[-8.235,38.977],[-8.238,38.968],[-8.239,38.951],[-8.241,38.941],[-8.245,38.932],[-8.251,38.926],[-8.257,38.92],[-8.26,38.914],[-8.258,38.906],[-8.25,38.901],[-8.243,38.897],[-8.191,38.879],[-8.179,38.877],[-8.175,38.874],[-8.17,38.867],[-8.175,38.85],[-8.176,38.842],[-8.169,38.833],[-8.153,38.819],[-8.145,38.818],[-8.137,38.816],[-8.131,38.81],[-8.129,38.801],[-8.134,38.787],[-8.152,38.774],[-8.168,38.781],[-8.172,38.786],[-8.178,38.799],[-8.183,38.801],[-8.188,38.8],[-8.193,38.801],[-8.197,38.805],[-8.198,38.811],[-8.202,38.817],[-8.208,38.822],[-8.219,38.825],[-8.25,38.83],[-8.259,38.835],[-8.286,38.857],[-8.293,38.861],[-8.299,38.861],[-8.303,38.857],[-8.305,38.852],[-8.311,38.85],[-8.317,38.851],[-8.326,38.851],[-8.338,38.847],[-8.351,38.848],[-8.368,38.853],[-8.375,38.853],[-8.377,38.848],[-8.379,38.842],[-8.384,38.837],[-8.388,38.833],[-8.394,38.831],[-8.402,38.829],[-8.413,38.83],[-8.423,38.828],[-8.444,38.811],[-8.454,38.806],[-8.499,38.799],[-8.547,38.767],[-8.573,38.77],[-8.582,38.77],[-8.593,38.772],[-8.605,38.784],[-8.606,38.792],[-8.606,38.801],[-8.604,38.808],[-8.604,38.816],[-8.602,38.823],[-8.603,38.828],[-8.608,38.83],[-8.625,38.824],[-8.644,38.815],[-8.671,38.823],[-8.683,38.829],[-8.689,38.833],[-8.696,38.836],[-8.703,38.834],[-8.732,38.789],[-8.744,38.762],[-8.747,38.754],[-8.762,38.738],[-8.779,38.734],[-8.786,38.734],[-8.814,38.742],[-8.823,38.752],[-8.831,38.755],[-8.842,38.756],[-8.859,38.753],[-8.869,38.748],[-8.89,38.741],[-8.901,38.741],[-8.911,38.743],[-8.919,38.75],[-8.924,38.765],[-8.923,38.778],[-8.931,38.801],[-8.935,38.807],[-8.938,38.812],[-8.956,38.829],[-8.956,38.841],[-8.941,38.853],[-8.934,38.861],[-8.919,38.883],[-8.885,38.956],[-8.874,38.973],[-8.865,38.983],[-8.86,38.993],[-8.84,39.016],[-8.851,39.023],[-8.854,39.031],[-8.817,39.04],[-8.797,39.059],[-8.791,39.062],[-8.789,39.065],[-8.79,39.071],[-8.79,39.071],[-8.774,39.084],[-8.765,39.098],[-8.792,39.082],[-8.8,39.096],[-8.804,39.101],[-8.808,39.105],[-8.815,39.109],[-8.835,39.116],[-8.842,39.119],[-8.871,39.14],[-8.876,39.146],[-8.883,39.159],[-8.89,39.163],[-8.898,39.166],[-8.903,39.172],[-8.903,39.178],[-8.888,39.186],[-8.876,39.189],[-8.846,39.188],[-8.831,39.191],[-8.817,39.201],[-8.867,39.24],[-8.875,39.254],[-8.915,39.245],[-8.984,39.26],[-8.982,39.275],[-8.994,39.299],[-8.997,39.332],[-9.003,39.349],[-8.999,39.361],[-8.977,39.39],[-8.957,39.394],[-8.949,39.398],[-8.94,39.408],[-8.908,39.46],[-8.895,39.471],[-8.865,39.479],[-8.8,39.484],[-8.751,39.48],[-8.737,39.487],[-8.735,39.495],[-8.733,39.498],[-8.733,39.5],[-8.735,39.502],[-8.742,39.513],[-8.743,39.521],[-8.742,39.528],[-8.738,39.533],[-8.73,39.532],[-8.723,39.53],[-8.712,39.53],[-8.704,39.532],[-8.679,39.557],[-8.672,39.565],[-8.684,39.592],[-8.686,39.61],[-8.695,39.642],[-8.673,39.655],[-8.664,39.659],[-8.656,39.664],[-8.648,39.67],[-8.644,39.679],[-8.648,39.695],[-8.656,39.703],[-8.664,39.708],[-8.671,39.713],[-8.674,39.721],[-8.674,39.733],[-8.676,39.75],[-8.677,39.758],[-8.671,39.767],[-8.666,39.773],[-8.62,39.789],[-8.602,39.785],[-8.59,39.787],[-8.571,39.794],[-8.523,39.822],[-8.509,39.825],[-8.5,39.826],[-8.486,39.834],[-8.471,39.837],[-8.457,39.795],[-8.455,39.784],[-8.448,39.761],[-8.446,39.753],[-8.444,39.747],[-8.443,39.742],[-8.425,39.747],[-8.383,39.759],[-8.371,39.761],[-8.349,39.769],[-8.329,39.766],[-8.324,39.769],[-8.327,39.788],[-8.329,39.795],[-8.328,39.8],[-8.321,39.798],[-8.279,39.795]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Santarém'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Santarém?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Santarém located? </h2>Santarém, is a district It belongs to the country of Portugal. Its postal identifier is SA.Santarém has an area of 6744 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

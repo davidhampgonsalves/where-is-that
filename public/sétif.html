@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Sétif?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[5.737,36.555],[5.752,36.542],[5.758,36.536],[5.765,36.526],[5.769,36.515],[5.77,36.498],[5.765,36.468],[5.766,36.453],[5.776,36.44],[5.791,36.433],[5.81,36.431],[5.829,36.431],[5.848,36.43],[5.863,36.42],[5.872,36.402],[5.875,36.363],[5.874,36.299],[5.867,36.275],[5.866,36.255],[5.878,36.24],[5.893,36.236],[5.912,36.237],[5.925,36.235],[5.934,36.225],[5.929,36.207],[5.919,36.197],[5.908,36.189],[5.9,36.181],[5.899,36.17],[5.91,36.155],[5.922,36.145],[5.928,36.136],[5.931,36.13],[5.932,36.117],[5.935,36.11],[5.947,36.099],[5.963,36.093],[5.977,36.079],[5.983,36.058],[5.973,35.962],[5.979,35.946],[5.977,35.916],[5.947,35.899],[5.945,35.895],[5.946,35.886],[5.95,35.878],[5.95,35.865],[5.94,35.862],[5.922,35.866],[5.88,35.894],[5.856,35.906],[5.823,35.915],[5.8,35.913],[5.778,35.907],[5.746,35.89],[5.731,35.881],[5.721,35.872],[5.714,35.86],[5.712,35.85],[5.716,35.84],[5.726,35.834],[5.742,35.83],[5.755,35.822],[5.762,35.811],[5.747,35.783],[5.736,35.771],[5.723,35.769],[5.683,35.783],[5.671,35.79],[5.66,35.797],[5.65,35.803],[5.624,35.811],[5.607,35.819],[5.589,35.823],[5.575,35.818],[5.567,35.808],[5.561,35.794],[5.553,35.781],[5.536,35.774],[5.485,35.744],[5.477,35.736],[5.472,35.727],[5.47,35.716],[5.466,35.686],[5.461,35.67],[5.454,35.657],[5.438,35.642],[5.423,35.636],[5.41,35.632],[5.38,35.633],[5.226,35.664],[5.199,35.677],[5.184,35.69],[5.177,35.711],[5.171,35.718],[5.101,35.741],[5.08,35.752],[5.066,35.762],[5.06,35.768],[5.054,35.777],[5.055,35.821],[5.059,35.829],[5.067,35.84],[5.077,35.844],[5.122,35.845],[5.135,35.848],[5.14,35.857],[5.14,35.871],[5.137,35.912],[5.138,35.935],[5.145,35.964],[5.153,35.981],[5.175,36.016],[5.179,36.033],[5.181,36.052],[5.186,36.061],[5.196,36.074],[5.197,36.082],[5.188,36.103],[5.184,36.115],[5.187,36.123],[5.195,36.128],[5.21,36.131],[5.227,36.138],[5.243,36.154],[5.251,36.169],[5.254,36.181],[5.254,36.197],[5.247,36.205],[5.239,36.206],[5.228,36.198],[5.22,36.195],[5.212,36.197],[5.208,36.208],[5.207,36.221],[5.203,36.234],[5.198,36.241],[5.188,36.246],[5.175,36.242],[5.16,36.235],[5.144,36.229],[5.126,36.232],[5.107,36.246],[5.084,36.282],[5.074,36.294],[5.063,36.301],[5.035,36.311],[5.006,36.316],[4.999,36.316],[4.991,36.315],[4.944,36.303],[4.914,36.3],[4.898,36.3],[4.853,36.305],[4.838,36.305],[4.821,36.307],[4.804,36.318],[4.79,36.334],[4.785,36.347],[4.786,36.358],[4.789,36.366],[4.801,36.38],[4.871,36.376],[4.887,36.378],[4.908,36.383],[4.923,36.389],[4.937,36.399],[4.944,36.408],[4.947,36.418],[4.948,36.428],[4.952,36.438],[4.962,36.448],[4.98,36.456],[4.987,36.462],[4.986,36.469],[4.978,36.476],[4.955,36.491],[4.95,36.496],[4.948,36.499],[4.948,36.501],[4.95,36.503],[4.956,36.51],[5,36.53],[5.003,36.529],[5.008,36.528],[5.017,36.525],[5.028,36.523],[5.045,36.524],[5.055,36.531],[5.059,36.54],[5.061,36.552],[5.065,36.562],[5.077,36.574],[5.09,36.577],[5.102,36.578],[5.125,36.573],[5.135,36.57],[5.143,36.565],[5.158,36.553],[5.188,36.534],[5.193,36.528],[5.194,36.52],[5.19,36.513],[5.181,36.506],[5.17,36.5],[5.168,36.498],[5.166,36.494],[5.167,36.489],[5.183,36.471],[5.191,36.461],[5.195,36.45],[5.195,36.439],[5.188,36.417],[5.188,36.408],[5.207,36.392],[5.222,36.384],[5.255,36.379],[5.277,36.381],[5.303,36.389],[5.311,36.398],[5.313,36.411],[5.312,36.422],[5.316,36.435],[5.322,36.444],[5.328,36.449],[5.338,36.455],[5.37,36.467],[5.407,36.474],[5.426,36.482],[5.453,36.496],[5.458,36.5],[5.461,36.503],[5.464,36.509],[5.464,36.516],[5.462,36.524],[5.458,36.533],[5.456,36.541],[5.456,36.548],[5.457,36.561],[5.459,36.567],[5.462,36.573],[5.475,36.591],[5.498,36.584],[5.504,36.567],[5.505,36.554],[5.511,36.539],[5.52,36.53],[5.532,36.525],[5.543,36.524],[5.555,36.524],[5.566,36.527],[5.575,36.532],[5.591,36.545],[5.6,36.551],[5.614,36.555],[5.625,36.554],[5.65,36.54],[5.663,36.537],[5.675,36.537],[5.737,36.555]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Sétif'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Sétif?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Sétif located? </h2>Sétif, is a province It belongs to the country of Algeria. Its postal identifier is SF.Sétif has an area of 6192 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

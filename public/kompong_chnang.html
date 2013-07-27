@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kompong Chnang?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[104.887,12.235],[104.9,12.194],[104.901,12.18],[104.9,12.175],[104.883,12.137],[104.876,12.107],[104.867,12.086],[104.867,12.081],[104.869,12.077],[104.876,12.07],[104.891,12.054],[104.892,12.049],[104.894,12.044],[104.895,12.003],[104.896,11.999],[104.897,11.996],[104.906,11.994],[104.911,11.99],[104.912,11.986],[104.91,11.984],[104.905,11.983],[104.881,11.987],[104.877,11.987],[104.872,11.985],[104.867,11.983],[104.863,11.98],[104.858,11.975],[104.851,11.963],[104.819,11.892],[104.802,11.885],[104.787,11.882],[104.782,11.877],[104.768,11.849],[104.761,11.823],[104.739,11.818],[104.722,11.811],[104.718,11.81],[104.71,11.81],[104.703,11.811],[104.685,11.811],[104.675,11.81],[104.628,11.795],[104.557,11.763],[104.528,11.74],[104.522,11.737],[104.518,11.736],[104.513,11.74],[104.511,11.741],[104.5,11.746],[104.465,11.757],[104.461,11.759],[104.433,11.778],[104.421,11.785],[104.385,11.787],[104.374,11.791],[104.366,11.802],[104.324,11.841],[104.321,11.845],[104.32,11.848],[104.318,11.868],[104.316,11.875],[104.28,11.926],[104.273,11.942],[104.267,11.963],[104.264,11.982],[104.255,11.997],[104.254,11.998],[104.249,12.003],[104.224,12.02],[104.216,12.026],[104.212,12.031],[104.211,12.035],[104.21,12.043],[104.21,12.067],[104.208,12.08],[104.199,12.108],[104.18,12.183],[104.187,12.225],[104.192,12.239],[104.22,12.277],[104.223,12.281],[104.225,12.282],[104.232,12.284],[104.262,12.29],[104.266,12.293],[104.271,12.296],[104.287,12.311],[104.296,12.316],[104.303,12.318],[104.307,12.319],[104.312,12.321],[104.33,12.332],[104.337,12.338],[104.342,12.344],[104.344,12.347],[104.35,12.36],[104.359,12.387],[104.365,12.395],[104.393,12.421],[104.397,12.428],[104.399,12.434],[104.394,12.451],[104.394,12.464],[104.402,12.5],[104.402,12.511],[104.405,12.551],[104.434,12.53],[104.446,12.526],[104.462,12.523],[104.504,12.519],[104.52,12.541],[104.525,12.548],[104.528,12.555],[104.53,12.558],[104.535,12.562],[104.555,12.574],[104.571,12.581],[104.585,12.589],[104.602,12.596],[104.624,12.601],[104.63,12.601],[104.667,12.591],[104.771,12.545],[104.83,12.533],[104.824,12.5],[104.823,12.491],[104.828,12.48],[104.835,12.468],[104.841,12.453],[104.865,12.413],[104.867,12.406],[104.867,12.399],[104.864,12.377],[104.867,12.377],[104.869,12.378],[104.895,12.391],[104.905,12.392],[104.908,12.391],[104.911,12.389],[104.912,12.386],[104.915,12.375],[104.915,12.371],[104.914,12.367],[104.909,12.354],[104.905,12.346],[104.898,12.336],[104.87,12.307],[104.852,12.3],[104.857,12.281],[104.859,12.274],[104.871,12.251],[104.887,12.235]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Kompong Chnang'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Kompong Chnang?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Kompong Chnang located? </h2>Kompong Chnang, is a province It belongs to the country of Cambodia. Its postal identifier is KG.Kompong Chnang has an area of 5290 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

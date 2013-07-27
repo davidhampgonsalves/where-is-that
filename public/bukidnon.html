@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Bukidnon?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[125.231,8.592],[125.238,8.432],[125.25,8.381],[125.265,8.356],[125.308,8.312],[125.326,8.287],[125.332,8.266],[125.33,8.249],[125.326,8.232],[125.324,8.213],[125.329,8.19],[125.352,8.147],[125.36,8.124],[125.365,8.027],[125.374,7.998],[125.411,7.915],[125.418,7.885],[125.423,7.852],[125.427,7.837],[125.44,7.805],[125.443,7.792],[125.444,7.778],[125.441,7.739],[125.435,7.708],[125.422,7.681],[125.4,7.666],[125.389,7.667],[125.36,7.675],[125.348,7.677],[125.337,7.676],[125.327,7.674],[125.317,7.674],[125.303,7.678],[125.305,7.655],[125.3,7.637],[125.293,7.619],[125.289,7.596],[125.286,7.588],[125.281,7.583],[125.274,7.58],[125.266,7.578],[125.257,7.579],[125.236,7.584],[125.23,7.585],[125.225,7.582],[125.223,7.578],[125.222,7.574],[125.219,7.571],[125.211,7.567],[125.202,7.565],[125.201,7.567],[125.158,7.515],[125.138,7.5],[125.121,7.491],[125.087,7.48],[125.075,7.471],[125.071,7.462],[125.067,7.436],[125.06,7.425],[125.048,7.42],[125.036,7.417],[125.034,7.413],[125.012,7.407],[125.006,7.401],[125.001,7.394],[124.993,7.39],[124.982,7.391],[124.966,7.402],[124.952,7.419],[124.932,7.426],[124.925,7.428],[124.917,7.426],[124.909,7.417],[124.899,7.41],[124.889,7.416],[124.882,7.427],[124.877,7.437],[124.875,7.448],[124.872,7.486],[124.867,7.511],[124.862,7.524],[124.856,7.535],[124.845,7.545],[124.836,7.551],[124.827,7.559],[124.818,7.572],[124.815,7.581],[124.812,7.601],[124.808,7.611],[124.804,7.619],[124.798,7.626],[124.791,7.631],[124.77,7.645],[124.765,7.651],[124.763,7.658],[124.758,7.669],[124.746,7.687],[124.743,7.693],[124.737,7.721],[124.705,7.776],[124.661,7.831],[124.654,7.835],[124.638,7.84],[124.631,7.846],[124.627,7.855],[124.625,7.865],[124.625,7.875],[124.623,7.883],[124.604,7.91],[124.604,7.922],[124.622,7.934],[124.637,7.934],[124.654,7.932],[124.667,7.938],[124.671,7.96],[124.666,7.973],[124.655,7.986],[124.63,8.007],[124.616,8.037],[124.572,8.088],[124.56,8.119],[124.56,8.137],[124.571,8.168],[124.574,8.185],[124.572,8.196],[124.569,8.208],[124.567,8.222],[124.572,8.237],[124.59,8.281],[124.62,8.413],[124.785,8.403],[124.821,8.412],[124.828,8.432],[124.825,8.515],[124.833,8.534],[124.846,8.552],[124.862,8.568],[124.877,8.581],[124.902,8.592],[124.929,8.596],[125.231,8.592]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Bukidnon'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Bukidnon?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Bukidnon located? </h2>Bukidnon, is a province of the Northern Mindanao region. It belongs to the country of Philippines. Its postal identifier is BK.Bukidnon has an area of 8663 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

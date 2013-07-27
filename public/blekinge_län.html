@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Blekinge län?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[15.675,56.12],[15.683,56.117],[15.693,56.118],[15.705,56.116],[15.718,56.117],[15.727,56.118],[15.726,56.113],[15.714,56.107],[15.701,56.106],[15.699,56.101],[15.703,56.089],[15.704,56.081],[15.702,56.077],[15.697,56.074],[15.688,56.075],[15.683,56.075],[15.651,56.09],[15.642,56.105],[15.655,56.119],[15.669,56.124],[15.675,56.12]]],[[[15.597,56.502],[15.668,56.457],[15.725,56.428],[15.8,56.375],[15.86,56.351],[15.98,56.326],[16.011,56.325],[16.031,56.326],[16.042,56.332],[16.061,56.336],[16.066,56.336],[16.038,56.255],[16.032,56.25],[16.021,56.247],[16.015,56.238],[16.011,56.228],[16.005,56.22],[15.988,56.208],[15.949,56.188],[15.932,56.175],[15.875,56.103],[15.852,56.086],[15.835,56.088],[15.817,56.098],[15.789,56.107],[15.819,56.14],[15.827,56.159],[15.806,56.168],[15.757,56.157],[15.731,56.157],[15.714,56.175],[15.703,56.17],[15.697,56.173],[15.692,56.179],[15.683,56.182],[15.67,56.184],[15.656,56.193],[15.648,56.195],[15.632,56.186],[15.612,56.169],[15.592,56.161],[15.576,56.175],[15.583,56.181],[15.593,56.193],[15.596,56.204],[15.587,56.209],[15.573,56.206],[15.535,56.188],[15.493,56.176],[15.487,56.171],[15.485,56.156],[15.48,56.152],[15.46,56.161],[15.452,56.166],[15.444,56.173],[15.433,56.179],[15.418,56.182],[15.404,56.18],[15.394,56.175],[15.377,56.161],[15.371,56.152],[15.37,56.145],[15.366,56.141],[15.321,56.14],[15.307,56.142],[15.296,56.148],[15.315,56.153],[15.323,56.154],[15.317,56.163],[15.296,56.188],[15.274,56.171],[15.235,56.157],[15.193,56.153],[15.162,56.165],[15.154,56.169],[15.147,56.167],[15.139,56.163],[15.131,56.161],[15.093,56.161],[15.085,56.165],[15.082,56.182],[15.076,56.188],[15.069,56.188],[15.044,56.182],[15.035,56.182],[15.038,56.176],[15.046,56.16],[15.049,56.154],[14.989,56.169],[14.954,56.173],[14.928,56.165],[14.906,56.161],[14.873,56.165],[14.848,56.164],[14.85,56.148],[14.83,56.143],[14.814,56.15],[14.796,56.161],[14.775,56.168],[14.725,56.168],[14.701,56.161],[14.686,56.148],[14.683,56.139],[14.681,56.128],[14.682,56.117],[14.689,56.113],[14.704,56.11],[14.711,56.102],[14.715,56.093],[14.72,56.085],[14.748,56.061],[14.758,56.049],[14.768,56.031],[14.757,56.027],[14.744,56.022],[14.732,56.014],[14.724,56.007],[14.716,56.002],[14.711,56.007],[14.706,56.017],[14.686,56.017],[14.679,56.009],[14.673,56.005],[14.665,56.007],[14.658,56.009],[14.65,56.01],[14.622,56.01],[14.612,56.011],[14.61,56.015],[14.624,56.025],[14.615,56.03],[14.608,56.037],[14.603,56.046],[14.603,56.058],[14.582,56.044],[14.571,56.051],[14.567,56.056],[14.569,56.058],[14.557,56.055],[14.553,56.054],[14.556,56.096],[14.569,56.12],[14.583,56.138],[14.587,56.155],[14.584,56.178],[14.576,56.2],[14.557,56.229],[14.549,56.236],[14.542,56.239],[14.534,56.24],[14.522,56.241],[14.508,56.243],[14.499,56.245],[14.489,56.248],[14.461,56.256],[14.45,56.265],[14.444,56.279],[14.44,56.294],[14.433,56.307],[14.413,56.33],[14.411,56.338],[14.414,56.346],[14.457,56.408],[14.473,56.423],[14.541,56.477],[14.596,56.464],[14.627,56.45],[14.664,56.427],[14.7,56.41],[14.725,56.402],[14.87,56.379],[14.894,56.378],[14.915,56.382],[14.948,56.399],[14.983,56.426],[14.99,56.434],[14.993,56.441],[14.996,56.447],[15.003,56.451],[15.014,56.453],[15.057,56.454],[15.104,56.463],[15.121,56.463],[15.135,56.46],[15.165,56.449],[15.188,56.444],[15.205,56.442],[15.216,56.443],[15.223,56.446],[15.227,56.449],[15.231,56.455],[15.237,56.462],[15.247,56.467],[15.268,56.471],[15.289,56.471],[15.317,56.467],[15.331,56.467],[15.343,56.469],[15.363,56.482],[15.391,56.498],[15.397,56.501],[15.419,56.503],[15.438,56.501],[15.459,56.495],[15.512,56.488],[15.521,56.488],[15.529,56.49],[15.532,56.495],[15.535,56.498],[15.536,56.501],[15.54,56.503],[15.55,56.509],[15.562,56.51],[15.579,56.509],[15.597,56.502]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Blekinge län'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Blekinge län?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Blekinge län located? </h2>Blekinge län, is a county It belongs to the country of Sweden. Its postal identifier is BL.Blekinge län has an area of 3020 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Somogy?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[18.126,46.74],[18.119,46.726],[18.117,46.709],[18.098,46.678],[18.089,46.641],[18.087,46.602],[18.057,46.562],[18.038,46.516],[18.047,46.475],[18.069,46.466],[18.098,46.371],[18.079,46.36],[18.072,46.338],[18.052,46.323],[17.938,46.313],[17.846,46.229],[17.815,46.212],[17.766,46.211],[17.72,46.2],[17.691,46.176],[17.694,46.115],[17.676,46.083],[17.617,46.062],[17.646,46.001],[17.63,45.981],[17.642,45.951],[17.663,45.927],[17.692,45.909],[17.708,45.888],[17.705,45.859],[17.682,45.851],[17.654,45.852],[17.654,45.852],[17.653,45.858],[17.652,45.869],[17.646,45.884],[17.645,45.892],[17.638,45.901],[17.591,45.936],[17.554,45.948],[17.511,45.954],[17.426,45.957],[17.418,45.953],[17.418,45.953],[17.415,45.95],[17.412,45.948],[17.411,45.947],[17.406,45.944],[17.399,45.96],[17.389,45.963],[17.365,45.957],[17.345,45.956],[17.342,45.959],[17.343,45.968],[17.337,45.985],[17.337,45.985],[17.327,45.972],[17.327,45.972],[17.316,45.974],[17.307,45.98],[17.304,45.981],[17.29,45.985],[17.29,45.992],[17.29,45.992],[17.296,45.993],[17.309,45.997],[17.316,45.998],[17.316,45.998],[17.307,46.007],[17.291,46.008],[17.275,46.012],[17.269,46.029],[17.266,46.039],[17.254,46.071],[17.248,46.08],[17.208,46.117],[17.197,46.121],[17.116,46.123],[17.101,46.128],[17.052,46.154],[17.041,46.162],[17.036,46.173],[17.028,46.181],[16.974,46.211],[16.965,46.22],[16.94,46.252],[16.903,46.282],[16.895,46.286],[16.889,46.292],[16.879,46.312],[16.879,46.312],[16.918,46.322],[16.943,46.302],[17.013,46.32],[17.03,46.321],[17.047,46.325],[17.066,46.341],[17.071,46.364],[17.054,46.39],[17.045,46.419],[17.181,46.442],[17.194,46.475],[17.211,46.497],[17.227,46.533],[17.22,46.665],[17.259,46.71],[17.299,46.733],[17.366,46.73],[17.407,46.745],[17.458,46.75],[17.662,46.809],[17.842,46.883],[17.887,46.891],[17.926,46.92],[17.95,46.93],[17.976,46.935],[18.073,46.972],[18.127,46.969],[18.177,46.953],[18.199,46.914],[18.219,46.889],[18.217,46.882],[18.212,46.876],[18.211,46.819],[18.218,46.791],[18.172,46.777],[18.16,46.776],[18.151,46.77],[18.14,46.753],[18.126,46.74]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Somogy'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Somogy?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Somogy located? </h2>Somogy, is a county It belongs to the country of Hungary. Its postal identifier is SO.Somogy has an area of 6037 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

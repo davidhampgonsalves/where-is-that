@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Puducherry?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[79.777,10.972],[79.785,10.971],[79.79,10.976],[79.806,10.985],[79.825,10.985],[79.847,10.98],[79.841,10.95],[79.844,10.872],[79.847,10.81],[79.84,10.809],[79.815,10.819],[79.813,10.826],[79.807,10.83],[79.798,10.836],[79.793,10.845],[79.798,10.851],[79.796,10.854],[79.796,10.859],[79.803,10.865],[79.803,10.871],[79.795,10.873],[79.79,10.875],[79.784,10.875],[79.774,10.872],[79.772,10.876],[79.772,10.881],[79.771,10.885],[79.767,10.889],[79.759,10.889],[79.75,10.884],[79.743,10.887],[79.74,10.896],[79.731,10.9],[79.721,10.9],[79.712,10.904],[79.705,10.91],[79.706,10.921],[79.714,10.929],[79.717,10.935],[79.71,10.937],[79.704,10.944],[79.705,10.952],[79.721,10.952],[79.733,10.941],[79.737,10.942],[79.743,10.944],[79.744,10.947],[79.743,10.96],[79.74,10.968],[79.733,10.971],[79.729,10.976],[79.731,10.983],[79.737,10.986],[79.758,10.981],[79.777,10.972]]],[[[79.721,11.975],[79.731,11.973],[79.761,11.978],[79.769,11.977],[79.773,11.972],[79.773,11.967],[79.771,11.961],[79.768,11.957],[79.755,11.943],[79.753,11.938],[79.754,11.934],[79.758,11.931],[79.767,11.925],[79.771,11.922],[79.778,11.914],[79.784,11.914],[79.791,11.917],[79.811,11.936],[79.826,11.947],[79.849,11.955],[79.85,11.955],[79.845,11.933],[79.82,11.879],[79.811,11.833],[79.804,11.833],[79.777,11.832],[79.756,11.837],[79.751,11.838],[79.746,11.839],[79.741,11.839],[79.736,11.838],[79.731,11.839],[79.727,11.842],[79.719,11.851],[79.714,11.855],[79.709,11.857],[79.703,11.858],[79.7,11.862],[79.7,11.869],[79.705,11.879],[79.709,11.887],[79.711,11.896],[79.711,11.905],[79.709,11.914],[79.706,11.918],[79.698,11.921],[79.695,11.925],[79.693,11.93],[79.693,11.936],[79.694,11.943],[79.693,11.947],[79.691,11.954],[79.673,11.97],[79.671,11.976],[79.672,11.982],[79.676,11.989],[79.686,12],[79.687,12.001],[79.688,12.001],[79.693,12.002],[79.699,11.999],[79.707,11.989],[79.713,11.981],[79.721,11.975]]],[[[75.397,12.143],[75.397,12.129],[75.382,12.129],[75.372,12.121],[75.358,12.113],[75.348,12.104],[75.338,12.098],[75.331,12.103],[75.324,12.107],[75.31,12.094],[75.302,12.07],[75.306,12.058],[75.306,12.042],[75.304,12.043],[75.264,12.013],[75.261,11.998],[75.277,11.967],[75.246,12.003],[75.239,12.008],[75.233,12.01],[75.228,12.015],[75.224,12.019],[75.222,12.039],[75.223,12.1],[75.241,12.109],[75.258,12.105],[75.276,12.101],[75.282,12.109],[75.288,12.115],[75.303,12.123],[75.31,12.132],[75.322,12.143],[75.339,12.141],[75.354,12.135],[75.37,12.141],[75.381,12.148],[75.397,12.143]]],[[[82.217,16.723],[82.23,16.719],[82.263,16.72],[82.273,16.722],[82.28,16.727],[82.287,16.738],[82.291,16.742],[82.295,16.742],[82.298,16.738],[82.301,16.733],[82.301,16.718],[82.295,16.71],[82.284,16.707],[82.271,16.709],[82.272,16.708],[82.267,16.703],[82.285,16.698],[82.273,16.692],[82.261,16.69],[82.249,16.692],[82.225,16.704],[82.201,16.707],[82.19,16.71],[82.178,16.719],[82.178,16.723],[82.185,16.726],[82.193,16.732],[82.199,16.738],[82.206,16.744],[82.214,16.748],[82.222,16.75],[82.214,16.732],[82.217,16.723]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Puducherry'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Puducherry?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Puducherry located? </h2>Puducherry, is a union territory It belongs to the country of India. Its postal identifier is PY.Puducherry has an area of 526 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

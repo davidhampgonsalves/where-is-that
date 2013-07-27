@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Riga?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[24.898,57.303],[24.915,57.289],[24.936,57.278],[24.942,57.268],[24.94,57.258],[24.933,57.246],[24.923,57.236],[24.9,57.219],[24.934,57.208],[24.967,57.185],[24.973,57.178],[24.976,57.171],[24.978,57.159],[24.984,57.145],[24.984,57.141],[24.987,57.125],[24.978,57.098],[24.978,57.092],[24.984,57.08],[24.989,57.061],[25.011,57.049],[25.04,57.038],[25.048,57.029],[25.056,57.025],[25.063,57.024],[25.092,57.016],[25.101,57.01],[25.126,57.002],[25.148,56.989],[25.138,56.98],[25.143,56.951],[25.036,56.934],[25,56.94],[24.977,56.935],[24.955,56.941],[24.938,56.939],[24.919,56.935],[24.89,56.923],[24.877,56.921],[24.84,56.926],[24.807,56.934],[24.76,56.915],[24.738,56.909],[24.716,56.897],[24.574,56.887],[24.52,56.9],[24.507,56.896],[24.511,56.878],[24.508,56.873],[24.5,56.87],[24.492,56.872],[24.486,56.875],[24.48,56.88],[24.469,56.884],[24.457,56.887],[24.44,56.887],[24.436,56.884],[24.438,56.878],[24.444,56.872],[24.448,56.866],[24.448,56.858],[24.443,56.845],[24.444,56.838],[24.452,56.838],[24.458,56.838],[24.476,56.832],[24.505,56.819],[24.513,56.817],[24.523,56.795],[24.537,56.777],[24.538,56.77],[24.533,56.759],[24.525,56.752],[24.522,56.714],[24.482,56.705],[24.443,56.684],[24.428,56.678],[24.415,56.674],[24.384,56.671],[24.376,56.668],[24.373,56.666],[24.374,56.66],[24.336,56.664],[24.295,56.675],[24.275,56.684],[24.263,56.69],[24.258,56.701],[24.246,56.704],[24.209,56.693],[24.196,56.692],[24.185,56.693],[24.179,56.69],[24.174,56.685],[24.172,56.679],[24.16,56.67],[24.149,56.668],[24.131,56.668],[24.118,56.671],[24.087,56.682],[24.034,56.688],[24.001,56.696],[24.008,56.71],[23.998,56.722],[23.996,56.73],[23.941,56.729],[23.935,56.731],[23.925,56.734],[23.92,56.742],[23.913,56.745],[23.901,56.746],[23.828,56.738],[23.818,56.736],[23.811,56.733],[23.801,56.73],[23.784,56.732],[23.767,56.738],[23.756,56.744],[23.764,56.768],[23.76,56.772],[23.77,56.8],[23.734,56.822],[23.718,56.836],[23.707,56.852],[23.67,56.875],[23.626,56.889],[23.601,56.889],[23.588,56.891],[23.507,56.895],[23.492,56.935],[23.477,56.936],[23.475,56.941],[23.473,56.943],[23.484,56.95],[23.5,56.961],[23.576,56.981],[23.579,56.982],[23.585,56.979],[23.632,56.971],[23.695,56.967],[23.866,56.99],[23.927,57.006],[23.929,57.006],[23.934,56.997],[23.968,56.988],[23.993,56.985],[24.001,56.979],[23.994,56.973],[23.989,56.965],[23.949,56.947],[23.943,56.939],[23.971,56.933],[24.002,56.924],[24.027,56.92],[24.04,56.91],[24.062,56.898],[24.071,56.872],[24.099,56.878],[24.104,56.884],[24.112,56.893],[24.133,56.898],[24.155,56.902],[24.197,56.882],[24.268,56.851],[24.305,56.858],[24.311,56.867],[24.273,56.882],[24.237,56.904],[24.235,56.93],[24.247,56.941],[24.258,56.946],[24.299,56.956],[24.32,56.969],[24.303,56.991],[24.288,57],[24.274,57.006],[24.25,57.013],[24.224,57.022],[24.181,57.048],[24.152,57.056],[24.113,57.089],[24.211,57.124],[24.219,57.138],[24.239,57.15],[24.261,57.158],[24.279,57.161],[24.279,57.172],[24.289,57.179],[24.313,57.188],[24.379,57.23],[24.401,57.258],[24.409,57.298],[24.406,57.345],[24.405,57.348],[24.411,57.345],[24.426,57.334],[24.429,57.329],[24.432,57.32],[24.43,57.308],[24.426,57.299],[24.427,57.295],[24.428,57.291],[24.45,57.296],[24.472,57.294],[24.55,57.316],[24.566,57.31],[24.574,57.296],[24.575,57.291],[24.578,57.289],[24.589,57.285],[24.602,57.279],[24.622,57.266],[24.643,57.237],[24.682,57.223],[24.713,57.227],[24.728,57.239],[24.738,57.244],[24.798,57.259],[24.851,57.279],[24.872,57.293],[24.898,57.303]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Riga'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Riga?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Riga located? </h2>Riga, is a province of the Riga region. It belongs to the country of Latvia. Its postal identifier is R.Riga has an area of 3152 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

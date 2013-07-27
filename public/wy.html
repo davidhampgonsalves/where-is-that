@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is WY?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-104.029,43],[-104.028,42.875],[-104.028,42.75],[-104.027,42.625],[-104.027,42.5],[-104.027,42.375],[-104.026,42.25],[-104.026,42.125],[-104.025,42],[-104.025,41.875],[-104.024,41.75],[-104.024,41.625],[-104.023,41.5],[-104.023,41.375],[-104.022,41.25],[-104.022,41.125],[-104.022,41],[-104.179,41],[-104.336,41],[-104.493,41],[-104.65,41],[-104.807,41],[-104.964,41],[-105.121,41],[-105.278,41],[-105.435,41],[-105.592,41],[-105.749,41],[-105.906,41],[-106.063,41],[-106.22,41],[-106.377,41],[-106.534,41],[-106.691,41],[-106.848,41],[-107.005,41],[-107.162,41],[-107.319,41],[-107.476,41],[-107.633,41],[-107.79,41],[-107.947,41],[-108.104,41],[-108.261,41],[-108.418,41],[-108.575,41],[-108.732,41],[-108.889,41],[-109.046,41],[-109.172,41],[-109.297,41],[-109.422,41],[-109.547,41],[-109.672,41],[-109.798,41],[-109.923,41],[-110.048,41],[-110.173,41],[-110.299,41],[-110.424,41],[-110.549,41],[-110.674,41],[-110.799,41],[-110.925,41],[-111.05,41],[-111.05,41],[-111.05,41],[-111.05,41],[-111.05,41],[-111.05,41],[-111.05,41],[-111.05,41],[-111.05,41.063],[-111.05,41.125],[-111.05,41.188],[-111.05,41.25],[-111.05,41.313],[-111.05,41.375],[-111.05,41.437],[-111.05,41.5],[-111.05,41.562],[-111.05,41.625],[-111.05,41.687],[-111.05,41.75],[-111.05,41.812],[-111.05,41.875],[-111.05,41.937],[-111.05,42],[-111.05,42.156],[-111.05,42.312],[-111.05,42.468],[-111.051,42.624],[-111.051,42.78],[-111.051,42.937],[-111.051,43.093],[-111.051,43.249],[-111.051,43.405],[-111.051,43.561],[-111.051,43.717],[-111.051,43.873],[-111.051,44.029],[-111.051,44.186],[-111.051,44.342],[-111.051,44.498],[-111.051,44.528],[-111.051,44.559],[-111.051,44.589],[-111.051,44.619],[-111.051,44.65],[-111.051,44.68],[-111.051,44.71],[-111.051,44.741],[-111.051,44.771],[-111.051,44.802],[-111.051,44.832],[-111.051,44.862],[-111.051,44.893],[-111.051,44.923],[-111.051,44.953],[-111.051,44.984],[-111.051,45],[-111,45],[-110.891,45],[-110.783,45],[-110.674,45],[-110.565,45],[-110.456,45],[-110.347,45],[-110.239,45],[-110.13,45],[-110.021,45],[-109.912,45],[-109.803,45],[-109.695,45],[-109.586,45],[-109.477,45],[-109.368,45],[-109.259,45],[-109.151,45],[-109.042,45],[-108.933,45],[-108.824,45],[-108.715,45],[-108.607,45],[-108.498,45],[-108.389,45],[-108.28,45],[-108.171,45],[-108.063,45],[-107.954,45],[-107.845,45],[-107.736,45],[-107.627,45],[-107.519,45],[-107.41,45],[-107.301,45],[-107.192,45],[-107.084,45],[-106.975,45],[-106.866,45],[-106.757,45],[-106.648,45],[-106.54,45],[-106.431,45],[-106.322,45],[-106.213,45],[-106.104,45],[-105.996,45],[-105.887,45],[-105.778,45],[-105.669,45],[-105.56,45],[-105.452,45],[-105.343,45],[-105.234,45],[-105.125,45],[-105.016,45],[-104.908,45],[-104.799,45],[-104.69,45],[-104.581,45],[-104.472,45],[-104.364,45],[-104.255,45],[-104.146,45],[-104.037,45],[-104.037,44.875],[-104.036,44.75],[-104.036,44.625],[-104.035,44.5],[-104.035,44.375],[-104.034,44.25],[-104.034,44.125],[-104.033,44],[-104.032,43.875],[-104.032,43.75],[-104.031,43.625],[-104.031,43.5],[-104.03,43.375],[-104.03,43.25],[-104.029,43.125],[-104.029,43]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'WY'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>WY?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is WY located? </h2>WY, is a state It belongs to the country of United States of America. Its abbreviated name is Wyo. and its postal identifier is WY.WY has an area of 254388 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

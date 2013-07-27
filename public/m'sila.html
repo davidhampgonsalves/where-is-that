@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is M'Sila?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[5.054,35.777],[5.06,35.768],[5.066,35.762],[5.08,35.752],[5.101,35.741],[5.171,35.718],[5.177,35.711],[5.184,35.69],[5.199,35.677],[5.226,35.664],[5.38,35.633],[5.264,35.55],[5.235,35.535],[5.21,35.529],[5.174,35.51],[5.156,35.507],[5.139,35.512],[5.124,35.518],[5.106,35.522],[5.046,35.523],[5.023,35.521],[5.007,35.515],[4.999,35.51],[4.99,35.501],[4.986,35.498],[4.963,35.489],[4.948,35.491],[4.936,35.496],[4.932,35.499],[4.914,35.517],[4.905,35.523],[4.897,35.527],[4.887,35.528],[4.88,35.525],[4.876,35.519],[4.877,35.511],[4.896,35.452],[4.901,35.416],[4.903,35.38],[4.901,35.354],[4.889,35.3],[4.882,35.283],[4.865,35.263],[4.836,35.234],[4.798,35.207],[4.783,35.192],[4.777,35.181],[4.779,35.173],[4.782,35.167],[4.789,35.162],[4.799,35.158],[4.873,35.153],[4.9,35.149],[4.925,35.142],[4.947,35.134],[4.968,35.122],[4.976,35.115],[4.984,35.108],[4.995,35.091],[5,35.087],[5.004,35.085],[5.014,35.083],[5.029,35.082],[5.039,35.083],[5.044,34.937],[5.041,34.919],[5.028,34.9],[5.001,34.874],[4.96,34.85],[4.933,34.839],[4.832,34.819],[4.816,34.82],[4.799,34.822],[4.787,34.821],[4.759,34.813],[4.743,34.812],[4.717,34.815],[4.701,34.813],[4.615,34.789],[4.57,34.783],[4.529,34.772],[4.513,34.77],[4.5,34.77],[4.471,34.774],[4.453,34.775],[4.435,34.773],[4.414,34.762],[4.395,34.747],[4.365,34.709],[4.347,34.69],[4.273,34.626],[4.259,34.606],[4.247,34.58],[4.233,34.563],[4.196,34.526],[4.184,34.508],[4.187,34.493],[4.193,34.484],[4.201,34.477],[4.207,34.465],[4.23,34.377],[4.242,34.358],[4.267,34.329],[4.282,34.298],[4.294,34.286],[4.307,34.274],[4.315,34.263],[4.316,34.252],[4.313,34.244],[4.298,34.239],[4.286,34.236],[4.214,34.232],[4.198,34.241],[4.169,34.274],[4.154,34.287],[4.069,34.335],[4.048,34.354],[4.039,34.372],[4.038,34.387],[4.04,34.406],[4.039,34.424],[4.036,34.442],[4.03,34.458],[3.98,34.517],[3.965,34.545],[3.921,34.673],[3.918,34.692],[3.918,34.71],[3.92,34.74],[3.92,34.752],[3.914,34.759],[3.906,34.763],[3.755,34.791],[3.739,34.79],[3.706,34.783],[3.688,34.784],[3.671,34.79],[3.659,34.806],[3.654,34.821],[3.652,34.833],[3.65,34.843],[3.643,34.85],[3.624,34.861],[3.61,34.872],[3.599,34.886],[3.594,34.899],[3.591,34.912],[3.591,34.922],[3.596,34.942],[3.595,34.953],[3.591,34.964],[3.577,34.989],[3.573,35],[3.572,35.002],[3.572,35.005],[3.573,35.011],[3.578,35.019],[3.586,35.029],[3.596,35.038],[3.605,35.048],[3.609,35.057],[3.608,35.066],[3.601,35.069],[3.588,35.068],[3.551,35.054],[3.54,35.052],[3.533,35.054],[3.523,35.068],[3.477,35.148],[3.474,35.158],[3.655,35.285],[3.665,35.295],[3.669,35.306],[3.669,35.321],[3.66,35.359],[3.658,35.374],[3.66,35.384],[3.666,35.393],[3.675,35.401],[3.683,35.409],[3.69,35.421],[3.695,35.437],[3.697,35.453],[3.696,35.472],[3.69,35.485],[3.68,35.496],[3.56,35.587],[3.536,35.602],[3.521,35.61],[3.45,35.659],[3.437,35.672],[3.38,35.751],[3.394,35.794],[3.401,35.8],[3.411,35.806],[3.421,35.803],[3.432,35.797],[3.48,35.744],[3.493,35.726],[3.503,35.709],[3.512,35.696],[3.524,35.685],[3.543,35.672],[3.551,35.679],[3.556,35.692],[3.557,35.725],[3.556,35.74],[3.551,35.754],[3.539,35.778],[3.537,35.792],[3.541,35.804],[3.564,35.819],[3.603,35.832],[3.609,35.837],[3.612,35.855],[3.625,35.871],[3.631,35.88],[3.634,35.89],[3.629,35.911],[3.628,35.923],[3.706,35.932],[3.736,35.93],[3.74,35.928],[3.76,35.912],[3.771,35.907],[3.784,35.903],[3.796,35.898],[3.805,35.89],[3.816,35.88],[3.831,35.869],[3.851,35.862],[3.873,35.861],[3.892,35.866],[3.925,35.884],[3.941,35.89],[3.954,35.891],[3.968,35.888],[4.006,35.871],[4.022,35.867],[4.035,35.871],[4.042,35.88],[4.042,35.895],[4.04,35.909],[4.046,35.947],[4.084,36.029],[4.1,36.022],[4.104,36.017],[4.108,36.01],[4.111,36.001],[4.112,36],[4.136,35.996],[4.15,35.995],[4.157,35.996],[4.161,35.999],[4.162,36],[4.163,36.004],[4.17,36.009],[4.184,36.014],[4.215,36.017],[4.346,35.994],[4.379,35.991],[4.404,35.992],[4.425,36],[4.462,36.022],[4.482,36.028],[4.494,36.028],[4.501,36.026],[4.505,36.019],[4.508,36.012],[4.514,35.995],[4.521,35.977],[4.526,35.968],[4.536,35.955],[4.54,35.948],[4.541,35.942],[4.537,35.938],[4.526,35.935],[4.506,35.933],[4.501,35.931],[4.498,35.928],[4.493,35.912],[4.488,35.902],[4.479,35.892],[4.449,35.87],[4.445,35.86],[4.448,35.849],[4.467,35.832],[4.482,35.826],[4.498,35.824],[4.6,35.822],[4.621,35.824],[4.642,35.828],[4.719,35.857],[4.748,35.864],[4.763,35.865],[4.802,35.866],[4.838,35.873],[4.855,35.873],[4.866,35.87],[4.875,35.862],[4.898,35.836],[4.906,35.829],[4.918,35.823],[4.93,35.821],[4.945,35.818],[4.955,35.814],[4.976,35.796],[5,35.784],[5.017,35.779],[5.054,35.777]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'M'Sila'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>M'Sila?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is M'Sila located? </h2>M'Sila, is a province It belongs to the country of Algeria. Its postal identifier is MS.M'Sila has an area of 17653 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

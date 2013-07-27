@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ispahan?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[55.375,34.342],[55.386,33.665],[55.36,33.595],[55.275,33.471],[55.217,33.437],[55.139,33.43],[55.04,33.386],[54.986,33.33],[54.941,33.163],[54.908,33.088],[54.87,33.027],[54.815,32.971],[54.709,32.92],[53.651,32.613],[53.334,32.674],[53.261,32.672],[53.165,32.64],[53.104,32.608],[53.06,32.577],[52.996,32.546],[52.924,32.528],[52.884,32.505],[52.876,32.472],[52.905,32.165],[52.896,32.1],[52.854,31.96],[52.835,31.839],[52.824,31.814],[52.827,31.744],[52.871,31.597],[52.869,31.597],[52.528,31.513],[52.453,31.513],[52.231,31.555],[52.184,31.591],[52.175,31.683],[52.159,31.71],[52.142,31.713],[52.006,31.649],[51.987,31.626],[51.958,31.616],[51.823,31.538],[51.748,31.529],[51.651,31.548],[51.648,31.519],[51.671,31.472],[51.702,31.445],[51.741,31.432],[51.785,31.425],[51.843,31.387],[51.872,31.32],[51.847,31.252],[51.827,31.15],[51.742,30.969],[51.735,30.881],[51.745,30.822],[51.745,30.79],[51.717,30.782],[51.641,30.772],[51.621,30.789],[51.481,30.876],[51.373,30.974],[51.318,31.097],[51.311,31.164],[51.321,31.198],[51.324,31.276],[51.232,31.535],[51.21,31.648],[51.216,31.702],[51.25,31.723],[51.292,31.739],[51.29,31.769],[51.26,31.802],[51.24,31.832],[51.244,31.863],[51.284,31.887],[51.316,31.94],[51.297,32.044],[51.245,32.124],[51.129,32.199],[51.076,32.244],[50.949,32.327],[50.939,32.406],[50.945,32.478],[50.923,32.507],[50.915,32.536],[50.899,32.551],[50.873,32.557],[50.863,32.581],[50.853,32.626],[50.814,32.655],[50.771,32.649],[50.749,32.629],[50.708,32.617],[50.576,32.613],[50.537,32.607],[50.426,32.546],[50.38,32.538],[50.35,32.546],[50.3,32.537],[50.235,32.544],[50.174,32.587],[50.113,32.615],[50.068,32.607],[50.037,32.594],[50.001,32.589],[49.933,32.596],[49.736,32.506],[49.763,32.581],[49.784,32.609],[49.743,32.656],[49.643,32.688],[49.556,32.683],[49.502,32.708],[49.453,32.809],[49.453,32.819],[49.459,32.843],[49.472,32.863],[49.495,32.875],[49.575,32.898],[49.621,32.927],[49.639,33.045],[49.696,33.102],[49.845,33.137],[49.869,33.149],[49.871,33.168],[49.876,33.191],[49.977,33.361],[49.975,33.404],[49.979,33.459],[50.002,33.499],[50.085,33.556],[50.243,33.635],[50.66,33.726],[50.723,33.759],[50.779,33.798],[50.842,33.815],[50.899,33.815],[50.926,33.854],[51.021,34.046],[51.033,34.106],[51.005,34.118],[50.984,34.162],[51.014,34.358],[51.026,34.387],[51.063,34.418],[51.158,34.453],[51.374,34.473],[51.452,34.47],[51.789,34.542],[51.982,34.455],[52.08,34.442],[52.354,34.457],[52.422,34.448],[52.848,34.332],[52.9,34.325],[55.287,34.384],[55.342,34.369],[55.366,34.352],[55.375,34.342]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Ispahan'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Ispahan?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Ispahan located? </h2>Ispahan, is a province It belongs to the country of Iran. Its postal identifier is ES.Ispahan has an area of 110491 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kanagawa?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[139.787,35.512],[139.779,35.502],[139.744,35.49],[139.73,35.483],[139.705,35.473],[139.674,35.47],[139.652,35.465],[139.655,35.448],[139.665,35.44],[139.677,35.433],[139.688,35.425],[139.692,35.414],[139.687,35.401],[139.675,35.401],[139.659,35.404],[139.645,35.398],[139.641,35.383],[139.658,35.355],[139.655,35.34],[139.65,35.327],[139.651,35.31],[139.656,35.294],[139.666,35.281],[139.669,35.284],[139.679,35.288],[139.695,35.269],[139.726,35.258],[139.746,35.249],[139.726,35.233],[139.73,35.229],[139.731,35.226],[139.733,35.223],[139.734,35.219],[139.695,35.2],[139.674,35.185],[139.666,35.168],[139.671,35.16],[139.681,35.15],[139.685,35.141],[139.675,35.137],[139.665,35.135],[139.649,35.129],[139.626,35.132],[139.621,35.133],[139.619,35.138],[139.617,35.15],[139.624,35.171],[139.626,35.185],[139.621,35.191],[139.62,35.202],[139.57,35.269],[139.567,35.276],[139.561,35.282],[139.549,35.288],[139.538,35.289],[139.514,35.287],[139.504,35.291],[139.487,35.301],[139.464,35.306],[139.418,35.308],[139.33,35.302],[139.287,35.293],[139.247,35.281],[139.203,35.258],[139.163,35.225],[139.143,35.184],[139.158,35.137],[139.127,35.13],[139.113,35.111],[139.073,35.125],[139.052,35.129],[139.029,35.136],[139.019,35.141],[139.012,35.147],[139.003,35.158],[138.984,35.183],[138.974,35.205],[138.969,35.23],[138.971,35.25],[138.977,35.262],[138.993,35.277],[138.998,35.285],[139,35.291],[139,35.301],[138.999,35.313],[138.994,35.334],[138.99,35.342],[138.988,35.348],[138.987,35.356],[138.988,35.374],[138.987,35.381],[138.975,35.387],[138.965,35.388],[138.9,35.381],[138.906,35.401],[138.933,35.437],[138.952,35.45],[138.97,35.458],[138.991,35.465],[139.08,35.505],[139.091,35.514],[139.099,35.526],[139.106,35.539],[139.117,35.585],[139.118,35.598],[139.114,35.631],[139.122,35.654],[139.147,35.65],[139.183,35.631],[139.204,35.624],[139.245,35.592],[139.266,35.582],[139.298,35.575],[139.342,35.573],[139.377,35.567],[139.399,35.556],[139.417,35.54],[139.426,35.528],[139.458,35.493],[139.463,35.49],[139.467,35.489],[139.471,35.49],[139.473,35.494],[139.474,35.499],[139.475,35.508],[139.472,35.542],[139.476,35.55],[139.485,35.55],[139.489,35.555],[139.49,35.559],[139.485,35.566],[139.46,35.586],[139.453,35.592],[139.454,35.597],[139.462,35.599],[139.48,35.591],[139.488,35.592],[139.492,35.597],[139.496,35.603],[139.503,35.608],[139.514,35.611],[139.527,35.614],[139.539,35.613],[139.655,35.564],[139.663,35.559],[139.668,35.555],[139.698,35.538],[139.785,35.512],[139.787,35.512]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Kanagawa'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Kanagawa?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Kanagawa located? </h2>Kanagawa, is a prefecture of the Kanto region. It belongs to the country of Japan. Its postal identifier is KN.Kanagawa has an area of 2430 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

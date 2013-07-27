@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ogooué-Lolo?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[12.779,0.249],[12.784,0.24],[12.793,0.233],[12.805,0.229],[12.823,0.231],[12.848,0.227],[12.878,0.218],[12.89,0.217],[12.904,0.219],[12.916,0.225],[12.945,0.252],[12.953,0.249],[12.969,0.237],[12.988,0.225],[12.996,0.222],[13.002,0.22],[13.01,0.218],[13.019,0.218],[13.049,0.223],[13.057,0.219],[13.071,0.205],[13.087,0.193],[13.092,0.185],[13.094,0.165],[13.113,0.105],[13.117,0.096],[13.124,0.088],[13.162,0.07],[13.172,0.063],[13.183,0.058],[13.195,0.056],[13.222,0.057],[13.233,0.053],[13.242,0.047],[13.253,0.042],[13.261,0.041],[13.281,0.041],[13.279,-0.01],[13.253,-0.06],[13.229,-0.095],[13.223,-0.106],[13.226,-0.113],[13.233,-0.12],[13.238,-0.128],[13.247,-0.169],[13.249,-0.19],[13.251,-0.201],[13.256,-0.214],[13.264,-0.221],[13.274,-0.225],[13.284,-0.227],[13.293,-0.231],[13.303,-0.24],[13.552,-0.729],[13.559,-0.753],[13.557,-0.77],[13.433,-0.954],[13.271,-1.151],[13.265,-1.157],[13.257,-1.159],[13.24,-1.145],[13.167,-1.109],[13.158,-1.116],[13.158,-1.123],[13.168,-1.16],[13.172,-1.198],[13.171,-1.239],[13.167,-1.259],[13.159,-1.271],[13.15,-1.275],[13.139,-1.281],[13.129,-1.29],[13.112,-1.32],[13.106,-1.327],[13.088,-1.334],[13.079,-1.339],[13.071,-1.347],[13.057,-1.366],[13.048,-1.376],[13.038,-1.384],[13.028,-1.39],[13.019,-1.393],[13.01,-1.394],[13.002,-1.392],[12.997,-1.392],[12.989,-1.393],[12.96,-1.409],[12.949,-1.418],[12.944,-1.435],[12.937,-1.446],[12.928,-1.454],[12.919,-1.461],[12.91,-1.471],[12.901,-1.484],[12.898,-1.494],[12.895,-1.523],[12.891,-1.534],[12.885,-1.546],[12.877,-1.557],[12.873,-1.566],[12.868,-1.575],[12.85,-1.597],[12.776,-1.75],[12.774,-1.76],[12.778,-1.779],[12.778,-1.789],[12.764,-1.82],[12.757,-1.847],[12.743,-1.884],[12.741,-1.891],[12.675,-1.843],[12.632,-1.825],[12.583,-1.826],[12.572,-1.83],[12.572,-1.83],[12.523,-1.863],[12.517,-1.869],[12.512,-1.875],[12.506,-1.888],[12.504,-1.897],[12.504,-1.907],[12.499,-1.918],[12.486,-1.925],[12.486,-1.925],[12.469,-1.919],[12.45,-1.9],[12.454,-1.878],[12.449,-1.863],[12.442,-1.86],[12.433,-1.857],[12.422,-1.857],[12.352,-1.863],[12.342,-1.863],[12.219,-1.82],[12.209,-1.815],[12.147,-1.763],[12.134,-1.748],[12.068,-1.658],[12.059,-1.651],[12.049,-1.648],[12.038,-1.642],[12.028,-1.633],[12.019,-1.611],[12.016,-1.599],[12.016,-1.589],[12.017,-1.584],[12.02,-1.58],[12.023,-1.576],[12.03,-1.569],[12.036,-1.562],[12.041,-1.553],[12.042,-1.551],[12.045,-1.542],[12.047,-1.518],[12.043,-1.481],[12.029,-1.434],[12.027,-1.423],[12.027,-1.403],[12.026,-1.398],[12.02,-1.387],[11.985,-1.343],[11.964,-1.323],[11.955,-1.318],[11.917,-1.3],[11.909,-1.295],[11.873,-1.26],[11.824,-1.226],[11.808,-1.209],[11.772,-1.159],[11.767,-1.149],[11.758,-1.118],[11.755,-1.097],[11.756,-1.081],[11.758,-1.072],[11.757,-1.067],[11.755,-1.064],[11.745,-1.063],[11.735,-1.065],[11.725,-1.069],[11.656,-1.113],[11.626,-1.119],[11.606,-1.128],[11.596,-1.131],[11.586,-1.131],[11.566,-1.126],[11.556,-1.122],[11.549,-1.113],[11.547,-1.095],[11.55,-1.076],[11.552,-1.06],[11.55,-1.04],[11.547,-1.027],[11.541,-1.007],[11.538,-1.002],[11.536,-0.998],[11.517,-0.978],[11.511,-0.968],[11.507,-0.959],[11.505,-0.948],[11.502,-0.923],[11.498,-0.906],[11.498,-0.896],[11.504,-0.839],[11.509,-0.827],[11.517,-0.814],[11.544,-0.783],[11.563,-0.753],[12.3,-0.482],[12.458,-0.402],[12.609,0.273],[12.614,0.277],[12.621,0.271],[12.628,0.263],[12.637,0.255],[12.646,0.249],[12.656,0.248],[12.666,0.25],[12.731,0.281],[12.744,0.279],[12.755,0.274],[12.763,0.265],[12.771,0.258],[12.779,0.249]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Ogooué-Lolo'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Ogooué-Lolo?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Ogooué-Lolo located? </h2>Ogooué-Lolo, is a province It belongs to the country of Gabon. Its postal identifier is OL.Ogooué-Lolo has an area of 28988 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

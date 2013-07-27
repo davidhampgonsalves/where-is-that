@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Piura?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-80.491,-4.169],[-80.47,-4.213],[-80.435,-4.217],[-80.392,-4.204],[-80.346,-4.198],[-80.346,-4.198],[-80.357,-4.22],[-80.489,-4.396],[-80.493,-4.413],[-80.493,-4.413],[-80.484,-4.434],[-80.471,-4.446],[-80.426,-4.471],[-80.409,-4.477],[-80.391,-4.477],[-80.384,-4.476],[-80.374,-4.467],[-80.333,-4.445],[-80.256,-4.387],[-80.24,-4.37],[-80.233,-4.354],[-80.223,-4.319],[-80.214,-4.305],[-80.206,-4.298],[-80.195,-4.293],[-80.185,-4.289],[-80.144,-4.284],[-80.141,-4.283],[-80.135,-4.294],[-80.118,-4.299],[-80.098,-4.303],[-80.08,-4.309],[-80.062,-4.324],[-80.03,-4.359],[-80.01,-4.373],[-79.983,-4.388],[-79.957,-4.391],[-79.931,-4.392],[-79.905,-4.398],[-79.879,-4.422],[-79.858,-4.453],[-79.834,-4.479],[-79.796,-4.485],[-79.729,-4.464],[-79.695,-4.443],[-79.659,-4.438],[-79.631,-4.452],[-79.58,-4.502],[-79.573,-4.506],[-79.558,-4.516],[-79.552,-4.52],[-79.528,-4.519],[-79.508,-4.531],[-79.502,-4.541],[-79.502,-4.541],[-79.505,-4.555],[-79.528,-4.596],[-79.528,-4.618],[-79.528,-4.618],[-79.499,-4.66],[-79.488,-4.72],[-79.462,-4.769],[-79.461,-4.771],[-79.458,-4.789],[-79.451,-4.81],[-79.434,-4.824],[-79.413,-4.835],[-79.396,-4.847],[-79.391,-4.856],[-79.384,-4.876],[-79.379,-4.885],[-79.37,-4.891],[-79.351,-4.898],[-79.342,-4.904],[-79.329,-4.923],[-79.318,-4.944],[-79.304,-4.961],[-79.281,-4.967],[-79.233,-4.965],[-79.234,-4.965],[-79.259,-4.992],[-79.266,-5.004],[-79.271,-5.028],[-79.276,-5.043],[-79.285,-5.045],[-79.297,-5.049],[-79.309,-5.059],[-79.326,-5.097],[-79.337,-5.112],[-79.354,-5.127],[-79.381,-5.155],[-79.388,-5.172],[-79.39,-5.186],[-79.366,-5.243],[-79.364,-5.257],[-79.363,-5.273],[-79.365,-5.298],[-79.362,-5.312],[-79.354,-5.321],[-79.345,-5.325],[-79.336,-5.332],[-79.33,-5.342],[-79.321,-5.48],[-79.325,-5.501],[-79.339,-5.501],[-79.349,-5.497],[-79.36,-5.495],[-79.378,-5.494],[-79.387,-5.496],[-79.392,-5.499],[-79.406,-5.532],[-79.409,-5.541],[-79.409,-5.545],[-79.409,-5.55],[-79.407,-5.561],[-79.4,-5.575],[-79.399,-5.581],[-79.398,-5.587],[-79.398,-5.606],[-79.405,-5.662],[-79.42,-5.727],[-79.419,-5.744],[-79.416,-5.755],[-79.403,-5.784],[-79.401,-5.794],[-79.4,-5.819],[-79.4,-5.82],[-79.396,-5.831],[-79.393,-5.839],[-79.391,-5.841],[-79.39,-5.843],[-79.378,-5.853],[-79.365,-5.867],[-79.355,-5.907],[-79.367,-5.922],[-79.376,-5.926],[-79.387,-5.933],[-79.398,-5.942],[-79.434,-5.979],[-79.451,-5.989],[-79.47,-5.958],[-79.478,-5.952],[-79.489,-5.945],[-79.529,-5.933],[-79.542,-5.932],[-79.554,-5.933],[-79.575,-5.939],[-79.597,-5.943],[-79.607,-5.942],[-79.627,-5.94],[-79.638,-5.934],[-79.646,-5.926],[-79.659,-5.898],[-79.665,-5.888],[-79.673,-5.877],[-79.688,-5.865],[-79.7,-5.858],[-79.713,-5.854],[-79.741,-5.852],[-79.756,-5.848],[-79.765,-5.841],[-79.77,-5.832],[-79.772,-5.823],[-79.772,-5.817],[-79.771,-5.81],[-79.769,-5.801],[-79.76,-5.783],[-79.754,-5.775],[-79.749,-5.767],[-79.747,-5.756],[-79.75,-5.745],[-79.758,-5.734],[-79.772,-5.717],[-79.778,-5.709],[-79.783,-5.698],[-79.788,-5.685],[-79.803,-5.664],[-79.815,-5.652],[-79.875,-5.606],[-79.919,-5.566],[-79.945,-5.548],[-79.949,-5.547],[-79.955,-5.552],[-79.96,-5.574],[-79.943,-5.672],[-79.94,-5.776],[-79.944,-5.805],[-79.95,-5.822],[-79.958,-5.83],[-79.994,-5.854],[-80.304,-5.943],[-80.317,-5.95],[-80.329,-5.959],[-80.45,-6.1],[-80.465,-6.126],[-80.472,-6.139],[-80.484,-6.179],[-80.489,-6.191],[-80.574,-6.318],[-80.608,-6.359],[-80.636,-6.382],[-80.73,-6.33],[-80.8,-6.304],[-80.815,-6.296],[-80.829,-6.267],[-80.848,-6.254],[-80.883,-6.239],[-80.925,-6.199],[-80.952,-6.189],[-80.985,-6.165],[-80.995,-6.16],[-81.016,-6.154],[-81.065,-6.131],[-81.098,-6.109],[-81.129,-6.081],[-81.156,-6.041],[-81.174,-6],[-81.182,-5.958],[-81.181,-5.918],[-81.171,-5.883],[-81.153,-5.849],[-81.133,-5.847],[-81.125,-5.844],[-81.102,-5.801],[-81.089,-5.801],[-81.081,-5.809],[-81.067,-5.828],[-81.024,-5.856],[-80.981,-5.864],[-80.94,-5.851],[-80.903,-5.815],[-80.876,-5.742],[-80.877,-5.657],[-80.898,-5.571],[-80.949,-5.459],[-80.967,-5.431],[-81.055,-5.34],[-81.069,-5.319],[-81.13,-5.287],[-81.152,-5.268],[-81.178,-5.238],[-81.198,-5.208],[-81.204,-5.185],[-81.2,-5.178],[-81.187,-5.167],[-81.184,-5.16],[-81.185,-5.154],[-81.19,-5.145],[-81.191,-5.141],[-81.189,-5.128],[-81.179,-5.11],[-81.177,-5.099],[-81.176,-5.076],[-81.171,-5.066],[-81.13,-5.062],[-81.09,-5.04],[-81.092,-5],[-81.117,-4.957],[-81.149,-4.924],[-81.188,-4.894],[-81.205,-4.874],[-81.212,-4.852],[-81.22,-4.836],[-81.302,-4.751],[-81.314,-4.731],[-81.347,-4.707],[-81.355,-4.691],[-81.355,-4.679],[-81.351,-4.668],[-81.345,-4.66],[-81.338,-4.656],[-81.332,-4.651],[-81.328,-4.628],[-81.325,-4.619],[-81.316,-4.601],[-81.308,-4.55],[-81.307,-4.534],[-81.313,-4.516],[-81.323,-4.496],[-81.329,-4.476],[-81.325,-4.461],[-81.314,-4.452],[-81.307,-4.447],[-81.301,-4.442],[-81.294,-4.43],[-81.279,-4.396],[-81.279,-4.373],[-81.294,-4.317],[-81.289,-4.298],[-81.277,-4.274],[-81.264,-4.252],[-81.253,-4.239],[-81.166,-4.179],[-81.143,-4.156],[-81.124,-4.123],[-81.11,-4.107],[-81.091,-4.101],[-81.073,-4.097],[-81.062,-4.086],[-81.061,-4.084],[-81.06,-4.085],[-80.995,-4.146],[-80.976,-4.157],[-80.928,-4.169],[-80.848,-4.165],[-80.819,-4.165],[-80.786,-4.174],[-80.69,-4.21],[-80.677,-4.212],[-80.672,-4.211],[-80.665,-4.207],[-80.658,-4.2],[-80.638,-4.175],[-80.513,-4.066],[-80.513,-4.066],[-80.514,-4.077],[-80.515,-4.083],[-80.515,-4.083],[-80.51,-4.096],[-80.493,-4.118],[-80.488,-4.131],[-80.487,-4.14],[-80.487,-4.14],[-80.491,-4.159],[-80.491,-4.169],[-80.491,-4.169]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Piura'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Piura?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Piura located? </h2>Piura, is a department It belongs to the country of Peru. Its postal identifier is PI.Piura has an area of 36544 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Fès - Boulemane?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-3.102,33.785],[-3.07,33.77],[-3.051,33.754],[-3.061,33.717],[-3.112,33.656],[-3.22,33.57],[-3.237,33.544],[-3.214,33.513],[-3.09,33.44],[-2.983,33.342],[-2.94,33.267],[-2.926,33.211],[-2.978,33.174],[-3.034,33.149],[-3.319,33.102],[-3.432,33.097],[-3.492,33.103],[-3.546,33.098],[-3.598,33.087],[-3.678,33.03],[-3.861,32.823],[-3.908,32.752],[-3.956,32.694],[-3.98,32.659],[-3.999,32.617],[-4.069,32.614],[-4.107,32.62],[-4.187,32.613],[-4.237,32.629],[-4.279,32.653],[-4.3,32.686],[-4.397,32.802],[-4.493,32.884],[-4.556,32.902],[-4.639,32.907],[-4.719,32.925],[-4.755,32.95],[-4.763,32.984],[-4.78,33.024],[-4.864,33.127],[-4.994,33.417],[-4.98,33.459],[-4.898,33.541],[-4.904,33.594],[-4.933,33.639],[-4.977,33.666],[-5.119,33.693],[-5.148,33.718],[-5.152,33.749],[-5.103,33.812],[-5.088,33.836],[-5.107,33.876],[-5.192,34.002],[-5.235,34.088],[-5.248,34.109],[-5.27,34.103],[-5.287,34.093],[-5.313,34.09],[-5.329,34.102],[-5.332,34.127],[-5.34,34.163],[-5.352,34.198],[-5.379,34.229],[-5.421,34.281],[-5.403,34.273],[-5.382,34.27],[-5.32,34.269],[-5.284,34.275],[-5.195,34.307],[-5.175,34.311],[-5.156,34.31],[-5.136,34.302],[-5.117,34.282],[-5.107,34.276],[-5.089,34.291],[-5.082,34.291],[-5.073,34.29],[-4.991,34.293],[-4.974,34.291],[-4.964,34.284],[-4.956,34.274],[-4.945,34.265],[-4.936,34.263],[-4.916,34.265],[-4.912,34.265],[-4.9,34.253],[-4.901,34.249],[-4.894,34.237],[-4.89,34.231],[-4.876,34.22],[-4.843,34.221],[-4.806,34.193],[-4.781,34.164],[-4.752,34.119],[-4.721,34.088],[-4.654,34.055],[-4.597,34.036],[-4.565,34.008],[-4.557,33.977],[-4.56,33.953],[-4.536,33.934],[-4.477,33.904],[-4.448,33.906],[-4.374,33.897],[-4.359,33.906],[-4.332,33.905],[-4.279,33.898],[-4.244,33.911],[-4.206,33.915],[-4.185,33.905],[-4.191,33.891],[-4.187,33.87],[-4.135,33.808],[-4.108,33.765],[-4.065,33.709],[-4.081,33.669],[-4.077,33.627],[-4.083,33.598],[-4.072,33.572],[-4.052,33.558],[-4.028,33.548],[-4.003,33.545],[-3.974,33.536],[-3.908,33.554],[-3.886,33.552],[-3.87,33.529],[-3.865,33.513],[-3.851,33.516],[-3.812,33.575],[-3.817,33.6],[-3.812,33.623],[-3.798,33.644],[-3.72,33.725],[-3.709,33.74],[-3.692,33.751],[-3.576,33.859],[-3.539,33.888],[-3.499,33.908],[-3.46,33.906],[-3.426,33.896],[-3.401,33.878],[-3.382,33.858],[-3.343,33.838],[-3.102,33.785]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Fès - Boulemane'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Fès - Boulemane?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Fès - Boulemane located? </h2>Fès - Boulemane, is a region of the Centre-North region. It belongs to the country of Morocco. Its postal identifier is FB.Fès - Boulemane has an area of 19816 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

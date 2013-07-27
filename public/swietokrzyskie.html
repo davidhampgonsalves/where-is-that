@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Swietokrzyskie?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[21.815,51.055],[21.819,51.042],[21.815,51.036],[21.807,51.031],[21.799,51.029],[21.791,51.028],[21.791,51.021],[21.81,51.012],[21.813,50.993],[21.806,50.95],[21.805,50.947],[21.802,50.945],[21.799,50.942],[21.798,50.935],[21.8,50.93],[21.805,50.927],[21.81,50.925],[21.812,50.922],[21.814,50.912],[21.839,50.851],[21.844,50.83],[21.847,50.816],[21.849,50.779],[21.84,50.74],[21.833,50.724],[21.822,50.706],[21.806,50.691],[21.788,50.685],[21.762,50.683],[21.745,50.675],[21.716,50.644],[21.669,50.608],[21.662,50.593],[21.657,50.574],[21.644,50.558],[21.613,50.534],[21.595,50.525],[21.531,50.514],[21.435,50.487],[21.439,50.482],[21.449,50.466],[21.43,50.453],[21.404,50.444],[21.379,50.44],[21.36,50.446],[21.299,50.412],[21.295,50.411],[21.281,50.412],[21.277,50.41],[21.277,50.405],[21.279,50.4],[21.277,50.397],[21.266,50.392],[21.26,50.392],[21.25,50.397],[21.245,50.383],[21.233,50.376],[21.221,50.372],[21.216,50.367],[21.215,50.359],[21.211,50.357],[21.206,50.357],[21.199,50.353],[21.181,50.337],[21.181,50.336],[21.164,50.333],[21.154,50.339],[21.145,50.346],[21.13,50.35],[21.12,50.349],[21.079,50.336],[21.07,50.331],[21.06,50.324],[21.049,50.318],[21.034,50.315],[20.96,50.314],[20.949,50.311],[20.941,50.307],[20.931,50.298],[20.922,50.295],[20.895,50.293],[20.881,50.287],[20.865,50.294],[20.852,50.288],[20.839,50.279],[20.822,50.274],[20.784,50.298],[20.777,50.292],[20.771,50.274],[20.75,50.261],[20.747,50.26],[20.738,50.259],[20.734,50.257],[20.73,50.252],[20.729,50.242],[20.726,50.237],[20.712,50.228],[20.68,50.218],[20.667,50.206],[20.663,50.195],[20.634,50.174],[20.502,50.177],[20.429,50.205],[20.41,50.231],[20.364,50.272],[20.347,50.295],[20.33,50.341],[20.285,50.399],[20.208,50.431],[20.124,50.448],[20.09,50.471],[20.051,50.484],[19.956,50.484],[19.928,50.491],[19.86,50.498],[19.825,50.51],[19.845,50.537],[19.914,50.574],[19.954,50.578],[19.907,50.615],[19.879,50.654],[19.845,50.671],[19.769,50.685],[19.742,50.706],[19.779,50.751],[19.848,50.758],[19.853,50.766],[19.852,50.778],[19.849,50.789],[19.836,50.794],[19.751,50.804],[19.774,50.829],[19.803,50.846],[19.837,50.861],[19.854,50.891],[19.85,50.922],[19.851,50.954],[19.864,50.986],[19.899,50.99],[20.031,50.929],[20.054,50.946],[20.062,50.979],[20.052,51.012],[20.021,51.028],[19.976,51.072],[20.001,51.132],[20.025,51.152],[20.056,51.16],[20.167,51.15],[20.199,51.156],[20.268,51.197],[20.3,51.207],[20.333,51.21],[20.367,51.22],[20.403,51.277],[20.432,51.29],[20.487,51.277],[20.517,51.23],[20.682,51.167],[20.705,51.15],[20.726,51.129],[20.752,51.117],[20.873,51.101],[21.012,51.115],[21.045,51.127],[21.074,51.153],[21.106,51.171],[21.136,51.165],[21.144,51.131],[21.174,51.11],[21.178,51.093],[21.185,51.078],[21.253,51.05],[21.33,51.046],[21.496,51.013],[21.815,51.055]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Swietokrzyskie'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Swietokrzyskie?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Swietokrzyskie located? </h2>Swietokrzyskie, is a voivodeship|province It belongs to the country of Poland. Its postal identifier is SK.Swietokrzyskie has an area of 11191 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

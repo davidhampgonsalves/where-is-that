@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Sylhet?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[91.236,25.202],[91.284,25.179],[91.432,25.138],[91.471,25.134],[91.481,25.136],[91.501,25.141],[91.512,25.143],[91.523,25.145],[91.523,25.145],[91.54,25.158],[91.54,25.158],[91.549,25.161],[91.566,25.16],[91.573,25.153],[91.58,25.141],[91.596,25.129],[91.613,25.125],[91.639,25.124],[91.662,25.127],[91.662,25.127],[91.672,25.137],[91.677,25.153],[91.677,25.153],[91.689,25.153],[91.702,25.148],[91.711,25.145],[91.711,25.145],[91.718,25.15],[91.724,25.162],[91.73,25.168],[91.73,25.168],[91.745,25.17],[91.794,25.166],[91.901,25.178],[91.956,25.17],[91.975,25.176],[92.002,25.183],[92.034,25.182],[92.066,25.175],[92.093,25.165],[92.1,25.159],[92.11,25.145],[92.116,25.14],[92.124,25.137],[92.138,25.137],[92.145,25.132],[92.151,25.13],[92.165,25.134],[92.173,25.132],[92.179,25.127],[92.194,25.109],[92.208,25.098],[92.22,25.091],[92.234,25.085],[92.251,25.081],[92.303,25.075],[92.312,25.069],[92.328,25.048],[92.356,25.037],[92.381,25.024],[92.385,25.005],[92.387,24.995],[92.395,24.994],[92.412,24.988],[92.412,24.984],[92.444,24.963],[92.454,24.958],[92.458,24.954],[92.45,24.947],[92.474,24.937],[92.484,24.929],[92.491,24.913],[92.494,24.895],[92.491,24.884],[92.478,24.864],[92.477,24.864],[92.442,24.856],[92.381,24.837],[92.371,24.838],[92.364,24.841],[92.359,24.847],[92.358,24.854],[92.29,24.892],[92.252,24.903],[92.223,24.892],[92.223,24.892],[92.218,24.875],[92.222,24.857],[92.235,24.825],[92.237,24.809],[92.236,24.793],[92.234,24.778],[92.183,24.647],[92.173,24.609],[92.169,24.575],[92.164,24.559],[92.153,24.545],[92.15,24.542],[92.138,24.534],[92.138,24.534],[92.129,24.529],[92.123,24.526],[92.111,24.515],[92.106,24.496],[92.111,24.435],[92.108,24.406],[92.088,24.382],[92.088,24.382],[92.063,24.371],[92.033,24.369],[91.95,24.376],[91.95,24.376],[91.949,24.364],[91.971,24.33],[91.972,24.316],[91.972,24.316],[91.953,24.323],[91.931,24.337],[91.922,24.345],[91.9,24.338],[91.9,24.338],[91.896,24.32],[91.907,24.281],[91.906,24.261],[91.884,24.176],[91.877,24.158],[91.877,24.158],[91.872,24.155],[91.864,24.151],[91.864,24.151],[91.844,24.156],[91.814,24.183],[91.811,24.192],[91.81,24.215],[91.807,24.221],[91.797,24.222],[91.733,24.235],[91.733,24.234],[91.723,24.221],[91.726,24.202],[91.732,24.182],[91.732,24.165],[91.721,24.149],[91.721,24.149],[91.704,24.143],[91.684,24.146],[91.666,24.156],[91.657,24.172],[91.639,24.212],[91.629,24.216],[91.629,24.215],[91.624,24.204],[91.614,24.14],[91.606,24.119],[91.596,24.105],[91.582,24.096],[91.582,24.096],[91.559,24.09],[91.517,24.085],[91.48,24.088],[91.404,24.103],[91.363,24.1],[91.363,24.1],[91.351,24.075],[91.349,24.036],[91.339,23.996],[91.339,23.995],[91.327,23.988],[91.316,23.99],[91.308,23.993],[91.309,23.999],[91.313,24.016],[91.313,24.023],[91.313,24.025],[91.307,24.032],[91.299,24.041],[91.294,24.057],[91.292,24.064],[91.289,24.075],[91.287,24.082],[91.285,24.1],[91.286,24.113],[91.284,24.121],[91.282,24.13],[91.274,24.145],[91.273,24.154],[91.275,24.162],[91.278,24.166],[91.282,24.169],[91.285,24.171],[91.289,24.172],[91.311,24.176],[91.315,24.178],[91.317,24.18],[91.315,24.182],[91.311,24.185],[91.286,24.191],[91.281,24.194],[91.281,24.199],[91.283,24.202],[91.287,24.206],[91.315,24.221],[91.328,24.231],[91.332,24.235],[91.333,24.238],[91.332,24.241],[91.327,24.245],[91.319,24.246],[91.308,24.244],[91.3,24.242],[91.294,24.239],[91.261,24.213],[91.236,24.217],[91.153,24.256],[91.161,24.268],[91.169,24.275],[91.184,24.309],[91.218,24.323],[91.239,24.337],[91.226,24.357],[91.237,24.368],[91.244,24.37],[91.249,24.379],[91.247,24.387],[91.242,24.394],[91.235,24.401],[91.214,24.419],[91.23,24.43],[91.231,24.442],[91.23,24.447],[91.226,24.465],[91.214,24.47],[91.203,24.471],[91.195,24.475],[91.188,24.484],[91.187,24.488],[91.189,24.491],[91.192,24.493],[91.198,24.5],[91.207,24.511],[91.217,24.53],[91.231,24.563],[91.214,24.572],[91.208,24.576],[91.202,24.582],[91.197,24.593],[91.184,24.607],[91.184,24.615],[91.189,24.618],[91.2,24.621],[91.207,24.625],[91.21,24.631],[91.211,24.637],[91.211,24.643],[91.212,24.65],[91.215,24.656],[91.219,24.661],[91.222,24.666],[91.223,24.674],[91.219,24.686],[91.213,24.694],[91.203,24.699],[91.172,24.7],[91.164,24.699],[91.158,24.698],[91.154,24.698],[91.148,24.7],[91.142,24.718],[91.149,24.77],[91.145,24.815],[91.139,24.835],[91.125,24.88],[91.007,24.869],[90.978,24.881],[90.912,24.979],[90.924,25.015],[90.932,25.032],[90.943,25.046],[90.946,25.056],[90.947,25.07],[90.932,25.113],[90.935,25.157],[90.935,25.157],[90.943,25.158],[90.975,25.168],[91.135,25.192],[91.191,25.19],[91.203,25.192],[91.203,25.192],[91.211,25.195],[91.225,25.202],[91.236,25.202]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Sylhet'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Sylhet?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Sylhet located? </h2>Sylhet, is a division It belongs to the country of Bangladesh. Its postal identifier is SY.Sylhet has an area of 11969 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

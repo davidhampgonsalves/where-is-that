@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Coronie?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-55.897,5.677],[-55.899,5.672],[-55.913,5.658],[-55.928,5.654],[-55.956,5.651],[-55.964,5.648],[-55.97,5.644],[-55.972,5.639],[-55.974,5.631],[-55.974,5.625],[-55.972,5.618],[-55.968,5.611],[-55.96,5.599],[-55.934,5.57],[-55.93,5.567],[-55.923,5.559],[-55.917,5.54],[-55.958,5.527],[-55.971,5.519],[-55.973,5.514],[-55.972,5.509],[-55.963,5.492],[-55.964,5.482],[-55.967,5.478],[-55.981,5.474],[-56.005,5.46],[-56.011,5.453],[-56.02,5.438],[-56.024,5.434],[-56.042,5.429],[-56.06,5.395],[-56.069,5.391],[-56.13,5.387],[-56.229,5.392],[-56.287,5.388],[-56.307,5.382],[-56.322,5.373],[-56.34,5.354],[-56.361,5.337],[-56.374,5.328],[-56.39,5.32],[-56.484,5.317],[-56.473,5.329],[-56.466,5.333],[-56.461,5.342],[-56.462,5.352],[-56.467,5.361],[-56.474,5.378],[-56.479,5.389],[-56.487,5.4],[-56.494,5.403],[-56.5,5.403],[-56.504,5.399],[-56.508,5.393],[-56.511,5.378],[-56.513,5.373],[-56.519,5.371],[-56.528,5.374],[-56.544,5.378],[-56.551,5.381],[-56.552,5.385],[-56.55,5.391],[-56.546,5.397],[-56.546,5.408],[-56.541,5.415],[-56.536,5.42],[-56.531,5.427],[-56.526,5.436],[-56.525,5.45],[-56.528,5.46],[-56.533,5.468],[-56.566,5.502],[-56.57,5.512],[-56.568,5.518],[-56.563,5.519],[-56.556,5.518],[-56.55,5.518],[-56.544,5.523],[-56.539,5.528],[-56.533,5.533],[-56.527,5.534],[-56.52,5.532],[-56.508,5.525],[-56.503,5.526],[-56.5,5.531],[-56.498,5.543],[-56.5,5.553],[-56.502,5.56],[-56.539,5.604],[-56.564,5.655],[-56.566,5.666],[-56.568,5.688],[-56.572,5.697],[-56.583,5.714],[-56.599,5.749],[-56.602,5.774],[-56.604,5.941],[-56.604,5.943],[-56.596,5.942],[-56.538,5.952],[-56.389,5.922],[-56.25,5.892],[-56.227,5.883],[-56.191,5.863],[-56.124,5.848],[-56.081,5.828],[-56.055,5.821],[-56.038,5.824],[-56.024,5.823],[-55.952,5.794],[-55.918,5.785],[-55.903,5.776],[-55.898,5.763],[-55.898,5.677],[-55.897,5.677]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Coronie'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Coronie?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Coronie located? </h2>Coronie, is a district It belongs to the country of Suriname. Its postal identifier is CR.Coronie has an area of 3833 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

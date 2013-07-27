@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is An Longfort?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-7.599,53.933],[-7.581,53.914],[-7.577,53.91],[-7.571,53.906],[-7.556,53.904],[-7.549,53.901],[-7.543,53.894],[-7.54,53.889],[-7.539,53.884],[-7.54,53.881],[-7.544,53.88],[-7.55,53.879],[-7.555,53.878],[-7.558,53.875],[-7.561,53.872],[-7.565,53.865],[-7.567,53.862],[-7.567,53.859],[-7.563,53.857],[-7.556,53.856],[-7.549,53.857],[-7.525,53.861],[-7.519,53.862],[-7.507,53.862],[-7.486,53.859],[-7.48,53.856],[-7.473,53.851],[-7.464,53.839],[-7.46,53.832],[-7.458,53.826],[-7.457,53.822],[-7.456,53.818],[-7.443,53.807],[-7.389,53.779],[-7.383,53.774],[-7.377,53.769],[-7.374,53.763],[-7.373,53.761],[-7.372,53.759],[-7.373,53.758],[-7.373,53.756],[-7.374,53.754],[-7.374,53.746],[-7.375,53.742],[-7.377,53.738],[-7.38,53.736],[-7.383,53.733],[-7.388,53.731],[-7.396,53.729],[-7.409,53.729],[-7.424,53.731],[-7.431,53.731],[-7.437,53.731],[-7.442,53.73],[-7.448,53.727],[-7.453,53.724],[-7.461,53.717],[-7.469,53.709],[-7.474,53.706],[-7.479,53.705],[-7.5,53.704],[-7.504,53.702],[-7.51,53.699],[-7.519,53.691],[-7.526,53.681],[-7.529,53.679],[-7.532,53.677],[-7.557,53.664],[-7.567,53.654],[-7.57,53.653],[-7.576,53.654],[-7.587,53.658],[-7.592,53.659],[-7.598,53.659],[-7.602,53.658],[-7.604,53.654],[-7.601,53.651],[-7.598,53.649],[-7.569,53.638],[-7.565,53.635],[-7.562,53.633],[-7.56,53.629],[-7.56,53.621],[-7.563,53.617],[-7.57,53.613],[-7.588,53.61],[-7.598,53.604],[-7.603,53.6],[-7.608,53.596],[-7.613,53.592],[-7.621,53.587],[-7.626,53.583],[-7.633,53.573],[-7.636,53.57],[-7.649,53.559],[-7.651,53.556],[-7.652,53.552],[-7.652,53.545],[-7.66,53.541],[-7.677,53.537],[-7.717,53.533],[-7.761,53.535],[-7.797,53.543],[-7.801,53.545],[-7.806,53.547],[-7.811,53.548],[-7.817,53.55],[-7.829,53.55],[-7.905,53.543],[-7.922,53.539],[-7.963,53.524],[-7.989,53.563],[-8.022,53.6],[-8.028,53.608],[-8.031,53.615],[-8.032,53.619],[-8.03,53.626],[-8.026,53.636],[-8.009,53.659],[-8.004,53.667],[-7.997,53.683],[-7.988,53.695],[-7.969,53.714],[-7.949,53.723],[-7.949,53.727],[-7.95,53.732],[-7.949,53.736],[-7.945,53.739],[-7.939,53.741],[-7.931,53.743],[-7.922,53.742],[-7.926,53.752],[-7.929,53.755],[-7.894,53.766],[-7.887,53.77],[-7.885,53.781],[-7.888,53.789],[-7.894,53.793],[-7.901,53.79],[-7.915,53.799],[-7.922,53.812],[-7.889,53.823],[-7.876,53.821],[-7.873,53.818],[-7.871,53.815],[-7.868,53.812],[-7.866,53.81],[-7.862,53.808],[-7.86,53.808],[-7.857,53.811],[-7.855,53.816],[-7.855,53.824],[-7.854,53.827],[-7.85,53.829],[-7.844,53.827],[-7.839,53.824],[-7.833,53.818],[-7.829,53.816],[-7.824,53.815],[-7.812,53.816],[-7.799,53.815],[-7.793,53.815],[-7.787,53.817],[-7.782,53.823],[-7.78,53.828],[-7.776,53.836],[-7.775,53.84],[-7.774,53.848],[-7.773,53.852],[-7.772,53.857],[-7.764,53.864],[-7.748,53.874],[-7.707,53.896],[-7.683,53.913],[-7.679,53.917],[-7.658,53.929],[-7.639,53.935],[-7.599,53.933]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'An Longfort'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>An Longfort?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is An Longfort located? </h2>An Longfort, is a county It belongs to the country of Ireland. Its postal identifier is LD.An Longfort has an area of 1110 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

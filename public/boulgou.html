@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Boulgou?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-0.512,11.99],[-0.473,11.987],[-0.464,11.987],[-0.463,11.977],[-0.463,11.952],[-0.47,11.927],[-0.46,11.896],[-0.429,11.856],[-0.381,11.821],[-0.279,11.796],[-0.253,11.793],[-0.219,11.847],[-0.129,11.919],[-0.116,11.924],[-0.11,11.923],[-0.097,11.919],[-0.075,11.91],[-0.065,11.876],[-0.032,11.854],[0.015,11.844],[0.039,11.805],[0.048,11.765],[0.05,11.75],[0.051,11.74],[0.048,11.725],[0.035,11.719],[0.019,11.719],[-0.022,11.724],[-0.038,11.716],[-0.071,11.688],[-0.09,11.649],[-0.109,11.632],[-0.123,11.616],[-0.146,11.566],[-0.138,11.545],[-0.121,11.523],[-0.126,11.507],[-0.132,11.494],[-0.133,11.478],[-0.137,11.444],[-0.149,11.43],[-0.158,11.416],[-0.152,11.4],[-0.155,11.385],[-0.168,11.37],[-0.166,11.349],[-0.154,11.339],[-0.137,11.338],[-0.118,11.333],[-0.101,11.335],[-0.084,11.343],[-0.065,11.347],[-0.036,11.349],[-0.009,11.339],[0.006,11.323],[0.005,11.308],[-0.006,11.294],[-0.016,11.283],[-0.031,11.272],[-0.041,11.258],[-0.046,11.243],[-0.053,11.227],[-0.064,11.216],[-0.081,11.211],[-0.09,11.201],[-0.09,11.187],[-0.103,11.16],[-0.113,11.132],[-0.115,11.125],[-0.115,11.125],[-0.166,11.135],[-0.167,11.135],[-0.302,11.163],[-0.302,11.163],[-0.305,11.147],[-0.301,11.138],[-0.299,11.129],[-0.307,11.114],[-0.319,11.101],[-0.369,11.065],[-0.37,11.065],[-0.388,11.087],[-0.407,11.102],[-0.426,11.102],[-0.426,11.102],[-0.445,11.078],[-0.45,11.063],[-0.452,11.04],[-0.457,11.03],[-0.469,11.02],[-0.472,11.019],[-0.495,11.008],[-0.495,11.008],[-0.505,10.996],[-0.505,10.996],[-0.507,10.994],[-0.507,10.994],[-0.508,10.993],[-0.51,10.992],[-0.51,10.992],[-0.514,10.99],[-0.517,10.989],[-0.556,10.99],[-0.577,10.988],[-0.591,10.983],[-0.591,10.983],[-0.6,10.966],[-0.608,10.941],[-0.618,10.919],[-0.623,10.916],[-0.635,10.908],[-0.683,10.954],[-0.68,10.961],[-0.673,10.969],[-0.669,10.977],[-0.674,10.984],[-0.684,10.984],[-0.691,10.982],[-0.695,10.983],[-0.697,10.994],[-0.703,10.994],[-0.703,10.994],[-0.706,11.027],[-0.696,11.044],[-0.691,11.06],[-0.697,11.079],[-0.715,11.094],[-0.732,11.111],[-0.744,11.136],[-0.766,11.172],[-0.777,11.196],[-0.77,11.203],[-0.755,11.221],[-0.747,11.252],[-0.735,11.273],[-0.708,11.287],[-0.673,11.316],[-0.635,11.339],[-0.606,11.366],[-0.577,11.378],[-0.547,11.367],[-0.546,11.385],[-0.549,11.412],[-0.533,11.448],[-0.551,11.478],[-0.562,11.488],[-0.597,11.504],[-0.607,11.512],[-0.626,11.521],[-0.702,11.539],[-0.72,11.537],[-0.722,11.538],[-0.745,11.521],[-0.79,11.546],[-0.837,11.564],[-0.868,11.586],[-0.924,11.669],[-0.91,11.708],[-0.882,11.744],[-0.857,11.758],[-0.799,11.838],[-0.748,11.841],[-0.695,11.857],[-0.656,11.896],[-0.638,11.924],[-0.618,11.951],[-0.597,11.973],[-0.568,11.984],[-0.512,11.99]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Boulgou'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Boulgou?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Boulgou located? </h2>Boulgou, is a province It belongs to the country of Burkina Faso. Its postal identifier is BL.Boulgou has an area of 6670 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Cortés?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-87.795,15.793],[-87.78,15.776],[-87.775,15.763],[-87.767,15.765],[-87.761,15.76],[-87.758,15.751],[-87.758,15.74],[-87.764,15.73],[-87.773,15.725],[-87.788,15.721],[-87.818,15.701],[-87.824,15.692],[-87.805,15.688],[-87.82,15.672],[-87.803,15.654],[-87.777,15.633],[-87.762,15.61],[-87.765,15.607],[-87.772,15.581],[-87.771,15.578],[-87.778,15.574],[-87.785,15.575],[-87.791,15.577],[-87.794,15.578],[-87.8,15.564],[-87.805,15.548],[-87.81,15.534],[-87.82,15.527],[-87.831,15.509],[-87.827,15.494],[-87.819,15.482],[-87.814,15.469],[-87.816,15.452],[-87.824,15.453],[-87.835,15.46],[-87.846,15.46],[-87.853,15.452],[-87.846,15.446],[-87.834,15.44],[-87.824,15.43],[-87.82,15.416],[-87.824,15.408],[-87.838,15.396],[-87.863,15.356],[-87.87,15.348],[-87.874,15.345],[-87.879,15.343],[-87.888,15.336],[-87.894,15.333],[-87.907,15.329],[-87.912,15.327],[-87.913,15.323],[-87.913,15.32],[-87.911,15.317],[-87.911,15.314],[-87.914,15.309],[-87.926,15.296],[-87.924,15.29],[-87.924,15.283],[-87.926,15.276],[-87.928,15.27],[-87.926,15.259],[-87.935,15.245],[-87.931,15.237],[-87.927,15.238],[-87.921,15.24],[-87.918,15.239],[-87.917,15.238],[-87.917,15.226],[-87.921,15.212],[-87.92,15.205],[-87.923,15.195],[-87.923,15.191],[-87.918,15.188],[-87.898,15.193],[-87.879,15.192],[-87.868,15.189],[-87.853,15.178],[-87.849,15.174],[-87.846,15.169],[-87.845,15.165],[-87.843,15.16],[-87.837,15.16],[-87.822,15.16],[-87.818,15.158],[-87.814,15.155],[-87.811,15.154],[-87.8,15.153],[-87.797,15.149],[-87.794,15.14],[-87.788,15.137],[-87.783,15.137],[-87.768,15.14],[-87.738,15.111],[-87.737,15.105],[-87.733,15.094],[-87.732,15.086],[-87.732,15.081],[-87.734,15.078],[-87.737,15.075],[-87.74,15.068],[-87.741,15.061],[-87.736,15.017],[-87.736,14.984],[-87.741,14.962],[-87.757,14.948],[-87.803,14.916],[-87.821,14.907],[-87.844,14.901],[-87.847,14.899],[-87.869,14.877],[-87.884,14.858],[-87.963,14.804],[-87.974,14.81],[-87.98,14.82],[-87.986,14.836],[-87.988,14.878],[-87.996,14.901],[-88.027,14.928],[-88.049,14.929],[-88.054,14.931],[-88.057,14.947],[-88.05,14.989],[-88.044,14.997],[-88.031,15.043],[-88.018,15.056],[-88.022,15.063],[-88.029,15.066],[-88.036,15.072],[-88.043,15.075],[-88.065,15.083],[-88.094,15.101],[-88.106,15.114],[-88.114,15.131],[-88.108,15.15],[-88.067,15.192],[-88.062,15.208],[-88.081,15.214],[-88.095,15.222],[-88.102,15.228],[-88.124,15.271],[-88.131,15.368],[-88.134,15.373],[-88.159,15.378],[-88.169,15.382],[-88.183,15.391],[-88.198,15.403],[-88.227,15.421],[-88.234,15.427],[-88.238,15.433],[-88.24,15.439],[-88.241,15.445],[-88.241,15.452],[-88.238,15.464],[-88.239,15.469],[-88.241,15.478],[-88.24,15.487],[-88.241,15.491],[-88.248,15.496],[-88.262,15.504],[-88.357,15.532],[-88.41,15.54],[-88.467,15.521],[-88.469,15.521],[-88.4,15.573],[-88.353,15.617],[-88.323,15.668],[-88.317,15.675],[-88.296,15.675],[-88.28,15.681],[-88.266,15.689],[-88.248,15.696],[-88.242,15.689],[-88.236,15.702],[-88.236,15.702],[-88.236,15.713],[-88.236,15.713],[-88.233,15.722],[-88.221,15.726],[-88.215,15.723],[-88.17,15.692],[-88.145,15.685],[-88.119,15.696],[-88.061,15.756],[-88.036,15.771],[-88.042,15.787],[-88.031,15.79],[-87.992,15.785],[-87.934,15.819],[-87.927,15.832],[-87.924,15.842],[-87.93,15.847],[-87.941,15.85],[-87.95,15.857],[-87.954,15.864],[-87.951,15.867],[-87.909,15.868],[-87.892,15.873],[-87.875,15.884],[-87.846,15.894],[-87.76,15.9],[-87.742,15.905],[-87.736,15.919],[-87.728,15.921],[-87.725,15.897],[-87.731,15.888],[-87.741,15.882],[-87.752,15.872],[-87.757,15.863],[-87.766,15.839],[-87.774,15.828],[-87.789,15.813],[-87.795,15.804],[-87.795,15.793]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Cortés'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Cortés?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Cortés located? </h2>Cortés, is a department It belongs to the country of Honduras. Its postal identifier is CR.Cortés has an area of 3974 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

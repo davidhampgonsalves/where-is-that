@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kâmpóng Thum?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[105.578,13.27],[105.61,13.139],[105.612,13.136],[105.627,13.123],[105.635,13.112],[105.643,13.099],[105.646,13.092],[105.647,13.085],[105.645,13.078],[105.639,13.061],[105.638,13.055],[105.638,13.048],[105.649,12.979],[105.651,12.973],[105.653,12.971],[105.659,12.967],[105.662,12.964],[105.666,12.96],[105.672,12.953],[105.674,12.947],[105.674,12.943],[105.673,12.939],[105.67,12.933],[105.664,12.924],[105.662,12.92],[105.66,12.914],[105.66,12.91],[105.662,12.907],[105.674,12.896],[105.681,12.885],[105.687,12.872],[105.689,12.865],[105.69,12.859],[105.689,12.855],[105.688,12.851],[105.685,12.845],[105.683,12.842],[105.681,12.831],[105.683,12.798],[105.681,12.778],[105.693,12.737],[105.694,12.715],[105.725,12.626],[105.752,12.508],[105.562,12.488],[105.556,12.486],[105.542,12.478],[105.529,12.466],[105.524,12.463],[105.518,12.46],[105.508,12.458],[105.502,12.459],[105.494,12.461],[105.478,12.469],[105.466,12.476],[105.464,12.478],[105.459,12.481],[105.447,12.486],[105.434,12.487],[105.4,12.484],[105.367,12.372],[105.359,12.359],[105.355,12.356],[105.347,12.352],[105.342,12.351],[105.337,12.352],[105.334,12.354],[105.332,12.356],[105.33,12.359],[105.328,12.361],[105.325,12.367],[105.323,12.37],[105.321,12.372],[105.318,12.374],[105.315,12.376],[105.312,12.377],[105.308,12.378],[105.294,12.379],[105.29,12.379],[105.287,12.381],[105.284,12.382],[105.276,12.389],[105.273,12.39],[105.269,12.391],[105.265,12.392],[105.236,12.391],[105.227,12.392],[105.223,12.393],[105.215,12.393],[105.207,12.393],[105.199,12.391],[105.191,12.391],[105.175,12.393],[105.171,12.392],[105.168,12.39],[105.153,12.379],[105.14,12.373],[105.137,12.371],[105.137,12.365],[105.14,12.357],[105.163,12.322],[105.165,12.318],[105.166,12.312],[105.167,12.291],[105.2,12.216],[105.203,12.21],[105.204,12.203],[105.204,12.199],[105.204,12.197],[105.203,12.195],[105.199,12.192],[105.19,12.194],[105.165,12.213],[105.14,12.211],[105.13,12.208],[105.125,12.205],[105.12,12.205],[105.116,12.206],[105.112,12.207],[105.101,12.217],[105.098,12.218],[105.031,12.224],[105,12.233],[104.98,12.255],[104.977,12.257],[104.974,12.258],[104.969,12.259],[104.932,12.261],[104.924,12.261],[104.911,12.254],[104.887,12.235],[104.871,12.251],[104.859,12.274],[104.857,12.281],[104.852,12.3],[104.87,12.307],[104.898,12.336],[104.905,12.346],[104.909,12.354],[104.914,12.367],[104.915,12.371],[104.915,12.375],[104.912,12.386],[104.911,12.389],[104.908,12.391],[104.905,12.392],[104.895,12.391],[104.869,12.378],[104.867,12.377],[104.864,12.377],[104.867,12.399],[104.867,12.406],[104.865,12.413],[104.841,12.453],[104.835,12.468],[104.828,12.48],[104.823,12.491],[104.824,12.5],[104.83,12.533],[104.771,12.545],[104.667,12.591],[104.63,12.601],[104.624,12.601],[104.602,12.596],[104.585,12.589],[104.571,12.581],[104.555,12.574],[104.535,12.562],[104.53,12.558],[104.528,12.555],[104.525,12.548],[104.52,12.541],[104.504,12.519],[104.462,12.523],[104.446,12.526],[104.434,12.53],[104.405,12.551],[104.241,12.691],[104.192,12.749],[104.217,12.765],[104.226,12.796],[104.231,12.806],[104.274,12.852],[104.286,12.861],[104.312,12.875],[104.325,12.884],[104.328,12.886],[104.355,12.898],[104.372,12.908],[104.379,12.914],[104.384,12.918],[104.392,12.939],[104.406,12.991],[104.44,13.049],[104.442,13.056],[104.443,13.072],[104.445,13.078],[104.447,13.08],[104.453,13.08],[104.458,13.078],[104.467,13.078],[104.47,13.082],[104.471,13.087],[104.469,13.113],[104.477,13.2],[104.482,13.216],[104.484,13.222],[104.487,13.227],[104.493,13.23],[104.529,13.242],[104.538,13.247],[104.55,13.258],[104.556,13.265],[104.563,13.284],[104.66,13.336],[104.694,13.349],[104.727,13.359],[104.789,13.357],[104.885,13.339],[104.895,13.336],[104.901,13.331],[104.902,13.323],[104.899,13.315],[104.889,13.295],[104.884,13.276],[104.878,13.23],[104.882,13.192],[104.886,13.171],[104.894,13.151],[104.9,13.144],[104.904,13.139],[104.916,13.129],[104.938,13.121],[104.997,13.115],[105.095,13.163],[105.164,13.222],[105.172,13.23],[105.185,13.25],[105.189,13.255],[105.387,13.391],[105.41,13.399],[105.546,13.469],[105.548,13.393],[105.546,13.369],[105.551,13.335],[105.578,13.27]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Kâmpóng Thum'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Kâmpóng Thum?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Kâmpóng Thum located? </h2>Kâmpóng Thum, is a province It belongs to the country of Cambodia. Its postal identifier is KT.Kâmpóng Thum has an area of 13353 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

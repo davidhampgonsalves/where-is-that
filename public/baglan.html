@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Baglan?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[69.221,36.297],[69.233,36.283],[69.25,36.279],[69.262,36.278],[69.268,36.275],[69.272,36.27],[69.278,36.257],[69.283,36.247],[69.292,36.234],[69.297,36.23],[69.301,36.228],[69.304,36.229],[69.312,36.235],[69.317,36.238],[69.322,36.239],[69.33,36.239],[69.335,36.237],[69.34,36.232],[69.342,36.23],[69.345,36.23],[69.348,36.231],[69.352,36.234],[69.358,36.237],[69.367,36.238],[69.402,36.237],[69.444,36.247],[69.509,36.289],[69.523,36.295],[69.539,36.299],[69.554,36.301],[69.615,36.321],[69.647,36.336],[69.671,36.353],[69.681,36.35],[69.697,36.313],[69.701,36.302],[69.702,36.292],[69.702,36.271],[69.704,36.256],[69.708,36.247],[69.712,36.241],[69.716,36.237],[69.72,36.235],[69.724,36.234],[69.727,36.234],[69.752,36.236],[69.766,36.233],[69.778,36.214],[69.788,36.099],[69.848,36.054],[69.869,36.034],[69.886,36.006],[69.888,36.002],[69.889,35.999],[69.889,35.993],[69.889,35.99],[69.891,35.985],[69.901,35.967],[69.907,35.96],[69.915,35.954],[69.919,35.951],[69.921,35.947],[69.922,35.945],[69.922,35.943],[69.922,35.936],[69.924,35.928],[69.93,35.921],[69.944,35.905],[69.952,35.896],[69.956,35.887],[69.961,35.81],[69.949,35.784],[69.944,35.78],[69.937,35.775],[69.906,35.763],[69.899,35.755],[69.88,35.725],[69.871,35.716],[69.862,35.71],[69.847,35.706],[69.833,35.705],[69.818,35.706],[69.791,35.673],[69.782,35.653],[69.779,35.637],[69.776,35.617],[69.763,35.565],[69.759,35.553],[69.749,35.541],[69.699,35.529],[69.573,35.462],[69.556,35.456],[69.502,35.462],[69.457,35.458],[69.446,35.455],[69.439,35.45],[69.43,35.438],[69.403,35.416],[69.375,35.418],[69.361,35.414],[69.348,35.406],[69.34,35.402],[69.308,35.403],[69.264,35.392],[69.248,35.412],[69.241,35.415],[69.234,35.414],[69.221,35.413],[69.185,35.42],[69.162,35.404],[69.152,35.393],[69.144,35.387],[69.137,35.383],[69.131,35.382],[69.08,35.363],[69.069,35.357],[69.061,35.351],[69.044,35.325],[69.035,35.313],[69.028,35.308],[69.021,35.304],[68.979,35.294],[68.97,35.289],[68.966,35.285],[68.959,35.273],[68.914,35.248],[68.906,35.247],[68.896,35.246],[68.854,35.27],[68.816,35.261],[68.81,35.258],[68.801,35.252],[68.791,35.244],[68.781,35.23],[68.764,35.213],[68.749,35.19],[68.742,35.182],[68.74,35.181],[68.666,35.135],[68.652,35.128],[68.606,35.12],[68.6,35.117],[68.597,35.113],[68.597,35.11],[68.599,35.105],[68.604,35.095],[68.606,35.09],[68.607,35.087],[68.603,35.076],[68.576,35.064],[68.555,35.06],[68.504,35.058],[68.442,35.063],[68.376,35.055],[68.362,35.056],[68.288,35.073],[68.281,35.073],[68.278,35.07],[68.278,35.066],[68.276,35.061],[68.273,35.056],[68.267,35.05],[68.255,35.042],[68.241,35.035],[68.213,35.027],[68.192,35.018],[68.184,35.01],[68.178,35.007],[68.173,35.007],[68.168,35.007],[68.164,35.008],[68.129,35.033],[68.122,35.036],[68.115,35.037],[68.108,35.037],[68.085,35.032],[68.078,35.032],[68.072,35.032],[68.067,35.034],[68.064,35.037],[68.06,35.04],[68.057,35.042],[68.027,35.049],[68.022,35.052],[68.018,35.057],[68.015,35.064],[68.011,35.098],[68.011,35.104],[68.012,35.11],[68.012,35.116],[68.011,35.122],[68.009,35.127],[68.007,35.133],[68.005,35.138],[68.005,35.144],[68.01,35.165],[68.012,35.172],[68.018,35.181],[68.022,35.187],[68.03,35.193],[68.035,35.197],[68.061,35.209],[68.068,35.221],[68.07,35.23],[68.077,35.242],[68.08,35.25],[68.086,35.279],[68.089,35.289],[68.093,35.297],[68.097,35.302],[68.101,35.308],[68.102,35.315],[68.094,35.335],[68.094,35.344],[68.097,35.355],[68.105,35.369],[68.106,35.376],[68.105,35.384],[68.09,35.418],[68.086,35.436],[68.089,35.461],[68.143,35.507],[68.146,35.513],[68.147,35.523],[68.149,35.532],[68.153,35.541],[68.176,35.565],[68.189,35.583],[68.194,35.613],[68.182,35.626],[68.177,35.63],[68.152,35.642],[68.15,35.651],[68.15,35.656],[68.151,35.663],[68.156,35.677],[68.164,35.69],[68.307,35.847],[68.312,35.854],[68.316,35.886],[68.319,35.897],[68.324,35.936],[68.324,35.942],[68.323,35.956],[68.324,35.962],[68.326,35.968],[68.333,35.982],[68.338,35.988],[68.344,35.995],[68.374,36.007],[68.467,36.073],[68.487,36.092],[68.531,36.153],[68.529,36.161],[68.522,36.171],[68.516,36.178],[68.491,36.197],[68.425,36.238],[68.383,36.256],[68.371,36.264],[68.325,36.314],[68.256,36.406],[68.207,36.465],[68.202,36.473],[68.195,36.488],[68.191,36.494],[68.176,36.51],[68.173,36.515],[68.173,36.521],[68.176,36.53],[68.183,36.543],[68.187,36.549],[68.194,36.554],[68.202,36.557],[68.225,36.563],[68.24,36.571],[68.288,36.562],[68.313,36.55],[68.322,36.548],[68.375,36.55],[68.539,36.541],[68.623,36.522],[68.635,36.521],[68.645,36.522],[68.661,36.527],[68.723,36.534],[68.735,36.512],[68.799,36.448],[68.842,36.42],[68.853,36.415],[68.862,36.413],[68.869,36.414],[68.876,36.416],[68.904,36.431],[68.91,36.433],[68.915,36.433],[68.939,36.429],[68.987,36.422],[68.999,36.417],[69,36.415],[69.001,36.413],[69.003,36.412],[69.014,36.405],[69.021,36.399],[69.033,36.386],[69.062,36.365],[69.081,36.355],[69.122,36.344],[69.14,36.341],[69.178,36.333],[69.19,36.329],[69.198,36.324],[69.203,36.319],[69.207,36.313],[69.221,36.297]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Baglan'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Baglan?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Baglan located? </h2>Baglan, is a province It belongs to the country of Afghanistan. Its postal identifier is BL.Baglan has an area of 17860 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

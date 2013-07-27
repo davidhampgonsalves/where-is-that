@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Tawi-Tawi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[119.85,4.797],[119.834,4.797],[119.819,4.804],[119.812,4.817],[119.831,4.821],[119.853,4.808],[119.858,4.798],[119.85,4.797]]],[[[119.467,4.666],[119.457,4.656],[119.457,4.718],[119.463,4.776],[119.457,4.843],[119.449,4.874],[119.436,4.903],[119.447,4.905],[119.459,4.902],[119.469,4.894],[119.476,4.884],[119.479,4.876],[119.482,4.868],[119.483,4.859],[119.483,4.851],[119.487,4.832],[119.501,4.799],[119.504,4.783],[119.504,4.764],[119.501,4.748],[119.497,4.734],[119.467,4.666]]],[[[119.837,4.863],[119.821,4.863],[119.798,4.88],[119.79,4.906],[119.793,4.922],[119.804,4.927],[119.815,4.922],[119.821,4.914],[119.842,4.905],[119.85,4.888],[119.85,4.873],[119.842,4.866],[119.837,4.863]]],[[[119.808,5.059],[119.801,5.055],[119.796,5.057],[119.792,5.056],[119.79,5.053],[119.786,5.046],[119.775,5.042],[119.752,5.036],[119.745,5.044],[119.748,5.063],[119.769,5.097],[119.783,5.111],[119.798,5.121],[119.806,5.118],[119.805,5.105],[119.807,5.093],[119.81,5.082],[119.812,5.07],[119.808,5.059]]],[[[120.22,5.27],[120.228,5.268],[120.236,5.272],[120.244,5.273],[120.252,5.266],[120.253,5.251],[120.238,5.19],[120.232,5.15],[120.227,5.129],[120.217,5.115],[120.202,5.12],[120.191,5.126],[120.185,5.136],[120.182,5.153],[120.189,5.182],[120.19,5.196],[120.182,5.204],[120.176,5.203],[120.173,5.196],[120.172,5.188],[120.169,5.183],[120.164,5.182],[120.145,5.183],[120.138,5.187],[120.13,5.197],[120.124,5.208],[120.121,5.218],[120.111,5.203],[120.108,5.171],[120.101,5.157],[120.086,5.151],[120.071,5.154],[120.057,5.16],[120.046,5.163],[120.025,5.16],[120.018,5.152],[120.014,5.141],[120.005,5.129],[119.998,5.127],[119.988,5.128],[119.98,5.126],[119.977,5.119],[119.97,5.088],[119.954,5.075],[119.943,5.078],[119.934,5.085],[119.922,5.088],[119.914,5.082],[119.9,5.064],[119.892,5.06],[119.86,5.06],[119.847,5.054],[119.838,5.049],[119.83,5.049],[119.819,5.06],[119.817,5.072],[119.819,5.107],[119.812,5.122],[119.822,5.131],[119.83,5.135],[119.865,5.146],[119.895,5.161],[119.902,5.167],[119.908,5.169],[119.943,5.19],[119.957,5.215],[119.965,5.223],[119.996,5.227],[120.02,5.236],[120.028,5.238],[120.036,5.242],[120.053,5.259],[120.063,5.26],[120.07,5.257],[120.077,5.255],[120.087,5.259],[120.089,5.264],[120.093,5.283],[120.097,5.29],[120.124,5.306],[120.134,5.318],[120.146,5.324],[120.169,5.332],[120.188,5.345],[120.199,5.35],[120.209,5.348],[120.214,5.34],[120.216,5.329],[120.216,5.277],[120.22,5.27]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Tawi-Tawi'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Tawi-Tawi?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Tawi-Tawi located? </h2>Tawi-Tawi, is a province It belongs to the country of Philippines. Its postal identifier is TT.Tawi-Tawi has an area of 780 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

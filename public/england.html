@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is England?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-0.651,52.748],[-0.682,52.734],[-0.727,52.716],[-0.782,52.719],[-0.805,52.709],[-0.805,52.689],[-0.8,52.673],[-0.803,52.656],[-0.803,52.621],[-0.8,52.595],[-0.788,52.565],[-0.765,52.533],[-0.742,52.512],[-0.73,52.507],[-0.734,52.504],[-0.761,52.499],[-0.789,52.507],[-0.832,52.503],[-0.862,52.509],[-0.871,52.505],[-0.893,52.474],[-0.87,52.462],[-0.884,52.447],[-0.898,52.447],[-0.937,52.462],[-0.963,52.464],[-1.034,52.445],[-1.037,52.442],[-1.033,52.436],[-1.022,52.433],[-1.045,52.402],[-1.101,52.424],[-1.134,52.404],[-1.157,52.378],[-1.187,52.381],[-1.212,52.416],[-1.241,52.426],[-1.293,52.479],[-1.396,52.512],[-1.404,52.526],[-1.417,52.535],[-1.495,52.556],[-1.518,52.574],[-1.546,52.581],[-1.542,52.601],[-1.559,52.622],[-1.537,52.63],[-1.534,52.642],[-1.58,52.677],[-1.583,52.685],[-1.535,52.706],[-1.531,52.714],[-1.543,52.734],[-1.541,52.746],[-1.533,52.75],[-1.475,52.749],[-1.454,52.753],[-1.45,52.756],[-1.453,52.766],[-1.427,52.784],[-1.395,52.79],[-1.388,52.807],[-1.368,52.827],[-1.371,52.831],[-1.339,52.849],[-1.301,52.862],[-1.263,52.862],[-1.268,52.819],[-1.26,52.799],[-1.226,52.778],[-1.188,52.772],[-1.166,52.786],[-1.134,52.792],[-1.1,52.808],[-1.07,52.812],[-1.052,52.804],[-0.979,52.808],[-0.973,52.813],[-0.969,52.826],[-0.945,52.834],[-0.924,52.849],[-0.928,52.86],[-0.925,52.862],[-0.896,52.867],[-0.85,52.893],[-0.821,52.929],[-0.819,52.941],[-0.792,52.957],[-0.767,52.961],[-0.764,52.944],[-0.747,52.936],[-0.744,52.928],[-0.763,52.895],[-0.753,52.882],[-0.754,52.871],[-0.724,52.866],[-0.709,52.848],[-0.691,52.817],[-0.676,52.807],[-0.664,52.768],[-0.651,52.748]],[[-1.064,52.595],[-1.057,52.623],[-1.072,52.648],[-1.12,52.656],[-1.16,52.656],[-1.18,52.638],[-1.18,52.618],[-1.167,52.575],[-1.122,52.565],[-1.064,52.595]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'England'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>England?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is England located? </h2>England, is a kingdom of the England region. It belongs to the country of United Kingdom. Its abbreviated name is England*England has an area of 2056 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

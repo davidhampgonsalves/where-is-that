@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Tiba?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[140.86,35.736],[140.865,35.734],[140.875,35.729],[140.88,35.721],[140.883,35.707],[140.883,35.694],[140.878,35.685],[140.869,35.684],[140.847,35.695],[140.837,35.699],[140.825,35.699],[140.805,35.693],[140.777,35.69],[140.736,35.681],[140.667,35.672],[140.629,35.656],[140.503,35.56],[140.443,35.492],[140.403,35.414],[140.405,35.329],[140.413,35.301],[140.42,35.262],[140.419,35.22],[140.402,35.188],[140.384,35.177],[140.365,35.169],[140.35,35.159],[140.343,35.14],[140.334,35.132],[140.312,35.126],[140.289,35.122],[140.275,35.124],[140.255,35.114],[140.24,35.109],[140.223,35.108],[140.155,35.11],[140.133,35.105],[140.124,35.092],[140.117,35.071],[140.101,35.059],[140.063,35.048],[140.003,35.018],[139.994,35.01],[139.991,34.999],[139.977,34.981],[139.974,34.969],[139.973,34.958],[139.968,34.938],[139.967,34.928],[139.958,34.915],[139.938,34.906],[139.898,34.897],[139.876,34.895],[139.865,34.896],[139.857,34.897],[139.844,34.901],[139.838,34.905],[139.835,34.911],[139.826,34.921],[139.778,34.952],[139.768,34.965],[139.777,34.969],[139.786,34.972],[139.806,34.973],[139.817,34.975],[139.827,34.98],[139.835,34.984],[139.84,34.986],[139.859,34.987],[139.866,34.991],[139.87,34.999],[139.868,35.013],[139.856,35.021],[139.836,35.027],[139.835,35.037],[139.847,35.047],[139.85,35.058],[139.848,35.069],[139.838,35.088],[139.836,35.099],[139.837,35.135],[139.833,35.151],[139.823,35.171],[139.832,35.178],[139.857,35.193],[139.867,35.202],[139.877,35.214],[139.878,35.222],[139.848,35.272],[139.832,35.285],[139.782,35.301],[139.782,35.308],[139.804,35.31],[139.82,35.315],[139.85,35.329],[139.869,35.334],[139.889,35.336],[139.906,35.342],[139.919,35.356],[139.922,35.376],[139.911,35.403],[139.919,35.418],[139.933,35.426],[139.977,35.442],[139.991,35.444],[140.001,35.452],[140.032,35.485],[140.058,35.5],[140.088,35.534],[140.107,35.541],[140.12,35.549],[140.11,35.566],[140.092,35.582],[140.083,35.586],[140.08,35.604],[140.071,35.62],[140.058,35.636],[140.042,35.651],[140.034,35.646],[140.029,35.646],[139.996,35.657],[139.961,35.662],[139.945,35.662],[139.932,35.658],[139.924,35.649],[139.917,35.638],[139.907,35.628],[139.891,35.623],[139.88,35.625],[139.871,35.631],[139.867,35.638],[139.877,35.661],[139.881,35.673],[139.886,35.698],[139.864,35.778],[139.875,35.85],[139.872,35.869],[139.867,35.889],[139.858,35.901],[139.839,35.923],[139.831,35.938],[139.796,36.019],[139.786,36.037],[139.753,36.08],[139.772,36.08],[139.792,36.075],[139.805,36.078],[139.866,36.005],[139.932,35.938],[139.97,35.914],[140.127,35.854],[140.17,35.844],[140.19,35.843],[140.32,35.851],[140.346,35.855],[140.368,35.878],[140.393,35.885],[140.461,35.892],[140.551,35.889],[140.57,35.884],[140.626,35.854],[140.671,35.842],[140.693,35.833],[140.711,35.82],[140.755,35.774],[140.777,35.757],[140.799,35.744],[140.825,35.735],[140.857,35.732],[140.86,35.736]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Tiba'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Tiba?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Tiba located? </h2>Tiba, is a prefecture of the Kanto region. It belongs to the country of Japan. Its postal identifier is CH.Tiba has an area of 5191 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Elbasan?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[20.413,41.386],[20.426,41.384],[20.44,41.387],[20.449,41.388],[20.447,41.38],[20.447,41.37],[20.45,41.356],[20.455,41.346],[20.478,41.322],[20.478,41.322],[20.477,41.32],[20.483,41.29],[20.5,41.236],[20.512,41.211],[20.549,41.171],[20.565,41.148],[20.57,41.125],[20.57,41.107],[20.577,41.094],[20.597,41.087],[20.597,41.086],[20.598,41.083],[20.599,41.067],[20.602,41.051],[20.602,41.046],[20.599,41.027],[20.595,41.022],[20.59,41.019],[20.58,41.019],[20.543,41.03],[20.537,41.03],[20.533,41.03],[20.525,41.027],[20.485,41.009],[20.477,41.007],[20.471,41.006],[20.436,40.997],[20.429,40.994],[20.423,40.988],[20.417,40.975],[20.414,40.966],[20.412,40.95],[20.409,40.94],[20.406,40.934],[20.381,40.925],[20.393,40.898],[20.399,40.889],[20.43,40.858],[20.442,40.844],[20.468,40.8],[20.453,40.776],[20.445,40.766],[20.432,40.758],[20.416,40.752],[20.34,40.745],[20.301,40.737],[20.293,40.726],[20.254,40.716],[20.222,40.716],[20.214,40.718],[20.212,40.721],[20.208,40.728],[20.2,40.732],[20.192,40.734],[20.177,40.734],[20.168,40.735],[20.145,40.743],[20.154,40.755],[20.147,40.759],[20.136,40.764],[20.113,40.768],[20.102,40.773],[20.093,40.78],[20.069,40.811],[20.06,40.817],[20.048,40.821],[20.032,40.822],[20.018,40.825],[20.013,40.828],[20.013,40.833],[20.016,40.842],[20.016,40.846],[20.016,40.851],[20.013,40.86],[20.013,40.864],[20.013,40.867],[20.017,40.874],[20.013,40.878],[20.011,40.879],[20.002,40.882],[19.994,40.88],[19.969,40.867],[19.889,40.874],[19.867,40.868],[19.827,40.877],[19.821,40.881],[19.812,40.887],[19.803,40.901],[19.801,40.907],[19.8,40.913],[19.8,40.918],[19.805,40.936],[19.805,40.941],[19.802,40.965],[19.803,40.968],[19.811,40.98],[19.812,40.999],[19.799,41.004],[19.794,41.003],[19.787,41.002],[19.78,41.005],[19.769,41.012],[19.759,41.013],[19.723,41.011],[19.699,41.016],[19.685,41.023],[19.676,41.031],[19.672,41.04],[19.67,41.047],[19.669,41.051],[19.671,41.057],[19.692,41.054],[19.695,41.056],[19.699,41.06],[19.699,41.069],[19.7,41.077],[19.703,41.087],[19.711,41.093],[19.735,41.102],[19.741,41.107],[19.744,41.111],[19.746,41.122],[19.778,41.124],[19.809,41.122],[19.829,41.125],[19.841,41.128],[19.846,41.133],[19.847,41.135],[19.843,41.136],[19.837,41.138],[19.835,41.141],[19.834,41.143],[19.858,41.159],[19.905,41.174],[19.927,41.177],[19.971,41.195],[19.978,41.2],[20.009,41.226],[20.021,41.241],[20.036,41.254],[20.043,41.258],[20.05,41.259],[20.054,41.256],[20.061,41.253],[20.069,41.252],[20.076,41.253],[20.081,41.256],[20.097,41.268],[20.104,41.272],[20.12,41.273],[20.137,41.297],[20.159,41.311],[20.169,41.315],[20.223,41.327],[20.227,41.33],[20.23,41.333],[20.236,41.344],[20.242,41.349],[20.244,41.351],[20.248,41.352],[20.254,41.353],[20.258,41.354],[20.261,41.356],[20.265,41.359],[20.28,41.368],[20.287,41.372],[20.295,41.374],[20.304,41.375],[20.313,41.374],[20.324,41.37],[20.339,41.37],[20.347,41.371],[20.354,41.373],[20.36,41.377],[20.37,41.387],[20.376,41.389],[20.38,41.388],[20.385,41.384],[20.388,41.384],[20.391,41.386],[20.395,41.388],[20.401,41.389],[20.413,41.386]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Elbasan'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Elbasan?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Elbasan located? </h2>Elbasan, is a county It belongs to the country of Albania. Its postal identifier is EB.Elbasan has an area of 3244 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

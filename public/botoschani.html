@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Botoschani?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[26.722,48.26],[26.722,48.26],[26.733,48.271],[26.733,48.271],[26.744,48.256],[26.763,48.253],[26.805,48.259],[26.822,48.253],[26.844,48.234],[26.855,48.238],[26.897,48.209],[26.904,48.202],[26.908,48.185],[26.917,48.188],[26.917,48.188],[26.929,48.199],[26.929,48.199],[26.938,48.205],[26.95,48.198],[26.955,48.186],[26.963,48.176],[26.997,48.167],[26.997,48.158],[26.997,48.158],[26.986,48.151],[26.966,48.15],[26.966,48.15],[26.966,48.144],[26.994,48.133],[27.012,48.129],[27.025,48.135],[27.033,48.133],[27.042,48.128],[27.048,48.123],[27.048,48.121],[27.047,48.117],[27.037,48.108],[27.034,48.102],[27.041,48.078],[27.059,48.058],[27.083,48.044],[27.109,48.034],[27.109,48.026],[27.109,48.026],[27.089,48.02],[27.089,48.02],[27.09,48.016],[27.091,48.012],[27.093,48.009],[27.095,48.006],[27.121,48.014],[27.134,48.001],[27.143,47.987],[27.157,47.992],[27.169,47.983],[27.169,47.974],[27.163,47.965],[27.163,47.965],[27.151,47.958],[27.151,47.958],[27.172,47.947],[27.178,47.945],[27.178,47.942],[27.178,47.938],[27.16,47.922],[27.171,47.913],[27.194,47.904],[27.212,47.89],[27.211,47.885],[27.213,47.855],[27.212,47.848],[27.223,47.843],[27.235,47.841],[27.246,47.837],[27.253,47.828],[27.253,47.828],[27.219,47.814],[27.219,47.814],[27.231,47.807],[27.245,47.793],[27.256,47.778],[27.261,47.769],[27.264,47.765],[27.282,47.756],[27.287,47.753],[27.288,47.751],[27.291,47.743],[27.289,47.732],[27.295,47.725],[27.295,47.719],[27.294,47.719],[27.272,47.715],[27.272,47.715],[27.281,47.693],[27.304,47.667],[27.369,47.609],[27.397,47.589],[27.428,47.581],[27.429,47.578],[27.431,47.573],[27.431,47.573],[27.376,47.555],[27.336,47.555],[27.32,47.558],[27.307,47.558],[27.296,47.553],[27.279,47.539],[27.269,47.534],[27.261,47.527],[27.256,47.52],[27.252,47.502],[27.244,47.495],[27.232,47.491],[27.205,47.491],[27.191,47.493],[27.174,47.5],[27.156,47.505],[27.128,47.509],[27.112,47.518],[27.104,47.519],[27.092,47.518],[27.082,47.513],[27.075,47.506],[27.071,47.498],[27.073,47.49],[27.091,47.463],[27.092,47.454],[27.087,47.447],[27.077,47.442],[27.056,47.436],[27.041,47.434],[27.021,47.439],[27.009,47.445],[26.999,47.452],[26.984,47.466],[26.976,47.471],[26.967,47.474],[26.957,47.477],[26.789,47.477],[26.774,47.48],[26.763,47.484],[26.744,47.493],[26.734,47.493],[26.725,47.49],[26.718,47.484],[26.713,47.474],[26.699,47.453],[26.658,47.427],[26.617,47.431],[26.606,47.436],[26.592,47.445],[26.568,47.468],[26.562,47.478],[26.56,47.489],[26.561,47.501],[26.563,47.516],[26.562,47.528],[26.546,47.581],[26.537,47.602],[26.527,47.614],[26.495,47.636],[26.482,47.651],[26.416,47.706],[26.397,47.728],[26.283,47.826],[26.26,47.842],[26.209,47.862],[26.168,47.885],[26.142,47.896],[26.127,47.906],[26.119,47.917],[26.102,47.979],[26.102,47.979],[26.125,47.979],[26.173,47.994],[26.182,48.004],[26.204,48.038],[26.217,48.048],[26.243,48.063],[26.255,48.073],[26.27,48.094],[26.287,48.125],[26.297,48.157],[26.297,48.157],[26.296,48.179],[26.296,48.179],[26.303,48.212],[26.311,48.21],[26.33,48.209],[26.347,48.213],[26.38,48.224],[26.397,48.227],[26.444,48.228],[26.461,48.231],[26.587,48.25],[26.617,48.259],[26.618,48.259],[26.618,48.259],[26.665,48.275],[26.688,48.275],[26.711,48.262],[26.722,48.26]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Botoschani'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Botoschani?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Botoschani located? </h2>Botoschani, is a county It belongs to the country of Romania. Its postal identifier is BT.Botoschani has an area of 5451 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

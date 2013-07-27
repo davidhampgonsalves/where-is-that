@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ziguinchor?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[-15.965,12.596],[-15.962,12.57],[-15.947,12.54],[-15.929,12.515],[-15.92,12.493],[-15.889,12.448],[-15.884,12.442],[-15.894,12.443],[-15.974,12.437],[-15.974,12.437],[-15.993,12.441],[-16.055,12.461],[-16.079,12.464],[-16.091,12.465],[-16.091,12.465],[-16.167,12.452],[-16.173,12.449],[-16.178,12.445],[-16.182,12.444],[-16.182,12.444],[-16.191,12.445],[-16.212,12.453],[-16.223,12.455],[-16.223,12.455],[-16.233,12.453],[-16.383,12.374],[-16.413,12.362],[-16.463,12.362],[-16.515,12.349],[-16.534,12.348],[-16.534,12.348],[-16.669,12.357],[-16.706,12.348],[-16.728,12.333],[-16.728,12.333],[-16.735,12.345],[-16.74,12.358],[-16.744,12.379],[-16.75,12.386],[-16.765,12.396],[-16.788,12.418],[-16.799,12.431],[-16.803,12.444],[-16.803,12.485],[-16.801,12.494],[-16.791,12.503],[-16.789,12.512],[-16.781,12.523],[-16.731,12.552],[-16.71,12.553],[-16.679,12.55],[-16.645,12.571],[-16.635,12.58],[-16.629,12.588],[-16.624,12.596],[-16.618,12.606],[-16.58,12.633],[-16.561,12.612],[-16.547,12.574],[-16.533,12.565],[-16.533,12.581],[-16.522,12.593],[-16.505,12.598],[-16.485,12.594],[-16.451,12.575],[-16.421,12.567],[-16.388,12.552],[-16.371,12.55],[-16.351,12.56],[-16.327,12.589],[-16.309,12.598],[-16.286,12.597],[-16.266,12.59],[-16.247,12.588],[-16.224,12.602],[-16.212,12.606],[-16.204,12.598],[-16.198,12.585],[-16.193,12.578],[-16.115,12.606],[-16.097,12.61],[-16.073,12.612],[-16.057,12.616],[-16.045,12.626],[-16.03,12.633],[-16.008,12.632],[-15.99,12.623],[-15.964,12.602],[-15.965,12.596]]],[[[-16.009,12.822],[-16.017,12.76],[-16.022,12.752],[-16.024,12.738],[-16.022,12.729],[-16.028,12.729],[-16.028,12.722],[-16.03,12.718],[-16.04,12.697],[-16.045,12.691],[-16.049,12.656],[-16.077,12.639],[-16.118,12.632],[-16.128,12.628],[-16.149,12.615],[-16.155,12.612],[-16.165,12.613],[-16.19,12.619],[-16.227,12.619],[-16.239,12.617],[-16.258,12.608],[-16.268,12.606],[-16.281,12.606],[-16.313,12.612],[-16.324,12.61],[-16.338,12.6],[-16.347,12.598],[-16.35,12.593],[-16.355,12.583],[-16.362,12.571],[-16.371,12.565],[-16.412,12.578],[-16.445,12.596],[-16.46,12.609],[-16.467,12.622],[-16.471,12.625],[-16.48,12.627],[-16.489,12.632],[-16.494,12.639],[-16.493,12.649],[-16.486,12.658],[-16.477,12.664],[-16.467,12.666],[-16.467,12.674],[-16.482,12.674],[-16.492,12.682],[-16.498,12.694],[-16.501,12.708],[-16.508,12.625],[-16.515,12.625],[-16.529,12.643],[-16.566,12.674],[-16.57,12.694],[-16.582,12.684],[-16.589,12.673],[-16.599,12.664],[-16.614,12.66],[-16.626,12.663],[-16.635,12.669],[-16.639,12.68],[-16.638,12.694],[-16.624,12.72],[-16.604,12.739],[-16.591,12.762],[-16.597,12.797],[-16.601,12.77],[-16.604,12.763],[-16.609,12.754],[-16.614,12.75],[-16.618,12.747],[-16.638,12.729],[-16.647,12.718],[-16.651,12.705],[-16.652,12.684],[-16.645,12.649],[-16.647,12.632],[-16.677,12.62],[-16.721,12.584],[-16.754,12.572],[-16.773,12.583],[-16.781,12.609],[-16.782,12.643],[-16.777,12.678],[-16.761,12.713],[-16.735,12.733],[-16.7,12.722],[-16.699,12.736],[-16.713,12.747],[-16.734,12.751],[-16.751,12.746],[-16.772,12.721],[-16.783,12.713],[-16.796,12.715],[-16.79,12.724],[-16.788,12.732],[-16.79,12.741],[-16.796,12.749],[-16.774,12.779],[-16.77,12.793],[-16.775,12.811],[-16.782,12.811],[-16.787,12.8],[-16.794,12.795],[-16.8,12.799],[-16.803,12.814],[-16.8,12.826],[-16.794,12.839],[-16.759,12.891],[-16.755,12.904],[-16.756,12.916],[-16.761,12.94],[-16.762,12.951],[-16.76,12.972],[-16.75,13.014],[-16.748,13.04],[-16.749,13.057],[-16.754,13.065],[-16.753,13.088],[-16.749,13.099],[-16.743,13.108],[-16.735,13.115],[-16.727,13.123],[-16.724,13.132],[-16.709,13.157],[-16.68,13.163],[-16.674,13.165],[-16.674,13.165],[-16.595,13.164],[-15.897,13.158],[-15.897,13.158],[-15.907,13.142],[-15.924,13.123],[-15.929,13.111],[-15.928,13.103],[-15.921,13.099],[-15.914,13.097],[-15.907,13.094],[-15.901,13.086],[-15.902,13.079],[-15.942,12.997],[-15.987,12.927],[-15.988,12.915],[-15.986,12.905],[-15.982,12.888],[-15.985,12.878],[-15.986,12.857],[-15.988,12.85],[-15.991,12.845],[-16.002,12.835],[-16.007,12.828],[-16.009,12.822]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Ziguinchor'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Ziguinchor?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Ziguinchor located? </h2>Ziguinchor, is a region It belongs to the country of Senegal. Its postal identifier is ZG.Ziguinchor has an area of 6987 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Paraguarí?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-56.746,-25.653],[-56.715,-25.674],[-56.693,-25.699],[-56.685,-25.704],[-56.679,-25.706],[-56.647,-25.71],[-56.664,-25.725],[-56.671,-25.743],[-56.672,-25.759],[-56.671,-25.777],[-56.665,-25.807],[-56.655,-25.838],[-56.648,-25.854],[-56.641,-25.865],[-56.617,-25.893],[-56.609,-25.908],[-56.599,-25.936],[-56.599,-25.951],[-56.604,-25.961],[-56.614,-25.966],[-56.657,-25.975],[-56.663,-25.979],[-56.669,-25.985],[-56.67,-25.992],[-56.67,-25.997],[-56.669,-25.999],[-56.663,-26.037],[-56.659,-26.052],[-56.653,-26.065],[-56.587,-26.176],[-56.594,-26.208],[-56.599,-26.217],[-56.633,-26.253],[-56.641,-26.264],[-56.651,-26.302],[-56.655,-26.338],[-56.657,-26.347],[-56.662,-26.354],[-56.683,-26.368],[-56.686,-26.373],[-56.688,-26.379],[-56.688,-26.389],[-56.685,-26.398],[-56.686,-26.407],[-56.691,-26.418],[-56.704,-26.43],[-56.71,-26.438],[-56.714,-26.45],[-56.715,-26.461],[-56.72,-26.474],[-56.728,-26.486],[-56.747,-26.501],[-56.759,-26.508],[-56.773,-26.518],[-56.783,-26.541],[-56.819,-26.49],[-56.828,-26.486],[-56.841,-26.482],[-56.852,-26.485],[-56.871,-26.483],[-56.89,-26.473],[-56.923,-26.448],[-56.944,-26.435],[-57.004,-26.407],[-57.011,-26.405],[-57.02,-26.403],[-57.029,-26.403],[-57.039,-26.404],[-57.05,-26.406],[-57.057,-26.409],[-57.063,-26.412],[-57.079,-26.423],[-57.091,-26.434],[-57.1,-26.447],[-57.106,-26.459],[-57.109,-26.469],[-57.112,-26.476],[-57.117,-26.481],[-57.128,-26.486],[-57.133,-26.492],[-57.137,-26.497],[-57.138,-26.502],[-57.142,-26.506],[-57.149,-26.511],[-57.164,-26.517],[-57.172,-26.523],[-57.178,-26.532],[-57.18,-26.545],[-57.18,-26.56],[-57.181,-26.572],[-57.188,-26.582],[-57.201,-26.589],[-57.252,-26.606],[-57.341,-26.623],[-57.367,-26.621],[-57.389,-26.612],[-57.405,-26.602],[-57.432,-26.595],[-57.446,-26.589],[-57.456,-26.58],[-57.463,-26.571],[-57.476,-26.565],[-57.549,-26.551],[-57.562,-26.544],[-57.57,-26.536],[-57.576,-26.527],[-57.583,-26.521],[-57.608,-26.507],[-57.615,-26.501],[-57.618,-26.494],[-57.625,-26.476],[-57.631,-26.466],[-57.637,-26.459],[-57.648,-26.454],[-57.655,-26.449],[-57.671,-26.428],[-57.705,-26.412],[-57.686,-26.392],[-57.665,-26.377],[-57.653,-26.362],[-57.614,-26.294],[-57.481,-26.174],[-57.477,-26.167],[-57.476,-26.157],[-57.504,-26.011],[-57.457,-25.971],[-57.434,-25.944],[-57.407,-25.898],[-57.403,-25.876],[-57.405,-25.858],[-57.428,-25.79],[-57.43,-25.768],[-57.426,-25.738],[-57.414,-25.704],[-57.403,-25.683],[-57.391,-25.668],[-57.355,-25.637],[-57.323,-25.603],[-57.238,-25.48],[-57.232,-25.472],[-57.203,-25.448],[-57.162,-25.425],[-57.113,-25.508],[-57.104,-25.516],[-57.088,-25.526],[-57.061,-25.527],[-57.049,-25.529],[-57.026,-25.536],[-57.009,-25.54],[-57,-25.541],[-56.926,-25.536],[-56.915,-25.537],[-56.903,-25.539],[-56.897,-25.547],[-56.893,-25.555],[-56.888,-25.58],[-56.885,-25.588],[-56.879,-25.6],[-56.878,-25.604],[-56.877,-25.608],[-56.878,-25.613],[-56.881,-25.618],[-56.893,-25.63],[-56.906,-25.64],[-56.91,-25.644],[-56.91,-25.648],[-56.907,-25.654],[-56.9,-25.658],[-56.892,-25.661],[-56.861,-25.663],[-56.855,-25.662],[-56.847,-25.66],[-56.84,-25.657],[-56.834,-25.653],[-56.827,-25.648],[-56.817,-25.642],[-56.806,-25.637],[-56.795,-25.637],[-56.788,-25.639],[-56.746,-25.653]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Paraguarí'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Paraguarí?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Paraguarí located? </h2>Paraguarí, is a department It belongs to the country of Paraguay. Its postal identifier is PG.Paraguarí has an area of 8948 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

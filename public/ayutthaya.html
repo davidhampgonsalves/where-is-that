@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ayutthaya?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[100.594,14.656],[100.576,14.604],[100.574,14.589],[100.576,14.587],[100.587,14.579],[100.589,14.576],[100.591,14.572],[100.593,14.563],[100.595,14.559],[100.597,14.556],[100.6,14.554],[100.604,14.551],[100.607,14.549],[100.609,14.549],[100.616,14.547],[100.624,14.547],[100.641,14.548],[100.649,14.549],[100.656,14.551],[100.679,14.561],[100.688,14.566],[100.695,14.568],[100.703,14.569],[100.707,14.57],[100.723,14.568],[100.743,14.569],[100.75,14.569],[100.762,14.566],[100.767,14.564],[100.77,14.561],[100.771,14.557],[100.772,14.55],[100.77,14.534],[100.77,14.53],[100.768,14.527],[100.766,14.524],[100.763,14.522],[100.757,14.52],[100.755,14.516],[100.756,14.51],[100.766,14.49],[100.768,14.485],[100.767,14.482],[100.76,14.448],[100.759,14.444],[100.761,14.437],[100.763,14.428],[100.763,14.413],[100.764,14.409],[100.766,14.406],[100.785,14.39],[100.79,14.385],[100.792,14.38],[100.792,14.376],[100.792,14.372],[100.79,14.36],[100.788,14.353],[100.78,14.332],[100.779,14.326],[100.781,14.323],[100.784,14.321],[100.788,14.321],[100.797,14.321],[100.804,14.322],[100.809,14.321],[100.812,14.32],[100.818,14.315],[100.82,14.311],[100.822,14.307],[100.821,14.284],[100.823,14.265],[100.823,14.242],[100.656,14.165],[100.651,14.162],[100.631,14.144],[100.619,14.129],[100.613,14.126],[100.603,14.123],[100.554,14.113],[100.55,14.113],[100.547,14.114],[100.539,14.118],[100.531,14.122],[100.528,14.123],[100.523,14.123],[100.502,14.112],[100.497,14.111],[100.491,14.111],[100.459,14.114],[100.35,14.114],[100.34,14.125],[100.333,14.13],[100.309,14.136],[100.303,14.136],[100.299,14.134],[100.288,14.122],[100.283,14.116],[100.283,14.156],[100.281,14.161],[100.277,14.167],[100.26,14.172],[100.232,14.175],[100.221,14.177],[100.248,14.213],[100.255,14.227],[100.254,14.25],[100.275,14.327],[100.282,14.383],[100.282,14.403],[100.28,14.409],[100.276,14.415],[100.27,14.423],[100.258,14.444],[100.256,14.455],[100.254,14.486],[100.268,14.49],[100.279,14.489],[100.282,14.49],[100.296,14.497],[100.301,14.497],[100.332,14.491],[100.34,14.492],[100.355,14.496],[100.363,14.497],[100.371,14.496],[100.375,14.497],[100.392,14.506],[100.398,14.507],[100.414,14.509],[100.417,14.508],[100.42,14.506],[100.421,14.504],[100.423,14.502],[100.423,14.5],[100.424,14.496],[100.425,14.492],[100.425,14.484],[100.424,14.48],[100.424,14.455],[100.425,14.45],[100.426,14.447],[100.428,14.445],[100.431,14.445],[100.442,14.447],[100.446,14.447],[100.448,14.447],[100.458,14.444],[100.468,14.44],[100.472,14.44],[100.476,14.441],[100.499,14.455],[100.502,14.472],[100.498,14.545],[100.497,14.552],[100.496,14.557],[100.494,14.56],[100.493,14.563],[100.493,14.567],[100.496,14.573],[100.5,14.58],[100.513,14.633],[100.516,14.662],[100.513,14.672],[100.516,14.686],[100.527,14.678],[100.542,14.677],[100.547,14.675],[100.551,14.671],[100.557,14.665],[100.563,14.663],[100.594,14.656]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Ayutthaya'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Ayutthaya?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Ayutthaya located? </h2>Ayutthaya, is a province It belongs to the country of Thailand. Its postal identifier is PA.Ayutthaya has an area of 2487 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

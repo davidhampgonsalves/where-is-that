@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Portuguesa?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-68.981,9.782],[-68.98,9.769],[-68.992,9.738],[-68.992,9.728],[-68.988,9.722],[-68.975,9.71],[-68.972,9.703],[-68.968,9.68],[-68.949,9.647],[-68.94,9.61],[-68.918,9.573],[-68.911,9.555],[-68.909,9.527],[-68.905,9.509],[-68.899,9.497],[-68.888,9.49],[-68.872,9.44],[-68.862,9.431],[-68.845,9.425],[-68.821,9.42],[-68.798,9.401],[-68.783,9.387],[-68.771,9.376],[-68.75,9.356],[-68.717,9.327],[-68.683,9.305],[-68.662,9.292],[-68.642,9.278],[-68.628,9.265],[-68.611,9.244],[-68.605,9.225],[-68.604,9.201],[-68.607,9.178],[-68.631,9.031],[-68.646,8.971],[-68.651,8.955],[-68.652,8.945],[-68.65,8.932],[-68.636,8.897],[-68.618,8.879],[-68.612,8.876],[-68.601,8.872],[-68.592,8.868],[-68.587,8.865],[-68.584,8.862],[-68.582,8.858],[-68.582,8.853],[-68.586,8.849],[-68.59,8.846],[-68.61,8.843],[-68.618,8.84],[-68.622,8.838],[-68.625,8.834],[-68.63,8.824],[-68.633,8.821],[-68.637,8.818],[-68.647,8.814],[-68.652,8.812],[-68.659,8.806],[-68.664,8.805],[-68.668,8.805],[-68.672,8.808],[-68.676,8.811],[-68.68,8.813],[-68.685,8.813],[-68.689,8.812],[-68.699,8.807],[-68.738,8.799],[-68.748,8.795],[-68.75,8.792],[-68.749,8.789],[-68.739,8.784],[-68.724,8.781],[-68.719,8.779],[-68.71,8.774],[-68.704,8.769],[-68.698,8.761],[-68.689,8.745],[-68.686,8.735],[-68.685,8.726],[-68.685,8.72],[-68.683,8.715],[-68.679,8.711],[-68.67,8.708],[-68.662,8.704],[-68.655,8.695],[-68.648,8.682],[-68.632,8.669],[-68.574,8.635],[-68.573,8.622],[-68.575,8.604],[-68.58,8.587],[-68.581,8.581],[-68.582,8.569],[-68.591,8.536],[-68.604,8.5],[-68.654,8.423],[-68.679,8.392],[-68.733,8.364],[-68.783,8.332],[-68.788,8.326],[-68.792,8.317],[-68.814,8.258],[-68.828,8.201],[-68.828,8.192],[-68.817,8.157],[-68.816,8.145],[-68.821,8.127],[-68.828,8.119],[-68.831,8.117],[-68.836,8.114],[-68.841,8.112],[-68.847,8.112],[-68.854,8.112],[-68.865,8.115],[-68.87,8.118],[-68.874,8.122],[-68.877,8.129],[-68.88,8.141],[-68.883,8.147],[-68.889,8.153],[-68.936,8.176],[-68.942,8.18],[-68.948,8.186],[-68.971,8.217],[-68.981,8.234],[-68.986,8.239],[-69.025,8.266],[-69.072,8.29],[-69.076,8.293],[-69.081,8.298],[-69.09,8.311],[-69.128,8.351],[-69.136,8.363],[-69.14,8.372],[-69.139,8.379],[-69.137,8.39],[-69.132,8.399],[-69.127,8.408],[-69.124,8.412],[-69.117,8.419],[-69.114,8.423],[-69.113,8.427],[-69.114,8.432],[-69.119,8.435],[-69.13,8.437],[-69.152,8.437],[-69.158,8.439],[-69.162,8.442],[-69.167,8.455],[-69.171,8.463],[-69.171,8.469],[-69.17,8.48],[-69.17,8.486],[-69.172,8.491],[-69.176,8.5],[-69.195,8.53],[-69.199,8.533],[-69.252,8.577],[-69.259,8.584],[-69.269,8.601],[-69.286,8.639],[-69.292,8.643],[-69.3,8.647],[-69.318,8.65],[-69.382,8.654],[-69.394,8.657],[-69.399,8.661],[-69.431,8.661],[-69.447,8.664],[-69.467,8.67],[-69.537,8.703],[-69.574,8.733],[-69.603,8.747],[-69.617,8.773],[-69.623,8.778],[-69.635,8.773],[-69.64,8.769],[-69.649,8.761],[-69.662,8.752],[-69.684,8.732],[-69.692,8.727],[-69.698,8.725],[-69.705,8.724],[-69.726,8.728],[-69.749,8.744],[-69.771,8.75],[-69.796,8.748],[-69.814,8.75],[-69.82,8.751],[-69.908,8.79],[-70.004,8.847],[-70.017,8.858],[-70.041,8.892],[-70.172,8.992],[-70.182,9.008],[-70.167,9.015],[-70.156,9.018],[-70.15,9.019],[-70.124,9.02],[-70.118,9.024],[-70.113,9.032],[-70.106,9.061],[-70.103,9.07],[-70.088,9.086],[-70.08,9.1],[-70.063,9.144],[-70.059,9.237],[-70.065,9.252],[-70.082,9.242],[-70.087,9.24],[-70.092,9.239],[-70.097,9.24],[-70.107,9.244],[-70.112,9.246],[-70.123,9.246],[-70.129,9.247],[-70.133,9.249],[-70.136,9.253],[-70.138,9.258],[-70.136,9.266],[-70.131,9.275],[-70.106,9.301],[-70.086,9.336],[-70.069,9.353],[-70.065,9.356],[-70.055,9.373],[-70.033,9.43],[-70.023,9.439],[-70.019,9.452],[-70.013,9.482],[-70.01,9.492],[-70.007,9.498],[-69.943,9.565],[-69.934,9.572],[-69.927,9.574],[-69.922,9.572],[-69.914,9.566],[-69.907,9.56],[-69.904,9.557],[-69.899,9.552],[-69.892,9.552],[-69.882,9.553],[-69.85,9.565],[-69.841,9.568],[-69.835,9.567],[-69.824,9.564],[-69.818,9.563],[-69.811,9.563],[-69.8,9.563],[-69.793,9.562],[-69.789,9.559],[-69.787,9.554],[-69.787,9.549],[-69.789,9.544],[-69.791,9.539],[-69.826,9.505],[-69.844,9.481],[-69.85,9.474],[-69.859,9.462],[-69.872,9.433],[-69.873,9.427],[-69.872,9.422],[-69.867,9.415],[-69.859,9.413],[-69.851,9.412],[-69.763,9.417],[-69.749,9.424],[-69.739,9.43],[-69.733,9.432],[-69.728,9.432],[-69.725,9.428],[-69.724,9.423],[-69.723,9.417],[-69.721,9.406],[-69.707,9.396],[-69.644,9.415],[-69.628,9.427],[-69.627,9.433],[-69.626,9.439],[-69.627,9.445],[-69.628,9.451],[-69.63,9.456],[-69.631,9.462],[-69.63,9.471],[-69.617,9.506],[-69.616,9.511],[-69.616,9.523],[-69.617,9.528],[-69.622,9.544],[-69.624,9.556],[-69.625,9.568],[-69.614,9.593],[-69.604,9.606],[-69.592,9.618],[-69.562,9.621],[-69.532,9.623],[-69.483,9.628],[-69.431,9.631],[-69.403,9.641],[-69.378,9.658],[-69.366,9.678],[-69.36,9.696],[-69.337,9.769],[-69.311,9.793],[-69.291,9.832],[-69.285,9.84],[-69.279,9.844],[-69.272,9.844],[-69.27,9.841],[-69.267,9.804],[-69.262,9.782],[-69.261,9.771],[-69.262,9.765],[-69.265,9.755],[-69.267,9.744],[-69.268,9.737],[-69.264,9.729],[-69.257,9.72],[-69.24,9.704],[-69.231,9.696],[-69.223,9.692],[-69.212,9.689],[-69.174,9.687],[-69.125,9.693],[-69.067,9.71],[-69.062,9.712],[-69.058,9.715],[-69.055,9.719],[-69.053,9.723],[-69.051,9.729],[-69.049,9.735],[-69.044,9.74],[-69.018,9.747],[-69.014,9.75],[-68.981,9.782],[-68.981,9.782]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Portuguesa'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Portuguesa?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Portuguesa located? </h2>Portuguesa, is a state It belongs to the country of Venezuela. Its postal identifier is PO.Portuguesa has an area of 17694 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Raplamaa?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[25.32,58.992],[25.287,58.973],[25.285,58.97],[25.287,58.965],[25.294,58.961],[25.301,58.956],[25.303,58.946],[25.303,58.936],[25.301,58.925],[25.294,58.919],[25.284,58.915],[25.275,58.913],[25.258,58.906],[25.238,58.879],[25.24,58.876],[25.244,58.871],[25.26,58.867],[25.277,58.854],[25.27,58.842],[25.261,58.834],[25.253,58.82],[25.247,58.814],[25.24,58.81],[25.218,58.807],[25.204,58.802],[25.2,58.797],[25.203,58.79],[25.22,58.774],[25.223,58.76],[25.221,58.753],[25.2,58.726],[25.161,58.721],[25.13,58.72],[25.063,58.728],[25.061,58.72],[25.057,58.718],[25.047,58.718],[25.029,58.72],[25.024,58.72],[25.008,58.717],[24.988,58.709],[24.972,58.701],[24.937,58.677],[24.916,58.672],[24.912,58.682],[24.909,58.696],[24.9,58.72],[24.898,58.736],[24.891,58.742],[24.88,58.747],[24.856,58.75],[24.837,58.749],[24.812,58.743],[24.786,58.741],[24.724,58.75],[24.691,58.751],[24.654,58.724],[24.611,58.719],[24.578,58.712],[24.565,58.711],[24.554,58.718],[24.554,58.724],[24.555,58.73],[24.552,58.734],[24.537,58.736],[24.525,58.736],[24.493,58.729],[24.462,58.714],[24.456,58.71],[24.449,58.703],[24.443,58.69],[24.439,58.686],[24.43,58.682],[24.415,58.677],[24.364,58.67],[24.285,58.676],[24.162,58.689],[24.133,58.701],[24.152,58.728],[24.155,58.734],[24.151,58.739],[24.141,58.742],[24.094,58.742],[24.076,58.746],[24.07,58.751],[24.075,58.761],[24.111,58.77],[24.119,58.776],[24.161,58.794],[24.146,58.803],[24.142,58.81],[24.142,58.82],[24.15,58.826],[24.176,58.832],[24.186,58.837],[24.187,58.845],[24.177,58.853],[24.166,58.864],[24.127,58.917],[24.089,58.95],[24.085,58.965],[24.105,58.985],[24.133,58.996],[24.141,59.005],[24.143,59.01],[24.147,59.014],[24.155,59.019],[24.168,59.023],[24.191,59.023],[24.223,59.018],[24.29,59.015],[24.311,59.036],[24.365,59.081],[24.374,59.086],[24.43,59.093],[24.483,59.099],[24.556,59.096],[24.566,59.097],[24.573,59.11],[24.571,59.115],[24.563,59.124],[24.557,59.129],[24.555,59.135],[24.568,59.146],[24.574,59.166],[24.589,59.181],[24.597,59.187],[24.617,59.195],[24.631,59.205],[24.664,59.217],[24.776,59.209],[24.784,59.213],[24.798,59.217],[24.866,59.227],[24.904,59.226],[24.898,59.202],[24.899,59.192],[24.905,59.184],[24.924,59.175],[24.942,59.16],[24.952,59.15],[24.957,59.147],[24.98,59.138],[25.046,59.126],[25.061,59.11],[25.118,59.093],[25.141,59.093],[25.147,59.095],[25.157,59.094],[25.168,59.09],[25.184,59.081],[25.188,59.07],[25.191,59.063],[25.192,59.057],[25.195,59.051],[25.196,59.044],[25.203,59.037],[25.216,59.029],[25.247,59.018],[25.279,59.003],[25.32,58.992]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Raplamaa'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Raplamaa?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Raplamaa located? </h2>Raplamaa, is a county It belongs to the country of Estonia. Its postal identifier is RA.Raplamaa has an area of 2930 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

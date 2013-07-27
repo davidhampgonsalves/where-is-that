@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Jelgava?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[23.784,56.732],[23.801,56.73],[23.811,56.733],[23.818,56.736],[23.828,56.738],[23.901,56.746],[23.913,56.745],[23.92,56.742],[23.925,56.734],[23.935,56.731],[23.941,56.729],[23.996,56.73],[23.998,56.722],[24.008,56.71],[24.001,56.696],[24.034,56.688],[24.042,56.661],[24.035,56.659],[24.023,56.659],[24.018,56.663],[24.009,56.666],[24.007,56.665],[24.01,56.659],[24.036,56.641],[24.046,56.638],[24.051,56.635],[24.05,56.632],[24.052,56.628],[24.055,56.624],[24.057,56.619],[24.049,56.611],[24.039,56.609],[24.03,56.609],[24.026,56.608],[24.027,56.603],[24.041,56.592],[24.056,56.586],[24.082,56.582],[24.094,56.582],[24.107,56.58],[24.11,56.575],[24.105,56.564],[24.088,56.551],[24.079,56.535],[24.081,56.527],[24.043,56.503],[24.032,56.502],[23.992,56.503],[23.963,56.498],[23.95,56.488],[23.932,56.483],[23.92,56.473],[23.886,56.466],[23.875,56.463],[23.862,56.448],[23.848,56.439],[23.841,56.434],[23.841,56.43],[23.843,56.427],[23.85,56.423],[23.85,56.418],[23.848,56.412],[23.843,56.402],[23.839,56.397],[23.837,56.393],[23.836,56.388],[23.874,56.389],[23.879,56.384],[23.874,56.374],[23.871,56.367],[23.869,56.343],[23.871,56.332],[23.858,56.335],[23.825,56.335],[23.756,56.326],[23.725,56.329],[23.723,56.333],[23.723,56.333],[23.724,56.339],[23.724,56.339],[23.723,56.346],[23.715,56.353],[23.706,56.355],[23.679,56.352],[23.609,56.354],[23.577,56.349],[23.517,56.329],[23.481,56.331],[23.378,56.355],[23.385,56.361],[23.42,56.376],[23.43,56.378],[23.442,56.382],[23.45,56.386],[23.457,56.392],[23.462,56.398],[23.462,56.407],[23.45,56.422],[23.439,56.437],[23.431,56.445],[23.419,56.449],[23.413,56.459],[23.415,56.461],[23.426,56.469],[23.428,56.473],[23.431,56.478],[23.415,56.493],[23.438,56.499],[23.447,56.506],[23.459,56.53],[23.459,56.545],[23.446,56.556],[23.434,56.564],[23.432,56.571],[23.437,56.577],[23.448,56.579],[23.477,56.587],[23.48,56.6],[23.406,56.606],[23.413,56.616],[23.425,56.622],[23.438,56.634],[23.445,56.642],[23.476,56.656],[23.485,56.66],[23.484,56.665],[23.48,56.677],[23.481,56.68],[23.478,56.685],[23.463,56.693],[23.443,56.697],[23.417,56.707],[23.436,56.724],[23.459,56.735],[23.503,56.747],[23.525,56.764],[23.506,56.808],[23.487,56.816],[23.462,56.884],[23.507,56.895],[23.588,56.891],[23.601,56.889],[23.626,56.889],[23.67,56.875],[23.707,56.852],[23.718,56.836],[23.734,56.822],[23.77,56.8],[23.76,56.772],[23.764,56.768],[23.756,56.744],[23.767,56.738],[23.784,56.732]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Jelgava'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Jelgava?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Jelgava located? </h2>Jelgava, is a district of the Zemgale region. It belongs to the country of Latvia. Its postal identifier is JG.Jelgava has an area of 1704 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

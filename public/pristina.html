@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Pristina?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[21.148,42.993],[21.165,42.985],[21.179,42.991],[21.179,42.991],[21.193,42.998],[21.193,42.998],[21.209,42.996],[21.225,42.974],[21.226,42.943],[21.232,42.911],[21.26,42.887],[21.271,42.885],[21.295,42.885],[21.306,42.883],[21.317,42.878],[21.336,42.866],[21.346,42.861],[21.378,42.856],[21.399,42.855],[21.408,42.847],[21.408,42.842],[21.408,42.821],[21.404,42.804],[21.39,42.771],[21.387,42.755],[21.384,42.75],[21.379,42.747],[21.378,42.744],[21.388,42.739],[21.405,42.736],[21.418,42.736],[21.418,42.736],[21.418,42.731],[21.434,42.694],[21.452,42.676],[21.454,42.657],[21.449,42.642],[21.436,42.639],[21.401,42.645],[21.369,42.631],[21.347,42.6],[21.326,42.581],[21.306,42.572],[21.293,42.557],[21.293,42.536],[21.297,42.52],[21.305,42.503],[21.298,42.486],[21.284,42.469],[21.29,42.446],[21.306,42.415],[21.312,42.396],[21.307,42.388],[21.29,42.378],[21.272,42.364],[21.267,42.345],[21.27,42.323],[21.27,42.302],[21.282,42.28],[21.308,42.264],[21.344,42.249],[21.36,42.22],[21.353,42.216],[21.353,42.216],[21.295,42.149],[21.293,42.141],[21.295,42.135],[21.299,42.13],[21.3,42.121],[21.301,42.101],[21.3,42.099],[21.299,42.092],[21.299,42.092],[21.288,42.09],[21.237,42.098],[21.225,42.107],[21.216,42.122],[21.2,42.142],[21.164,42.167],[21.126,42.189],[21.116,42.194],[21.113,42.195],[21.106,42.196],[21.098,42.196],[21.074,42.185],[21.029,42.152],[21.004,42.142],[20.975,42.135],[20.971,42.149],[20.959,42.17],[20.952,42.178],[20.932,42.187],[20.916,42.192],[20.887,42.194],[20.86,42.197],[20.847,42.204],[20.849,42.22],[20.856,42.233],[20.868,42.231],[20.885,42.233],[20.905,42.239],[20.916,42.247],[20.929,42.258],[20.963,42.266],[20.976,42.268],[20.98,42.283],[20.979,42.297],[20.98,42.309],[20.982,42.323],[20.984,42.337],[20.971,42.361],[20.954,42.385],[20.95,42.403],[20.951,42.424],[20.93,42.449],[20.898,42.471],[20.875,42.483],[20.86,42.497],[20.847,42.507],[20.827,42.509],[20.796,42.519],[20.786,42.523],[20.791,42.533],[20.792,42.565],[20.787,42.584],[20.786,42.598],[20.775,42.609],[20.759,42.609],[20.763,42.622],[20.784,42.653],[20.801,42.664],[20.809,42.676],[20.81,42.685],[20.822,42.697],[20.851,42.699],[20.877,42.694],[20.89,42.7],[20.901,42.71],[20.926,42.711],[20.948,42.694],[20.971,42.684],[21.017,42.697],[21.043,42.716],[21.045,42.73],[21.056,42.756],[21.073,42.785],[21.086,42.803],[21.097,42.82],[21.084,42.841],[21.064,42.859],[21.055,42.874],[21.05,42.901],[21.056,42.923],[21.069,42.939],[21.058,42.977],[21.027,43.025],[21.009,43.045],[20.996,43.054],[20.987,43.067],[20.987,43.086],[20.993,43.104],[20.993,43.104],[21.005,43.099],[21.025,43.094],[21.092,43.091],[21.108,43.082],[21.124,43.059],[21.139,43.006],[21.148,42.993]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Pristina'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Pristina?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Pristina located? </h2>Pristina, is a district It belongs to the country of Kosovo. Its postal identifier is KO.Pristina has an area of 3032 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

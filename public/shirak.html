@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Shirak?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[43.978,41.163],[43.966,41.089],[43.967,41.083],[43.97,41.078],[43.978,41.072],[43.985,41.069],[44.009,41.062],[44.014,41.059],[44.02,41.053],[44.038,41.031],[44.047,41.023],[44.054,41.017],[44.073,41.008],[44.075,41.007],[44.077,41.004],[44.078,40.999],[44.077,40.992],[44.074,40.987],[44.07,40.984],[44.062,40.98],[44.059,40.977],[44.058,40.973],[44.059,40.969],[44.065,40.964],[44.071,40.962],[44.078,40.96],[44.1,40.957],[44.123,40.958],[44.126,40.957],[44.128,40.953],[44.12,40.921],[44.116,40.916],[44.105,40.908],[44.101,40.902],[44.1,40.895],[44.098,40.885],[44.094,40.88],[44.089,40.877],[44.08,40.875],[44.073,40.874],[44.066,40.875],[44.05,40.882],[44.046,40.883],[44.043,40.883],[44.04,40.882],[44.039,40.881],[44.038,40.88],[44.035,40.875],[44.032,40.87],[44.024,40.843],[44.023,40.84],[44.015,40.83],[44.015,40.823],[44.018,40.817],[44.026,40.806],[44.031,40.799],[44.035,40.791],[44.037,40.785],[44.042,40.779],[44.05,40.775],[44.085,40.771],[44.092,40.768],[44.099,40.761],[44.106,40.748],[44.109,40.744],[44.117,40.741],[44.124,40.739],[44.166,40.741],[44.133,40.691],[44.116,40.674],[44.082,40.649],[44.079,40.644],[44.08,40.64],[44.095,40.631],[44.104,40.625],[44.111,40.618],[44.117,40.609],[44.12,40.605],[44.122,40.599],[44.125,40.588],[44.127,40.585],[44.13,40.582],[44.134,40.582],[44.149,40.582],[44.181,40.586],[44.187,40.586],[44.192,40.583],[44.193,40.579],[44.192,40.574],[44.182,40.548],[44.178,40.535],[44.178,40.528],[44.18,40.523],[44.183,40.52],[44.186,40.518],[44.197,40.513],[44.2,40.512],[44.199,40.51],[44.191,40.507],[44.187,40.504],[44.182,40.499],[44.179,40.497],[44.17,40.493],[44.165,40.49],[44.161,40.488],[44.155,40.486],[44.138,40.484],[44.134,40.483],[44.13,40.482],[44.114,40.472],[44.087,40.464],[44.06,40.451],[44.054,40.448],[44.048,40.448],[44.043,40.448],[44.039,40.45],[44.035,40.453],[44.031,40.456],[44.015,40.477],[44.009,40.484],[44.007,40.486],[44.005,40.487],[43.963,40.488],[43.957,40.487],[43.954,40.485],[43.953,40.481],[43.951,40.476],[43.948,40.473],[43.942,40.471],[43.901,40.47],[43.884,40.472],[43.879,40.473],[43.873,40.475],[43.853,40.487],[43.847,40.489],[43.841,40.49],[43.828,40.491],[43.823,40.492],[43.807,40.499],[43.801,40.5],[43.793,40.498],[43.763,40.483],[43.754,40.481],[43.726,40.475],[43.712,40.47],[43.706,40.465],[43.702,40.459],[43.7,40.454],[43.698,40.448],[43.692,40.441],[43.685,40.436],[43.665,40.427],[43.658,40.422],[43.65,40.414],[43.646,40.411],[43.642,40.409],[43.624,40.411],[43.625,40.414],[43.625,40.42],[43.585,40.447],[43.563,40.465],[43.559,40.478],[43.593,40.509],[43.594,40.509],[43.615,40.521],[43.638,40.523],[43.639,40.523],[43.636,40.53],[43.634,40.533],[43.631,40.537],[43.631,40.537],[43.637,40.535],[43.642,40.535],[43.646,40.533],[43.652,40.53],[43.652,40.53],[43.651,40.554],[43.665,40.574],[43.707,40.612],[43.699,40.635],[43.705,40.641],[43.726,40.669],[43.729,40.677],[43.724,40.747],[43.72,40.763],[43.711,40.782],[43.67,40.832],[43.659,40.852],[43.654,40.875],[43.652,40.895],[43.647,40.914],[43.636,40.934],[43.605,40.964],[43.565,40.988],[43.522,41.005],[43.479,41.009],[43.46,41.023],[43.444,41.052],[43.436,41.084],[43.44,41.107],[43.44,41.107],[43.45,41.105],[43.46,41.105],[43.47,41.106],[43.524,41.123],[43.566,41.124],[43.729,41.107],[43.754,41.109],[43.773,41.115],[43.774,41.115],[43.796,41.13],[43.82,41.146],[43.863,41.159],[43.956,41.161],[43.978,41.165],[43.978,41.165],[43.978,41.163]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Shirak'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Shirak?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Shirak located? </h2>Shirak, is a province It belongs to the country of Armenia. Its postal identifier is SH.Shirak has an area of 2890 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ganzourgou?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-0.673,12.676],[-0.661,12.675],[-0.635,12.645],[-0.616,12.595],[-0.616,12.523],[-0.614,12.506],[-0.613,12.5],[-0.604,12.469],[-0.562,12.444],[-0.528,12.417],[-0.513,12.387],[-0.507,12.363],[-0.517,12.324],[-0.49,12.257],[-0.485,12.228],[-0.477,12.206],[-0.423,12.154],[-0.43,12.14],[-0.421,12.045],[-0.436,12.007],[-0.455,11.988],[-0.464,11.987],[-0.473,11.987],[-0.512,11.99],[-0.568,11.984],[-0.597,11.973],[-0.618,11.951],[-0.638,11.924],[-0.656,11.896],[-0.695,11.857],[-0.748,11.841],[-0.799,11.838],[-0.809,11.84],[-0.819,11.847],[-0.826,11.857],[-0.833,11.882],[-0.843,11.883],[-0.856,11.879],[-0.871,11.879],[-0.888,11.886],[-0.893,11.895],[-0.891,11.923],[-0.893,11.939],[-0.899,11.95],[-0.92,11.977],[-0.926,11.982],[-0.934,11.986],[-0.946,11.995],[-0.96,12.008],[-0.988,12.04],[-0.996,12.06],[-1.014,12.077],[-1.022,12.088],[-1.025,12.093],[-1.028,12.105],[-1.034,12.15],[-1.039,12.155],[-1.048,12.162],[-1.058,12.172],[-1.062,12.184],[-1.062,12.205],[-1.064,12.212],[-1.069,12.221],[-1.075,12.226],[-1.083,12.227],[-1.09,12.231],[-1.097,12.242],[-1.098,12.26],[-1.097,12.263],[-1.096,12.285],[-1.097,12.308],[-1.107,12.317],[-1.115,12.321],[-1.116,12.33],[-1.111,12.351],[-1.111,12.356],[-1.112,12.367],[-1.111,12.372],[-1.106,12.376],[-1.099,12.377],[-1.093,12.377],[-1.09,12.379],[-1.07,12.415],[-1.06,12.448],[-1.067,12.476],[-1.08,12.484],[-1.056,12.487],[-1.036,12.492],[-1.012,12.523],[-0.979,12.524],[-0.941,12.486],[-0.91,12.466],[-0.878,12.47],[-0.849,12.483],[-0.84,12.505],[-0.84,12.524],[-0.816,12.537],[-0.777,12.563],[-0.744,12.593],[-0.745,12.616],[-0.75,12.651],[-0.735,12.675],[-0.697,12.679],[-0.673,12.676]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Ganzourgou'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Ganzourgou?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Ganzourgou located? </h2>Ganzourgou, is a province It belongs to the country of Burkina Faso. Its postal identifier is GZ.Ganzourgou has an area of 4224 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

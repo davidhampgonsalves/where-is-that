@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Soriano?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-57.127,-33.123],[-57.141,-33.155],[-57.147,-33.164],[-57.219,-33.24],[-57.232,-33.25],[-57.337,-33.355],[-57.348,-33.371],[-57.348,-33.38],[-57.347,-33.387],[-57.345,-33.392],[-57.342,-33.396],[-57.338,-33.4],[-57.312,-33.414],[-57.308,-33.417],[-57.304,-33.421],[-57.301,-33.425],[-57.298,-33.43],[-57.287,-33.473],[-57.285,-33.478],[-57.282,-33.482],[-57.266,-33.5],[-57.266,-33.5],[-57.266,-33.5],[-57.265,-33.503],[-57.262,-33.516],[-57.262,-33.528],[-57.261,-33.535],[-57.258,-33.541],[-57.255,-33.545],[-57.251,-33.549],[-57.247,-33.553],[-57.227,-33.576],[-57.218,-33.583],[-57.208,-33.589],[-57.202,-33.591],[-57.174,-33.597],[-57.169,-33.6],[-57.164,-33.604],[-57.16,-33.61],[-57.161,-33.616],[-57.162,-33.621],[-57.164,-33.626],[-57.167,-33.631],[-57.169,-33.636],[-57.171,-33.642],[-57.186,-33.74],[-57.186,-33.752],[-57.185,-33.756],[-57.184,-33.759],[-57.142,-33.819],[-57.13,-33.843],[-57.128,-33.848],[-57.126,-33.863],[-57.122,-33.875],[-57.119,-33.88],[-57.117,-33.887],[-57.112,-33.912],[-57.108,-33.923],[-57.106,-33.927],[-57.103,-33.932],[-57.086,-33.952],[-57.078,-33.963],[-57.182,-33.949],[-57.265,-33.949],[-57.293,-33.946],[-57.298,-33.944],[-57.317,-33.932],[-57.334,-33.918],[-57.353,-33.909],[-57.375,-33.9],[-57.393,-33.896],[-57.566,-33.935],[-57.626,-33.94],[-57.654,-33.938],[-57.791,-33.899],[-57.8,-33.893],[-57.805,-33.889],[-57.812,-33.882],[-57.81,-33.884],[-57.812,-33.882],[-57.814,-33.879],[-57.819,-33.875],[-57.827,-33.87],[-57.84,-33.864],[-57.85,-33.862],[-57.928,-33.86],[-57.958,-33.864],[-57.976,-33.865],[-57.986,-33.864],[-57.994,-33.862],[-57.999,-33.86],[-58.001,-33.858],[-58.005,-33.856],[-58.008,-33.852],[-58.014,-33.844],[-58.017,-33.839],[-58.02,-33.829],[-58.025,-33.82],[-58.028,-33.815],[-58.034,-33.809],[-58.04,-33.804],[-58.152,-33.78],[-58.17,-33.778],[-58.186,-33.782],[-58.279,-33.836],[-58.369,-33.867],[-58.383,-33.871],[-58.415,-33.876],[-58.416,-33.876],[-58.434,-33.785],[-58.439,-33.698],[-58.426,-33.613],[-58.429,-33.592],[-58.435,-33.572],[-58.438,-33.551],[-58.433,-33.528],[-58.419,-33.508],[-58.385,-33.47],[-58.378,-33.449],[-58.385,-33.429],[-58.391,-33.424],[-58.296,-33.377],[-58.242,-33.318],[-58.224,-33.308],[-58.176,-33.308],[-58.147,-33.312],[-58.136,-33.308],[-58.131,-33.291],[-58.131,-33.253],[-58.128,-33.243],[-58.117,-33.234],[-58.084,-33.219],[-58.072,-33.225],[-58.055,-33.238],[-58.05,-33.239],[-58.039,-33.247],[-58.031,-33.238],[-58.027,-33.221],[-58.028,-33.205],[-58.031,-33.203],[-58.044,-33.193],[-58.05,-33.187],[-58.05,-33.18],[-58.049,-33.171],[-58.05,-33.164],[-58.06,-33.144],[-58.06,-33.137],[-58.05,-33.13],[-58.033,-33.126],[-58.019,-33.129],[-58.004,-33.134],[-57.987,-33.135],[-57.965,-33.131],[-57.961,-33.123],[-57.963,-33.11],[-57.959,-33.095],[-57.95,-33.087],[-57.92,-33.081],[-57.905,-33.075],[-57.891,-33.064],[-57.88,-33.053],[-57.869,-33.044],[-57.85,-33.04],[-57.833,-33.042],[-57.805,-33.056],[-57.789,-33.061],[-57.777,-33.061],[-57.756,-33.056],[-57.744,-33.054],[-57.733,-33.056],[-57.719,-33.066],[-57.689,-33.072],[-57.65,-33.085],[-57.631,-33.081],[-57.624,-33.074],[-57.614,-33.052],[-57.607,-33.047],[-57.574,-33.04],[-57.566,-33.037],[-57.547,-33.025],[-57.525,-33.021],[-57.503,-33.024],[-57.459,-33.044],[-57.45,-33.05],[-57.446,-33.058],[-57.446,-33.069],[-57.445,-33.081],[-57.44,-33.091],[-57.429,-33.095],[-57.417,-33.093],[-57.397,-33.08],[-57.385,-33.075],[-57.374,-33.075],[-57.363,-33.076],[-57.322,-33.088],[-57.305,-33.095],[-57.293,-33.108],[-57.282,-33.147],[-57.267,-33.143],[-57.25,-33.129],[-57.24,-33.116],[-57.234,-33.142],[-57.229,-33.153],[-57.217,-33.157],[-57.206,-33.156],[-57.161,-33.139],[-57.136,-33.126],[-57.127,-33.123]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Soriano'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Soriano?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Soriano located? </h2>Soriano, is a department It belongs to the country of Uruguay. Its postal identifier is SO.Soriano has an area of 9028 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

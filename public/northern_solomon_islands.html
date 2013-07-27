@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Northern Solomon Islands?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[154.811,-5.483],[154.83,-5.514],[154.847,-5.511],[154.866,-5.52],[154.882,-5.537],[154.892,-5.555],[154.898,-5.545],[154.906,-5.541],[154.915,-5.542],[154.926,-5.534],[154.937,-5.539],[154.952,-5.541],[155.018,-5.541],[155.029,-5.545],[155.022,-5.555],[155.022,-5.561],[155.033,-5.567],[155.038,-5.562],[155.042,-5.553],[155.05,-5.548],[155.065,-5.548],[155.07,-5.552],[155.069,-5.56],[155.07,-5.569],[155.064,-5.579],[155.062,-5.586],[155.067,-5.589],[155.087,-5.595],[155.09,-5.596],[155.096,-5.608],[155.1,-5.631],[155.126,-5.66],[155.147,-5.707],[155.163,-5.729],[155.168,-5.733],[155.176,-5.736],[155.18,-5.74],[155.187,-5.752],[155.191,-5.756],[155.193,-5.766],[155.187,-5.801],[155.195,-5.818],[155.204,-5.853],[155.214,-5.87],[155.229,-5.865],[155.245,-5.87],[155.262,-5.879],[155.279,-5.884],[155.329,-5.937],[155.332,-5.942],[155.336,-5.946],[155.344,-5.952],[155.348,-5.953],[155.36,-5.951],[155.365,-5.952],[155.371,-5.957],[155.382,-5.976],[155.396,-5.992],[155.404,-6.006],[155.415,-6.058],[155.419,-6.069],[155.452,-6.137],[155.503,-6.189],[155.509,-6.192],[155.522,-6.189],[155.531,-6.182],[155.54,-6.172],[155.551,-6.179],[155.559,-6.195],[155.569,-6.211],[155.591,-6.22],[155.616,-6.217],[155.621,-6.206],[155.623,-6.191],[155.639,-6.178],[155.639,-6.186],[155.636,-6.19],[155.635,-6.194],[155.637,-6.198],[155.646,-6.206],[155.642,-6.217],[155.666,-6.241],[155.676,-6.264],[155.684,-6.269],[155.694,-6.273],[155.704,-6.274],[155.714,-6.279],[155.723,-6.291],[155.735,-6.315],[155.746,-6.331],[155.759,-6.344],[155.774,-6.353],[155.793,-6.356],[155.814,-6.365],[155.829,-6.386],[155.851,-6.432],[155.872,-6.461],[155.897,-6.488],[155.917,-6.517],[155.926,-6.555],[155.925,-6.566],[155.92,-6.585],[155.919,-6.596],[155.922,-6.608],[155.932,-6.63],[155.934,-6.641],[155.94,-6.663],[155.964,-6.702],[155.968,-6.727],[155.961,-6.75],[155.948,-6.773],[155.93,-6.794],[155.913,-6.809],[155.923,-6.763],[155.925,-6.738],[155.916,-6.727],[155.908,-6.737],[155.878,-6.802],[155.854,-6.773],[155.817,-6.782],[155.78,-6.807],[155.756,-6.829],[155.731,-6.862],[155.718,-6.873],[155.697,-6.877],[155.686,-6.874],[155.668,-6.865],[155.656,-6.863],[155.611,-6.863],[155.568,-6.854],[155.524,-6.839],[155.447,-6.802],[155.405,-6.767],[155.395,-6.761],[155.379,-6.757],[155.361,-6.746],[155.33,-6.72],[155.321,-6.708],[155.309,-6.686],[155.188,-6.554],[155.173,-6.528],[155.192,-6.528],[155.199,-6.53],[155.208,-6.535],[155.225,-6.501],[155.235,-6.454],[155.238,-6.405],[155.235,-6.363],[155.215,-6.317],[155.182,-6.292],[155.082,-6.262],[155.046,-6.242],[155.024,-6.223],[155.001,-6.215],[154.991,-6.209],[154.982,-6.199],[154.979,-6.193],[154.975,-6.172],[154.96,-6.131],[154.943,-6.111],[154.94,-6.106],[154.933,-6.097],[154.885,-6.076],[154.857,-6.043],[154.832,-6.027],[154.818,-6.015],[154.807,-6.002],[154.802,-5.989],[154.794,-5.975],[154.756,-5.948],[154.748,-5.928],[154.747,-5.917],[154.742,-5.897],[154.741,-5.887],[154.748,-5.877],[154.752,-5.868],[154.754,-5.856],[154.749,-5.835],[154.738,-5.818],[154.714,-5.794],[154.706,-5.782],[154.702,-5.774],[154.7,-5.767],[154.703,-5.758],[154.721,-5.716],[154.732,-5.631],[154.74,-5.611],[154.742,-5.592],[154.728,-5.575],[154.728,-5.569],[154.731,-5.567],[154.732,-5.565],[154.732,-5.564],[154.735,-5.561],[154.753,-5.578],[154.761,-5.582],[154.768,-5.575],[154.771,-5.559],[154.765,-5.544],[154.758,-5.53],[154.754,-5.517],[154.742,-5.494],[154.699,-5.452],[154.7,-5.431],[154.733,-5.427],[154.775,-5.449],[154.811,-5.483]]],[[[154.694,-5.109],[154.687,-5.14],[154.687,-5.155],[154.694,-5.17],[154.703,-5.18],[154.713,-5.186],[154.722,-5.194],[154.728,-5.211],[154.726,-5.242],[154.7,-5.335],[154.698,-5.4],[154.689,-5.427],[154.666,-5.438],[154.673,-5.417],[154.657,-5.422],[154.651,-5.435],[154.645,-5.449],[154.632,-5.459],[154.614,-5.39],[154.574,-5.291],[154.57,-5.263],[154.562,-5.24],[154.562,-5.225],[154.573,-5.219],[154.58,-5.211],[154.583,-5.195],[154.583,-5.14],[154.578,-5.119],[154.564,-5.115],[154.536,-5.137],[154.542,-5.103],[154.565,-5.066],[154.596,-5.034],[154.625,-5.013],[154.657,-5.02],[154.679,-5.046],[154.691,-5.081],[154.694,-5.109]]],[[[154.192,-4.465],[154.221,-4.476],[154.242,-4.499],[154.254,-4.527],[154.254,-4.555],[154.233,-4.581],[154.206,-4.572],[154.186,-4.546],[154.186,-4.52],[154.191,-4.53],[154.2,-4.552],[154.206,-4.561],[154.217,-4.568],[154.224,-4.567],[154.237,-4.551],[154.242,-4.528],[154.227,-4.504],[154.204,-4.483],[154.186,-4.472],[154.184,-4.473],[154.183,-4.475],[154.182,-4.477],[154.179,-4.479],[154.18,-4.472],[154.183,-4.469],[154.192,-4.465]]],[[[154.159,-4.438],[154.152,-4.438],[154.147,-4.417],[154.138,-4.395],[154.135,-4.377],[154.145,-4.369],[154.152,-4.379],[154.156,-4.398],[154.159,-4.438]]],[[[154.823,-3.526],[154.816,-3.526],[154.823,-3.498],[154.816,-3.474],[154.804,-3.45],[154.795,-3.424],[154.799,-3.426],[154.806,-3.428],[154.81,-3.431],[154.815,-3.456],[154.827,-3.477],[154.834,-3.498],[154.823,-3.526]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Northern Solomon Islands'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Northern Solomon Islands?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Northern Solomon Islands located? </h2>Northern Solomon Islands, is a province It belongs to the country of Papua New Guinea. Its postal identifier is NS.Northern Solomon Islands has an area of 9368 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

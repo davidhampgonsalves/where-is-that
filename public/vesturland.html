@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Vesturland?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-20.743,64.915],[-20.727,64.914],[-20.406,64.955],[-20.391,64.954],[-20.344,64.944],[-20.105,64.941],[-19.81,64.936],[-19.801,64.934],[-19.796,64.929],[-19.793,64.924],[-19.793,64.917],[-19.794,64.91],[-19.799,64.901],[-19.809,64.895],[-19.924,64.841],[-19.977,64.802],[-19.992,64.778],[-19.993,64.772],[-19.994,64.765],[-19.991,64.75],[-19.991,64.738],[-19.993,64.73],[-19.997,64.724],[-20.001,64.72],[-20.017,64.71],[-20.045,64.698],[-20.314,64.644],[-20.347,64.682],[-20.395,64.719],[-20.399,64.721],[-20.434,64.731],[-20.458,64.734],[-20.769,64.736],[-20.78,64.734],[-20.828,64.717],[-20.843,64.714],[-20.91,64.711],[-20.922,64.708],[-20.949,64.705],[-21.358,64.704],[-21.44,64.691],[-21.446,64.689],[-21.452,64.687],[-21.457,64.684],[-21.464,64.679],[-21.467,64.676],[-21.484,64.664],[-21.489,64.662],[-21.516,64.652],[-21.589,64.659],[-21.613,64.658],[-21.677,64.633],[-21.703,64.631],[-21.703,64.638],[-21.676,64.649],[-21.667,64.656],[-21.661,64.666],[-21.701,64.647],[-21.712,64.644],[-21.722,64.639],[-21.728,64.616],[-21.74,64.611],[-21.75,64.608],[-21.792,64.59],[-21.844,64.582],[-21.86,64.576],[-21.853,64.562],[-21.883,64.567],[-21.911,64.563],[-21.969,64.542],[-21.993,64.529],[-22.009,64.525],[-22.025,64.528],[-22.035,64.538],[-22.034,64.548],[-22.018,64.57],[-22.039,64.567],[-22.049,64.556],[-22.051,64.54],[-22.051,64.525],[-22.055,64.52],[-22.079,64.501],[-22.084,64.492],[-22.084,64.485],[-22.085,64.479],[-22.093,64.473],[-22.129,64.473],[-22.135,64.469],[-22.138,64.466],[-22.147,64.463],[-22.157,64.461],[-22.165,64.46],[-22.181,64.463],[-22.199,64.472],[-22.214,64.485],[-22.223,64.501],[-22.232,64.495],[-22.24,64.491],[-22.248,64.489],[-22.257,64.487],[-22.243,64.5],[-22.231,64.515],[-22.227,64.531],[-22.237,64.542],[-22.233,64.543],[-22.223,64.549],[-22.231,64.552],[-22.239,64.555],[-22.248,64.556],[-22.257,64.556],[-22.253,64.559],[-22.243,64.57],[-22.243,64.576],[-22.289,64.561],[-22.318,64.555],[-22.339,64.556],[-22.357,64.568],[-22.365,64.585],[-22.361,64.6],[-22.347,64.611],[-22.347,64.617],[-22.364,64.618],[-22.377,64.626],[-22.386,64.634],[-22.391,64.638],[-22.404,64.641],[-22.418,64.648],[-22.432,64.657],[-22.442,64.666],[-22.417,64.661],[-22.391,64.65],[-22.365,64.643],[-22.339,64.652],[-22.361,64.652],[-22.354,64.663],[-22.345,64.67],[-22.333,64.675],[-22.32,64.679],[-22.329,64.684],[-22.333,64.686],[-22.333,64.693],[-22.217,64.717],[-22.19,64.733],[-22.189,64.733],[-22.189,64.734],[-22.189,64.734],[-22.176,64.749],[-22.174,64.754],[-22.169,64.758],[-22.161,64.762],[-22.132,64.771],[-22.121,64.776],[-22.112,64.781],[-22.097,64.803],[-22.081,64.817],[-22.074,64.826],[-22.03,64.86],[-21.998,64.878],[-21.883,64.914],[-21.853,64.912],[-21.844,64.91],[-21.836,64.908],[-21.834,64.905],[-21.837,64.901],[-21.842,64.896],[-21.845,64.891],[-21.845,64.887],[-21.842,64.884],[-21.837,64.883],[-21.794,64.883],[-21.783,64.882],[-21.773,64.882],[-21.759,64.883],[-21.731,64.891],[-21.671,64.899],[-21.659,64.899],[-21.654,64.897],[-21.651,64.894],[-21.651,64.888],[-21.653,64.882],[-21.658,64.874],[-21.66,64.87],[-21.66,64.868],[-21.658,64.866],[-21.653,64.865],[-21.647,64.865],[-21.637,64.865],[-21.571,64.875],[-21.554,64.876],[-21.542,64.874],[-21.527,64.867],[-21.51,64.868],[-21.484,64.875],[-21.406,64.907],[-21.396,64.916],[-21.399,64.919],[-21.42,64.925],[-21.425,64.927],[-21.427,64.93],[-21.427,64.933],[-21.422,64.936],[-21.363,64.949],[-21.345,64.959],[-21.339,64.965],[-21.338,64.97],[-21.34,64.979],[-21.339,64.983],[-21.338,64.987],[-21.307,64.996],[-21.191,65.015],[-21.113,64.985],[-21.084,64.978],[-21.051,64.973],[-20.984,64.972],[-20.975,64.962],[-20.889,64.937],[-20.875,64.935],[-20.792,64.933],[-20.781,64.931],[-20.743,64.915]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Vesturland'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Vesturland?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Vesturland located? </h2>Vesturland, is a region of the Vesturland region. It belongs to the country of Iceland. Its postal identifier is VL.Vesturland has an area of 3241 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

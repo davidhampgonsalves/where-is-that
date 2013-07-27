@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Krâ Chéh?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[106.362,13.422],[106.364,13.312],[106.36,13.294],[106.359,13.289],[106.365,13.268],[106.379,13.23],[106.389,13.218],[106.419,13.201],[106.429,13.193],[106.434,13.187],[106.436,13.183],[106.438,13.18],[106.439,13.176],[106.44,13.172],[106.44,13.167],[106.439,13.163],[106.436,13.16],[106.433,13.159],[106.429,13.158],[106.372,13.159],[106.367,13.157],[106.362,13.153],[106.354,13.143],[106.35,13.137],[106.348,13.132],[106.348,13.128],[106.349,13.101],[106.351,13.095],[106.353,13.091],[106.358,13.086],[106.388,13.045],[106.391,13.041],[106.394,13.039],[106.396,13.038],[106.409,13.032],[106.412,13.029],[106.415,13.026],[106.422,13.016],[106.428,13.009],[106.437,13.004],[106.448,12.999],[106.451,12.998],[106.454,12.998],[106.471,12.997],[106.476,12.997],[106.483,12.995],[106.487,12.994],[106.49,12.992],[106.502,12.977],[106.562,12.942],[106.598,12.927],[106.606,12.923],[106.609,12.92],[106.612,12.916],[106.614,12.909],[106.615,12.897],[106.62,12.86],[106.618,12.848],[106.616,12.845],[106.613,12.843],[106.61,12.841],[106.604,12.839],[106.598,12.835],[106.591,12.827],[106.579,12.809],[106.572,12.801],[106.567,12.797],[106.538,12.784],[106.517,12.778],[106.498,12.768],[106.474,12.762],[106.434,12.738],[106.419,12.723],[106.397,12.687],[106.371,12.592],[106.367,12.566],[106.37,12.551],[106.369,12.529],[106.37,12.525],[106.371,12.522],[106.375,12.517],[106.38,12.514],[106.409,12.5],[106.456,12.47],[106.469,12.465],[106.489,12.453],[106.497,12.447],[106.502,12.445],[106.508,12.442],[106.522,12.437],[106.525,12.436],[106.528,12.434],[106.553,12.412],[106.556,12.408],[106.561,12.4],[106.572,12.376],[106.585,12.332],[106.589,12.323],[106.592,12.319],[106.597,12.315],[106.612,12.306],[106.628,12.3],[106.653,12.297],[106.695,12.285],[106.708,12.28],[106.72,12.272],[106.729,12.268],[106.733,12.265],[106.736,12.262],[106.747,12.251],[106.754,12.245],[106.761,12.237],[106.769,12.226],[106.774,12.215],[106.788,12.193],[106.789,12.184],[106.784,12.118],[106.789,12.074],[106.791,12.068],[106.791,12.068],[106.772,12.066],[106.749,12.053],[106.733,12.029],[106.721,11.997],[106.702,11.971],[106.68,11.965],[106.631,11.976],[106.638,11.961],[106.552,11.973],[106.505,11.974],[106.474,11.952],[106.461,11.953],[106.455,11.96],[106.451,11.969],[106.442,11.975],[106.429,11.977],[106.417,11.976],[106.394,11.97],[106.395,11.966],[106.389,11.966],[106.319,11.95],[106.31,11.949],[106.287,11.954],[106.281,11.954],[106.276,11.954],[106.248,11.943],[106.241,11.942],[106.236,11.942],[106.232,11.944],[106.23,11.945],[106.227,11.948],[106.222,11.955],[106.174,11.955],[106.163,11.96],[106.162,11.963],[106.162,11.967],[106.162,11.971],[106.164,11.974],[106.165,11.977],[106.167,11.98],[106.17,11.982],[106.172,11.984],[106.177,11.989],[106.18,11.994],[106.181,11.997],[106.182,12],[106.182,12.001],[106.166,12.031],[106.159,12.04],[106.154,12.046],[106.151,12.048],[106.145,12.05],[106.133,12.057],[106.115,12.07],[106.11,12.072],[106.106,12.073],[106.094,12.073],[106.089,12.075],[106.072,12.084],[106.061,12.088],[106.057,12.091],[106.055,12.094],[106.056,12.097],[106.058,12.099],[106.06,12.102],[106.064,12.108],[106.065,12.111],[106.066,12.114],[106.067,12.119],[106.065,12.124],[106.062,12.131],[106.055,12.143],[106.05,12.148],[106.046,12.15],[106.041,12.15],[106.038,12.149],[106.024,12.153],[106.019,12.172],[106.017,12.175],[106.014,12.179],[105.988,12.197],[105.974,12.203],[105.94,12.21],[105.909,12.221],[105.902,12.224],[105.896,12.224],[105.891,12.224],[105.887,12.224],[105.884,12.223],[105.876,12.216],[105.873,12.215],[105.845,12.21],[105.836,12.251],[105.831,12.255],[105.827,12.254],[105.809,12.255],[105.759,12.266],[105.754,12.263],[105.75,12.264],[105.752,12.294],[105.754,12.298],[105.757,12.303],[105.761,12.307],[105.767,12.313],[105.776,12.326],[105.779,12.335],[105.781,12.343],[105.778,12.393],[105.764,12.47],[105.752,12.508],[105.725,12.626],[105.694,12.715],[105.693,12.737],[105.681,12.778],[105.683,12.798],[105.681,12.831],[105.683,12.842],[105.685,12.845],[105.688,12.851],[105.689,12.855],[105.69,12.859],[105.689,12.865],[105.687,12.872],[105.681,12.885],[105.674,12.896],[105.662,12.907],[105.66,12.91],[105.66,12.914],[105.662,12.92],[105.664,12.924],[105.67,12.933],[105.673,12.939],[105.674,12.943],[105.674,12.947],[105.672,12.953],[105.666,12.96],[105.662,12.964],[105.659,12.967],[105.653,12.971],[105.651,12.973],[105.649,12.979],[105.638,13.048],[105.638,13.055],[105.639,13.061],[105.645,13.078],[105.647,13.085],[105.646,13.092],[105.643,13.099],[105.635,13.112],[105.627,13.123],[105.612,13.136],[105.61,13.139],[105.578,13.27],[105.665,13.229],[105.703,13.22],[105.717,13.213],[105.807,13.144],[105.839,13.127],[105.861,13.118],[105.869,13.116],[105.88,13.116],[105.895,13.117],[105.935,13.13],[105.938,13.132],[105.943,13.137],[105.949,13.147],[105.968,13.18],[105.971,13.188],[105.971,13.201],[105.972,13.205],[105.975,13.209],[105.982,13.212],[105.986,13.211],[105.989,13.211],[105.99,13.21],[106.007,13.204],[106.009,13.204],[106.012,13.203],[106.016,13.204],[106.02,13.204],[106.023,13.206],[106.025,13.207],[106.027,13.21],[106.029,13.215],[106.035,13.248],[106.038,13.254],[106.1,13.343],[106.112,13.352],[106.118,13.356],[106.126,13.36],[106.135,13.362],[106.181,13.366],[106.207,13.361],[106.215,13.361],[106.221,13.364],[106.228,13.37],[106.238,13.383],[106.244,13.387],[106.251,13.391],[106.308,13.415],[106.325,13.419],[106.362,13.422]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Krâ Chéh'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Krâ Chéh?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Krâ Chéh located? </h2>Krâ Chéh, is a province It belongs to the country of Cambodia. Its postal identifier is KH.Krâ Chéh has an area of 11923 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

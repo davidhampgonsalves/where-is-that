@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Jarlsberg og Larvik?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[10.166,59.696],[10.279,59.69],[10.298,59.692],[10.36,59.673],[10.379,59.658],[10.391,59.638],[10.395,59.611],[10.394,59.587],[10.39,59.558],[10.381,59.536],[10.364,59.526],[10.333,59.533],[10.27,59.559],[10.238,59.56],[10.248,59.543],[10.268,59.525],[10.291,59.511],[10.31,59.505],[10.331,59.495],[10.37,59.455],[10.459,59.441],[10.478,59.43],[10.481,59.412],[10.472,59.394],[10.447,59.365],[10.445,59.349],[10.462,59.336],[10.499,59.32],[10.514,59.303],[10.505,59.294],[10.487,59.284],[10.478,59.268],[10.47,59.248],[10.451,59.249],[10.416,59.265],[10.372,59.274],[10.361,59.271],[10.359,59.265],[10.361,59.245],[10.361,59.238],[10.365,59.226],[10.362,59.22],[10.335,59.215],[10.33,59.21],[10.329,59.202],[10.317,59.18],[10.313,59.16],[10.312,59.14],[10.314,59.128],[10.29,59.135],[10.287,59.115],[10.296,59.085],[10.307,59.06],[10.293,59.07],[10.287,59.084],[10.282,59.1],[10.272,59.114],[10.268,59.095],[10.27,59.048],[10.263,59.039],[10.26,59.05],[10.231,59.114],[10.224,59.114],[10.223,59.101],[10.213,59.078],[10.211,59.067],[10.217,59.059],[10.226,59.05],[10.232,59.041],[10.228,59.029],[10.207,59.017],[10.175,59.005],[10.141,59],[10.115,59.005],[10.126,59.015],[10.162,59.028],[10.17,59.036],[10.164,59.052],[10.149,59.052],[10.118,59.039],[10.104,59.036],[10.077,59.021],[10.06,59.018],[10.054,59.023],[10.034,59.031],[10.017,59.034],[10.034,58.994],[10.015,58.973],[9.984,58.961],[9.958,58.957],[9.846,58.956],[9.812,58.964],[9.839,58.972],[9.845,58.989],[9.837,59.009],[9.827,59.019],[9.847,59.037],[9.845,59.076],[9.85,59.089],[9.855,59.108],[9.853,59.122],[9.845,59.136],[9.834,59.151],[9.831,59.162],[9.833,59.169],[9.841,59.177],[9.854,59.184],[9.869,59.191],[9.881,59.199],[9.884,59.204],[9.876,59.219],[9.873,59.241],[9.863,59.263],[9.863,59.267],[9.869,59.281],[9.787,59.337],[9.778,59.349],[9.77,59.369],[9.783,59.432],[9.774,59.477],[9.777,59.484],[9.785,59.492],[10.019,59.493],[10.049,59.496],[10.066,59.5],[10.066,59.501],[10.065,59.502],[10.064,59.509],[10.026,59.549],[9.988,59.575],[9.942,59.599],[9.932,59.608],[9.928,59.614],[9.93,59.628],[9.949,59.643],[10.033,59.685],[10.053,59.683],[10.071,59.665],[10.128,59.691],[10.166,59.696]]],[[[10.449,59.616],[10.429,59.593],[10.429,59.598],[10.428,59.608],[10.416,59.642],[10.412,59.662],[10.409,59.671],[10.403,59.683],[10.398,59.688],[10.375,59.704],[10.407,59.694],[10.434,59.674],[10.438,59.664],[10.449,59.616]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Jarlsberg og Larvik'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Jarlsberg og Larvik?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Jarlsberg og Larvik located? </h2>Jarlsberg og Larvik, is a county It belongs to the country of Norway. Its postal identifier is VF.Jarlsberg og Larvik has an area of 2166 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

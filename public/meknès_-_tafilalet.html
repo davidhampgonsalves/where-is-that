@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Meknès - Tafilalet?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-5.34,34.163],[-5.332,34.127],[-5.329,34.102],[-5.313,34.09],[-5.287,34.093],[-5.27,34.103],[-5.248,34.109],[-5.235,34.088],[-5.192,34.002],[-5.107,33.876],[-5.088,33.836],[-5.103,33.812],[-5.152,33.749],[-5.148,33.718],[-5.119,33.693],[-4.977,33.666],[-4.933,33.639],[-4.904,33.594],[-4.898,33.541],[-4.98,33.459],[-4.994,33.417],[-4.864,33.127],[-4.78,33.024],[-4.763,32.984],[-4.755,32.95],[-4.719,32.925],[-4.639,32.907],[-4.556,32.902],[-4.493,32.884],[-4.397,32.802],[-4.3,32.686],[-4.279,32.653],[-4.237,32.629],[-4.187,32.613],[-4.107,32.62],[-4.069,32.614],[-3.999,32.617],[-3.938,32.539],[-3.911,32.493],[-3.845,32.41],[-3.802,32.335],[-3.788,32.284],[-3.747,32.263],[-3.734,32.221],[-3.696,32.189],[-3.685,32.153],[-3.658,32.141],[-3.601,32.152],[-3.557,32.169],[-3.529,32.185],[-3.488,32.186],[-3.44,32.174],[-3.407,32.162],[-3.363,32.153],[-3.316,32.161],[-3.269,32.164],[-3.229,32.154],[-3.248,32.105],[-3.25,32.021],[-3.24,31.958],[-3.192,31.864],[-3.152,31.839],[-3.16,31.788],[-3.16,31.788],[-3.413,31.717],[-3.512,31.673],[-3.549,31.67],[-3.592,31.679],[-3.674,31.705],[-3.717,31.711],[-3.756,31.71],[-3.798,31.704],[-3.833,31.687],[-3.85,31.655],[-3.85,31.646],[-3.854,31.534],[-3.86,31.495],[-3.857,31.466],[-3.841,31.446],[-3.818,31.433],[-3.769,31.418],[-3.759,31.413],[-3.751,31.405],[-3.745,31.392],[-3.745,31.392],[-3.748,31.385],[-3.803,31.351],[-3.816,31.337],[-3.816,31.337],[-3.817,31.332],[-3.82,31.319],[-3.813,31.244],[-3.815,31.23],[-3.815,31.221],[-3.815,31.221],[-3.837,31.19],[-3.837,31.19],[-3.839,31.184],[-3.843,31.171],[-3.843,31.171],[-3.84,31.153],[-3.828,31.144],[-3.811,31.143],[-3.793,31.15],[-3.764,31.174],[-3.749,31.18],[-3.732,31.177],[-3.718,31.164],[-3.69,31.126],[-3.672,31.111],[-3.636,31.096],[-3.625,31.087],[-3.615,31.068],[-3.614,31.064],[-3.61,31.051],[-3.609,31.032],[-3.609,31.031],[-3.609,31.031],[-3.611,31.012],[-3.617,30.995],[-3.647,30.96],[-3.7,30.941],[-3.759,30.934],[-3.857,30.936],[-4.016,30.91],[-4.049,30.897],[-4.191,30.761],[-4.222,30.741],[-4.324,30.702],[-4.446,30.639],[-4.516,30.625],[-4.577,30.621],[-4.926,30.507],[-4.949,30.495],[-4.969,30.474],[-5.028,30.387],[-5.028,30.386],[-5.031,30.381],[-5.111,30.438],[-5.163,30.455],[-5.219,30.498],[-5.227,30.56],[-5.208,30.603],[-5.206,30.653],[-5.243,30.69],[-5.279,30.734],[-5.296,30.771],[-5.33,30.803],[-5.361,30.824],[-5.363,30.872],[-5.36,30.906],[-5.333,30.929],[-5.303,30.999],[-5.31,31.049],[-5.304,31.111],[-5.233,31.302],[-5.214,31.412],[-5.253,31.474],[-5.406,31.566],[-5.454,31.609],[-5.514,31.628],[-5.565,31.638],[-5.64,31.623],[-5.694,31.625],[-5.736,31.638],[-5.713,31.705],[-5.621,31.8],[-5.572,31.875],[-5.589,31.938],[-5.659,31.97],[-5.806,31.93],[-5.829,31.985],[-5.86,32.013],[-5.852,32.058],[-5.821,32.102],[-5.747,32.141],[-5.638,32.215],[-5.596,32.232],[-5.556,32.244],[-5.476,32.245],[-5.468,32.262],[-5.498,32.319],[-5.504,32.353],[-5.527,32.39],[-5.508,32.44],[-5.477,32.47],[-5.44,32.495],[-5.437,32.508],[-5.522,32.529],[-5.652,32.603],[-5.775,32.643],[-5.899,32.744],[-6.042,32.793],[-6.043,32.835],[-6.037,32.857],[-6.057,32.897],[-6.087,32.91],[-6.137,32.911],[-6.154,32.926],[-6.149,32.964],[-6.141,32.983],[-6.133,33.012],[-6.203,33.078],[-6.323,33.151],[-6.36,33.167],[-6.403,33.195],[-6.42,33.238],[-6.393,33.268],[-6.402,33.314],[-6.409,33.335],[-6.402,33.363],[-6.399,33.382],[-6.368,33.433],[-6.354,33.468],[-6.329,33.475],[-6.301,33.473],[-6.235,33.454],[-6.213,33.438],[-6.212,33.417],[-6.208,33.399],[-6.21,33.38],[-6.198,33.366],[-6.149,33.352],[-6.125,33.348],[-6.099,33.341],[-6.08,33.33],[-6.024,33.316],[-5.998,33.316],[-5.978,33.327],[-5.95,33.332],[-5.835,33.328],[-5.808,33.337],[-5.788,33.35],[-5.799,33.365],[-5.806,33.383],[-5.807,33.401],[-5.805,33.426],[-5.806,33.448],[-5.799,33.476],[-5.804,33.501],[-5.79,33.532],[-5.786,33.566],[-5.789,33.598],[-5.789,33.62],[-5.768,33.677],[-5.74,33.719],[-5.725,33.788],[-5.736,33.812],[-5.754,33.829],[-5.762,33.85],[-5.778,33.868],[-5.787,33.886],[-5.76,33.955],[-5.772,33.981],[-5.794,34.005],[-5.812,34.029],[-5.814,34.05],[-5.837,34.088],[-5.849,34.101],[-5.885,34.117],[-5.862,34.148],[-5.83,34.167],[-5.818,34.19],[-5.801,34.201],[-5.789,34.212],[-5.742,34.192],[-5.729,34.177],[-5.71,34.165],[-5.703,34.142],[-5.679,34.134],[-5.648,34.13],[-5.607,34.132],[-5.571,34.129],[-5.469,34.165],[-5.451,34.178],[-5.447,34.195],[-5.454,34.213],[-5.421,34.281],[-5.379,34.229],[-5.352,34.198],[-5.34,34.163]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Meknès - Tafilalet'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Meknès - Tafilalet?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Meknès - Tafilalet located? </h2>Meknès - Tafilalet, is a region of the North-West region. It belongs to the country of Morocco. Its postal identifier is MT.Meknès - Tafilalet has an area of 54454 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

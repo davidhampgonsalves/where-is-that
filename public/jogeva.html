@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Jogeva?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[26.73,58.934],[26.731,58.929],[26.737,58.924],[26.741,58.902],[26.746,58.887],[26.752,58.882],[26.76,58.881],[26.766,58.883],[26.775,58.884],[26.798,58.884],[26.824,58.891],[26.837,58.893],[26.847,58.893],[26.872,58.89],[26.897,58.882],[26.91,58.872],[26.917,58.869],[26.925,58.867],[26.954,58.866],[26.959,58.865],[27.446,58.819],[27.446,58.819],[27.41,58.755],[27.429,58.709],[27.428,58.709],[27.147,58.684],[27.091,58.676],[27.079,58.673],[27.066,58.667],[27.05,58.658],[27.038,58.653],[27.028,58.651],[27.02,58.65],[27.014,58.647],[27.011,58.64],[27.018,58.612],[27.014,58.602],[26.99,58.603],[26.977,58.607],[26.939,58.61],[26.892,58.63],[26.862,58.633],[26.842,58.592],[26.812,58.561],[26.721,58.55],[26.686,58.558],[26.674,58.563],[26.664,58.562],[26.653,58.556],[26.637,58.533],[26.625,58.524],[26.622,58.523],[26.617,58.522],[26.58,58.523],[26.543,58.531],[26.508,58.541],[26.474,58.533],[26.46,58.528],[26.456,58.529],[26.438,58.537],[26.412,58.534],[26.39,58.521],[26.38,58.518],[26.371,58.521],[26.365,58.529],[26.357,58.534],[26.342,58.535],[26.323,58.532],[26.235,58.498],[26.218,58.493],[26.197,58.49],[26.168,58.491],[26.132,58.485],[26.064,58.514],[26.033,58.534],[26.029,58.542],[26.022,58.55],[26.013,58.557],[25.981,58.557],[25.969,58.559],[25.958,58.566],[25.95,58.573],[25.946,58.579],[25.943,58.586],[25.929,58.592],[25.917,58.597],[25.828,58.603],[25.812,58.602],[25.79,58.604],[25.76,58.604],[25.751,58.607],[25.749,58.613],[25.757,58.621],[25.768,58.626],[25.786,58.631],[25.792,58.635],[25.794,58.644],[25.787,58.657],[25.785,58.682],[25.777,58.69],[25.783,58.705],[25.812,58.721],[25.82,58.73],[25.828,58.742],[25.836,58.747],[25.848,58.752],[25.857,58.754],[25.887,58.767],[25.908,58.77],[25.927,58.761],[25.956,58.773],[25.958,58.781],[25.961,58.79],[25.961,58.8],[25.965,58.811],[25.977,58.817],[26.001,58.821],[26.01,58.826],[26.021,58.83],[26.031,58.832],[26.051,58.833],[26.114,58.835],[26.118,58.844],[26.111,58.857],[26.113,58.862],[26.116,58.868],[26.122,58.873],[26.127,58.876],[26.154,58.887],[26.235,58.898],[26.295,58.916],[26.315,58.918],[26.33,58.916],[26.357,58.896],[26.41,58.886],[26.452,58.895],[26.455,58.9],[26.457,58.904],[26.457,58.92],[26.505,58.939],[26.527,58.938],[26.538,58.933],[26.558,58.931],[26.574,58.933],[26.614,58.944],[26.667,58.956],[26.677,58.957],[26.703,58.956],[26.728,58.942],[26.728,58.938],[26.73,58.934]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Jogeva'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Jogeva?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Jogeva located? </h2>Jogeva, is a county It belongs to the country of Estonia. Its postal identifier is JN.Jogeva has an area of 2964 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

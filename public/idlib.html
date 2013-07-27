@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Idlib?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[36.774,36.321],[36.777,36.305],[36.782,36.297],[36.813,36.273],[36.839,36.246],[36.843,36.239],[36.843,36.234],[36.842,36.23],[36.84,36.226],[36.836,36.22],[36.831,36.215],[36.811,36.198],[36.804,36.191],[36.801,36.188],[36.791,36.184],[36.789,36.182],[36.787,36.181],[36.782,36.176],[36.777,36.17],[36.772,36.165],[36.739,36.143],[36.726,36.126],[36.747,36.104],[36.754,36.092],[36.763,36.084],[36.773,36.077],[36.782,36.073],[36.865,36.041],[36.875,36.035],[36.881,36.031],[36.883,36.024],[36.885,36.017],[36.887,35.985],[36.887,35.977],[36.887,35.973],[36.889,35.969],[36.942,35.905],[36.993,35.831],[37.001,35.822],[37.007,35.816],[37.011,35.814],[37.016,35.813],[37.031,35.811],[37.044,35.805],[37.064,35.789],[37.093,35.772],[37.098,35.768],[37.101,35.764],[37.102,35.76],[37.102,35.756],[37.101,35.752],[37.1,35.748],[37.096,35.742],[37.093,35.739],[37.088,35.735],[37.082,35.73],[37.078,35.729],[37.067,35.725],[37.061,35.721],[37.056,35.714],[37.07,35.676],[37.079,35.661],[37.086,35.654],[37.089,35.647],[37.092,35.629],[37.098,35.622],[37.129,35.592],[37.134,35.589],[37.143,35.587],[37.148,35.584],[37.155,35.581],[37.17,35.568],[37.175,35.566],[37.216,35.551],[37.198,35.543],[37.195,35.54],[37.192,35.535],[37.181,35.514],[37.156,35.478],[37.15,35.472],[37.143,35.468],[37.123,35.461],[37.11,35.454],[37.104,35.45],[37.099,35.442],[37.08,35.408],[37.077,35.401],[37.076,35.397],[37.077,35.393],[37.078,35.39],[37.08,35.387],[37.084,35.385],[37.088,35.384],[37.093,35.383],[37.097,35.384],[37.101,35.385],[37.105,35.386],[37.108,35.389],[37.11,35.391],[37.116,35.401],[37.118,35.404],[37.121,35.406],[37.124,35.408],[37.128,35.409],[37.132,35.408],[37.136,35.406],[37.138,35.404],[37.14,35.401],[37.141,35.398],[37.143,35.391],[37.142,35.349],[37.141,35.346],[37.137,35.346],[37.134,35.347],[37.129,35.348],[37.124,35.348],[37.12,35.348],[37.117,35.347],[37.113,35.345],[37.11,35.343],[37.105,35.337],[37.096,35.325],[37.093,35.323],[37.089,35.321],[37.083,35.319],[37.078,35.318],[37.057,35.319],[37.035,35.317],[37.025,35.317],[37.02,35.318],[37.016,35.319],[37.013,35.321],[37.01,35.323],[37.008,35.326],[37.007,35.329],[37.006,35.342],[37.006,35.345],[37.002,35.36],[37.002,35.363],[37.002,35.367],[37.003,35.371],[37.013,35.388],[37.014,35.392],[37.015,35.396],[37.015,35.4],[37.014,35.408],[37.013,35.411],[37.012,35.415],[37.01,35.418],[37.008,35.42],[37.006,35.423],[37.003,35.425],[36.998,35.426],[36.994,35.425],[36.992,35.422],[36.983,35.41],[36.98,35.406],[36.958,35.388],[36.941,35.366],[36.934,35.363],[36.928,35.361],[36.92,35.36],[36.91,35.359],[36.904,35.358],[36.9,35.36],[36.898,35.362],[36.896,35.365],[36.893,35.368],[36.882,35.373],[36.879,35.375],[36.876,35.378],[36.872,35.383],[36.871,35.387],[36.867,35.392],[36.837,35.414],[36.833,35.416],[36.829,35.417],[36.824,35.417],[36.82,35.417],[36.699,35.39],[36.648,35.392],[36.581,35.407],[36.571,35.408],[36.552,35.407],[36.542,35.407],[36.537,35.408],[36.533,35.41],[36.53,35.412],[36.527,35.414],[36.525,35.417],[36.523,35.42],[36.521,35.426],[36.517,35.432],[36.515,35.435],[36.511,35.437],[36.494,35.444],[36.487,35.446],[36.482,35.446],[36.448,35.432],[36.426,35.437],[36.42,35.443],[36.415,35.46],[36.393,35.5],[36.393,35.501],[36.394,35.504],[36.396,35.506],[36.398,35.51],[36.4,35.515],[36.391,35.583],[36.393,35.6],[36.407,35.655],[36.414,35.698],[36.412,35.711],[36.405,35.715],[36.362,35.716],[36.348,35.719],[36.346,35.722],[36.345,35.726],[36.344,35.729],[36.342,35.733],[36.339,35.738],[36.334,35.743],[36.33,35.746],[36.326,35.747],[36.322,35.747],[36.317,35.746],[36.314,35.745],[36.31,35.743],[36.298,35.74],[36.285,35.739],[36.278,35.74],[36.27,35.742],[36.266,35.744],[36.262,35.747],[36.26,35.749],[36.255,35.756],[36.28,35.77],[36.288,35.778],[36.288,35.782],[36.288,35.786],[36.287,35.79],[36.284,35.794],[36.279,35.796],[36.275,35.797],[36.207,35.794],[36.198,35.793],[36.19,35.79],[36.184,35.789],[36.176,35.789],[36.162,35.79],[36.155,35.792],[36.151,35.795],[36.15,35.798],[36.149,35.802],[36.15,35.805],[36.152,35.809],[36.153,35.812],[36.155,35.817],[36.156,35.818],[36.155,35.823],[36.155,35.823],[36.157,35.823],[36.157,35.823],[36.169,35.852],[36.175,35.923],[36.197,35.952],[36.197,35.952],[36.229,35.961],[36.253,35.956],[36.269,35.959],[36.269,35.959],[36.277,35.994],[36.277,35.994],[36.277,35.994],[36.277,35.994],[36.277,35.995],[36.297,36.001],[36.337,35.989],[36.357,35.994],[36.358,35.994],[36.355,36.023],[36.358,36.167],[36.36,36.182],[36.366,36.19],[36.374,36.196],[36.374,36.196],[36.374,36.196],[36.376,36.205],[36.361,36.218],[36.373,36.228],[36.373,36.228],[36.385,36.216],[36.398,36.209],[36.412,36.205],[36.439,36.202],[36.445,36.2],[36.45,36.2],[36.459,36.203],[36.459,36.203],[36.464,36.209],[36.465,36.216],[36.468,36.223],[36.469,36.223],[36.48,36.226],[36.498,36.228],[36.574,36.219],[36.593,36.218],[36.664,36.229],[36.664,36.229],[36.67,36.238],[36.669,36.26],[36.665,36.274],[36.658,36.291],[36.649,36.306],[36.661,36.311],[36.696,36.317],[36.728,36.317],[36.733,36.318],[36.754,36.331],[36.761,36.333],[36.766,36.332],[36.769,36.33],[36.772,36.327],[36.773,36.324],[36.774,36.321]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Idlib'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Idlib?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Idlib located? </h2>Idlib, is a province It belongs to the country of Syria. Its postal identifier is ID.Idlib has an area of 5640 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

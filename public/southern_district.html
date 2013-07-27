@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Southern District?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[34.697,31.874],[34.701,31.874],[34.705,31.874],[34.707,31.875],[34.709,31.874],[34.71,31.872],[34.711,31.868],[34.711,31.865],[34.71,31.863],[34.707,31.861],[34.706,31.86],[34.706,31.858],[34.706,31.857],[34.707,31.851],[34.707,31.849],[34.706,31.847],[34.705,31.844],[34.705,31.835],[34.704,31.833],[34.703,31.832],[34.702,31.831],[34.7,31.831],[34.698,31.831],[34.697,31.831],[34.692,31.831],[34.686,31.833],[34.682,31.834],[34.68,31.834],[34.678,31.833],[34.677,31.832],[34.676,31.832],[34.675,31.83],[34.674,31.828],[34.674,31.827],[34.673,31.826],[34.674,31.824],[34.674,31.823],[34.674,31.822],[34.676,31.82],[34.679,31.817],[34.686,31.813],[34.69,31.81],[34.69,31.808],[34.69,31.807],[34.69,31.805],[34.689,31.803],[34.687,31.802],[34.686,31.801],[34.684,31.8],[34.679,31.798],[34.675,31.797],[34.674,31.795],[34.673,31.794],[34.672,31.793],[34.672,31.791],[34.672,31.789],[34.672,31.788],[34.673,31.787],[34.674,31.786],[34.698,31.779],[34.702,31.779],[34.706,31.78],[34.716,31.787],[34.72,31.789],[34.726,31.79],[34.727,31.792],[34.727,31.793],[34.726,31.794],[34.724,31.795],[34.724,31.797],[34.723,31.798],[34.722,31.8],[34.721,31.801],[34.719,31.802],[34.717,31.803],[34.715,31.804],[34.714,31.805],[34.713,31.806],[34.713,31.807],[34.716,31.808],[34.733,31.81],[34.735,31.811],[34.738,31.814],[34.741,31.814],[34.746,31.812],[34.763,31.804],[34.766,31.801],[34.77,31.797],[34.772,31.792],[34.779,31.775],[34.781,31.771],[34.783,31.769],[34.785,31.767],[34.787,31.766],[34.795,31.77],[34.828,31.792],[34.855,31.763],[34.864,31.757],[34.866,31.756],[34.87,31.755],[34.871,31.754],[34.873,31.752],[34.873,31.75],[34.873,31.745],[34.872,31.742],[34.871,31.739],[34.87,31.737],[34.87,31.735],[34.871,31.733],[34.875,31.723],[34.875,31.719],[34.875,31.717],[34.875,31.715],[34.875,31.713],[34.872,31.708],[34.872,31.706],[34.871,31.704],[34.871,31.702],[34.873,31.689],[34.872,31.683],[34.872,31.681],[34.874,31.676],[34.874,31.674],[34.874,31.665],[34.873,31.659],[34.882,31.652],[34.953,31.609],[34.937,31.582],[34.932,31.555],[34.932,31.527],[34.926,31.495],[34.881,31.43],[34.867,31.397],[34.878,31.363],[34.9,31.349],[34.927,31.345],[34.954,31.349],[34.98,31.356],[35.04,31.363],[35.164,31.363],[35.223,31.381],[35.332,31.459],[35.39,31.487],[35.458,31.492],[35.458,31.492],[35.456,31.424],[35.452,31.401],[35.435,31.361],[35.416,31.332],[35.424,31.325],[35.422,31.303],[35.408,31.282],[35.395,31.258],[35.401,31.23],[35.41,31.205],[35.421,31.185],[35.436,31.16],[35.443,31.132],[35.438,31.104],[35.391,31.024],[35.385,30.995],[35.385,30.964],[35.374,30.945],[35.334,30.913],[35.322,30.89],[35.319,30.868],[35.32,30.845],[35.316,30.823],[35.31,30.814],[35.293,30.8],[35.286,30.793],[35.279,30.78],[35.276,30.769],[35.271,30.744],[35.263,30.72],[35.205,30.617],[35.162,30.495],[35.157,30.471],[35.14,30.43],[35.14,30.406],[35.145,30.396],[35.159,30.376],[35.162,30.362],[35.159,30.348],[35.154,30.337],[35.147,30.327],[35.141,30.314],[35.132,30.262],[35.125,30.245],[35.124,30.216],[35.145,30.155],[35.145,30.124],[35.129,30.09],[35.086,30.034],[35.074,29.995],[35.074,29.983],[35.07,29.974],[35.065,29.966],[35.061,29.958],[35.054,29.924],[35.053,29.863],[35.048,29.843],[35.002,29.733],[34.995,29.708],[34.989,29.652],[34.98,29.627],[34.967,29.608],[34.959,29.586],[34.956,29.559],[34.951,29.546],[34.945,29.537],[34.928,29.518],[34.92,29.507],[34.916,29.5],[34.914,29.494],[34.911,29.49],[34.903,29.49],[34.894,29.491],[34.887,29.49],[34.887,29.49],[34.878,29.505],[34.855,29.546],[34.848,29.57],[34.85,29.639],[34.824,29.742],[34.741,29.94],[34.735,29.995],[34.735,30.001],[34.734,30.007],[34.733,30.013],[34.73,30.018],[34.599,30.345],[34.588,30.359],[34.533,30.4],[34.526,30.41],[34.524,30.421],[34.526,30.439],[34.536,30.469],[34.536,30.482],[34.526,30.495],[34.526,30.495],[34.51,30.514],[34.504,30.531],[34.502,30.572],[34.48,30.651],[34.329,30.995],[34.248,31.212],[34.248,31.212],[34.264,31.224],[34.315,31.257],[34.35,31.289],[34.353,31.307],[34.345,31.341],[34.345,31.358],[34.367,31.393],[34.48,31.486],[34.495,31.495],[34.495,31.495],[34.528,31.52],[34.53,31.542],[34.511,31.562],[34.481,31.583],[34.49,31.6],[34.514,31.627],[34.603,31.758],[34.61,31.766],[34.666,31.874],[34.67,31.875],[34.679,31.877],[34.681,31.878],[34.685,31.878],[34.689,31.877],[34.697,31.874]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Southern District'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Southern District?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Southern District located? </h2>Southern District, is a district It belongs to the country of Israel. Its postal identifier is HD.Southern District has an area of 14527 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Mazar-i-Sharif?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[67.085,37.35],[67.097,37.341],[67.114,37.297],[67.123,37.282],[67.143,37.272],[67.188,37.259],[67.208,37.244],[67.218,37.227],[67.225,37.208],[67.237,37.193],[67.259,37.185],[67.281,37.189],[67.319,37.209],[67.345,37.213],[67.369,37.215],[67.391,37.22],[67.411,37.228],[67.431,37.24],[67.464,37.267],[67.482,37.278],[67.503,37.282],[67.526,37.273],[67.545,37.232],[67.561,37.22],[67.572,37.223],[67.58,37.233],[67.586,37.243],[67.592,37.248],[67.603,37.249],[67.622,37.253],[67.633,37.254],[67.644,37.252],[67.666,37.238],[67.677,37.234],[67.69,37.233],[67.726,37.234],[67.746,37.23],[67.764,37.221],[67.776,37.208],[67.78,37.189],[67.78,37.189],[67.772,37.125],[67.772,37.125],[67.773,37.11],[67.785,37.097],[67.808,37.084],[67.833,37.073],[67.878,37.065],[67.892,37.052],[67.902,37.035],[67.918,37.014],[67.929,37.007],[67.953,36.997],[67.962,36.99],[67.996,36.956],[68.002,36.948],[68.006,36.939],[68.011,36.931],[68.02,36.926],[68.025,36.926],[68.025,36.924],[68.034,36.883],[68.036,36.825],[68.038,36.817],[68.092,36.711],[68.119,36.673],[68.125,36.667],[68.141,36.658],[68.161,36.643],[68.175,36.628],[68.182,36.617],[68.189,36.593],[68.108,36.567],[68.08,36.562],[67.881,36.585],[67.832,36.59],[67.809,36.596],[67.796,36.602],[67.79,36.606],[67.759,36.622],[67.702,36.645],[67.688,36.648],[67.672,36.647],[67.657,36.644],[67.628,36.635],[67.614,36.632],[67.5,36.64],[67.486,36.636],[67.472,36.608],[67.461,36.601],[67.416,36.589],[67.396,36.581],[67.386,36.575],[67.377,36.568],[67.374,36.564],[67.372,36.561],[67.372,36.559],[67.373,36.557],[67.374,36.554],[67.392,36.535],[67.418,36.49],[67.42,36.482],[67.42,36.472],[67.396,36.419],[67.382,36.371],[67.381,36.326],[67.374,36.289],[67.369,36.283],[67.362,36.275],[67.346,36.265],[67.337,36.257],[67.333,36.251],[67.332,36.246],[67.333,36.243],[67.335,36.238],[67.337,36.231],[67.337,36.225],[67.335,36.212],[67.33,36.204],[67.323,36.198],[67.302,36.182],[67.286,36.166],[67.276,36.158],[67.268,36.153],[67.253,36.15],[67.2,36.143],[67.182,36.138],[67.088,36.08],[67.068,36.064],[67.067,36.062],[67.068,36.06],[67.069,36.057],[67.071,36.054],[67.074,36.05],[67.081,36.046],[67.083,36.045],[67.085,36.042],[67.085,36.038],[67.086,36.027],[67.087,36.025],[67.09,36.019],[67.097,36.01],[67.124,35.981],[67.126,35.973],[67.127,35.964],[67.124,35.945],[67.12,35.934],[67.115,35.925],[67.108,35.921],[67.092,35.914],[67.084,35.908],[67.08,35.902],[67.077,35.891],[67.072,35.885],[67.067,35.88],[67.054,35.872],[67.041,35.859],[67.003,35.822],[66.982,35.809],[66.945,35.794],[66.935,35.787],[66.928,35.78],[66.911,35.755],[66.907,35.746],[66.905,35.737],[66.904,35.729],[66.905,35.718],[66.855,35.694],[66.839,35.688],[66.825,35.685],[66.816,35.681],[66.808,35.677],[66.8,35.675],[66.69,35.667],[66.684,35.668],[66.679,35.672],[66.676,35.675],[66.671,35.685],[66.669,35.687],[66.667,35.689],[66.666,35.691],[66.665,35.692],[66.663,35.692],[66.52,35.67],[66.505,35.671],[66.503,35.676],[66.525,35.727],[66.535,35.743],[66.541,35.75],[66.55,35.759],[66.559,35.766],[66.564,35.768],[66.578,35.773],[66.581,35.775],[66.584,35.777],[66.586,35.779],[66.587,35.781],[66.594,35.799],[66.621,35.845],[66.629,35.863],[66.63,35.876],[66.628,35.893],[66.61,35.992],[66.607,36.003],[66.592,36.02],[66.591,36.034],[66.592,36.046],[66.593,36.05],[66.594,36.055],[66.596,36.057],[66.602,36.065],[66.604,36.067],[66.604,36.07],[66.604,36.073],[66.602,36.082],[66.601,36.088],[66.6,36.126],[66.602,36.131],[66.606,36.14],[66.607,36.144],[66.606,36.149],[66.602,36.163],[66.599,36.167],[66.595,36.17],[66.584,36.172],[66.56,36.172],[66.544,36.174],[66.538,36.177],[66.497,36.204],[66.466,36.217],[66.462,36.221],[66.461,36.224],[66.463,36.23],[66.465,36.233],[66.478,36.247],[66.511,36.288],[66.516,36.296],[66.527,36.31],[66.53,36.314],[66.535,36.327],[66.559,36.369],[66.562,36.376],[66.567,36.398],[66.569,36.403],[66.572,36.408],[66.589,36.434],[66.6,36.446],[66.605,36.451],[66.629,36.468],[66.635,36.476],[66.647,36.493],[66.651,36.497],[66.66,36.504],[66.664,36.509],[66.676,36.528],[66.678,36.532],[66.68,36.539],[66.68,36.542],[66.68,36.546],[66.677,36.552],[66.674,36.556],[66.669,36.559],[66.664,36.562],[66.635,36.57],[66.527,36.588],[66.504,36.604],[66.48,36.623],[66.471,36.637],[66.466,36.652],[66.462,36.705],[66.45,36.715],[66.44,36.72],[66.422,36.732],[66.417,36.739],[66.418,36.746],[66.426,36.757],[66.436,36.763],[66.47,36.775],[66.474,36.775],[66.479,36.775],[66.484,36.774],[66.504,36.768],[66.51,36.768],[66.516,36.768],[66.523,36.77],[66.539,36.779],[66.544,36.78],[66.56,36.782],[66.565,36.784],[66.568,36.789],[66.569,36.798],[66.56,36.828],[66.555,36.838],[66.545,36.85],[66.541,36.861],[66.541,36.868],[66.543,36.872],[66.544,36.875],[66.544,36.88],[66.54,36.886],[66.534,36.894],[66.51,36.917],[66.482,36.953],[66.467,36.973],[66.463,36.99],[66.467,37.014],[66.476,37.042],[66.496,37.092],[66.499,37.096],[66.499,37.098],[66.502,37.107],[66.504,37.112],[66.495,37.13],[66.448,37.17],[66.435,37.185],[66.432,37.188],[66.429,37.203],[66.429,37.211],[66.428,37.215],[66.426,37.22],[66.424,37.224],[66.419,37.23],[66.415,37.239],[66.409,37.25],[66.402,37.256],[66.392,37.262],[66.357,37.278],[66.348,37.281],[66.333,37.281],[66.271,37.295],[66.26,37.299],[66.258,37.301],[66.255,37.303],[66.252,37.306],[66.249,37.309],[66.248,37.316],[66.248,37.321],[66.25,37.353],[66.251,37.36],[66.251,37.36],[66.258,37.357],[66.274,37.344],[66.294,37.332],[66.321,37.329],[66.389,37.348],[66.413,37.35],[66.423,37.346],[66.439,37.328],[66.451,37.323],[66.461,37.325],[66.47,37.33],[66.485,37.344],[66.503,37.356],[66.519,37.364],[66.539,37.369],[66.564,37.371],[66.588,37.369],[66.655,37.347],[66.667,37.345],[66.694,37.344],[66.705,37.347],[66.724,37.361],[66.735,37.364],[66.866,37.368],[66.957,37.386],[67.006,37.385],[67.024,37.378],[67.064,37.355],[67.085,37.35]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Mazar-i-Sharif'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Mazar-i-Sharif?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Mazar-i-Sharif located? </h2>Mazar-i-Sharif, is a province It belongs to the country of Afghanistan. Its postal identifier is BK.Mazar-i-Sharif has an area of 16028 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

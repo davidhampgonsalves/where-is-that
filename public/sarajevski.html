@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Sarajevski?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[18.587,44.049],[18.576,44.049],[18.569,44.028],[18.539,44.01],[18.509,43.992],[18.499,43.978],[18.498,43.954],[18.503,43.918],[18.506,43.888],[18.506,43.856],[18.498,43.844],[18.482,43.834],[18.452,43.831],[18.425,43.835],[18.383,43.838],[18.37,43.832],[18.373,43.812],[18.376,43.789],[18.403,43.755],[18.416,43.738],[18.443,43.736],[18.486,43.735],[18.518,43.723],[18.559,43.711],[18.609,43.684],[18.606,43.681],[18.594,43.672],[18.586,43.657],[18.583,43.645],[18.583,43.637],[18.549,43.648],[18.516,43.659],[18.492,43.676],[18.463,43.69],[18.443,43.69],[18.413,43.69],[18.402,43.666],[18.398,43.625],[18.39,43.594],[18.383,43.588],[18.383,43.588],[18.373,43.59],[18.345,43.59],[18.322,43.597],[18.322,43.597],[18.303,43.602],[18.294,43.588],[18.29,43.574],[18.287,43.575],[18.275,43.576],[18.265,43.577],[18.262,43.578],[18.258,43.58],[18.236,43.591],[18.209,43.599],[18.198,43.605],[18.197,43.611],[18.196,43.626],[18.182,43.654],[18.182,43.654],[18.157,43.672],[18.149,43.677],[18.147,43.677],[18.126,43.68],[18.103,43.676],[18.096,43.675],[18.091,43.676],[18.059,43.681],[18.042,43.693],[18.034,43.706],[18.027,43.732],[18.026,43.734],[18.025,43.737],[18.015,43.765],[18.007,43.775],[18.007,43.775],[18.007,43.775],[18.011,43.787],[18.024,43.798],[18.062,43.801],[18.094,43.809],[18.125,43.826],[18.147,43.832],[18.16,43.842],[18.165,43.851],[18.164,43.868],[18.155,43.9],[18.147,43.907],[18.144,43.908],[18.142,43.918],[18.154,43.926],[18.165,43.926],[18.18,43.931],[18.188,43.941],[18.188,43.967],[18.195,43.987],[18.225,43.994],[18.259,43.993],[18.299,43.994],[18.327,44.005],[18.339,44.016],[18.338,44.048],[18.339,44.063],[18.351,44.07],[18.377,44.07],[18.396,44.07],[18.413,44.08],[18.426,44.098],[18.437,44.108],[18.441,44.111],[18.461,44.111],[18.478,44.111],[18.499,44.109],[18.515,44.099],[18.53,44.082],[18.54,44.069],[18.557,44.061],[18.581,44.057],[18.587,44.049]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Sarajevski'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Sarajevski?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Sarajevski located? </h2>Sarajevski, is a canton of the Federacija Bosna i Hercegovina region. It belongs to the country of Bosnia and Herzegovina. Its postal identifier is BF.Sarajevski has an area of 1408 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Paraiso?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-86.671,14.406],[-86.666,14.406],[-86.656,14.406],[-86.653,14.408],[-86.649,14.409],[-86.639,14.411],[-86.635,14.41],[-86.631,14.408],[-86.621,14.397],[-86.616,14.387],[-86.612,14.382],[-86.607,14.381],[-86.6,14.382],[-86.579,14.38],[-86.523,14.365],[-86.503,14.345],[-86.499,14.343],[-86.476,14.337],[-86.457,14.323],[-86.453,14.318],[-86.448,14.311],[-86.442,14.298],[-86.437,14.294],[-86.428,14.291],[-86.354,14.286],[-86.343,14.288],[-86.336,14.291],[-86.313,14.305],[-86.304,14.313],[-86.299,14.317],[-86.293,14.319],[-86.287,14.321],[-86.277,14.328],[-86.262,14.335],[-86.243,14.34],[-86.232,14.341],[-86.207,14.341],[-86.194,14.338],[-86.185,14.334],[-86.176,14.324],[-86.149,14.276],[-86.142,14.269],[-86.114,14.259],[-86.088,14.253],[-86.08,14.253],[-86.076,14.257],[-86.073,14.266],[-86.07,14.269],[-86.067,14.272],[-86.062,14.273],[-86.058,14.273],[-86.04,14.269],[-86.03,14.263],[-86.019,14.255],[-86.007,14.235],[-86.001,14.221],[-85.997,14.208],[-85.995,14.199],[-85.991,14.191],[-85.983,14.185],[-85.944,14.168],[-85.925,14.142],[-85.913,14.133],[-85.906,14.131],[-85.893,14.132],[-85.885,14.134],[-85.88,14.138],[-85.877,14.142],[-85.876,14.147],[-85.875,14.157],[-85.874,14.162],[-85.871,14.166],[-85.868,14.168],[-85.858,14.173],[-85.853,14.176],[-85.849,14.179],[-85.845,14.182],[-85.836,14.183],[-85.827,14.181],[-85.814,14.172],[-85.804,14.168],[-85.791,14.165],[-85.784,14.167],[-85.78,14.17],[-85.768,14.194],[-85.764,14.198],[-85.757,14.199],[-85.71,14.189],[-85.672,14.177],[-85.665,14.176],[-85.662,14.177],[-85.66,14.185],[-85.655,14.186],[-85.647,14.183],[-85.631,14.17],[-85.622,14.16],[-85.615,14.147],[-85.611,14.126],[-85.611,14.115],[-85.61,14.105],[-85.606,14.097],[-85.596,14.09],[-85.588,14.085],[-85.58,14.079],[-85.576,14.075],[-85.563,14.042],[-85.563,14.042],[-85.567,14.042],[-85.572,14.041],[-85.594,14.034],[-85.604,14.02],[-85.613,14.01],[-85.631,14.005],[-85.649,14],[-85.649,14],[-85.645,13.989],[-85.648,13.988],[-85.651,13.988],[-85.653,13.987],[-85.653,13.987],[-85.652,13.982],[-85.658,13.982],[-85.667,13.985],[-85.687,13.968],[-85.7,13.962],[-85.718,13.963],[-85.728,13.965],[-85.733,13.96],[-85.734,13.938],[-85.744,13.908],[-85.748,13.889],[-85.744,13.88],[-85.729,13.875],[-85.724,13.864],[-85.724,13.864],[-85.726,13.848],[-85.734,13.832],[-85.743,13.824],[-85.746,13.825],[-85.759,13.84],[-85.779,13.841],[-85.803,13.84],[-85.825,13.848],[-85.841,13.867],[-85.851,13.887],[-85.862,13.905],[-85.884,13.914],[-85.898,13.913],[-85.907,13.91],[-85.916,13.908],[-85.93,13.912],[-85.937,13.918],[-85.958,13.946],[-86.029,13.996],[-86.032,14.023],[-86.021,14.044],[-86.021,14.055],[-86.021,14.055],[-86.097,14.044],[-86.111,14.037],[-86.122,14.027],[-86.128,14.019],[-86.131,14.009],[-86.139,13.996],[-86.15,13.984],[-86.163,13.978],[-86.174,13.974],[-86.185,13.967],[-86.219,13.915],[-86.252,13.88],[-86.285,13.846],[-86.301,13.822],[-86.308,13.792],[-86.311,13.784],[-86.314,13.777],[-86.326,13.764],[-86.341,13.757],[-86.359,13.752],[-86.411,13.749],[-86.418,13.75],[-86.427,13.753],[-86.433,13.757],[-86.449,13.773],[-86.464,13.771],[-86.477,13.764],[-86.491,13.76],[-86.509,13.765],[-86.542,13.782],[-86.582,13.78],[-86.663,13.765],[-86.707,13.77],[-86.728,13.768],[-86.751,13.757],[-86.762,13.75],[-86.767,13.746],[-86.769,13.739],[-86.771,13.726],[-86.772,13.708],[-86.786,13.701],[-86.794,13.7],[-86.801,13.694],[-86.809,13.682],[-86.816,13.681],[-86.824,13.681],[-86.841,13.679],[-86.849,13.676],[-86.887,13.652],[-86.891,13.659],[-86.921,13.657],[-86.926,13.659],[-86.933,13.661],[-86.935,13.657],[-86.938,13.639],[-86.943,13.63],[-86.95,13.619],[-86.966,13.602],[-86.977,13.593],[-86.985,13.588],[-87,13.584],[-87.011,13.574],[-87.014,13.566],[-87.017,13.551],[-87.039,13.525],[-87.07,13.508],[-87.077,13.506],[-87.089,13.507],[-87.107,13.521],[-87.115,13.54],[-87.116,13.549],[-87.124,13.556],[-87.17,13.558],[-87.184,13.566],[-87.187,13.579],[-87.191,13.598],[-87.198,13.603],[-87.206,13.612],[-87.217,13.616],[-87.224,13.629],[-87.214,13.671],[-87.183,13.681],[-87.135,13.661],[-87.13,13.66],[-87.13,13.664],[-87.127,13.682],[-87.12,13.698],[-87.112,13.708],[-87.111,13.724],[-87.123,13.745],[-87.129,13.752],[-87.132,13.763],[-87.132,13.777],[-87.132,13.791],[-87.13,13.799],[-87.128,13.802],[-87.122,13.81],[-87.106,13.803],[-87.084,13.784],[-87.076,13.78],[-87.051,13.775],[-87.036,13.775],[-87.031,13.779],[-87.014,13.8],[-86.995,13.846],[-86.991,13.892],[-86.992,13.912],[-86.99,13.924],[-86.985,13.934],[-86.984,13.943],[-86.985,13.95],[-86.989,13.965],[-86.955,13.958],[-86.938,13.967],[-86.927,13.979],[-86.916,13.999],[-86.912,14.039],[-86.914,14.05],[-86.917,14.056],[-86.925,14.06],[-86.952,14.08],[-86.978,14.115],[-86.984,14.133],[-86.963,14.141],[-86.949,14.141],[-86.933,14.138],[-86.912,14.141],[-86.902,14.161],[-86.903,14.165],[-86.907,14.17],[-86.912,14.173],[-86.921,14.175],[-86.922,14.179],[-86.92,14.184],[-86.909,14.199],[-86.897,14.23],[-86.848,14.272],[-86.829,14.305],[-86.822,14.338],[-86.789,14.368],[-86.714,14.424],[-86.671,14.406]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Paraiso'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Paraiso?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Paraiso located? </h2>Paraiso, is a department It belongs to the country of Honduras. Its postal identifier is EP.Paraiso has an area of 7620 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

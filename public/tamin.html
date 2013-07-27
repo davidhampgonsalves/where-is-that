@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Tamin?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[44.627,35.886],[44.682,35.787],[44.708,35.764],[44.731,35.739],[44.777,35.705],[44.785,35.686],[44.786,35.669],[44.769,35.644],[44.765,35.634],[44.763,35.608],[44.759,35.596],[44.756,35.56],[44.752,35.532],[44.755,35.522],[44.762,35.512],[44.783,35.492],[44.802,35.471],[44.803,35.459],[44.798,35.445],[44.788,35.428],[44.752,35.388],[44.744,35.368],[44.747,35.354],[44.753,35.337],[44.757,35.322],[44.753,35.306],[44.742,35.285],[44.739,35.272],[44.736,35.266],[44.733,35.261],[44.725,35.259],[44.716,35.255],[44.704,35.248],[44.694,35.236],[44.69,35.226],[44.689,35.218],[44.691,35.21],[44.698,35.197],[44.695,35.188],[44.684,35.18],[44.606,35.16],[44.562,35.129],[44.549,35.129],[44.543,35.126],[44.536,35.122],[44.527,35.113],[44.518,35.102],[44.513,35.084],[44.514,35.07],[44.534,35.031],[44.534,35.016],[44.524,35.004],[44.497,34.987],[44.481,34.981],[44.469,34.974],[44.462,34.968],[44.439,34.942],[44.418,34.924],[44.403,34.905],[44.401,34.896],[44.401,34.894],[44.4,34.892],[44.401,34.89],[44.4,34.886],[44.397,34.881],[44.393,34.874],[44.393,34.871],[44.392,34.869],[44.393,34.866],[44.392,34.863],[44.388,34.856],[44.386,34.854],[44.386,34.851],[44.385,34.848],[44.381,34.844],[44.37,34.839],[44.354,34.821],[44.35,34.811],[44.347,34.805],[44.341,34.799],[44.329,34.79],[44.326,34.786],[44.324,34.782],[44.325,34.773],[44.324,34.767],[44.321,34.756],[44.322,34.752],[44.325,34.746],[44.326,34.743],[44.324,34.739],[44.324,34.737],[44.326,34.735],[44.33,34.734],[44.34,34.732],[44.34,34.73],[44.336,34.725],[44.314,34.703],[44.298,34.702],[44.288,34.705],[44.212,34.753],[44.129,34.822],[44.068,34.853],[43.983,34.884],[43.913,34.906],[43.848,34.938],[43.648,35.036],[43.571,35.065],[43.548,35.078],[43.538,35.09],[43.52,35.101],[43.494,35.111],[43.481,35.127],[43.415,35.185],[43.407,35.19],[43.397,35.201],[43.388,35.214],[43.385,35.222],[43.389,35.233],[43.399,35.238],[43.41,35.241],[43.419,35.246],[43.422,35.265],[43.402,35.273],[43.35,35.28],[43.357,35.287],[43.36,35.293],[43.363,35.308],[43.363,35.312],[43.359,35.315],[43.357,35.319],[43.36,35.325],[43.364,35.327],[43.367,35.328],[43.37,35.329],[43.371,35.332],[43.365,35.345],[43.351,35.353],[43.323,35.362],[43.311,35.37],[43.286,35.393],[43.281,35.401],[43.279,35.403],[43.274,35.406],[43.27,35.411],[43.267,35.421],[43.269,35.431],[43.271,35.437],[43.272,35.443],[43.267,35.452],[43.274,35.467],[43.289,35.462],[43.293,35.46],[43.296,35.457],[43.297,35.453],[43.298,35.45],[43.302,35.445],[43.303,35.441],[43.303,35.436],[43.308,35.429],[43.314,35.427],[43.323,35.427],[43.34,35.45],[43.358,35.458],[43.403,35.435],[43.413,35.431],[43.434,35.426],[43.445,35.426],[43.455,35.428],[43.474,35.442],[43.49,35.446],[43.533,35.448],[43.552,35.45],[43.568,35.458],[43.577,35.469],[43.588,35.498],[43.598,35.509],[43.612,35.514],[43.634,35.514],[43.667,35.516],[43.7,35.532],[43.721,35.534],[43.732,35.537],[43.742,35.548],[43.752,35.578],[43.758,35.603],[43.764,35.615],[43.78,35.63],[43.793,35.64],[43.801,35.649],[43.802,35.66],[43.798,35.669],[43.791,35.678],[43.769,35.698],[43.763,35.703],[43.762,35.709],[43.769,35.718],[43.83,35.76],[43.902,35.824],[43.912,35.846],[43.927,35.848],[43.95,35.841],[44.055,35.78],[44.093,35.781],[44.114,35.784],[44.123,35.789],[44.132,35.804],[44.147,35.836],[44.17,35.843],[44.187,35.846],[44.241,35.837],[44.263,35.833],[44.282,35.826],[44.288,35.825],[44.296,35.825],[44.306,35.827],[44.32,35.833],[44.326,35.838],[44.331,35.844],[44.335,35.844],[44.347,35.839],[44.353,35.838],[44.369,35.835],[44.373,35.834],[44.376,35.833],[44.379,35.834],[44.385,35.842],[44.388,35.844],[44.407,35.851],[44.412,35.854],[44.417,35.857],[44.422,35.86],[44.429,35.861],[44.442,35.859],[44.451,35.859],[44.472,35.869],[44.494,35.864],[44.497,35.861],[44.5,35.86],[44.504,35.86],[44.513,35.864],[44.519,35.866],[44.526,35.863],[44.53,35.86],[44.537,35.852],[44.54,35.85],[44.544,35.851],[44.546,35.856],[44.545,35.859],[44.544,35.862],[44.543,35.865],[44.544,35.869],[44.548,35.871],[44.552,35.872],[44.562,35.866],[44.566,35.866],[44.571,35.87],[44.575,35.874],[44.581,35.88],[44.589,35.885],[44.593,35.89],[44.597,35.898],[44.6,35.901],[44.604,35.904],[44.615,35.908],[44.618,35.907],[44.621,35.904],[44.621,35.894],[44.627,35.886]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Tamin'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Tamin?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Tamin located? </h2>Tamin, is a province It belongs to the country of Iraq. Its postal identifier is TS.Tamin has an area of 10517 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

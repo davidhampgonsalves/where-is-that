@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Húnaþing vestra?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-20.472,65.496],[-20.467,65.489],[-20.432,65.451],[-20.424,65.437],[-20.423,65.424],[-20.432,65.418],[-20.442,65.413],[-20.453,65.409],[-20.459,65.406],[-20.463,65.402],[-20.466,65.397],[-20.465,65.389],[-20.46,65.377],[-20.439,65.337],[-20.433,65.328],[-20.423,65.319],[-20.391,65.298],[-20.34,65.252],[-20.105,64.941],[-20.344,64.944],[-20.391,64.954],[-20.406,64.955],[-20.727,64.914],[-20.743,64.915],[-20.781,64.931],[-20.792,64.933],[-20.875,64.935],[-20.889,64.937],[-20.975,64.962],[-20.984,64.972],[-21.001,64.988],[-21.007,64.999],[-21.023,65.037],[-21.048,65.065],[-21.063,65.079],[-21.071,65.091],[-21.075,65.101],[-21.076,65.11],[-21.073,65.128],[-21.074,65.146],[-21.084,65.159],[-21.084,65.168],[-21.073,65.172],[-21.065,65.186],[-21.08,65.21],[-21.083,65.226],[-21.086,65.234],[-21.094,65.244],[-21.112,65.259],[-21.12,65.268],[-21.105,65.279],[-21.099,65.282],[-21.103,65.291],[-21.096,65.297],[-21.086,65.303],[-21.079,65.309],[-21.073,65.324],[-21.074,65.338],[-21.095,65.414],[-21.099,65.446],[-21.086,65.46],[-21.055,65.452],[-21.034,65.435],[-21.003,65.392],[-20.974,65.368],[-20.97,65.361],[-20.963,65.353],[-20.929,65.349],[-20.915,65.344],[-20.907,65.351],[-20.933,65.374],[-20.957,65.405],[-20.975,65.438],[-20.983,65.467],[-20.987,65.491],[-20.987,65.507],[-20.983,65.522],[-20.979,65.527],[-20.966,65.537],[-20.962,65.542],[-20.952,65.571],[-20.948,65.577],[-20.918,65.601],[-20.805,65.638],[-20.744,65.673],[-20.725,65.677],[-20.706,65.679],[-20.692,65.683],[-20.688,65.693],[-20.675,65.694],[-20.666,65.691],[-20.647,65.679],[-20.642,65.679],[-20.63,65.68],[-20.626,65.679],[-20.623,65.671],[-20.626,65.668],[-20.631,65.667],[-20.634,65.665],[-20.641,65.625],[-20.642,65.605],[-20.634,65.59],[-20.646,65.573],[-20.646,65.556],[-20.636,65.545],[-20.613,65.549],[-20.623,65.567],[-20.622,65.584],[-20.609,65.591],[-20.585,65.583],[-20.577,65.577],[-20.576,65.573],[-20.576,65.567],[-20.572,65.555],[-20.576,65.548],[-20.579,65.541],[-20.578,65.535],[-20.575,65.536],[-20.556,65.531],[-20.551,65.529],[-20.544,65.52],[-20.54,65.514],[-20.535,65.508],[-20.524,65.501],[-20.513,65.497],[-20.501,65.495],[-20.488,65.494],[-20.475,65.495],[-20.472,65.496]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Húnaþing vestra'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Húnaþing vestra?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Húnaþing vestra located? </h2>Húnaþing vestra, is a municipality of the Norðurland vestra region. It belongs to the country of Iceland. Its postal identifier is VH.Húnaþing vestra has an area of 2423 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

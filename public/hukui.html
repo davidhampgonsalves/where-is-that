@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Hukui?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[136.721,36.075],[136.724,36.06],[136.722,36.051],[136.716,36.039],[136.707,36.014],[136.703,35.973],[136.699,35.956],[136.699,35.944],[136.701,35.932],[136.708,35.923],[136.717,35.915],[136.728,35.91],[136.754,35.904],[136.766,35.898],[136.779,35.887],[136.792,35.869],[136.802,35.85],[136.803,35.836],[136.796,35.824],[136.783,35.813],[136.769,35.791],[136.758,35.784],[136.727,35.783],[136.71,35.781],[136.687,35.774],[136.669,35.774],[136.634,35.779],[136.612,35.779],[136.508,35.762],[136.495,35.756],[136.489,35.748],[136.484,35.739],[136.476,35.74],[136.455,35.752],[136.443,35.754],[136.43,35.755],[136.415,35.754],[136.399,35.756],[136.365,35.766],[136.35,35.768],[136.337,35.766],[136.324,35.762],[136.313,35.755],[136.304,35.744],[136.29,35.695],[136.257,35.646],[136.167,35.675],[136.147,35.671],[136.128,35.664],[136.124,35.655],[136.124,35.649],[136.132,35.633],[136.133,35.627],[136.134,35.611],[136.143,35.593],[136.146,35.582],[136.145,35.571],[136.135,35.558],[136.122,35.556],[136.109,35.558],[136.096,35.558],[136.09,35.551],[136.089,35.543],[136.09,35.532],[136.089,35.523],[136.081,35.514],[136.071,35.515],[136.057,35.514],[136.044,35.512],[136.016,35.503],[135.992,35.485],[135.98,35.48],[135.967,35.482],[135.955,35.487],[135.945,35.497],[135.938,35.501],[135.931,35.503],[135.926,35.497],[135.921,35.489],[135.901,35.414],[135.894,35.401],[135.886,35.391],[135.876,35.382],[135.867,35.38],[135.855,35.382],[135.841,35.387],[135.818,35.385],[135.799,35.377],[135.743,35.338],[135.688,35.33],[135.539,35.364],[135.519,35.373],[135.51,35.382],[135.503,35.393],[135.485,35.406],[135.453,35.439],[135.447,35.452],[135.447,35.462],[135.453,35.475],[135.453,35.48],[135.45,35.49],[135.444,35.499],[135.439,35.509],[135.442,35.518],[135.452,35.527],[135.463,35.534],[135.476,35.54],[135.478,35.542],[135.478,35.541],[135.481,35.534],[135.479,35.527],[135.479,35.523],[135.489,35.521],[135.496,35.524],[135.503,35.532],[135.512,35.548],[135.513,35.53],[135.509,35.512],[135.511,35.498],[135.53,35.493],[135.558,35.492],[135.568,35.493],[135.577,35.496],[135.597,35.505],[135.605,35.507],[135.635,35.531],[135.655,35.542],[135.67,35.534],[135.666,35.524],[135.652,35.508],[135.635,35.494],[135.622,35.487],[135.622,35.479],[135.713,35.478],[135.725,35.479],[135.745,35.493],[135.753,35.512],[135.747,35.523],[135.725,35.513],[135.706,35.534],[135.699,35.548],[135.708,35.554],[135.734,35.557],[135.745,35.554],[135.752,35.541],[135.771,35.541],[135.792,35.528],[135.813,35.52],[135.835,35.534],[135.824,35.539],[135.817,35.546],[135.813,35.556],[135.813,35.569],[135.824,35.564],[135.838,35.563],[135.85,35.567],[135.855,35.579],[135.852,35.587],[135.845,35.592],[135.838,35.599],[135.835,35.613],[135.831,35.617],[135.824,35.626],[135.822,35.635],[135.835,35.637],[135.84,35.634],[135.853,35.618],[135.855,35.613],[135.858,35.609],[135.866,35.609],[135.875,35.61],[135.908,35.607],[135.975,35.617],[135.987,35.621],[135.987,35.629],[135.979,35.644],[135.975,35.661],[135.977,35.672],[135.985,35.685],[135.971,35.709],[135.993,35.733],[136.026,35.738],[136.047,35.705],[136.047,35.67],[136.055,35.652],[136.075,35.651],[136.084,35.659],[136.085,35.67],[136.081,35.689],[136.083,35.698],[136.093,35.718],[136.1,35.76],[136.1,35.776],[136.092,35.791],[136.014,35.875],[136.007,35.89],[136.005,35.915],[135.999,35.93],[135.97,35.957],[135.958,35.973],[135.972,35.989],[135.99,36.001],[136.006,36.016],[136.018,36.058],[136.031,36.081],[136.047,36.102],[136.112,36.164],[136.119,36.172],[136.125,36.176],[136.128,36.187],[136.131,36.223],[136.134,36.231],[136.14,36.235],[136.149,36.24],[136.221,36.253],[136.241,36.272],[136.243,36.27],[136.276,36.251],[136.28,36.248],[136.287,36.242],[136.29,36.236],[136.294,36.225],[136.301,36.196],[136.305,36.184],[136.312,36.174],[136.323,36.166],[136.336,36.162],[136.359,36.159],[136.378,36.155],[136.417,36.14],[136.436,36.14],[136.449,36.145],[136.463,36.147],[136.495,36.146],[136.533,36.14],[136.566,36.124],[136.587,36.108],[136.623,36.074],[136.637,36.066],[136.656,36.063],[136.721,36.075]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Hukui'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Hukui?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Hukui located? </h2>Hukui, is a prefecture of the Kinki region. It belongs to the country of Japan. Its postal identifier is FI.Hukui has an area of 4106 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

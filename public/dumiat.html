@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Dumiat?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[32.094,31.366],[32.087,31.361],[32.083,31.359],[32.077,31.361],[32.056,31.363],[32.052,31.367],[32.049,31.371],[32.044,31.375],[32.018,31.388],[32.007,31.395],[32.003,31.395],[31.995,31.395],[31.992,31.409],[31.986,31.421],[31.978,31.43],[31.968,31.437],[31.981,31.437],[31.994,31.438],[31.943,31.492],[31.933,31.508],[31.918,31.524],[31.907,31.53],[31.906,31.525],[31.89,31.532],[31.883,31.529],[31.879,31.519],[31.865,31.525],[31.865,31.522],[31.866,31.515],[31.865,31.512],[31.862,31.515],[31.855,31.517],[31.851,31.519],[31.852,31.511],[31.85,31.505],[31.845,31.498],[31.865,31.498],[31.86,31.487],[31.875,31.464],[31.872,31.45],[31.879,31.45],[31.879,31.444],[31.872,31.444],[31.874,31.439],[31.878,31.434],[31.879,31.429],[31.872,31.429],[31.869,31.441],[31.862,31.451],[31.852,31.456],[31.838,31.457],[31.842,31.465],[31.838,31.466],[31.831,31.459],[31.824,31.444],[31.831,31.443],[31.834,31.444],[31.838,31.45],[31.845,31.445],[31.851,31.443],[31.859,31.444],[31.859,31.437],[31.851,31.437],[31.851,31.429],[31.855,31.423],[31.861,31.419],[31.869,31.417],[31.879,31.416],[31.872,31.41],[31.862,31.408],[31.852,31.41],[31.845,31.416],[31.838,31.416],[31.839,31.411],[31.837,31.41],[31.834,31.41],[31.831,31.409],[31.835,31.406],[31.839,31.403],[31.845,31.395],[31.831,31.38],[31.828,31.368],[31.837,31.362],[31.859,31.362],[31.859,31.354],[31.845,31.356],[31.834,31.36],[31.825,31.361],[31.817,31.354],[31.811,31.354],[31.804,31.36],[31.797,31.36],[31.792,31.354],[31.79,31.344],[31.795,31.339],[31.802,31.335],[31.803,31.331],[31.79,31.327],[31.79,31.321],[31.796,31.311],[31.789,31.308],[31.778,31.305],[31.769,31.299],[31.767,31.285],[31.773,31.276],[31.784,31.274],[31.795,31.278],[31.78,31.246],[31.749,31.228],[31.704,31.219],[31.678,31.207],[31.622,31.166],[31.61,31.165],[31.603,31.169],[31.599,31.179],[31.597,31.191],[31.614,31.196],[31.632,31.217],[31.631,31.231],[31.625,31.239],[31.626,31.243],[31.643,31.244],[31.662,31.249],[31.676,31.259],[31.678,31.27],[31.659,31.278],[31.662,31.286],[31.664,31.29],[31.666,31.293],[31.673,31.293],[31.681,31.287],[31.69,31.287],[31.693,31.291],[31.687,31.299],[31.687,31.306],[31.691,31.311],[31.688,31.319],[31.686,31.326],[31.682,31.333],[31.676,31.333],[31.671,31.333],[31.651,31.326],[31.649,31.322],[31.649,31.319],[31.652,31.309],[31.653,31.305],[31.65,31.3],[31.644,31.295],[31.634,31.291],[31.627,31.293],[31.624,31.294],[31.617,31.307],[31.612,31.311],[31.606,31.311],[31.598,31.315],[31.586,31.324],[31.578,31.325],[31.571,31.323],[31.564,31.326],[31.561,31.331],[31.561,31.338],[31.562,31.345],[31.56,31.351],[31.554,31.354],[31.509,31.36],[31.5,31.365],[31.499,31.371],[31.502,31.374],[31.519,31.392],[31.553,31.414],[31.56,31.42],[31.565,31.427],[31.568,31.433],[31.571,31.442],[31.572,31.444],[31.598,31.445],[31.748,31.482],[31.838,31.525],[31.875,31.536],[31.913,31.535],[31.945,31.521],[31.959,31.494],[31.964,31.483],[31.996,31.446],[32.009,31.417],[32.025,31.4],[32.057,31.375],[32.068,31.371],[32.092,31.367],[32.094,31.366]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Dumiat'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Dumiat?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Dumiat located? </h2>Dumiat, is a governorate It belongs to the country of Egypt. Its postal identifier is DT.Dumiat has an area of 671 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

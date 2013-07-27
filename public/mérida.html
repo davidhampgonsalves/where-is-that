@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Mérida?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-70.535,8.955],[-70.556,8.926],[-70.561,8.91],[-70.568,8.87],[-70.573,8.862],[-70.577,8.857],[-70.595,8.851],[-70.616,8.847],[-70.633,8.84],[-70.649,8.829],[-70.658,8.825],[-70.666,8.824],[-70.672,8.825],[-70.678,8.826],[-70.687,8.824],[-70.692,8.82],[-70.696,8.816],[-70.7,8.807],[-70.706,8.79],[-70.714,8.775],[-70.719,8.77],[-70.723,8.767],[-70.728,8.765],[-70.733,8.764],[-70.738,8.765],[-70.742,8.768],[-70.744,8.772],[-70.746,8.777],[-70.749,8.781],[-70.752,8.784],[-70.769,8.781],[-70.804,8.751],[-70.827,8.736],[-70.838,8.725],[-70.847,8.712],[-70.852,8.702],[-70.894,8.644],[-70.91,8.624],[-70.915,8.624],[-70.92,8.626],[-70.926,8.63],[-70.93,8.629],[-70.934,8.627],[-70.957,8.607],[-70.962,8.601],[-70.97,8.592],[-70.974,8.585],[-70.976,8.579],[-70.976,8.573],[-70.976,8.567],[-70.973,8.556],[-70.969,8.547],[-70.969,8.538],[-70.972,8.527],[-70.98,8.507],[-70.986,8.498],[-70.992,8.491],[-71.017,8.475],[-71.027,8.465],[-71.032,8.459],[-71.035,8.452],[-71.036,8.436],[-71.038,8.424],[-71.042,8.418],[-71.046,8.414],[-71.071,8.391],[-71.075,8.384],[-71.078,8.376],[-71.077,8.35],[-71.075,8.339],[-71.072,8.328],[-71.065,8.308],[-71.063,8.303],[-71.059,8.3],[-71.055,8.297],[-71.044,8.294],[-71.04,8.291],[-71.037,8.287],[-71.031,8.279],[-71.028,8.269],[-71.023,8.247],[-71.021,8.242],[-71.013,8.227],[-71.012,8.22],[-71.012,8.207],[-71.015,8.197],[-71.023,8.186],[-71.029,8.178],[-71.048,8.147],[-71.06,8.11],[-71.09,8.068],[-71.168,7.999],[-71.207,7.976],[-71.217,7.966],[-71.241,7.934],[-71.254,7.923],[-71.264,7.916],[-71.29,7.902],[-71.43,7.802],[-71.462,7.77],[-71.463,7.745],[-71.455,7.714],[-71.457,7.702],[-71.462,7.694],[-71.469,7.69],[-71.484,7.684],[-71.491,7.713],[-71.496,7.725],[-71.501,7.73],[-71.504,7.733],[-71.507,7.735],[-71.525,7.746],[-71.528,7.749],[-71.531,7.753],[-71.533,7.758],[-71.532,7.766],[-71.515,7.798],[-71.508,7.818],[-71.506,7.83],[-71.507,7.885],[-71.512,7.912],[-71.52,7.925],[-71.522,7.93],[-71.52,7.944],[-71.5,7.97],[-71.498,7.985],[-71.498,7.989],[-71.508,8.005],[-71.589,8.057],[-71.615,8.059],[-71.622,8.059],[-71.636,8.061],[-71.643,8.06],[-71.654,8.056],[-71.66,8.056],[-71.67,8.061],[-71.681,8.061],[-71.687,8.06],[-71.692,8.056],[-71.695,8.053],[-71.699,8.05],[-71.704,8.048],[-71.711,8.049],[-71.721,8.054],[-71.745,8.075],[-71.753,8.085],[-71.796,8.152],[-71.8,8.156],[-71.821,8.17],[-71.831,8.175],[-71.851,8.178],[-71.892,8.172],[-71.897,8.175],[-71.898,8.179],[-71.899,8.183],[-71.899,8.187],[-71.896,8.204],[-71.89,8.225],[-71.886,8.232],[-71.861,8.263],[-71.848,8.286],[-71.843,8.293],[-71.828,8.3],[-71.822,8.306],[-71.819,8.31],[-71.811,8.339],[-71.83,8.395],[-71.778,8.459],[-71.772,8.469],[-71.771,8.481],[-71.775,8.499],[-71.775,8.501],[-71.777,8.504],[-71.795,8.526],[-71.797,8.53],[-71.799,8.536],[-71.801,8.565],[-71.803,8.571],[-71.805,8.576],[-71.809,8.581],[-71.817,8.587],[-71.823,8.59],[-71.945,8.611],[-71.938,8.621],[-71.925,8.627],[-71.911,8.63],[-71.901,8.634],[-71.892,8.638],[-71.881,8.647],[-71.87,8.658],[-71.866,8.661],[-71.863,8.665],[-71.857,8.668],[-71.849,8.671],[-71.833,8.673],[-71.824,8.673],[-71.817,8.671],[-71.813,8.669],[-71.809,8.666],[-71.805,8.663],[-71.803,8.658],[-71.801,8.653],[-71.8,8.648],[-71.801,8.642],[-71.803,8.637],[-71.808,8.628],[-71.809,8.624],[-71.808,8.62],[-71.802,8.619],[-71.793,8.621],[-71.777,8.628],[-71.767,8.63],[-71.759,8.63],[-71.753,8.629],[-71.748,8.627],[-71.743,8.624],[-71.735,8.618],[-71.731,8.616],[-71.726,8.617],[-71.721,8.622],[-71.707,8.672],[-71.705,8.677],[-71.693,8.696],[-71.674,8.719],[-71.611,8.772],[-71.345,8.966],[-71.316,8.996],[-71.296,9.014],[-71.28,9.021],[-71.264,9.032],[-71.242,9.046],[-71.226,9.048],[-71.218,9.041],[-71.208,9.031],[-71.201,9.019],[-71.2,9.007],[-71.195,8.996],[-71.187,8.993],[-71.173,8.999],[-71.157,9.011],[-71.149,9.033],[-71.146,9.061],[-71.146,9.074],[-71.142,9.089],[-71.142,9.113],[-71.147,9.128],[-71.162,9.141],[-71.182,9.159],[-71.192,9.166],[-71.207,9.18],[-71.218,9.187],[-71.206,9.232],[-71.187,9.247],[-71.162,9.279],[-71.152,9.289],[-71.143,9.291],[-71.117,9.295],[-71.11,9.298],[-71.103,9.303],[-71.096,9.307],[-71.086,9.308],[-71.073,9.314],[-71.062,9.327],[-71.059,9.338],[-71.048,9.344],[-71.033,9.353],[-71.015,9.355],[-71,9.354],[-70.984,9.353],[-70.974,9.351],[-70.964,9.343],[-70.944,9.324],[-70.928,9.313],[-70.918,9.303],[-70.912,9.284],[-70.898,9.227],[-70.893,9.207],[-70.89,9.191],[-70.884,9.175],[-70.863,9.139],[-70.854,9.129],[-70.82,9.106],[-70.811,9.102],[-70.805,9.1],[-70.8,9.099],[-70.789,9.091],[-70.777,9.067],[-70.767,9.062],[-70.763,9.061],[-70.747,9.063],[-70.731,9.054],[-70.725,9.044],[-70.722,9.027],[-70.714,9.008],[-70.708,8.998],[-70.702,8.992],[-70.695,8.985],[-70.687,8.984],[-70.677,8.986],[-70.644,9],[-70.61,9.029],[-70.606,9.032],[-70.596,9.036],[-70.586,9.039],[-70.58,9.04],[-70.575,9.038],[-70.571,9.035],[-70.566,9.017],[-70.556,9.013],[-70.55,9.012],[-70.545,9.01],[-70.542,9.005],[-70.54,8.999],[-70.542,8.986],[-70.543,8.97],[-70.535,8.955]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Mérida'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Mérida?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Mérida located? </h2>Mérida, is a state It belongs to the country of Venezuela. Its postal identifier is ME.Mérida has an area of 11596 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

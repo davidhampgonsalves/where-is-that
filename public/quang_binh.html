@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Quang Binh?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[106.247,17.91],[106.278,17.908],[106.301,17.913],[106.311,17.923],[106.321,17.94],[106.332,17.955],[106.35,17.967],[106.386,17.973],[106.467,17.966],[106.51,17.956],[106.519,17.957],[106.525,17.95],[106.525,17.943],[106.504,17.931],[106.485,17.916],[106.474,17.903],[106.466,17.89],[106.455,17.882],[106.436,17.882],[106.436,17.875],[106.447,17.872],[106.451,17.866],[106.45,17.857],[106.443,17.847],[106.452,17.828],[106.461,17.799],[106.47,17.748],[106.475,17.737],[106.496,17.718],[106.498,17.711],[106.49,17.703],[106.479,17.704],[106.449,17.716],[106.436,17.74],[106.426,17.745],[106.411,17.747],[106.375,17.765],[106.307,17.772],[106.292,17.778],[106.285,17.772],[106.3,17.762],[106.323,17.754],[106.347,17.747],[106.381,17.743],[106.429,17.731],[106.429,17.724],[106.423,17.724],[106.403,17.732],[106.383,17.719],[106.38,17.699],[106.409,17.683],[106.403,17.695],[106.4,17.699],[106.395,17.703],[106.418,17.713],[106.45,17.709],[106.483,17.696],[106.505,17.683],[106.515,17.67],[106.539,17.628],[106.566,17.598],[106.615,17.519],[106.626,17.487],[106.635,17.471],[106.639,17.469],[106.658,17.454],[106.659,17.45],[106.664,17.447],[106.676,17.43],[106.764,17.336],[106.947,17.205],[107.008,17.162],[107.001,17.158],[106.903,17.1],[106.883,17.08],[106.857,17.045],[106.843,17.016],[106.83,16.995],[106.817,16.979],[106.786,16.966],[106.749,16.961],[106.588,16.972],[106.558,16.959],[106.533,16.951],[106.533,16.973],[106.524,16.99],[106.524,16.989],[106.497,16.964],[106.497,16.964],[106.474,16.971],[106.457,16.974],[106.437,16.981],[106.42,16.989],[106.411,16.996],[106.411,16.996],[106.409,17.006],[106.387,17.047],[106.388,17.052],[106.394,17.062],[106.395,17.068],[106.385,17.086],[106.336,17.129],[106.306,17.177],[106.301,17.192],[106.302,17.202],[106.31,17.218],[106.31,17.227],[106.307,17.233],[106.293,17.247],[106.288,17.254],[106.286,17.266],[106.287,17.277],[106.285,17.285],[106.273,17.29],[106.26,17.29],[106.26,17.289],[106.255,17.283],[106.252,17.275],[106.248,17.266],[106.233,17.252],[106.222,17.245],[106.222,17.245],[106.207,17.247],[106.185,17.258],[106.019,17.395],[105.932,17.496],[105.932,17.496],[105.911,17.517],[105.846,17.598],[105.82,17.622],[105.787,17.642],[105.735,17.664],[105.723,17.674],[105.714,17.69],[105.701,17.728],[105.692,17.744],[105.67,17.773],[105.644,17.82],[105.605,17.854],[105.594,17.888],[105.606,17.964],[105.603,17.969],[105.633,17.974],[105.682,17.981],[105.711,18],[105.737,18.023],[105.756,18.03],[105.821,18.048],[105.86,18.064],[105.892,18.07],[105.927,18.071],[105.987,18.061],[106.01,18.051],[106.028,18.039],[106.043,18.024],[106.054,18.008],[106.059,17.995],[106.06,17.982],[106.058,17.972],[106.058,17.963],[106.063,17.956],[106.077,17.947],[106.139,17.929],[106.247,17.91]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Quang Binh'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Quang Binh?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Quang Binh located? </h2>Quang Binh, is a province of the B?c Trung B? region. It belongs to the country of Vietnam. Its postal identifier is QB.Quang Binh has an area of 8315 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

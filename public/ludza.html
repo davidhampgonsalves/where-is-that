@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ludza?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[27.852,56.855],[27.891,56.83],[27.913,56.821],[27.919,56.806],[27.9,56.784],[27.885,56.769],[27.876,56.76],[27.876,56.76],[27.865,56.743],[27.882,56.726],[27.981,56.687],[27.991,56.67],[27.992,56.625],[27.997,56.604],[28.011,56.588],[28.028,56.577],[28.108,56.556],[28.126,56.548],[28.132,56.536],[28.125,56.528],[28.125,56.528],[28.099,56.514],[28.099,56.514],[28.093,56.502],[28.096,56.492],[28.104,56.484],[28.156,56.447],[28.164,56.438],[28.168,56.428],[28.164,56.393],[28.167,56.37],[28.174,56.35],[28.215,56.282],[28.217,56.271],[28.215,56.256],[28.215,56.256],[28.209,56.249],[28.201,56.242],[28.201,56.242],[28.193,56.231],[28.184,56.208],[28.178,56.184],[28.169,56.162],[28.169,56.162],[28.149,56.143],[28.111,56.157],[28.068,56.148],[28.051,56.141],[28.051,56.141],[28.047,56.151],[28.044,56.158],[28.063,56.182],[28.078,56.197],[28.07,56.209],[28.065,56.203],[28.061,56.204],[28.056,56.207],[28.053,56.211],[28.048,56.214],[28.04,56.216],[28.031,56.214],[28.021,56.21],[28.001,56.203],[27.913,56.184],[27.898,56.183],[27.888,56.187],[27.853,56.182],[27.838,56.182],[27.822,56.186],[27.811,56.196],[27.778,56.196],[27.744,56.2],[27.722,56.207],[27.702,56.219],[27.687,56.225],[27.668,56.24],[27.684,56.247],[27.693,56.25],[27.7,56.255],[27.699,56.258],[27.694,56.261],[27.687,56.263],[27.687,56.276],[27.715,56.298],[27.711,56.311],[27.699,56.322],[27.69,56.332],[27.688,56.347],[27.69,56.355],[27.69,56.361],[27.67,56.372],[27.64,56.379],[27.622,56.392],[27.624,56.401],[27.62,56.407],[27.622,56.421],[27.608,56.42],[27.603,56.419],[27.596,56.419],[27.591,56.422],[27.592,56.424],[27.59,56.428],[27.582,56.434],[27.572,56.443],[27.56,56.457],[27.559,56.464],[27.55,56.479],[27.509,56.46],[27.496,56.478],[27.495,56.488],[27.487,56.499],[27.486,56.509],[27.487,56.515],[27.494,56.521],[27.507,56.528],[27.525,56.529],[27.538,56.532],[27.551,56.535],[27.567,56.542],[27.574,56.557],[27.561,56.576],[27.561,56.6],[27.58,56.619],[27.552,56.637],[27.542,56.645],[27.525,56.652],[27.512,56.655],[27.502,56.656],[27.488,56.653],[27.476,56.658],[27.472,56.663],[27.47,56.674],[27.48,56.681],[27.486,56.693],[27.464,56.699],[27.455,56.699],[27.418,56.692],[27.349,56.674],[27.332,56.677],[27.3,56.69],[27.259,56.716],[27.236,56.757],[27.243,56.789],[27.34,56.783],[27.348,56.784],[27.345,56.802],[27.348,56.807],[27.348,56.815],[27.355,56.822],[27.362,56.825],[27.369,56.824],[27.371,56.822],[27.377,56.821],[27.383,56.821],[27.395,56.828],[27.391,56.832],[27.396,56.836],[27.412,56.845],[27.428,56.851],[27.518,56.858],[27.53,56.863],[27.55,56.867],[27.562,56.871],[27.568,56.867],[27.572,56.864],[27.581,56.858],[27.601,56.852],[27.615,56.845],[27.637,56.837],[27.645,56.842],[27.645,56.842],[27.661,56.84],[27.744,56.865],[27.786,56.872],[27.83,56.865],[27.852,56.855]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Ludza'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Ludza?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Ludza located? </h2>Ludza, is a district of the Latgale region. It belongs to the country of Latvia. Its postal identifier is LU.Ludza has an area of 2476 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

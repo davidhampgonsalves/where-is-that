@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Villa Real?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-7.904,41.887],[-7.897,41.858],[-7.865,41.858],[-7.858,41.864],[-7.855,41.871],[-7.85,41.876],[-7.84,41.879],[-7.813,41.877],[-7.751,41.889],[-7.722,41.9],[-7.707,41.897],[-7.679,41.882],[-7.662,41.875],[-7.608,41.874],[-7.623,41.842],[-7.623,41.833],[-7.607,41.826],[-7.589,41.825],[-7.568,41.827],[-7.547,41.832],[-7.532,41.84],[-7.527,41.848],[-7.526,41.854],[-7.524,41.86],[-7.516,41.865],[-7.509,41.865],[-7.493,41.857],[-7.484,41.857],[-7.47,41.853],[-7.457,41.84],[-7.447,41.822],[-7.443,41.806],[-7.43,41.815],[-7.406,41.836],[-7.392,41.842],[-7.377,41.844],[-7.341,41.844],[-7.323,41.846],[-7.252,41.864],[-7.219,41.879],[-7.21,41.89],[-7.21,41.89],[-7.207,41.884],[-7.202,41.864],[-7.204,41.854],[-7.206,41.834],[-7.204,41.816],[-7.201,41.806],[-7.192,41.788],[-7.174,41.769],[-7.173,41.761],[-7.173,41.747],[-7.175,41.742],[-7.181,41.736],[-7.186,41.734],[-7.195,41.727],[-7.22,41.688],[-7.253,41.604],[-7.257,41.578],[-7.255,41.565],[-7.252,41.557],[-7.247,41.55],[-7.242,41.543],[-7.238,41.537],[-7.236,41.53],[-7.24,41.525],[-7.247,41.522],[-7.256,41.52],[-7.265,41.52],[-7.275,41.517],[-7.284,41.508],[-7.296,41.491],[-7.303,41.476],[-7.312,41.467],[-7.32,41.463],[-7.329,41.461],[-7.362,41.442],[-7.362,41.393],[-7.356,41.372],[-7.35,41.359],[-7.341,41.351],[-7.317,41.34],[-7.352,41.332],[-7.369,41.318],[-7.371,41.307],[-7.369,41.301],[-7.372,41.297],[-7.381,41.289],[-7.39,41.28],[-7.395,41.267],[-7.395,41.258],[-7.395,41.252],[-7.393,41.246],[-7.397,41.245],[-7.411,41.243],[-7.42,41.24],[-7.424,41.234],[-7.426,41.229],[-7.432,41.216],[-7.55,41.183],[-7.597,41.178],[-7.639,41.181],[-7.641,41.181],[-7.659,41.18],[-7.673,41.174],[-7.702,41.159],[-7.719,41.155],[-7.738,41.153],[-7.757,41.153],[-7.774,41.157],[-7.786,41.164],[-7.81,41.182],[-7.823,41.186],[-7.843,41.184],[-7.896,41.159],[-7.891,41.183],[-7.889,41.207],[-7.875,41.247],[-7.88,41.248],[-7.893,41.256],[-7.909,41.279],[-7.914,41.294],[-7.909,41.307],[-7.937,41.322],[-7.951,41.328],[-7.958,41.337],[-7.96,41.345],[-7.959,41.354],[-7.976,41.37],[-7.967,41.388],[-7.967,41.393],[-7.969,41.4],[-7.967,41.403],[-7.964,41.404],[-7.959,41.407],[-7.956,41.414],[-7.942,41.432],[-7.939,41.44],[-7.937,41.445],[-7.942,41.452],[-7.933,41.476],[-7.924,41.486],[-7.918,41.488],[-7.914,41.489],[-7.906,41.487],[-7.895,41.494],[-7.89,41.506],[-7.887,41.509],[-7.868,41.516],[-7.856,41.526],[-7.816,41.571],[-7.814,41.583],[-7.83,41.605],[-7.836,41.61],[-7.846,41.614],[-7.867,41.596],[-7.896,41.59],[-7.909,41.59],[-7.947,41.596],[-7.957,41.599],[-7.967,41.603],[-7.978,41.605],[-7.998,41.611],[-7.995,41.656],[-7.992,41.666],[-7.988,41.678],[-7.991,41.684],[-7.996,41.687],[-8.022,41.7],[-8.029,41.702],[-8.035,41.702],[-8.054,41.696],[-8.061,41.695],[-8.07,41.696],[-8.078,41.696],[-8.085,41.696],[-8.092,41.694],[-8.104,41.692],[-8.118,41.692],[-8.095,41.712],[-8.09,41.718],[-8.085,41.728],[-8.076,41.749],[-8.067,41.761],[-8.06,41.79],[-8.055,41.797],[-8.049,41.803],[-8.048,41.809],[-8.048,41.814],[-8.051,41.816],[-8.049,41.817],[-8.016,41.842],[-8.006,41.854],[-7.994,41.864],[-7.98,41.869],[-7.964,41.867],[-7.945,41.867],[-7.936,41.88],[-7.931,41.897],[-7.926,41.909],[-7.907,41.914],[-7.904,41.887]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Villa Real'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Villa Real?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Villa Real located? </h2>Villa Real, is a district It belongs to the country of Portugal. Its postal identifier is VR.Villa Real has an area of 4204 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

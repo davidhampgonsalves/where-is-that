@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Komi-Permyatskiy AOk?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[54.98,60.864],[55.163,60.843],[55.167,60.794],[55.103,60.752],[55.091,60.701],[55.106,60.658],[55.107,60.622],[55.11,60.568],[55.051,60.522],[55.032,60.487],[55.027,60.467],[55.027,60.444],[55.102,60.427],[55.169,60.42],[55.229,60.406],[55.25,60.381],[55.245,60.343],[55.222,60.311],[55.206,60.291],[55.222,60.27],[55.311,60.267],[55.343,60.27],[55.366,60.255],[55.389,60.241],[55.391,60.187],[55.4,60.14],[55.421,60.097],[55.518,60.106],[55.622,60.081],[55.559,59.979],[55.45,60.002],[55.375,59.974],[55.313,59.931],[55.325,59.894],[55.341,59.878],[55.381,59.847],[55.364,59.799],[55.391,59.781],[55.434,59.747],[55.393,59.727],[55.391,59.711],[55.39,59.693],[55.444,59.659],[55.456,59.627],[55.417,59.593],[55.422,59.549],[55.456,59.521],[55.519,59.504],[55.524,59.483],[55.501,59.451],[55.485,59.426],[55.511,59.385],[55.589,59.352],[55.623,59.323],[55.649,59.283],[55.689,59.257],[55.746,59.242],[55.829,59.265],[55.903,59.299],[55.955,59.318],[56.01,59.335],[56.072,59.336],[56.144,59.318],[56.176,59.303],[56.228,59.268],[56.243,59.228],[56.233,59.192],[56.225,59.162],[56.218,59.136],[56.21,59.106],[56.294,59.038],[56.29,59.004],[56.263,58.962],[56.227,58.928],[56.203,58.907],[56.15,58.937],[56.084,58.952],[55.996,58.987],[55.891,58.991],[55.78,58.971],[55.655,58.935],[55.554,58.914],[55.451,58.864],[55.351,58.87],[55.303,58.856],[55.264,58.822],[55.185,58.804],[55.102,58.817],[55.024,58.827],[54.913,58.847],[54.855,58.815],[54.897,58.776],[54.878,58.712],[54.91,58.674],[54.878,58.642],[54.806,58.637],[54.723,58.668],[54.631,58.634],[54.597,58.647],[54.552,58.663],[54.235,58.705],[54.075,58.732],[53.921,58.78],[53.922,58.783],[53.917,58.788],[53.898,58.8],[53.891,58.804],[53.882,58.807],[53.821,58.821],[53.814,58.825],[53.807,58.829],[53.8,58.835],[53.772,58.857],[53.754,58.874],[53.75,58.879],[53.742,58.893],[53.735,58.902],[53.726,58.917],[53.725,58.926],[53.726,58.939],[53.732,58.965],[53.736,58.978],[53.741,58.988],[53.75,58.999],[53.753,59.007],[53.756,59.012],[53.761,59.017],[53.767,59.022],[53.774,59.024],[53.783,59.026],[53.834,59.03],[53.84,59.033],[53.842,59.04],[53.839,59.053],[53.841,59.061],[53.845,59.068],[53.857,59.077],[53.87,59.084],[53.875,59.088],[53.877,59.093],[53.869,59.1],[53.857,59.111],[53.851,59.114],[53.845,59.116],[53.835,59.116],[53.826,59.114],[53.803,59.116],[53.754,59.141],[53.745,59.137],[53.716,59.127],[53.699,59.123],[53.693,59.122],[53.691,59.12],[53.719,59.097],[53.72,59.094],[53.716,59.094],[53.498,59.148],[53.49,59.148],[53.434,59.144],[53.423,59.145],[53.403,59.15],[53.374,59.162],[53.346,59.177],[53.335,59.185],[53.227,59.298],[53.217,59.319],[53.206,59.364],[53.215,59.379],[53.232,59.395],[53.303,59.443],[53.311,59.451],[53.354,59.501],[53.366,59.519],[53.392,59.578],[53.418,59.678],[53.423,59.684],[53.434,59.689],[53.535,59.697],[53.592,59.709],[53.623,59.754],[53.658,59.824],[53.661,59.837],[53.681,59.935],[53.698,59.981],[53.706,60],[53.707,60.001],[53.703,60.011],[53.608,60.143],[53.593,60.154],[53.537,60.17],[53.484,60.196],[53.457,60.205],[53.418,60.196],[53.38,60.171],[53.358,60.166],[52.454,60.201],[52.298,60.242],[52.339,60.352],[52.346,60.385],[52.336,60.399],[52.324,60.432],[52.287,60.449],[52.26,60.458],[52.163,60.468],[52.138,60.473],[52.132,60.481],[52.133,60.491],[52.147,60.528],[52.146,60.54],[52.134,60.547],[51.786,60.597],[51.777,60.601],[51.774,60.606],[51.845,60.777],[51.878,60.839],[51.881,60.845],[51.887,60.87],[51.89,60.876],[51.895,60.88],[51.901,60.882],[51.915,60.883],[52.309,60.844],[52.355,60.844],[52.363,60.856],[52.412,60.959],[52.416,60.966],[52.422,60.972],[52.431,60.978],[52.442,60.98],[52.79,60.949],[52.796,60.954],[52.8,60.96],[52.819,61.003],[52.866,61.078],[52.868,61.083],[52.876,61.094],[53.349,61.037],[53.372,61.029],[53.382,61.021],[53.381,61.015],[53.342,60.922],[53.339,60.91],[53.34,60.903],[53.344,60.897],[53.354,60.893],[53.791,60.848],[53.804,60.85],[53.811,60.855],[53.815,60.861],[53.849,60.951],[53.852,60.962],[53.853,60.98],[54.98,60.864]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Komi-Permyatskiy AOk'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Komi-Permyatskiy AOk?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Komi-Permyatskiy AOk located? </h2>Komi-Permyatskiy AOk, is a autonomous province It belongs to the country of Russia. Its postal identifier is KP.Komi-Permyatskiy AOk has an area of 33090 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

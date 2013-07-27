@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Republic of Equatorial Guinea?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[5.643,-1.463],[5.63,-1.476],[5.613,-1.464],[5.618,-1.462],[5.622,-1.459],[5.627,-1.456],[5.621,-1.445],[5.619,-1.433],[5.623,-1.423],[5.634,-1.416],[5.647,-1.439],[5.643,-1.463]]],[[[9.971,2.169],[9.991,2.166],[10.126,2.166],[10.425,2.166],[10.724,2.166],[11.023,2.166],[11.322,2.166],[11.33,2.127],[11.33,2.047],[11.332,1.785],[11.333,1.523],[11.335,1.261],[11.336,0.999],[11.037,1],[10.737,1.001],[10.438,1.002],[10.139,1.003],[10.029,1.004],[9.981,0.997],[9.975,0.983],[9.975,0.953],[9.972,0.94],[9.96,0.928],[9.944,0.925],[9.926,0.928],[9.909,0.935],[9.892,0.948],[9.866,0.978],[9.85,0.989],[9.834,0.995],[9.805,0.998],[9.807,1.003],[9.805,1.021],[9.797,1.046],[9.8,1.058],[9.807,1.064],[9.82,1.069],[9.835,1.071],[9.848,1.072],[9.842,1.078],[9.83,1.082],[9.816,1.084],[9.803,1.085],[9.793,1.089],[9.768,1.103],[9.756,1.106],[9.715,1.097],[9.704,1.1],[9.7,1.11],[9.704,1.12],[9.712,1.129],[9.718,1.133],[9.7,1.125],[9.677,1.105],[9.658,1.083],[9.65,1.069],[9.643,1.061],[9.61,1.053],[9.585,1.043],[9.576,1.055],[9.56,1.103],[9.552,1.115],[9.541,1.125],[9.525,1.133],[9.507,1.137],[9.494,1.134],[9.482,1.129],[9.451,1.123],[9.421,1.109],[9.406,1.106],[9.397,1.111],[9.373,1.138],[9.361,1.147],[9.363,1.157],[9.36,1.165],[9.347,1.182],[9.363,1.188],[9.375,1.2],[9.383,1.214],[9.399,1.266],[9.408,1.284],[9.419,1.291],[9.435,1.3],[9.449,1.319],[9.46,1.342],[9.465,1.36],[9.462,1.398],[9.466,1.414],[9.493,1.426],[9.533,1.462],[9.55,1.485],[9.553,1.486],[9.555,1.492],[9.56,1.497],[9.565,1.503],[9.567,1.514],[9.579,1.543],[9.595,1.572],[9.615,1.588],[9.628,1.584],[9.641,1.572],[9.66,1.565],[9.686,1.569],[9.705,1.578],[9.723,1.589],[9.745,1.6],[9.725,1.599],[9.684,1.571],[9.666,1.575],[9.623,1.617],[9.608,1.644],[9.618,1.671],[9.677,1.73],[9.679,1.733],[9.685,1.744],[9.69,1.75],[9.711,1.764],[9.719,1.772],[9.723,1.779],[9.731,1.799],[9.736,1.805],[9.74,1.809],[9.744,1.816],[9.747,1.84],[9.752,1.846],[9.757,1.851],[9.759,1.857],[9.764,1.866],[9.8,1.901],[9.81,1.935],[9.806,1.976],[9.779,2.058],[9.769,2.077],[9.766,2.085],[9.765,2.096],[9.767,2.107],[9.772,2.113],[9.776,2.118],[9.779,2.124],[9.787,2.248],[9.784,2.271],[9.776,2.288],[9.768,2.31],[9.78,2.328],[9.8,2.342],[9.811,2.325],[9.812,2.306],[9.809,2.285],[9.811,2.265],[9.824,2.249],[9.847,2.229],[9.872,2.211],[9.89,2.205],[9.907,2.2],[9.971,2.169]]],[[[8.769,3.752],[8.782,3.751],[8.792,3.758],[8.815,3.751],[8.847,3.746],[8.881,3.747],[8.909,3.758],[8.912,3.754],[8.915,3.752],[8.923,3.751],[8.95,3.718],[8.96,3.701],[8.964,3.679],[8.962,3.66],[8.958,3.643],[8.952,3.627],[8.944,3.614],[8.908,3.582],[8.897,3.554],[8.861,3.512],[8.841,3.458],[8.824,3.444],[8.819,3.421],[8.816,3.415],[8.814,3.412],[8.785,3.395],[8.782,3.379],[8.781,3.333],[8.775,3.316],[8.73,3.265],[8.696,3.208],[8.687,3.197],[8.677,3.204],[8.654,3.213],[8.649,3.22],[8.643,3.217],[8.628,3.222],[8.6,3.238],[8.593,3.235],[8.57,3.23],[8.56,3.23],[8.549,3.235],[8.528,3.249],[8.515,3.252],[8.494,3.252],[8.47,3.258],[8.451,3.273],[8.443,3.302],[8.438,3.313],[8.429,3.326],[8.423,3.339],[8.426,3.35],[8.43,3.359],[8.436,3.402],[8.443,3.421],[8.456,3.446],[8.474,3.463],[8.498,3.456],[8.511,3.464],[8.528,3.463],[8.563,3.456],[8.58,3.463],[8.586,3.479],[8.583,3.498],[8.574,3.512],[8.586,3.518],[8.602,3.53],[8.616,3.543],[8.622,3.556],[8.628,3.648],[8.641,3.683],[8.668,3.726],[8.703,3.761],[8.744,3.772],[8.742,3.768],[8.738,3.758],[8.769,3.752]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Republic of Equatorial Guinea'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Republic of Equatorial Guinea?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Republic of Equatorial Guinea located? </h2>Republic of Equatorial Guinea is a Sovereign country. Its abbreviated name is Eq. G. and its postal identifier is GQ.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

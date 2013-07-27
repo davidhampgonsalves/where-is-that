@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Masindi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[32.26,2.257],[32.277,2.249],[32.292,2.23],[32.31,2.196],[32.321,2.126],[32.328,2.11],[32.339,2.094],[32.347,2.073],[32.351,2.05],[32.352,2.031],[32.348,2.019],[32.334,1.993],[32.331,1.98],[32.334,1.967],[32.342,1.962],[32.352,1.96],[32.365,1.956],[32.352,1.941],[32.346,1.934],[32.344,1.925],[32.345,1.903],[32.343,1.895],[32.338,1.888],[32.342,1.868],[32.323,1.857],[32.297,1.85],[32.28,1.843],[32.276,1.833],[32.274,1.821],[32.271,1.81],[32.259,1.805],[32.249,1.802],[32.241,1.797],[32.233,1.794],[32.222,1.799],[32.209,1.788],[32.163,1.778],[32.153,1.767],[32.146,1.758],[32.115,1.729],[32.104,1.715],[32.112,1.697],[32.102,1.666],[32.104,1.648],[32.087,1.63],[32.069,1.588],[32.04,1.551],[32.018,1.537],[31.995,1.528],[31.96,1.476],[31.925,1.445],[31.884,1.421],[31.822,1.357],[31.802,1.354],[31.783,1.348],[31.761,1.324],[31.716,1.328],[31.671,1.341],[31.514,1.361],[31.487,1.372],[31.464,1.389],[31.446,1.408],[31.424,1.415],[31.422,1.444],[31.406,1.468],[31.398,1.466],[31.386,1.468],[31.381,1.476],[31.381,1.486],[31.392,1.535],[31.416,1.572],[31.429,1.598],[31.422,1.619],[31.4,1.615],[31.377,1.608],[31.363,1.645],[31.375,1.699],[31.391,1.695],[31.405,1.685],[31.423,1.684],[31.455,1.698],[31.473,1.701],[31.495,1.698],[31.515,1.699],[31.533,1.729],[31.552,1.728],[31.568,1.738],[31.574,1.753],[31.59,1.757],[31.601,1.743],[31.602,1.724],[31.611,1.686],[31.636,1.669],[31.689,1.712],[31.7,1.728],[31.702,1.746],[31.689,1.755],[31.673,1.755],[31.663,1.768],[31.672,1.784],[31.678,1.792],[31.681,1.801],[31.665,1.824],[31.664,1.838],[31.667,1.889],[31.676,1.924],[31.688,1.955],[31.692,1.987],[31.689,2.019],[31.714,2.041],[31.742,2.055],[31.764,2.072],[31.768,2.308],[31.788,2.334],[31.803,2.346],[31.822,2.352],[31.862,2.359],[31.879,2.367],[31.889,2.362],[31.899,2.361],[31.909,2.361],[31.92,2.36],[31.931,2.354],[31.955,2.337],[31.976,2.327],[32.016,2.291],[32.026,2.288],[32.057,2.285],[32.067,2.28],[32.092,2.267],[32.123,2.257],[32.157,2.232],[32.18,2.231],[32.191,2.236],[32.207,2.252],[32.214,2.257],[32.224,2.259],[32.259,2.257],[32.26,2.257]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Masindi'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Masindi?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Masindi located? </h2>Masindi, is a district of the Northern region. It belongs to the country of Uganda. Its postal identifier is MC.Masindi has an area of 6780 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

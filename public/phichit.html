@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Phichit?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[100.668,16.347],[100.686,16.301],[100.697,16.262],[100.698,16.257],[100.698,16.252],[100.697,16.243],[100.695,16.237],[100.693,16.233],[100.687,16.221],[100.644,16.169],[100.638,16.158],[100.634,16.148],[100.633,16.143],[100.633,16.138],[100.638,16.103],[100.638,16.097],[100.634,16.067],[100.63,16.057],[100.63,16.054],[100.632,16.051],[100.7,16.033],[100.707,16.03],[100.73,16.015],[100.74,16.011],[100.751,16.004],[100.767,15.99],[100.77,15.986],[100.77,15.972],[100.755,15.931],[100.747,15.929],[100.733,15.932],[100.729,15.932],[100.721,15.931],[100.717,15.931],[100.713,15.932],[100.702,15.936],[100.697,15.937],[100.692,15.937],[100.687,15.938],[100.671,15.945],[100.665,15.946],[100.629,15.947],[100.616,15.95],[100.607,15.952],[100.603,15.952],[100.592,15.95],[100.582,15.945],[100.578,15.944],[100.565,15.943],[100.562,15.942],[100.559,15.941],[100.556,15.94],[100.547,15.933],[100.543,15.933],[100.538,15.932],[100.53,15.934],[100.525,15.934],[100.521,15.933],[100.513,15.928],[100.509,15.926],[100.506,15.926],[100.498,15.927],[100.49,15.927],[100.482,15.926],[100.477,15.926],[100.46,15.928],[100.447,15.928],[100.443,15.927],[100.439,15.926],[100.424,15.923],[100.42,15.923],[100.415,15.923],[100.411,15.924],[100.384,15.935],[100.376,15.937],[100.372,15.937],[100.357,15.935],[100.353,15.935],[100.349,15.935],[100.346,15.936],[100.328,15.943],[100.316,15.945],[100.313,15.945],[100.31,15.944],[100.307,15.943],[100.301,15.94],[100.3,15.937],[100.298,15.913],[100.285,15.91],[100.28,15.909],[100.268,15.909],[100.262,15.912],[100.256,15.916],[100.244,15.926],[100.238,15.929],[100.234,15.929],[100.231,15.927],[100.228,15.926],[100.225,15.925],[100.22,15.925],[100.216,15.927],[100.209,15.931],[100.198,15.942],[100.195,15.944],[100.192,15.946],[100.171,15.954],[100.168,15.957],[100.165,15.962],[100.162,15.972],[100.149,15.991],[100.139,16.014],[100.124,16.058],[100.12,16.072],[100.118,16.076],[100.115,16.081],[100.101,16.099],[100.092,16.115],[100.09,16.12],[100.092,16.127],[100.093,16.131],[100.094,16.136],[100.091,16.141],[100.083,16.15],[100.078,16.155],[100.074,16.158],[100.05,16.171],[100.045,16.176],[100.041,16.185],[100.031,16.23],[100.029,16.25],[100.031,16.252],[100.032,16.255],[100.033,16.258],[100.024,16.303],[100.022,16.309],[100.01,16.326],[99.995,16.338],[99.991,16.347],[99.986,16.352],[99.983,16.354],[99.981,16.356],[99.979,16.359],[99.978,16.362],[99.978,16.368],[99.981,16.374],[99.993,16.394],[100.032,16.496],[100.049,16.498],[100.053,16.499],[100.059,16.5],[100.09,16.511],[100.094,16.511],[100.107,16.512],[100.111,16.513],[100.115,16.513],[100.117,16.515],[100.119,16.516],[100.16,16.56],[100.172,16.567],[100.195,16.581],[100.234,16.594],[100.237,16.594],[100.241,16.592],[100.255,16.584],[100.256,16.572],[100.262,16.551],[100.262,16.538],[100.272,16.543],[100.275,16.545],[100.279,16.539],[100.282,16.533],[100.283,16.515],[100.287,16.51],[100.296,16.511],[100.306,16.516],[100.314,16.526],[100.323,16.525],[100.333,16.521],[100.337,16.518],[100.36,16.524],[100.42,16.538],[100.424,16.538],[100.433,16.537],[100.456,16.53],[100.462,16.529],[100.466,16.529],[100.483,16.532],[100.502,16.537],[100.518,16.539],[100.527,16.538],[100.533,16.538],[100.54,16.534],[100.549,16.527],[100.557,16.511],[100.562,16.5],[100.562,16.499],[100.563,16.495],[100.565,16.489],[100.576,16.467],[100.581,16.454],[100.582,16.428],[100.598,16.41],[100.668,16.347]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Phichit'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Phichit?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Phichit located? </h2>Phichit, is a province It belongs to the country of Thailand. Its postal identifier is PC.Phichit has an area of 4245 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

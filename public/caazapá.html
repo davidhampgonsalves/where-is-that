@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Caazapá?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-55.291,-26.083],[-55.304,-26.081],[-55.308,-26.079],[-55.312,-26.078],[-55.316,-26.079],[-55.318,-26.082],[-55.319,-26.09],[-55.319,-26.096],[-55.32,-26.102],[-55.323,-26.109],[-55.324,-26.117],[-55.323,-26.165],[-55.326,-26.174],[-55.332,-26.183],[-55.34,-26.191],[-55.382,-26.228],[-55.466,-26.287],[-55.484,-26.297],[-55.552,-26.32],[-55.572,-26.323],[-55.586,-26.324],[-55.6,-26.321],[-55.618,-26.321],[-55.639,-26.323],[-55.681,-26.334],[-55.74,-26.357],[-55.75,-26.368],[-55.759,-26.388],[-55.766,-26.396],[-55.785,-26.41],[-55.831,-26.455],[-55.847,-26.465],[-55.865,-26.472],[-55.934,-26.483],[-55.984,-26.498],[-55.999,-26.508],[-56.021,-26.538],[-56.026,-26.548],[-56.035,-26.573],[-56.045,-26.586],[-56.056,-26.598],[-56.071,-26.609],[-56.079,-26.617],[-56.086,-26.627],[-56.095,-26.658],[-56.102,-26.665],[-56.118,-26.671],[-56.149,-26.676],[-56.21,-26.693],[-56.296,-26.735],[-56.412,-26.776],[-56.429,-26.776],[-56.444,-26.773],[-56.459,-26.764],[-56.49,-26.741],[-56.497,-26.737],[-56.572,-26.722],[-56.574,-26.714],[-56.574,-26.712],[-56.573,-26.707],[-56.568,-26.696],[-56.566,-26.687],[-56.568,-26.679],[-56.577,-26.67],[-56.594,-26.666],[-56.625,-26.665],[-56.64,-26.663],[-56.654,-26.656],[-56.697,-26.631],[-56.713,-26.617],[-56.732,-26.59],[-56.74,-26.576],[-56.749,-26.564],[-56.754,-26.557],[-56.783,-26.541],[-56.773,-26.518],[-56.759,-26.508],[-56.747,-26.501],[-56.728,-26.486],[-56.72,-26.474],[-56.715,-26.461],[-56.714,-26.45],[-56.71,-26.438],[-56.704,-26.43],[-56.691,-26.418],[-56.686,-26.407],[-56.685,-26.398],[-56.688,-26.389],[-56.688,-26.379],[-56.686,-26.373],[-56.683,-26.368],[-56.662,-26.354],[-56.657,-26.347],[-56.655,-26.338],[-56.651,-26.302],[-56.641,-26.264],[-56.633,-26.253],[-56.599,-26.217],[-56.594,-26.208],[-56.587,-26.176],[-56.554,-26.176],[-56.529,-26.179],[-56.515,-26.174],[-56.507,-26.165],[-56.5,-26.121],[-56.493,-26.104],[-56.483,-26.088],[-56.472,-26.08],[-56.458,-26.076],[-56.409,-26.074],[-56.392,-26.069],[-56.384,-26.061],[-56.38,-26.05],[-56.379,-26.038],[-56.375,-26.026],[-56.367,-26.014],[-56.359,-26.01],[-56.352,-26.01],[-56.346,-26.014],[-56.339,-26.016],[-56.329,-26.015],[-56.28,-25.996],[-56.266,-25.992],[-56.254,-25.992],[-56.246,-25.996],[-56.241,-25.998],[-56.213,-26.019],[-56.174,-26.042],[-56.155,-26.044],[-56.099,-26.019],[-56.074,-26.003],[-56.072,-26.001],[-56.071,-25.999],[-56.068,-25.991],[-56.047,-25.914],[-56.042,-25.904],[-56.033,-25.894],[-56.021,-25.889],[-55.988,-25.88],[-55.975,-25.873],[-55.957,-25.858],[-55.945,-25.854],[-55.909,-25.847],[-55.898,-25.842],[-55.873,-25.825],[-55.86,-25.817],[-55.77,-25.784],[-55.757,-25.777],[-55.752,-25.772],[-55.741,-25.752],[-55.734,-25.743],[-55.719,-25.732],[-55.709,-25.729],[-55.7,-25.73],[-55.691,-25.732],[-55.682,-25.733],[-55.669,-25.73],[-55.66,-25.722],[-55.654,-25.712],[-55.641,-25.679],[-55.633,-25.666],[-55.631,-25.661],[-55.625,-25.65],[-55.599,-25.658],[-55.55,-25.64],[-55.539,-25.634],[-55.529,-25.627],[-55.524,-25.62],[-55.514,-25.61],[-55.51,-25.603],[-55.507,-25.596],[-55.508,-25.591],[-55.506,-25.579],[-55.489,-25.556],[-55.453,-25.546],[-55.444,-25.547],[-55.43,-25.55],[-55.425,-25.555],[-55.423,-25.561],[-55.423,-25.569],[-55.421,-25.577],[-55.417,-25.587],[-55.404,-25.602],[-55.4,-25.609],[-55.398,-25.616],[-55.4,-25.623],[-55.406,-25.631],[-55.431,-25.652],[-55.439,-25.662],[-55.445,-25.676],[-55.446,-25.698],[-55.45,-25.712],[-55.465,-25.756],[-55.47,-25.766],[-55.476,-25.773],[-55.497,-25.789],[-55.5,-25.793],[-55.52,-25.832],[-55.526,-25.85],[-55.526,-25.861],[-55.521,-25.869],[-55.516,-25.875],[-55.513,-25.885],[-55.517,-25.896],[-55.516,-25.906],[-55.51,-25.926],[-55.51,-25.935],[-55.513,-25.963],[-55.51,-25.974],[-55.504,-25.981],[-55.499,-25.985],[-55.458,-26],[-55.444,-26.006],[-55.436,-26.009],[-55.429,-26.01],[-55.416,-26.004],[-55.407,-26.003],[-55.383,-26.004],[-55.355,-26.002],[-55.337,-25.999],[-55.305,-25.991],[-55.299,-25.992],[-55.293,-25.996],[-55.289,-26],[-55.286,-26.004],[-55.28,-26.009],[-55.274,-26.014],[-55.266,-26.016],[-55.247,-26.018],[-55.239,-26.02],[-55.233,-26.023],[-55.227,-26.031],[-55.226,-26.039],[-55.231,-26.048],[-55.239,-26.055],[-55.291,-26.083]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Caazapá'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Caazapá?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Caazapá located? </h2>Caazapá, is a department It belongs to the country of Paraguay. Its postal identifier is CZ.Caazapá has an area of 9056 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

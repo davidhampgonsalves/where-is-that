@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Al Janub?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[35.603,33.594],[35.603,33.573],[35.602,33.565],[35.6,33.559],[35.6,33.556],[35.601,33.553],[35.606,33.549],[35.609,33.547],[35.614,33.546],[35.618,33.544],[35.619,33.541],[35.62,33.538],[35.614,33.51],[35.616,33.486],[35.62,33.473],[35.622,33.469],[35.627,33.46],[35.631,33.455],[35.635,33.433],[35.626,33.42],[35.622,33.417],[35.617,33.415],[35.599,33.401],[35.595,33.391],[35.594,33.389],[35.591,33.386],[35.588,33.385],[35.582,33.384],[35.579,33.384],[35.577,33.385],[35.575,33.386],[35.573,33.386],[35.571,33.386],[35.569,33.385],[35.565,33.384],[35.563,33.383],[35.559,33.382],[35.554,33.375],[35.543,33.349],[35.527,33.378],[35.524,33.386],[35.526,33.399],[35.523,33.464],[35.523,33.467],[35.528,33.491],[35.529,33.5],[35.529,33.5],[35.529,33.5],[35.528,33.5],[35.528,33.501],[35.526,33.501],[35.524,33.501],[35.521,33.5],[35.521,33.5],[35.519,33.498],[35.517,33.496],[35.514,33.494],[35.512,33.493],[35.509,33.493],[35.503,33.493],[35.5,33.492],[35.497,33.491],[35.486,33.486],[35.48,33.484],[35.477,33.484],[35.471,33.484],[35.463,33.485],[35.42,33.477],[35.41,33.472],[35.412,33.471],[35.414,33.47],[35.417,33.468],[35.418,33.465],[35.417,33.46],[35.415,33.458],[35.412,33.457],[35.406,33.456],[35.394,33.455],[35.391,33.453],[35.389,33.45],[35.387,33.446],[35.378,33.435],[35.377,33.432],[35.378,33.431],[35.38,33.43],[35.385,33.431],[35.387,33.431],[35.389,33.429],[35.389,33.427],[35.388,33.425],[35.388,33.423],[35.37,33.395],[35.368,33.39],[35.369,33.382],[35.368,33.379],[35.365,33.379],[35.363,33.38],[35.361,33.383],[35.36,33.384],[35.358,33.386],[35.354,33.389],[35.351,33.391],[35.35,33.393],[35.348,33.397],[35.347,33.4],[35.343,33.401],[35.338,33.402],[35.328,33.399],[35.323,33.397],[35.32,33.394],[35.32,33.392],[35.32,33.388],[35.32,33.387],[35.319,33.384],[35.318,33.38],[35.315,33.374],[35.312,33.371],[35.308,33.37],[35.299,33.369],[35.297,33.368],[35.298,33.367],[35.3,33.366],[35.302,33.364],[35.305,33.363],[35.308,33.363],[35.319,33.363],[35.322,33.363],[35.324,33.363],[35.335,33.357],[35.338,33.356],[35.34,33.354],[35.343,33.347],[35.338,33.332],[35.354,33.318],[35.373,33.312],[35.4,33.308],[35.406,33.308],[35.41,33.309],[35.415,33.311],[35.43,33.314],[35.421,33.303],[35.42,33.297],[35.421,33.293],[35.421,33.277],[35.419,33.272],[35.416,33.267],[35.411,33.263],[35.383,33.233],[35.378,33.228],[35.373,33.225],[35.366,33.223],[35.362,33.222],[35.357,33.219],[35.355,33.217],[35.355,33.214],[35.356,33.213],[35.359,33.212],[35.362,33.211],[35.364,33.209],[35.366,33.208],[35.368,33.204],[35.366,33.203],[35.357,33.197],[35.354,33.196],[35.351,33.196],[35.341,33.196],[35.337,33.195],[35.336,33.192],[35.336,33.182],[35.334,33.178],[35.331,33.175],[35.327,33.171],[35.325,33.17],[35.323,33.17],[35.32,33.17],[35.313,33.171],[35.307,33.17],[35.305,33.167],[35.292,33.14],[35.292,33.137],[35.292,33.133],[35.29,33.128],[35.29,33.126],[35.291,33.12],[35.291,33.118],[35.29,33.106],[35.289,33.099],[35.289,33.099],[35.283,33.101],[35.271,33.101],[35.234,33.091],[35.227,33.092],[35.213,33.095],[35.207,33.095],[35.2,33.093],[35.189,33.086],[35.185,33.084],[35.105,33.089],[35.105,33.091],[35.107,33.095],[35.102,33.094],[35.101,33.096],[35.1,33.098],[35.1,33.101],[35.106,33.112],[35.115,33.124],[35.125,33.132],[35.148,33.14],[35.155,33.15],[35.161,33.162],[35.168,33.17],[35.162,33.177],[35.168,33.178],[35.171,33.177],[35.175,33.17],[35.205,33.225],[35.209,33.255],[35.188,33.28],[35.21,33.293],[35.225,33.312],[35.244,33.356],[35.246,33.369],[35.247,33.396],[35.25,33.41],[35.269,33.433],[35.275,33.445],[35.271,33.458],[35.323,33.491],[35.349,33.514],[35.36,33.543],[35.362,33.556],[35.377,33.589],[35.382,33.588],[35.412,33.587],[35.437,33.576],[35.462,33.572],[35.473,33.572],[35.477,33.572],[35.478,33.573],[35.479,33.575],[35.481,33.576],[35.484,33.576],[35.493,33.575],[35.501,33.577],[35.512,33.58],[35.514,33.581],[35.518,33.582],[35.52,33.583],[35.526,33.582],[35.532,33.584],[35.537,33.584],[35.539,33.585],[35.544,33.588],[35.545,33.589],[35.547,33.592],[35.548,33.593],[35.553,33.594],[35.555,33.595],[35.556,33.596],[35.557,33.597],[35.558,33.599],[35.56,33.599],[35.562,33.6],[35.567,33.6],[35.576,33.601],[35.578,33.602],[35.581,33.602],[35.583,33.603],[35.586,33.605],[35.589,33.606],[35.592,33.607],[35.596,33.606],[35.6,33.601],[35.603,33.594]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Al Janub'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Al Janub?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Al Janub located? </h2>Al Janub, is a province It belongs to the country of Lebanon. Its postal identifier is JA.Al Janub has an area of 968 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

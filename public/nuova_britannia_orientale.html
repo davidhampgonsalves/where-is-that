@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Nuova Britannia Orientale?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[152.234,-4.19],[152.246,-4.235],[152.244,-4.243],[152.229,-4.246],[152.224,-4.246],[152.206,-4.242],[152.199,-4.239],[152.196,-4.231],[152.194,-4.219],[152.189,-4.21],[152.178,-4.211],[152.172,-4.22],[152.173,-4.235],[152.178,-4.259],[152.178,-4.297],[152.186,-4.309],[152.206,-4.314],[152.211,-4.312],[152.218,-4.308],[152.227,-4.304],[152.24,-4.307],[152.248,-4.314],[152.255,-4.323],[152.264,-4.331],[152.277,-4.335],[152.339,-4.342],[152.357,-4.342],[152.399,-4.329],[152.413,-4.329],[152.418,-4.345],[152.415,-4.36],[152.366,-4.472],[152.361,-4.506],[152.37,-4.54],[152.399,-4.602],[152.41,-4.641],[152.412,-4.684],[152.394,-4.748],[152.387,-4.791],[152.323,-4.891],[152.312,-4.897],[152.308,-4.902],[152.292,-4.935],[152.285,-4.941],[152.267,-4.952],[152.247,-4.975],[152.233,-4.983],[152.189,-4.989],[152.158,-4.999],[152.137,-4.999],[152.086,-4.988],[152.072,-4.986],[152.051,-4.98],[152.039,-4.979],[152.028,-4.988],[152.014,-4.983],[151.993,-4.972],[151.975,-4.984],[151.969,-5.005],[151.972,-5.123],[151.978,-5.149],[151.988,-5.164],[152.039,-5.205],[152.045,-5.212],[152.048,-5.222],[152.052,-5.229],[152.063,-5.234],[152.082,-5.239],[152.123,-5.291],[152.128,-5.308],[152.148,-5.346],[152.151,-5.37],[152.12,-5.424],[152.115,-5.427],[152.109,-5.433],[152.105,-5.441],[152.103,-5.448],[152.099,-5.456],[152.09,-5.458],[152.079,-5.457],[152.068,-5.459],[152.021,-5.484],[152.013,-5.49],[151.972,-5.534],[151.964,-5.537],[151.932,-5.541],[151.9,-5.553],[151.887,-5.555],[151.871,-5.562],[151.854,-5.578],[151.835,-5.593],[151.808,-5.596],[151.786,-5.585],[151.757,-5.549],[151.74,-5.534],[151.721,-5.529],[151.696,-5.527],[151.671,-5.53],[151.654,-5.537],[151.63,-5.57],[151.62,-5.575],[151.607,-5.572],[151.604,-5.564],[151.604,-5.554],[151.599,-5.544],[151.581,-5.535],[151.514,-5.534],[151.479,-5.53],[151.464,-5.534],[151.452,-5.548],[151.446,-5.569],[151.451,-5.586],[151.461,-5.6],[151.465,-5.613],[151.47,-5.617],[151.494,-5.617],[151.503,-5.62],[151.531,-5.647],[151.533,-5.665],[151.516,-5.682],[151.489,-5.691],[151.465,-5.685],[151.45,-5.694],[151.432,-5.707],[151.417,-5.723],[151.41,-5.736],[151.408,-5.756],[151.404,-5.775],[151.396,-5.792],[151.387,-5.804],[151.356,-5.834],[151.343,-5.842],[151.311,-5.855],[151.296,-5.858],[151.287,-5.856],[151.273,-5.874],[151.236,-5.901],[151.219,-5.918],[151.214,-5.928],[151.212,-5.936],[151.209,-5.943],[151.183,-5.964],[151.176,-5.964],[151.172,-5.952],[151.116,-5.972],[151.087,-5.986],[151.075,-6.003],[151.061,-6.029],[151.03,-6.032],[150.973,-6.021],[150.901,-6.037],[150.889,-6.044],[150.881,-6.054],[150.861,-6.044],[150.828,-6.014],[150.822,-6.014],[150.817,-6.025],[150.811,-6.037],[150.807,-6.048],[150.817,-6.071],[150.812,-6.084],[150.805,-6.096],[150.796,-6.12],[150.785,-6.127],[150.771,-6.13],[150.77,-6.1],[150.766,-6.093],[150.757,-6.08],[150.67,-5.994],[150.619,-5.933],[150.606,-5.91],[150.599,-5.891],[150.597,-5.843],[150.598,-5.816],[150.601,-5.807],[150.604,-5.804],[150.656,-5.777],[150.688,-5.765],[150.704,-5.76],[150.812,-5.755],[150.831,-5.75],[150.847,-5.741],[150.868,-5.723],[150.876,-5.72],[150.886,-5.72],[150.899,-5.721],[150.973,-5.703],[150.982,-5.696],[150.985,-5.689],[150.983,-5.679],[150.98,-5.668],[150.977,-5.655],[150.976,-5.639],[150.98,-5.619],[150.984,-5.61],[150.991,-5.603],[150.997,-5.602],[151.002,-5.602],[151.008,-5.604],[151.042,-5.62],[151.056,-5.625],[151.069,-5.626],[151.08,-5.622],[151.092,-5.612],[151.145,-5.559],[151.16,-5.548],[151.211,-5.517],[151.231,-5.497],[151.241,-5.48],[151.247,-5.465],[151.246,-5.454],[151.242,-5.446],[151.237,-5.442],[151.229,-5.44],[151.219,-5.439],[151.195,-5.442],[151.183,-5.441],[151.174,-5.439],[151.167,-5.434],[151.167,-5.423],[151.248,-5.237],[151.346,-5.08],[151.357,-5.068],[151.451,-5.021],[151.459,-5.018],[151.674,-5.009],[151.685,-4.999],[151.69,-4.993],[151.649,-4.949],[151.649,-4.948],[151.661,-4.933],[151.679,-4.9],[151.686,-4.882],[151.69,-4.862],[151.692,-4.839],[151.693,-4.836],[151.695,-4.834],[151.697,-4.83],[151.698,-4.825],[151.696,-4.819],[151.691,-4.816],[151.687,-4.814],[151.685,-4.811],[151.682,-4.8],[151.668,-4.778],[151.664,-4.766],[151.662,-4.727],[151.667,-4.646],[151.658,-4.608],[151.637,-4.58],[151.627,-4.561],[151.623,-4.537],[151.623,-4.494],[151.619,-4.474],[151.609,-4.452],[151.596,-4.436],[151.566,-4.411],[151.554,-4.396],[151.551,-4.387],[151.549,-4.379],[151.548,-4.358],[151.544,-4.347],[151.527,-4.331],[151.52,-4.321],[151.519,-4.311],[151.522,-4.302],[151.525,-4.295],[151.527,-4.29],[151.525,-4.28],[151.514,-4.252],[151.507,-4.229],[151.51,-4.213],[151.521,-4.198],[151.54,-4.177],[151.556,-4.182],[151.611,-4.193],[151.65,-4.191],[151.664,-4.194],[151.682,-4.202],[151.692,-4.205],[151.705,-4.203],[151.717,-4.199],[151.726,-4.201],[151.726,-4.218],[151.743,-4.208],[151.763,-4.206],[151.805,-4.211],[151.817,-4.214],[151.853,-4.231],[151.863,-4.239],[151.869,-4.258],[151.874,-4.283],[151.882,-4.305],[151.901,-4.314],[151.923,-4.318],[151.965,-4.331],[151.986,-4.328],[151.999,-4.319],[152.031,-4.277],[152.036,-4.257],[152.024,-4.24],[152.007,-4.225],[152,-4.211],[152.009,-4.192],[152.026,-4.194],[152.046,-4.204],[152.065,-4.211],[152.073,-4.21],[152.083,-4.208],[152.092,-4.205],[152.096,-4.201],[152.101,-4.198],[152.127,-4.204],[152.137,-4.205],[152.15,-4.19],[152.154,-4.168],[152.162,-4.148],[152.185,-4.142],[152.201,-4.16],[152.219,-4.174],[152.234,-4.19]]],[[[152.493,-4.211],[152.487,-4.211],[152.48,-4.208],[152.458,-4.203],[152.453,-4.201],[152.452,-4.188],[152.45,-4.177],[152.443,-4.169],[152.432,-4.163],[152.457,-4.146],[152.465,-4.136],[152.473,-4.122],[152.484,-4.132],[152.487,-4.136],[152.503,-4.153],[152.507,-4.172],[152.502,-4.191],[152.493,-4.211]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Nuova Britannia Orientale'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Nuova Britannia Orientale?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Nuova Britannia Orientale located? </h2>Nuova Britannia Orientale, is a province It belongs to the country of Papua New Guinea. Its postal identifier is EN.Nuova Britannia Orientale has an area of 15436 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Cook Is.?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[-157.914,-21.938],[-157.927,-21.939],[-157.941,-21.937],[-157.952,-21.932],[-157.96,-21.924],[-157.968,-21.912],[-157.963,-21.901],[-157.954,-21.889],[-157.943,-21.88],[-157.934,-21.878],[-157.92,-21.882],[-157.909,-21.892],[-157.889,-21.916],[-157.886,-21.926],[-157.898,-21.934],[-157.914,-21.938]]],[[[-159.735,-21.237],[-159.737,-21.246],[-159.742,-21.254],[-159.77,-21.25],[-159.773,-21.251],[-159.792,-21.242],[-159.832,-21.245],[-159.845,-21.234],[-159.838,-21.227],[-159.832,-21.208],[-159.83,-21.196],[-159.823,-21.189],[-159.797,-21.186],[-159.777,-21.187],[-159.757,-21.192],[-159.742,-21.202],[-159.735,-21.217],[-159.735,-21.237]]],[[[-157.317,-20.172],[-157.328,-20.179],[-157.339,-20.176],[-157.348,-20.161],[-157.348,-20.144],[-157.338,-20.137],[-157.323,-20.142],[-157.312,-20.155],[-157.317,-20.172]]],[[[-158.081,-20.013],[-158.096,-20.02],[-158.114,-20.016],[-158.129,-20.001],[-158.134,-19.977],[-158.119,-19.973],[-158.096,-19.982],[-158.077,-19.994],[-158.081,-20.013]]],[[[-158.272,-19.826],[-158.267,-19.833],[-158.28,-19.822],[-158.275,-19.824],[-158.272,-19.826]]],[[[-158.293,-19.817],[-158.296,-19.817],[-158.295,-19.815],[-158.287,-19.811],[-158.293,-19.817]]],[[[-157.707,-19.841],[-157.721,-19.856],[-157.721,-19.842],[-157.726,-19.833],[-157.733,-19.826],[-157.739,-19.818],[-157.741,-19.805],[-157.737,-19.797],[-157.715,-19.773],[-157.707,-19.767],[-157.709,-19.789],[-157.706,-19.816],[-157.707,-19.841]]],[[[-158.937,-19.257],[-158.931,-19.264],[-158.917,-19.261],[-158.918,-19.264],[-158.919,-19.266],[-158.924,-19.269],[-158.936,-19.264],[-158.949,-19.255],[-158.955,-19.245],[-158.945,-19.242],[-158.94,-19.247],[-158.937,-19.257]]],[[[-159.782,-18.888],[-159.785,-18.89],[-159.793,-18.888],[-159.797,-18.882],[-159.8,-18.877],[-159.801,-18.876],[-159.803,-18.863],[-159.8,-18.851],[-159.797,-18.847],[-159.793,-18.84],[-159.783,-18.831],[-159.779,-18.84],[-159.777,-18.85],[-159.777,-18.851],[-159.777,-18.87],[-159.777,-18.87],[-159.778,-18.882],[-159.778,-18.884],[-159.781,-18.886],[-159.782,-18.888]]],[[[-165.813,-10.889],[-165.818,-10.892],[-165.821,-10.889],[-165.824,-10.882],[-165.815,-10.88],[-165.811,-10.88],[-165.807,-10.881],[-165.813,-10.889]]],[[[-160.979,-10.381],[-160.937,-10.423],[-160.985,-10.382],[-160.993,-10.375],[-160.995,-10.372],[-160.979,-10.381]]],[[[-161.075,-10.037],[-161.086,-10.045],[-161.087,-10.035],[-161.069,-10.028],[-161.075,-10.037]]],[[[-157.94,-8.981],[-157.961,-8.981],[-157.978,-8.976],[-157.996,-8.965],[-158.007,-8.953],[-158.002,-8.947],[-157.94,-8.975],[-157.94,-8.981]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Cook Is.'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Cook Is.?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Cook Is. located? </h2>Cook Is. is a Dependency of New Zealand. Its abbreviated name is Cook Is. and its postal identifier is CK.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

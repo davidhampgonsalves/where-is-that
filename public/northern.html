@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Northern?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[29.836,-1.329],[29.864,-1.37],[29.869,-1.391],[29.871,-1.432],[29.881,-1.454],[29.898,-1.47],[29.898,-1.47],[29.899,-1.47],[29.917,-1.475],[29.917,-1.475],[29.938,-1.473],[29.96,-1.465],[30.028,-1.427],[30.039,-1.425],[30.048,-1.403],[30.061,-1.39],[30.066,-1.387],[30.07,-1.389],[30.073,-1.39],[30.079,-1.394],[30.082,-1.405],[30.087,-1.412],[30.094,-1.417],[30.107,-1.438],[30.118,-1.455],[30.126,-1.472],[30.135,-1.49],[30.139,-1.5],[30.142,-1.515],[30.143,-1.524],[30.152,-1.522],[30.164,-1.517],[30.173,-1.517],[30.179,-1.52],[30.178,-1.525],[30.17,-1.532],[30.165,-1.549],[30.169,-1.571],[30.177,-1.592],[30.187,-1.609],[30.2,-1.623],[30.218,-1.647],[30.237,-1.671],[30.252,-1.686],[30.258,-1.7],[30.254,-1.711],[30.25,-1.722],[30.254,-1.743],[30.264,-1.778],[30.272,-1.808],[30.272,-1.824],[30.267,-1.827],[30.258,-1.833],[30.251,-1.84],[30.247,-1.843],[30.24,-1.842],[30.223,-1.837],[30.192,-1.815],[30.159,-1.793],[30.143,-1.783],[30.135,-1.779],[30.13,-1.792],[30.123,-1.809],[30.117,-1.816],[30.108,-1.815],[30.083,-1.819],[30.063,-1.828],[30.058,-1.836],[30.047,-1.848],[30.034,-1.856],[30.021,-1.848],[30.008,-1.839],[29.998,-1.842],[29.991,-1.855],[29.983,-1.868],[29.978,-1.878],[29.984,-1.893],[29.987,-1.905],[29.984,-1.908],[29.981,-1.909],[29.978,-1.908],[29.971,-1.906],[29.961,-1.899],[29.951,-1.889],[29.943,-1.881],[29.937,-1.875],[29.929,-1.87],[29.921,-1.866],[29.914,-1.861],[29.902,-1.857],[29.885,-1.857],[29.865,-1.861],[29.846,-1.861],[29.818,-1.851],[29.8,-1.839],[29.795,-1.825],[29.781,-1.812],[29.769,-1.794],[29.755,-1.774],[29.745,-1.758],[29.742,-1.748],[29.734,-1.747],[29.721,-1.75],[29.703,-1.743],[29.686,-1.732],[29.675,-1.73],[29.664,-1.731],[29.658,-1.733],[29.647,-1.725],[29.634,-1.71],[29.636,-1.688],[29.636,-1.659],[29.635,-1.618],[29.631,-1.588],[29.611,-1.586],[29.591,-1.588],[29.572,-1.578],[29.556,-1.571],[29.551,-1.569],[29.547,-1.567],[29.54,-1.569],[29.532,-1.57],[29.513,-1.564],[29.491,-1.556],[29.467,-1.528],[29.449,-1.503],[29.445,-1.497],[29.464,-1.467],[29.499,-1.431],[29.539,-1.402],[29.578,-1.388],[29.618,-1.391],[29.639,-1.389],[29.658,-1.384],[29.678,-1.372],[29.694,-1.361],[29.711,-1.353],[29.735,-1.348],[29.735,-1.348],[29.747,-1.351],[29.768,-1.364],[29.774,-1.366],[29.775,-1.366],[29.783,-1.361],[29.789,-1.342],[29.798,-1.331],[29.807,-1.325],[29.816,-1.323],[29.816,-1.323],[29.825,-1.324],[29.825,-1.324],[29.836,-1.329]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Northern'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Northern?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Northern located? </h2>Northern, is a province It belongs to the country of Rwanda. Its abbreviated name is North and its postal identifier is N.Northern has an area of 3239 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

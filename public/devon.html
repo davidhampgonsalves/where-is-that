@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Devon?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[-4.664,51.165],[-4.67,51.16],[-4.679,51.167],[-4.68,51.18],[-4.676,51.193],[-4.671,51.195],[-4.667,51.188],[-4.666,51.184],[-4.664,51.177],[-4.664,51.165]]],[[[-3.724,51.179],[-3.77,51.173],[-3.821,51.177],[-3.827,51.171],[-3.826,51.142],[-3.813,51.129],[-3.775,51.111],[-3.751,51.107],[-3.716,51.083],[-3.678,51.082],[-3.636,51.062],[-3.596,51.063],[-3.588,51.055],[-3.594,51.039],[-3.608,51.024],[-3.6,51.012],[-3.529,51.007],[-3.518,51.013],[-3.515,51.026],[-3.508,51.031],[-3.475,51.036],[-3.444,51.026],[-3.422,51.029],[-3.4,51.02],[-3.38,51.017],[-3.374,51.009],[-3.371,50.981],[-3.321,50.979],[-3.268,50.947],[-3.222,50.944],[-3.157,50.949],[-3.178,50.915],[-3.148,50.897],[-3.09,50.908],[-3.048,50.906],[-3.044,50.899],[-3.048,50.878],[-3.027,50.869],[-3.03,50.852],[-3.003,50.861],[-2.994,50.858],[-2.977,50.86],[-2.963,50.85],[-2.949,50.822],[-2.922,50.809],[-2.889,50.806],[-2.882,50.797],[-2.947,50.771],[-2.933,50.762],[-2.949,50.734],[-2.946,50.726],[-2.963,50.723],[-2.998,50.708],[-3.022,50.706],[-3.06,50.713],[-3.071,50.711],[-3.094,50.699],[-3.099,50.697],[-3.116,50.688],[-3.126,50.685],[-3.136,50.686],[-3.155,50.691],[-3.166,50.693],[-3.186,50.691],[-3.219,50.681],[-3.26,50.675],[-3.271,50.664],[-3.28,50.651],[-3.296,50.638],[-3.368,50.617],[-3.391,50.618],[-3.407,50.621],[-3.421,50.629],[-3.433,50.644],[-3.446,50.668],[-3.45,50.672],[-3.453,50.673],[-3.455,50.675],[-3.459,50.677],[-3.464,50.678],[-3.468,50.676],[-3.469,50.672],[-3.468,50.667],[-3.455,50.658],[-3.442,50.623],[-3.433,50.61],[-3.451,50.599],[-3.467,50.586],[-3.482,50.568],[-3.495,50.548],[-3.506,50.521],[-3.505,50.508],[-3.51,50.508],[-3.53,50.509],[-3.558,50.509],[-3.587,50.509],[-3.61,50.499],[-3.628,50.482],[-3.642,50.464],[-3.647,50.448],[-3.649,50.433],[-3.636,50.421],[-3.62,50.407],[-3.593,50.4],[-3.563,50.388],[-3.526,50.378],[-3.519,50.376],[-3.52,50.375],[-3.527,50.35],[-3.539,50.344],[-3.555,50.348],[-3.571,50.356],[-3.578,50.334],[-3.599,50.326],[-3.622,50.322],[-3.632,50.312],[-3.637,50.295],[-3.648,50.275],[-3.653,50.251],[-3.646,50.226],[-3.661,50.221],[-3.701,50.213],[-3.718,50.212],[-3.74,50.216],[-3.759,50.222],[-3.774,50.223],[-3.789,50.212],[-3.826,50.234],[-3.884,50.28],[-3.95,50.319],[-3.961,50.322],[-3.97,50.321],[-3.996,50.311],[-4.006,50.309],[-4.011,50.307],[-4.025,50.297],[-4.033,50.295],[-4.044,50.296],[-4.054,50.3],[-4.07,50.309],[-4.068,50.313],[-4.064,50.322],[-4.086,50.326],[-4.108,50.337],[-4.116,50.348],[-4.101,50.36],[-4.077,50.366],[-4.054,50.374],[-4.039,50.379],[-4.037,50.385],[-4.037,50.39],[-4.042,50.399],[-4.06,50.41],[-4.081,50.419],[-4.105,50.428],[-4.125,50.435],[-4.14,50.435],[-4.155,50.435],[-4.169,50.427],[-4.185,50.427],[-4.185,50.426],[-4.187,50.426],[-4.184,50.432],[-4.17,50.445],[-4.16,50.459],[-4.179,50.453],[-4.19,50.454],[-4.201,50.459],[-4.204,50.451],[-4.214,50.465],[-4.225,50.464],[-4.23,50.457],[-4.237,50.463],[-4.231,50.47],[-4.22,50.484],[-4.218,50.495],[-4.19,50.494],[-4.183,50.499],[-4.182,50.507],[-4.204,50.512],[-4.209,50.526],[-4.217,50.534],[-4.271,50.542],[-4.273,50.565],[-4.285,50.58],[-4.301,50.588],[-4.296,50.625],[-4.335,50.643],[-4.347,50.679],[-4.361,50.692],[-4.363,50.719],[-4.378,50.742],[-4.377,50.764],[-4.395,50.77],[-4.406,50.76],[-4.413,50.76],[-4.441,50.78],[-4.473,50.78],[-4.485,50.786],[-4.48,50.792],[-4.45,50.799],[-4.442,50.816],[-4.439,50.841],[-4.423,50.848],[-4.418,50.855],[-4.444,50.892],[-4.456,50.902],[-4.458,50.921],[-4.548,50.923],[-4.544,50.939],[-4.537,50.948],[-4.523,50.973],[-4.527,50.98],[-4.53,50.995],[-4.531,51.009],[-4.526,51.015],[-4.437,51.015],[-4.426,51.013],[-4.406,51.003],[-4.396,51.001],[-4.338,50.997],[-4.317,51.001],[-4.302,51.007],[-4.235,51.055],[-4.229,51.061],[-4.225,51.067],[-4.218,51.072],[-4.208,51.076],[-4.214,51.086],[-4.226,51.113],[-4.228,51.12],[-4.232,51.127],[-4.249,51.143],[-4.256,51.151],[-4.222,51.15],[-4.215,51.151],[-4.208,51.162],[-4.21,51.173],[-4.217,51.181],[-4.228,51.186],[-4.228,51.192],[-4.152,51.212],[-3.969,51.222],[-3.932,51.231],[-3.913,51.233],[-3.841,51.233],[-3.819,51.236],[-3.787,51.247],[-3.769,51.248],[-3.712,51.238],[-3.714,51.232],[-3.715,51.23],[-3.72,51.221],[-3.718,51.205],[-3.724,51.179]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Devon'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Devon?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Devon located? </h2>Devon, is a administrative county of the England region. It belongs to the country of United Kingdom. Its abbreviated name is Devon and its postal identifier is DO.Devon has an area of 6588 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

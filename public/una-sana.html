@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Una-Sana?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[16.008,45.218],[16.02,45.214],[16.029,45.205],[16.028,45.197],[16.025,45.189],[16.024,45.185],[16.033,45.18],[16.054,45.177],[16.067,45.17],[16.082,45.152],[16.104,45.113],[16.121,45.096],[16.212,45.032],[16.241,45.019],[16.279,45.007],[16.316,45.001],[16.34,45.006],[16.34,45.006],[16.346,45.021],[16.346,45.02],[16.355,45.01],[16.355,45.002],[16.349,44.992],[16.326,44.984],[16.279,44.973],[16.263,44.954],[16.263,44.937],[16.273,44.921],[16.302,44.897],[16.333,44.89],[16.399,44.886],[16.469,44.883],[16.501,44.88],[16.559,44.877],[16.614,44.871],[16.651,44.866],[16.704,44.856],[16.745,44.837],[16.789,44.806],[16.828,44.767],[16.838,44.741],[16.838,44.701],[16.838,44.684],[16.844,44.673],[16.87,44.674],[16.878,44.663],[16.883,44.621],[16.883,44.571],[16.881,44.514],[16.871,44.497],[16.861,44.477],[16.852,44.459],[16.81,44.458],[16.754,44.455],[16.697,44.471],[16.626,44.489],[16.566,44.502],[16.528,44.502],[16.508,44.501],[16.503,44.481],[16.512,44.464],[16.526,44.455],[16.518,44.452],[16.495,44.421],[16.479,44.407],[16.431,44.399],[16.397,44.389],[16.363,44.387],[16.34,44.381],[16.305,44.383],[16.281,44.381],[16.266,44.367],[16.26,44.358],[16.248,44.354],[16.223,44.356],[16.212,44.353],[16.205,44.35],[16.205,44.35],[16.202,44.36],[16.192,44.368],[16.171,44.377],[16.153,44.381],[16.142,44.381],[16.142,44.381],[16.138,44.378],[16.138,44.378],[16.138,44.386],[16.145,44.39],[16.145,44.39],[16.146,44.391],[16.153,44.394],[16.159,44.401],[16.159,44.416],[16.152,44.435],[16.128,44.485],[16.123,44.504],[16.116,44.522],[16.104,44.533],[16.083,44.535],[16.047,44.524],[16.026,44.525],[16.006,44.541],[16.013,44.557],[16.03,44.572],[16.034,44.586],[16.035,44.586],[16.043,44.589],[16.044,44.589],[16.044,44.59],[16.041,44.603],[16.036,44.616],[16.028,44.625],[16.015,44.629],[15.991,44.632],[15.979,44.635],[15.969,44.639],[15.955,44.653],[15.948,44.678],[15.937,44.689],[15.929,44.69],[15.921,44.686],[15.913,44.685],[15.905,44.69],[15.901,44.699],[15.899,44.709],[15.895,44.719],[15.888,44.725],[15.876,44.725],[15.876,44.725],[15.869,44.719],[15.863,44.71],[15.856,44.704],[15.856,44.704],[15.847,44.702],[15.829,44.701],[15.82,44.699],[15.805,44.697],[15.796,44.703],[15.79,44.714],[15.782,44.723],[15.759,44.734],[15.753,44.74],[15.728,44.769],[15.717,44.787],[15.716,44.803],[15.73,44.817],[15.73,44.817],[15.751,44.822],[15.768,44.828],[15.768,44.828],[15.773,44.845],[15.764,44.864],[15.748,44.882],[15.734,44.902],[15.73,44.927],[15.733,44.934],[15.738,44.945],[15.763,44.976],[15.767,44.993],[15.755,45.024],[15.756,45.042],[15.779,45.086],[15.783,45.101],[15.779,45.161],[15.781,45.168],[15.792,45.19],[15.802,45.197],[15.824,45.211],[15.824,45.211],[15.878,45.217],[15.974,45.216],[15.997,45.219],[16.008,45.218]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Una-Sana'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Una-Sana?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Una-Sana located? </h2>Una-Sana, is a canton of the Federacija Bosna i Hercegovina region. It belongs to the country of Bosnia and Herzegovina. Its postal identifier is BF.Una-Sana has an area of 4835 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

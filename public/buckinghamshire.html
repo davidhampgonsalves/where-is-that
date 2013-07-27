@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Buckinghamshire?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-0.867,52.034],[-0.838,52.011],[-0.778,51.977],[-0.722,51.95],[-0.686,51.948],[-0.657,51.948],[-0.67,51.936],[-0.688,51.903],[-0.661,51.896],[-0.626,51.876],[-0.603,51.88],[-0.561,51.855],[-0.551,51.839],[-0.534,51.827],[-0.534,51.819],[-0.552,51.822],[-0.579,51.801],[-0.614,51.81],[-0.654,51.811],[-0.676,51.829],[-0.672,51.837],[-0.674,51.843],[-0.701,51.85],[-0.713,51.848],[-0.73,51.828],[-0.71,51.809],[-0.697,51.808],[-0.678,51.796],[-0.673,51.786],[-0.674,51.769],[-0.662,51.759],[-0.631,51.749],[-0.589,51.749],[-0.565,51.732],[-0.541,51.739],[-0.527,51.735],[-0.524,51.728],[-0.548,51.716],[-0.551,51.709],[-0.539,51.694],[-0.537,51.675],[-0.507,51.679],[-0.497,51.676],[-0.498,51.668],[-0.524,51.641],[-0.526,51.625],[-0.519,51.608],[-0.493,51.591],[-0.471,51.55],[-0.484,51.494],[-0.497,51.478],[-0.513,51.476],[-0.521,51.488],[-0.519,51.5],[-0.524,51.506],[-0.558,51.504],[-0.561,51.522],[-0.569,51.527],[-0.58,51.526],[-0.586,51.52],[-0.617,51.53],[-0.644,51.526],[-0.65,51.52],[-0.643,51.503],[-0.636,51.494],[-0.662,51.492],[-0.679,51.494],[-0.701,51.507],[-0.699,51.517],[-0.689,51.53],[-0.686,51.549],[-0.697,51.559],[-0.719,51.563],[-0.743,51.562],[-0.761,51.556],[-0.774,51.557],[-0.846,51.542],[-0.869,51.546],[-0.882,51.551],[-0.887,51.548],[-0.932,51.57],[-0.929,51.581],[-0.912,51.59],[-0.911,51.597],[-0.917,51.602],[-0.933,51.6],[-0.944,51.619],[-0.931,51.635],[-0.942,51.645],[-0.926,51.649],[-0.921,51.667],[-0.913,51.67],[-0.877,51.664],[-0.874,51.668],[-0.883,51.684],[-0.876,51.701],[-0.884,51.716],[-0.912,51.741],[-0.966,51.756],[-0.991,51.749],[-1.018,51.752],[-1.04,51.743],[-1.066,51.751],[-1.08,51.773],[-1.109,51.78],[-1.114,51.814],[-1.128,51.827],[-1.125,51.834],[-1.116,51.838],[-1.07,51.824],[-1.047,51.833],[-1.049,51.845],[-1.063,51.862],[-1.063,51.879],[-1.077,51.888],[-1.082,51.898],[-1.076,51.919],[-1.047,51.94],[-1.049,51.944],[-1.074,51.944],[-1.083,51.952],[-1.076,51.968],[-1.053,51.993],[-1.058,51.996],[-1.108,52.009],[-1.142,52.018],[-1.119,52.035],[-1.097,52.044],[-1.037,52.054],[-1.023,52.065],[-0.991,52.063],[-0.95,52.074],[-0.941,52.072],[-0.901,52.019],[-0.89,52.02],[-0.867,52.034]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Buckinghamshire'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Buckinghamshire?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Buckinghamshire located? </h2>Buckinghamshire, is a administrative county of the England region. It belongs to the country of United Kingdom. Its postal identifier is BU.Buckinghamshire has an area of 1557 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

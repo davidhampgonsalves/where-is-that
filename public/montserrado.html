@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Montserrado?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-10.357,6.762],[-10.353,6.737],[-10.356,6.728],[-10.406,6.631],[-10.41,6.622],[-10.411,6.616],[-10.41,6.609],[-10.408,6.601],[-10.406,6.598],[-10.394,6.583],[-10.39,6.575],[-10.387,6.567],[-10.384,6.558],[-10.381,6.536],[-10.379,6.477],[-10.381,6.462],[-10.384,6.452],[-10.387,6.448],[-10.394,6.442],[-10.399,6.439],[-10.403,6.437],[-10.438,6.426],[-10.442,6.424],[-10.446,6.418],[-10.452,6.41],[-10.468,6.378],[-10.475,6.372],[-10.478,6.369],[-10.487,6.364],[-10.533,6.347],[-10.541,6.343],[-10.573,6.318],[-10.581,6.314],[-10.593,6.311],[-10.597,6.308],[-10.602,6.305],[-10.61,6.299],[-10.613,6.294],[-10.616,6.29],[-10.637,6.222],[-10.659,6.228],[-10.788,6.293],[-10.808,6.311],[-10.8,6.328],[-10.795,6.32],[-10.79,6.314],[-10.783,6.31],[-10.772,6.307],[-10.789,6.335],[-10.792,6.359],[-10.782,6.381],[-10.759,6.404],[-10.774,6.404],[-10.784,6.401],[-10.792,6.396],[-10.8,6.39],[-10.806,6.403],[-10.806,6.403],[-10.795,6.43],[-10.794,6.443],[-10.796,6.451],[-10.805,6.478],[-10.807,6.486],[-10.807,6.494],[-10.807,6.504],[-10.806,6.51],[-10.803,6.515],[-10.798,6.521],[-10.787,6.527],[-10.775,6.531],[-10.751,6.536],[-10.748,6.537],[-10.733,6.548],[-10.717,6.563],[-10.708,6.57],[-10.699,6.576],[-10.692,6.578],[-10.686,6.579],[-10.681,6.578],[-10.672,6.574],[-10.632,6.548],[-10.628,6.545],[-10.625,6.542],[-10.608,6.534],[-10.597,6.537],[-10.574,6.554],[-10.562,6.566],[-10.562,6.573],[-10.57,6.585],[-10.597,6.612],[-10.601,6.619],[-10.602,6.653],[-10.601,6.664],[-10.599,6.669],[-10.595,6.679],[-10.594,6.685],[-10.593,6.704],[-10.594,6.705],[-10.588,6.714],[-10.571,6.734],[-10.567,6.743],[-10.573,6.763],[-10.574,6.775],[-10.57,6.78],[-10.563,6.786],[-10.561,6.798],[-10.562,6.812],[-10.56,6.821],[-10.553,6.825],[-10.526,6.828],[-10.506,6.836],[-10.475,6.799],[-10.472,6.791],[-10.461,6.783],[-10.449,6.779],[-10.406,6.777],[-10.397,6.777],[-10.388,6.779],[-10.384,6.779],[-10.373,6.776],[-10.357,6.762]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Montserrado'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Montserrado?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Montserrado located? </h2>Montserrado, is a county It belongs to the country of Liberia. Its postal identifier is MO.Montserrado has an area of 1777 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

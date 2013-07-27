@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is NM?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-106.553,31.812],[-106.494,31.759],[-106.507,31.771],[-106.518,31.774],[-106.56,31.774],[-106.586,31.774],[-106.611,31.774],[-106.637,31.774],[-106.663,31.774],[-106.689,31.775],[-106.715,31.775],[-106.741,31.775],[-106.767,31.775],[-106.793,31.775],[-106.818,31.775],[-106.844,31.775],[-106.87,31.775],[-106.896,31.775],[-106.922,31.775],[-106.948,31.775],[-106.974,31.775],[-107,31.775],[-107.026,31.775],[-107.051,31.775],[-107.077,31.775],[-107.103,31.775],[-107.129,31.776],[-107.155,31.776],[-107.181,31.776],[-107.207,31.776],[-107.233,31.776],[-107.258,31.776],[-107.284,31.776],[-107.31,31.776],[-107.336,31.776],[-107.362,31.776],[-107.388,31.776],[-107.414,31.776],[-107.44,31.776],[-107.465,31.776],[-107.491,31.776],[-107.517,31.776],[-107.543,31.777],[-107.569,31.777],[-107.595,31.777],[-107.621,31.777],[-107.647,31.777],[-107.672,31.777],[-107.698,31.777],[-107.724,31.777],[-107.75,31.777],[-107.776,31.777],[-107.802,31.777],[-107.828,31.777],[-107.854,31.777],[-107.879,31.777],[-107.905,31.777],[-107.931,31.777],[-107.957,31.777],[-107.983,31.777],[-108.009,31.778],[-108.035,31.778],[-108.061,31.778],[-108.086,31.778],[-108.112,31.778],[-108.138,31.778],[-108.164,31.778],[-108.19,31.778],[-108.216,31.778],[-108.216,31.778],[-108.216,31.771],[-108.216,31.764],[-108.216,31.757],[-108.216,31.75],[-108.216,31.743],[-108.216,31.736],[-108.216,31.729],[-108.216,31.722],[-108.216,31.715],[-108.216,31.708],[-108.216,31.701],[-108.216,31.694],[-108.216,31.687],[-108.216,31.68],[-108.216,31.673],[-108.216,31.665],[-108.216,31.658],[-108.216,31.651],[-108.216,31.644],[-108.216,31.637],[-108.216,31.63],[-108.216,31.623],[-108.216,31.616],[-108.216,31.609],[-108.216,31.602],[-108.216,31.595],[-108.216,31.588],[-108.216,31.581],[-108.216,31.574],[-108.216,31.567],[-108.216,31.56],[-108.216,31.553],[-108.216,31.546],[-108.216,31.539],[-108.216,31.532],[-108.216,31.525],[-108.216,31.518],[-108.216,31.511],[-108.216,31.504],[-108.216,31.497],[-108.216,31.49],[-108.216,31.483],[-108.216,31.475],[-108.216,31.468],[-108.216,31.461],[-108.216,31.454],[-108.216,31.447],[-108.216,31.44],[-108.216,31.433],[-108.216,31.426],[-108.216,31.419],[-108.216,31.412],[-108.216,31.405],[-108.216,31.398],[-108.216,31.391],[-108.216,31.384],[-108.216,31.377],[-108.216,31.37],[-108.216,31.363],[-108.216,31.356],[-108.216,31.349],[-108.216,31.342],[-108.216,31.335],[-108.216,31.328],[-108.216,31.328],[-108.258,31.328],[-108.301,31.328],[-108.344,31.328],[-108.386,31.328],[-108.429,31.328],[-108.472,31.328],[-108.515,31.328],[-108.557,31.328],[-108.6,31.328],[-108.643,31.328],[-108.685,31.328],[-108.728,31.328],[-108.771,31.328],[-108.814,31.328],[-108.856,31.328],[-108.899,31.328],[-108.942,31.328],[-108.985,31.328],[-109.027,31.328],[-109.047,31.328],[-109.047,31.328],[-109.047,31.328],[-109.047,31.328],[-109.047,31.328],[-109.047,31.328],[-109.047,31.329],[-109.047,31.329],[-109.047,31.329],[-109.047,31.329],[-109.047,31.329],[-109.047,31.329],[-109.047,31.329],[-109.047,31.33],[-109.047,31.33],[-109.047,31.33],[-109.047,31.33],[-109.047,31.33],[-109.047,31.33],[-109.047,31.331],[-109.047,31.331],[-109.047,31.331],[-109.047,31.331],[-109.047,31.331],[-109.047,31.331],[-109.047,31.331],[-109.047,31.332],[-109.047,31.332],[-109.047,31.332],[-109.047,31.332],[-109.047,31.332],[-109.047,31.332],[-109.047,31.333],[-109.047,31.51],[-109.047,31.687],[-109.047,31.864],[-109.047,32.041],[-109.047,32.218],[-109.047,32.395],[-109.047,32.572],[-109.047,32.749],[-109.047,32.926],[-109.047,33.104],[-109.047,33.281],[-109.047,33.458],[-109.047,33.635],[-109.047,33.812],[-109.047,33.989],[-109.047,34.166],[-109.047,34.343],[-109.047,34.52],[-109.047,34.698],[-109.047,34.875],[-109.047,35.052],[-109.047,35.229],[-109.047,35.406],[-109.047,35.583],[-109.047,35.76],[-109.047,35.937],[-109.047,36.114],[-109.047,36.291],[-109.047,36.468],[-109.047,36.646],[-109.047,36.823],[-109.047,37],[-108.858,37],[-108.669,37],[-108.48,37],[-108.291,37],[-108.102,37],[-107.913,37],[-107.724,37],[-107.535,37],[-107.346,37],[-107.157,37],[-106.968,37],[-106.779,37],[-106.591,37],[-106.402,37],[-106.213,37],[-106.024,37],[-105.835,37],[-105.646,37],[-105.457,37],[-105.268,37],[-105.079,37],[-104.89,37],[-104.701,37],[-104.512,37],[-104.323,37],[-104.134,37],[-103.945,37],[-103.757,37],[-103.568,37],[-103.379,37],[-103.19,37],[-103.001,37],[-103.001,36.875],[-103.001,36.75],[-103,36.625],[-103,36.5],[-103.042,36.5],[-103.042,36.482],[-103.042,36.45],[-103.042,36.311],[-103.043,36.172],[-103.044,36.033],[-103.045,35.894],[-103.045,35.755],[-103.046,35.616],[-103.047,35.477],[-103.048,35.338],[-103.048,35.199],[-103.049,35.06],[-103.05,34.921],[-103.051,34.782],[-103.051,34.643],[-103.052,34.504],[-103.053,34.365],[-103.054,34.226],[-103.054,34.087],[-103.055,33.948],[-103.056,33.809],[-103.057,33.67],[-103.057,33.531],[-103.058,33.392],[-103.059,33.253],[-103.06,33.114],[-103.06,32.975],[-103.061,32.836],[-103.062,32.697],[-103.063,32.558],[-103.063,32.419],[-103.064,32.28],[-103.065,32.141],[-103.066,32.002],[-103.288,32.002],[-103.51,32.002],[-103.732,32.001],[-103.954,32.001],[-104.176,32.001],[-104.398,32.001],[-104.621,32.001],[-104.843,32.001],[-105.065,32.001],[-105.287,32.001],[-105.509,32.001],[-105.731,32.001],[-105.953,32.001],[-106.176,32.001],[-106.398,32],[-106.62,32],[-106.646,32],[-106.662,32],[-106.661,31.983],[-106.64,31.947],[-106.635,31.926],[-106.632,31.903],[-106.625,31.886],[-106.6,31.855],[-106.608,31.848],[-106.601,31.836],[-106.591,31.827],[-106.58,31.822],[-106.566,31.82],[-106.566,31.82],[-106.553,31.812]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'NM'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>NM?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is NM located? </h2>NM, is a state It belongs to the country of United States of America. Its abbreviated name is N.M. and its postal identifier is NM.NM has an area of 315065 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

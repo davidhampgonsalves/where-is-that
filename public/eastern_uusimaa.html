@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Eastern Uusimaa?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[25.852,60.2],[25.836,60.196],[25.821,60.197],[25.814,60.208],[25.822,60.216],[25.841,60.219],[25.876,60.217],[25.863,60.204],[25.852,60.2]]],[[[25.634,60.218],[25.636,60.204],[25.612,60.211],[25.603,60.215],[25.608,60.222],[25.622,60.238],[25.592,60.243],[25.57,60.258],[25.564,60.278],[25.582,60.296],[25.598,60.291],[25.684,60.245],[25.677,60.238],[25.66,60.234],[25.644,60.228],[25.634,60.218]]],[[[26.215,60.755],[26.236,60.752],[26.271,60.755],[26.289,60.752],[26.302,60.744],[26.32,60.722],[26.328,60.717],[26.329,60.702],[26.329,60.688],[26.348,60.671],[26.416,60.651],[26.45,60.635],[26.474,60.615],[26.501,60.599],[26.543,60.596],[26.553,60.592],[26.466,60.508],[26.456,60.475],[26.486,60.444],[26.469,60.427],[26.461,60.421],[26.452,60.416],[26.423,60.416],[26.416,60.412],[26.424,60.396],[26.413,60.398],[26.403,60.403],[26.383,60.416],[26.384,60.405],[26.381,60.399],[26.374,60.396],[26.363,60.396],[26.351,60.393],[26.349,60.386],[26.348,60.379],[26.342,60.375],[26.324,60.383],[26.31,60.399],[26.299,60.416],[26.29,60.423],[26.279,60.429],[26.263,60.441],[26.246,60.451],[26.232,60.451],[26.229,60.438],[26.243,60.424],[26.273,60.402],[26.179,60.411],[26.17,60.41],[26.151,60.398],[26.143,60.396],[26.134,60.403],[26.095,60.423],[26.062,60.432],[26.049,60.437],[26.014,60.463],[25.981,60.476],[25.946,60.484],[25.917,60.485],[25.917,60.478],[25.972,60.465],[25.983,60.458],[26.004,60.44],[26.029,60.433],[26.036,60.425],[26.039,60.414],[26.04,60.406],[26.032,60.401],[26.017,60.402],[26.007,60.4],[26.012,60.389],[26.023,60.381],[26.061,60.368],[26.08,60.35],[26.089,60.344],[26.101,60.341],[26.108,60.336],[26.106,60.324],[26.1,60.312],[26.091,60.307],[26.04,60.3],[26.039,60.323],[25.997,60.355],[26.006,60.368],[25.994,60.368],[25.985,60.363],[25.977,60.358],[25.968,60.355],[25.957,60.356],[25.948,60.359],[25.888,60.389],[25.867,60.397],[25.842,60.402],[25.878,60.378],[25.899,60.367],[25.917,60.361],[25.907,60.341],[25.884,60.32],[25.883,60.307],[25.893,60.292],[25.921,60.265],[25.93,60.245],[25.909,60.246],[25.895,60.25],[25.883,60.256],[25.869,60.266],[25.876,60.272],[25.861,60.284],[25.841,60.288],[25.82,60.289],[25.801,60.293],[25.77,60.314],[25.754,60.321],[25.739,60.313],[25.745,60.296],[25.781,60.283],[25.849,60.266],[25.781,60.251],[25.781,60.245],[25.762,60.24],[25.736,60.247],[25.656,60.293],[25.65,60.3],[25.651,60.313],[25.659,60.323],[25.671,60.327],[25.65,60.334],[25.65,60.341],[25.704,60.341],[25.69,60.363],[25.669,60.365],[25.646,60.356],[25.629,60.348],[25.603,60.339],[25.526,60.327],[25.526,60.321],[25.541,60.316],[25.546,60.306],[25.545,60.292],[25.54,60.279],[25.536,60.276],[25.529,60.274],[25.522,60.271],[25.517,60.254],[25.511,60.249],[25.503,60.246],[25.362,60.245],[25.363,60.26],[25.351,60.267],[25.314,60.272],[25.316,60.268],[25.319,60.256],[25.321,60.251],[25.29,60.246],[25.197,60.245],[25.192,60.244],[25.19,60.24],[25.191,60.228],[25.19,60.228],[25.177,60.233],[25.165,60.242],[25.147,60.26],[25.148,60.266],[25.156,60.269],[25.172,60.275],[25.187,60.284],[25.194,60.288],[25.19,60.299],[25.126,60.325],[25.117,60.33],[25.139,60.335],[25.147,60.338],[25.15,60.345],[25.137,60.346],[25.151,60.365],[25.157,60.39],[25.158,60.455],[25.177,60.5],[25.248,60.486],[25.33,60.427],[25.355,60.414],[25.392,60.409],[25.435,60.414],[25.496,60.432],[25.507,60.446],[25.498,60.452],[25.457,60.47],[25.44,60.483],[25.431,60.495],[25.416,60.535],[25.428,60.543],[25.459,60.547],[25.489,60.554],[25.502,60.56],[25.512,60.568],[25.508,60.585],[25.466,60.613],[25.44,60.637],[25.431,60.647],[25.434,60.668],[25.445,60.675],[25.468,60.688],[25.495,60.698],[25.523,60.704],[25.572,60.689],[25.61,60.688],[25.888,60.734],[25.911,60.731],[25.924,60.723],[25.933,60.715],[25.948,60.709],[25.976,60.705],[26.034,60.706],[26.126,60.695],[26.173,60.697],[26.195,60.704],[26.215,60.716],[26.225,60.733],[26.221,60.736],[26.219,60.741],[26.218,60.748],[26.215,60.755]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Eastern Uusimaa'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Eastern Uusimaa?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Eastern Uusimaa located? </h2>Eastern Uusimaa, is a province of the Southern Finland region. It belongs to the country of Finland.Eastern Uusimaa has an area of 2615 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ostgobi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[108.973,46.82],[108.984,46.813],[108.992,46.815],[109,46.819],[109.034,46.855],[109.052,46.867],[109.07,46.873],[109.087,46.87],[109.102,46.856],[109.112,46.829],[109.118,46.8],[109.119,46.773],[109.117,46.753],[109.109,46.727],[109.092,46.694],[109.018,46.598],[109.008,46.578],[109.002,46.556],[109,46.544],[109,46.525],[109.002,46.515],[109.009,46.499],[109.013,46.49],[109.046,46.443],[109.138,46.38],[109.163,46.348],[109.197,46.291],[109.218,46.269],[109.244,46.25],[109.392,46.179],[109.493,46.17],[109.741,46.189],[109.785,46.2],[109.833,46.22],[109.99,46.311],[109.997,46.319],[110.028,46.37],[110.067,46.461],[110.071,46.479],[110.07,46.498],[110.043,46.59],[110.043,46.62],[110.055,46.632],[110.096,46.636],[110.155,46.633],[110.179,46.624],[110.206,46.604],[110.236,46.566],[110.291,46.506],[110.454,46.389],[110.474,46.368],[110.493,46.338],[110.521,46.278],[110.552,46.24],[110.64,46.182],[110.849,46.093],[110.916,46.075],[110.972,46.074],[111.04,46.108],[111.231,46.23],[111.601,46.112],[111.619,46.097],[111.631,46.079],[111.645,46.039],[111.736,45.902],[111.757,45.855],[111.771,45.805],[111.753,45.54],[111.754,45.508],[111.76,45.501],[111.776,45.488],[111.803,45.477],[111.835,45.456],[111.847,45.432],[111.857,45.369],[111.876,45.349],[111.899,45.335],[111.925,45.322],[111.946,45.308],[111.971,45.285],[111.981,45.266],[111.983,45.244],[111.979,45.195],[111.979,45.149],[111.984,45.092],[111.985,45.087],[111.985,45.087],[111.973,45.087],[111.958,45.085],[111.958,45.085],[111.951,45.08],[111.948,45.078],[111.948,45.078],[111.938,45.069],[111.926,45.061],[111.926,45.061],[111.906,45.054],[111.863,45.047],[111.843,45.04],[111.786,45.009],[111.786,45.008],[111.76,44.989],[111.738,44.966],[111.551,44.693],[111.541,44.668],[111.54,44.652],[111.544,44.618],[111.544,44.601],[111.538,44.584],[111.53,44.571],[111.509,44.547],[111.484,44.507],[111.473,44.495],[111.471,44.493],[111.447,44.476],[111.424,44.448],[111.406,44.417],[111.397,44.388],[111.396,44.347],[111.41,44.326],[111.473,44.299],[111.49,44.283],[111.498,44.265],[111.503,44.226],[111.519,44.189],[111.544,44.157],[111.634,44.066],[111.668,44.042],[111.78,43.986],[111.811,43.965],[111.838,43.939],[111.93,43.82],[111.944,43.787],[111.948,43.757],[111.945,43.724],[111.933,43.697],[111.91,43.685],[111.91,43.685],[111.893,43.683],[111.846,43.667],[111.772,43.67],[111.754,43.663],[111.754,43.663],[111.597,43.524],[111.568,43.503],[111.567,43.503],[111.535,43.491],[111.428,43.484],[111.401,43.476],[111.338,43.438],[111.096,43.367],[110.973,43.316],[110.968,43.312],[110.933,43.288],[110.797,43.149],[110.68,43.058],[110.665,43.038],[110.641,42.988],[110.608,42.945],[110.566,42.911],[110.473,42.855],[110.45,42.838],[110.449,42.838],[110.449,42.838],[110.425,42.785],[110.407,42.769],[110.407,42.769],[110.14,42.683],[110.139,42.683],[110.105,42.667],[110.093,42.658],[110.084,42.65],[110.075,42.644],[110.074,42.644],[110.06,42.639],[110.042,42.636],[109.987,42.637],[109.912,42.629],[109.667,42.549],[109.518,42.468],[109.51,42.465],[109.505,42.465],[109.5,42.464],[109.5,42.464],[109.494,42.455],[109.49,42.452],[109.49,42.452],[109.485,42.45],[109.328,42.441],[109.28,42.429],[109.253,42.426],[108.994,42.45],[108.961,42.448],[108.862,42.409],[108.828,42.4],[108.796,42.399],[108.536,42.435],[108.319,42.433],[108.234,42.45],[108.177,42.455],[108.05,42.439],[108.05,42.439],[108.018,42.918],[108.021,42.942],[108.035,42.984],[108.047,43.031],[108.053,43.076],[108.052,43.115],[108.048,43.154],[107.998,43.345],[107.987,43.437],[107.984,43.557],[107.977,43.707],[107.768,44.169],[107.679,44.298],[107.67,44.32],[107.665,44.338],[107.668,44.368],[107.708,44.511],[107.761,44.539],[107.775,44.557],[107.79,44.587],[107.819,44.75],[107.833,44.788],[107.852,44.806],[107.878,44.814],[107.953,44.819],[108.308,44.851],[108.405,44.893],[108.452,44.958],[108.483,44.993],[108.52,45.013],[108.537,45.017],[108.554,45.018],[108.592,45.017],[108.614,45.022],[108.622,45.033],[108.622,45.055],[108.6,45.109],[108.527,45.433],[108.508,45.637],[108.511,45.712],[108.536,45.813],[108.592,45.933],[108.555,45.934],[108.419,45.9],[108.39,45.91],[108.363,45.931],[108.327,45.975],[108.314,45.988],[108.302,46.002],[108.292,46.037],[108.296,46.068],[108.324,46.217],[108.328,46.284],[108.325,46.304],[108.315,46.334],[108.291,46.382],[108.252,46.424],[108.093,46.542],[108.076,46.559],[108.074,46.573],[108.083,46.588],[108.105,46.607],[108.202,46.664],[108.211,46.672],[108.162,46.677],[108.093,46.678],[108.052,46.684],[108.021,46.693],[107.993,46.711],[107.972,46.73],[107.957,46.774],[108.002,46.793],[108.05,46.802],[108.115,46.811],[108.203,46.811],[108.357,46.791],[108.48,46.78],[108.639,46.832],[108.711,46.861],[108.746,46.884],[108.759,46.895],[108.828,47.012],[108.949,46.974],[108.968,46.935],[108.972,46.919],[108.975,46.899],[108.97,46.827],[108.973,46.82]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Ostgobi'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Ostgobi?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Ostgobi located? </h2>Ostgobi, is a province It belongs to the country of Mongolia. Its postal identifier is DG.Ostgobi has an area of 114555 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

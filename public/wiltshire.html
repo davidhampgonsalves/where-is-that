@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Wiltshire?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-1.75,51.659],[-1.757,51.642],[-1.772,51.629],[-1.793,51.605],[-1.818,51.581],[-1.831,51.566],[-1.839,51.547],[-1.84,51.523],[-1.835,51.508],[-1.81,51.48],[-1.786,51.47],[-1.761,51.463],[-1.731,51.46],[-1.698,51.46],[-1.671,51.469],[-1.634,51.48],[-1.601,51.49],[-1.58,51.503],[-1.576,51.489],[-1.551,51.461],[-1.528,51.451],[-1.521,51.434],[-1.522,51.426],[-1.553,51.42],[-1.563,51.412],[-1.533,51.377],[-1.498,51.366],[-1.497,51.354],[-1.486,51.344],[-1.487,51.332],[-1.527,51.33],[-1.52,51.302],[-1.539,51.276],[-1.528,51.252],[-1.538,51.245],[-1.58,51.258],[-1.6,51.252],[-1.615,51.239],[-1.628,51.234],[-1.681,51.24],[-1.696,51.237],[-1.685,51.205],[-1.655,51.171],[-1.648,51.15],[-1.653,51.126],[-1.629,51.117],[-1.622,51.108],[-1.631,51.086],[-1.62,51.054],[-1.622,51.034],[-1.603,51.026],[-1.597,51.017],[-1.616,51.005],[-1.621,50.995],[-1.6,50.977],[-1.611,50.96],[-1.655,50.95],[-1.671,50.955],[-1.698,50.975],[-1.741,50.978],[-1.767,50.987],[-1.811,50.993],[-1.838,51.009],[-1.847,51.007],[-1.858,50.995],[-1.869,50.996],[-1.865,51.004],[-1.869,51.006],[-1.926,50.999],[-1.95,50.988],[-1.97,50.993],[-1.996,50.977],[-2.033,50.972],[-2.059,50.96],[-2.099,50.956],[-2.114,50.965],[-2.123,50.981],[-2.144,50.986],[-2.194,51.044],[-2.224,51.066],[-2.239,51.071],[-2.264,51.072],[-2.288,51.08],[-2.322,51.083],[-2.348,51.095],[-2.352,51.105],[-2.349,51.118],[-2.266,51.209],[-2.253,51.245],[-2.236,51.264],[-2.243,51.285],[-2.271,51.296],[-2.275,51.307],[-2.267,51.316],[-2.28,51.327],[-2.29,51.325],[-2.297,51.34],[-2.327,51.342],[-2.334,51.347],[-2.28,51.372],[-2.287,51.386],[-2.277,51.399],[-2.281,51.42],[-2.287,51.46],[-2.282,51.475],[-2.287,51.481],[-2.311,51.48],[-2.321,51.484],[-2.313,51.494],[-2.281,51.51],[-2.245,51.519],[-2.262,51.547],[-2.261,51.568],[-2.272,51.577],[-2.24,51.579],[-2.192,51.598],[-2.149,51.589],[-2.101,51.62],[-2.057,51.664],[-1.988,51.646],[-1.968,51.634],[-1.949,51.64],[-1.949,51.66],[-1.94,51.663],[-1.896,51.652],[-1.875,51.641],[-1.869,51.646],[-1.887,51.662],[-1.888,51.672],[-1.866,51.673],[-1.833,51.657],[-1.817,51.67],[-1.812,51.692],[-1.806,51.698],[-1.796,51.694],[-1.777,51.66],[-1.758,51.657],[-1.75,51.659]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Wiltshire'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Wiltshire?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Wiltshire located? </h2>Wiltshire, is a administrative county of the England region. It belongs to the country of United Kingdom. Its abbreviated name is Wiltshr and its postal identifier is WL.Wiltshire has an area of 3178 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

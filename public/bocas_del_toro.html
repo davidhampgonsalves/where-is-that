@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Bocas del Toro?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"MultiPolygon","coordinates":[[[[-82.183,9.346],[-82.174,9.344],[-82.166,9.345],[-82.157,9.349],[-82.147,9.345],[-82.123,9.323],[-82.098,9.311],[-82.085,9.303],[-82.075,9.288],[-82.094,9.291],[-82.114,9.283],[-82.13,9.268],[-82.139,9.245],[-82.144,9.247],[-82.154,9.258],[-82.154,9.259],[-82.152,9.26],[-82.15,9.264],[-82.15,9.287],[-82.154,9.296],[-82.164,9.302],[-82.164,9.308],[-82.15,9.302],[-82.159,9.323],[-82.174,9.33],[-82.193,9.334],[-82.212,9.343],[-82.212,9.349],[-82.206,9.354],[-82.201,9.356],[-82.196,9.355],[-82.191,9.349],[-82.183,9.346]]],[[[-82.242,9.338],[-82.246,9.33],[-82.26,9.353],[-82.281,9.375],[-82.328,9.412],[-82.302,9.432],[-82.286,9.439],[-82.266,9.439],[-82.239,9.399],[-82.232,9.373],[-82.246,9.357],[-82.246,9.349],[-82.242,9.345],[-82.24,9.342],[-82.242,9.338]]],[[[-82.73,9.545],[-82.721,9.541],[-82.712,9.545],[-82.702,9.534],[-82.689,9.51],[-82.679,9.498],[-82.669,9.493],[-82.652,9.488],[-82.633,9.485],[-82.62,9.487],[-82.62,9.487],[-82.613,9.5],[-82.609,9.538],[-82.602,9.549],[-82.602,9.549],[-82.587,9.546],[-82.571,9.538],[-82.564,9.539],[-82.564,9.539],[-82.575,9.577],[-82.574,9.577],[-82.562,9.569],[-82.466,9.494],[-82.407,9.435],[-82.369,9.415],[-82.343,9.432],[-82.345,9.415],[-82.35,9.402],[-82.377,9.355],[-82.379,9.344],[-82.376,9.33],[-82.368,9.321],[-82.356,9.313],[-82.348,9.305],[-82.349,9.295],[-82.363,9.284],[-82.388,9.286],[-82.39,9.275],[-82.395,9.267],[-82.394,9.262],[-82.389,9.26],[-82.383,9.261],[-82.373,9.254],[-82.364,9.243],[-82.358,9.229],[-82.356,9.217],[-82.351,9.207],[-82.315,9.185],[-82.308,9.185],[-82.3,9.197],[-82.288,9.198],[-82.283,9.202],[-82.294,9.22],[-82.281,9.217],[-82.276,9.206],[-82.273,9.194],[-82.266,9.185],[-82.256,9.183],[-82.248,9.187],[-82.244,9.198],[-82.246,9.213],[-82.239,9.213],[-82.238,9.2],[-82.231,9.194],[-82.223,9.193],[-82.219,9.196],[-82.219,9.209],[-82.217,9.217],[-82.213,9.22],[-82.205,9.213],[-82.204,9.216],[-82.204,9.219],[-82.203,9.221],[-82.198,9.22],[-82.196,9.211],[-82.193,9.204],[-82.19,9.198],[-82.184,9.193],[-82.178,9.193],[-82.178,9.2],[-82.171,9.2],[-82.173,9.185],[-82.172,9.157],[-82.178,9.145],[-82.208,9.164],[-82.224,9.17],[-82.25,9.172],[-82.261,9.164],[-82.264,9.147],[-82.261,9.128],[-82.253,9.117],[-82.253,9.11],[-82.259,9.113],[-82.274,9.117],[-82.268,9.102],[-82.245,9.09],[-82.239,9.079],[-82.246,9.014],[-82.251,9.015],[-82.254,9.016],[-82.256,9.018],[-82.26,9.021],[-82.243,9.004],[-82.219,8.993],[-82.195,8.991],[-82.178,9],[-82.142,8.989],[-82.129,8.981],[-82.129,8.973],[-82.114,8.951],[-82.109,8.945],[-82.107,8.942],[-82.105,8.935],[-82.102,8.932],[-82.098,8.931],[-82.087,8.932],[-82.068,8.931],[-82.02,8.945],[-82.007,8.947],[-82.008,8.942],[-82.016,8.919],[-82.035,8.908],[-82.061,8.903],[-82.102,8.903],[-82.132,8.901],[-82.151,8.891],[-82.164,8.871],[-82.17,8.848],[-82.179,8.844],[-82.187,8.856],[-82.192,8.882],[-82.196,8.891],[-82.209,8.899],[-82.211,8.917],[-82.2,8.925],[-82.196,8.942],[-82.202,8.955],[-82.226,8.97],[-82.262,8.977],[-82.273,8.987],[-82.28,8.998],[-82.301,9.002],[-82.322,9.009],[-82.323,9.024],[-82.318,9.039],[-82.303,9.051],[-82.29,9.067],[-82.28,9.081],[-82.288,9.084],[-82.308,9.092],[-82.316,9.099],[-82.31,9.114],[-82.314,9.126],[-82.323,9.128],[-82.338,9.113],[-82.352,9.086],[-82.353,9.062],[-82.38,9.039],[-82.393,9.026],[-82.427,9.013],[-82.44,9],[-82.428,8.989],[-82.408,8.981],[-82.37,8.968],[-82.348,8.949],[-82.335,8.925],[-82.331,8.904],[-82.338,8.889],[-82.348,8.857],[-82.355,8.827],[-82.363,8.809],[-82.446,8.846],[-82.492,8.861],[-82.53,8.863],[-82.541,8.885],[-82.552,8.894],[-82.568,8.9],[-82.625,8.903],[-82.693,8.894],[-82.715,8.916],[-82.721,8.921],[-82.721,8.921],[-82.72,8.922],[-82.724,8.931],[-82.75,8.974],[-82.763,8.983],[-82.809,8.998],[-82.855,9.032],[-82.877,9.042],[-82.883,9.045],[-82.888,9.052],[-82.89,9.059],[-82.894,9.067],[-82.896,9.069],[-82.901,9.072],[-82.91,9.072],[-82.931,9.064],[-82.94,9.06],[-82.94,9.071],[-82.945,9.437],[-82.943,9.456],[-82.934,9.47],[-82.934,9.47],[-82.915,9.477],[-82.862,9.484],[-82.847,9.493],[-82.847,9.493],[-82.846,9.501],[-82.85,9.504],[-82.857,9.506],[-82.861,9.511],[-82.868,9.539],[-82.88,9.56],[-82.878,9.569],[-82.867,9.585],[-82.867,9.585],[-82.85,9.599],[-82.848,9.601],[-82.848,9.601],[-82.83,9.603],[-82.772,9.58],[-82.73,9.545]]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Bocas del Toro'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Bocas del Toro?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Bocas del Toro located? </h2>Bocas del Toro, is a province It belongs to the country of Panama. Its postal identifier is BC.Bocas del Toro has an area of 4671 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

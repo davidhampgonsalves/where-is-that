@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Negros Occidental?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[123.366,10.392],[123.347,10.394],[123.29,10.405],[123.266,10.414],[123.261,10.415],[123.257,10.417],[123.254,10.424],[123.253,10.429],[123.251,10.434],[123.248,10.437],[123.244,10.441],[123.219,10.445],[123.194,10.437],[123.169,10.426],[123.144,10.422],[123.176,10.301],[123.176,10.272],[123.163,10.24],[123.013,9.964],[122.597,9.438],[122.591,9.451],[122.57,9.475],[122.552,9.491],[122.53,9.538],[122.516,9.549],[122.505,9.552],[122.497,9.562],[122.467,9.624],[122.457,9.638],[122.464,9.647],[122.461,9.655],[122.444,9.673],[122.438,9.668],[122.428,9.663],[122.423,9.658],[122.425,9.673],[122.431,9.699],[122.431,9.714],[122.424,9.71],[122.409,9.703],[122.403,9.699],[122.404,9.739],[122.409,9.776],[122.41,9.808],[122.395,9.837],[122.395,9.843],[122.406,9.853],[122.444,9.921],[122.462,9.966],[122.475,9.974],[122.495,9.977],[122.538,9.987],[122.56,9.987],[122.626,9.975],[122.643,9.967],[122.657,9.976],[122.708,9.986],[122.729,9.997],[122.782,10.053],[122.807,10.069],[122.827,10.058],[122.845,10.067],[122.873,10.1],[122.879,10.118],[122.876,10.143],[122.863,10.185],[122.855,10.228],[122.869,10.35],[122.86,10.394],[122.822,10.472],[122.815,10.515],[122.824,10.533],[122.843,10.541],[122.861,10.546],[122.869,10.552],[122.875,10.562],[122.91,10.597],[122.934,10.649],[122.935,10.658],[122.972,10.721],[122.976,10.742],[122.972,10.806],[122.969,10.811],[122.954,10.822],[122.951,10.827],[122.952,10.848],[122.954,10.856],[122.958,10.864],[122.966,10.876],[122.994,10.907],[123.003,10.913],[123.048,10.915],[123.068,10.919],[123.088,10.926],[123.17,10.977],[123.214,10.996],[123.26,10.995],[123.262,10.991],[123.265,10.984],[123.27,10.977],[123.277,10.974],[123.296,10.975],[123.301,10.974],[123.312,10.967],[123.33,10.951],[123.342,10.946],[123.354,10.947],[123.379,10.959],[123.39,10.96],[123.404,10.953],[123.401,10.945],[123.395,10.936],[123.396,10.926],[123.405,10.92],[123.413,10.924],[123.421,10.933],[123.431,10.939],[123.446,10.942],[123.457,10.94],[123.467,10.936],[123.503,10.928],[123.522,10.92],[123.535,10.905],[123.542,10.865],[123.547,10.856],[123.561,10.837],[123.564,10.835],[123.567,10.835],[123.571,10.835],[123.575,10.831],[123.576,10.825],[123.571,10.779],[123.562,10.76],[123.534,10.721],[123.517,10.681],[123.486,10.549],[123.474,10.527],[123.39,10.437],[123.38,10.421],[123.366,10.392]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Negros Occidental'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Negros Occidental?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Negros Occidental located? </h2>Negros Occidental, is a province of the Central Visayas region. It belongs to the country of Philippines. Its postal identifier is ND.Negros Occidental has an area of 7553 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

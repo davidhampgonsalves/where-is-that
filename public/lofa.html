@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Lofa?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-9.434,7.994],[-9.433,7.994],[-9.435,7.991],[-9.434,7.994],[-9.446,7.95],[-9.449,7.908],[-9.439,7.866],[-9.416,7.825],[-9.39,7.792],[-9.381,7.775],[-9.356,7.742],[-9.367,7.716],[-9.377,7.681],[-9.375,7.647],[-9.354,7.623],[-9.365,7.615],[-9.373,7.602],[-9.379,7.587],[-9.384,7.56],[-9.391,7.548],[-9.409,7.528],[-9.405,7.514],[-9.414,7.492],[-9.436,7.459],[-9.457,7.443],[-9.467,7.434],[-9.471,7.421],[-9.471,7.408],[-9.474,7.396],[-9.48,7.386],[-9.491,7.376],[-9.487,7.373],[-9.486,7.37],[-9.485,7.366],[-9.484,7.363],[-9.508,7.337],[-9.546,7.311],[-9.562,7.304],[-9.585,7.299],[-9.604,7.29],[-9.632,7.284],[-9.642,7.277],[-9.649,7.266],[-9.655,7.253],[-9.65,7.242],[-9.656,7.227],[-9.669,7.213],[-9.683,7.206],[-9.683,7.212],[-9.692,7.208],[-9.709,7.196],[-9.717,7.192],[-9.726,7.19],[-9.733,7.19],[-9.769,7.194],[-9.784,7.198],[-9.813,7.212],[-9.827,7.198],[-9.864,7.177],[-9.881,7.165],[-9.9,7.141],[-9.905,7.137],[-9.911,7.134],[-9.916,7.129],[-9.921,7.125],[-9.926,7.126],[-9.931,7.129],[-9.937,7.13],[-9.944,7.13],[-9.95,7.129],[-9.974,7.123],[-9.995,7.113],[-10.032,7.088],[-10.063,7.057],[-10.08,7.045],[-10.095,7.042],[-10.106,7.047],[-10.109,7.048],[-10.112,7.05],[-10.112,7.052],[-10.111,7.055],[-10.109,7.057],[-10.107,7.059],[-10.108,7.061],[-10.11,7.071],[-10.112,7.075],[-10.115,7.085],[-10.117,7.089],[-10.12,7.092],[-10.122,7.096],[-10.121,7.099],[-10.118,7.103],[-10.114,7.107],[-10.111,7.11],[-10.11,7.116],[-10.11,7.119],[-10.11,7.121],[-10.112,7.123],[-10.126,7.129],[-10.161,7.137],[-10.144,7.169],[-10.08,7.259],[-10.063,7.288],[-10.051,7.327],[-10.055,7.349],[-10.066,7.369],[-10.091,7.386],[-10.163,7.42],[-10.18,7.434],[-10.186,7.451],[-10.179,7.498],[-10.195,7.521],[-10.222,7.537],[-10.288,7.535],[-10.315,7.518],[-10.357,7.485],[-10.385,7.478],[-10.422,7.485],[-10.504,7.508],[-10.554,7.515],[-10.6,7.517],[-10.673,7.505],[-10.688,7.503],[-10.693,7.502],[-10.765,7.515],[-10.773,7.521],[-10.776,7.523],[-10.778,7.523],[-10.792,7.52],[-10.798,7.52],[-10.801,7.521],[-10.804,7.522],[-10.807,7.529],[-10.812,7.532],[-10.815,7.534],[-10.851,7.542],[-10.865,7.544],[-10.731,7.706],[-10.693,7.738],[-10.657,7.757],[-10.646,7.763],[-10.639,7.766],[-10.616,7.769],[-10.616,7.769],[-10.618,8.011],[-10.618,8.011],[-10.617,8.023],[-10.613,8.032],[-10.605,8.038],[-10.604,8.039],[-10.596,8.044],[-10.578,8.053],[-10.573,8.058],[-10.568,8.063],[-10.544,8.106],[-10.53,8.125],[-10.506,8.136],[-10.486,8.139],[-10.405,8.14],[-10.385,8.142],[-10.377,8.145],[-10.365,8.148],[-10.346,8.16],[-10.321,8.183],[-10.319,8.202],[-10.326,8.222],[-10.334,8.25],[-10.333,8.261],[-10.332,8.273],[-10.314,8.311],[-10.283,8.433],[-10.283,8.485],[-10.283,8.485],[-10.272,8.484],[-10.261,8.486],[-10.241,8.494],[-10.233,8.477],[-10.216,8.487],[-10.182,8.52],[-10.165,8.525],[-10.148,8.525],[-10.092,8.51],[-10.077,8.502],[-10.07,8.487],[-10.08,8.44],[-10.076,8.427],[-10.062,8.422],[-10.041,8.426],[-10.001,8.45],[-9.962,8.48],[-9.945,8.489],[-9.929,8.494],[-9.912,8.496],[-9.892,8.496],[-9.887,8.497],[-9.873,8.501],[-9.869,8.498],[-9.864,8.494],[-9.859,8.487],[-9.85,8.49],[-9.832,8.499],[-9.807,8.507],[-9.806,8.513],[-9.809,8.521],[-9.809,8.529],[-9.802,8.537],[-9.795,8.545],[-9.79,8.553],[-9.791,8.566],[-9.774,8.563],[-9.764,8.55],[-9.758,8.533],[-9.751,8.486],[-9.747,8.468],[-9.736,8.451],[-9.723,8.436],[-9.719,8.439],[-9.718,8.453],[-9.716,8.474],[-9.704,8.488],[-9.684,8.487],[-9.664,8.478],[-9.651,8.465],[-9.646,8.444],[-9.654,8.432],[-9.667,8.423],[-9.676,8.41],[-9.678,8.392],[-9.669,8.389],[-9.654,8.392],[-9.637,8.393],[-9.628,8.392],[-9.62,8.393],[-9.613,8.397],[-9.608,8.403],[-9.601,8.411],[-9.593,8.405],[-9.58,8.388],[-9.53,8.367],[-9.512,8.354],[-9.505,8.346],[-9.5,8.344],[-9.512,8.336],[-9.516,8.335],[-9.523,8.331],[-9.529,8.326],[-9.54,8.315],[-9.531,8.306],[-9.526,8.296],[-9.522,8.285],[-9.516,8.275],[-9.511,8.27],[-9.51,8.266],[-9.511,8.261],[-9.516,8.257],[-9.526,8.241],[-9.532,8.213],[-9.531,8.186],[-9.516,8.175],[-9.492,8.17],[-9.482,8.165],[-9.479,8.153],[-9.478,8.142],[-9.46,8.069],[-9.462,8.059],[-9.473,8.041],[-9.475,8.029],[-9.463,8.044],[-9.452,8.052],[-9.441,8.051],[-9.43,8.037],[-9.425,8.026],[-9.423,8.016],[-9.425,8.006],[-9.432,7.997],[-9.434,7.994]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Lofa'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Lofa?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Lofa located? </h2>Lofa, is a county It belongs to the country of Liberia. Its postal identifier is LF.Lofa has an area of 15404 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

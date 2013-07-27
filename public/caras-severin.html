@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Caras-Severin?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[22.542,45.592],[22.543,45.586],[22.541,45.578],[22.542,45.57],[22.548,45.567],[22.556,45.567],[22.566,45.569],[22.576,45.567],[22.583,45.562],[22.589,45.554],[22.601,45.547],[22.62,45.538],[22.653,45.52],[22.669,45.507],[22.678,45.493],[22.69,45.463],[22.694,45.451],[22.695,45.44],[22.694,45.43],[22.698,45.413],[22.696,45.404],[22.691,45.394],[22.679,45.38],[22.675,45.374],[22.677,45.365],[22.685,45.356],[22.698,45.342],[22.704,45.332],[22.707,45.322],[22.706,45.314],[22.704,45.307],[22.699,45.299],[22.677,45.275],[22.672,45.267],[22.67,45.26],[22.669,45.24],[22.601,45.198],[22.573,45.171],[22.565,45.157],[22.563,45.147],[22.566,45.139],[22.575,45.134],[22.587,45.131],[22.625,45.13],[22.635,45.128],[22.641,45.122],[22.647,45.114],[22.641,45.092],[22.599,45.06],[22.567,45.024],[22.559,45.009],[22.555,44.997],[22.554,44.987],[22.55,44.973],[22.545,44.958],[22.534,44.934],[22.492,44.885],[22.467,44.839],[22.452,44.792],[22.442,44.769],[22.432,44.758],[22.421,44.752],[22.406,44.75],[22.396,44.751],[22.388,44.754],[22.383,44.758],[22.377,44.769],[22.37,44.773],[22.363,44.776],[22.354,44.778],[22.321,44.777],[22.311,44.778],[22.304,44.78],[22.297,44.784],[22.263,44.808],[22.253,44.812],[22.243,44.813],[22.228,44.811],[22.222,44.806],[22.219,44.799],[22.219,44.791],[22.214,44.778],[22.206,44.761],[22.183,44.734],[22.172,44.717],[22.165,44.702],[22.162,44.691],[22.16,44.677],[22.161,44.664],[22.168,44.647],[22.173,44.634],[22.174,44.621],[22.169,44.609],[22.161,44.602],[22.15,44.598],[22.139,44.597],[22.127,44.597],[22.102,44.602],[22.089,44.603],[22.034,44.596],[22.032,44.604],[22.004,44.652],[21.994,44.659],[21.962,44.663],[21.872,44.696],[21.855,44.699],[21.838,44.696],[21.801,44.684],[21.756,44.678],[21.705,44.677],[21.656,44.688],[21.619,44.714],[21.61,44.732],[21.604,44.75],[21.595,44.766],[21.578,44.778],[21.558,44.782],[21.497,44.778],[21.412,44.785],[21.396,44.791],[21.378,44.817],[21.36,44.827],[21.342,44.832],[21.346,44.846],[21.355,44.857],[21.355,44.857],[21.368,44.865],[21.395,44.872],[21.453,44.87],[21.481,44.873],[21.522,44.881],[21.536,44.89],[21.536,44.89],[21.539,44.909],[21.531,44.925],[21.516,44.934],[21.481,44.944],[21.456,44.953],[21.408,44.959],[21.385,44.97],[21.384,44.975],[21.387,44.982],[21.384,44.987],[21.367,44.988],[21.353,44.99],[21.351,44.999],[21.356,45.009],[21.363,45.017],[21.363,45.017],[21.373,45.021],[21.399,45.022],[21.409,45.024],[21.421,45.032],[21.422,45.032],[21.425,45.037],[21.425,45.044],[21.429,45.058],[21.432,45.062],[21.441,45.069],[21.443,45.073],[21.444,45.078],[21.444,45.086],[21.443,45.092],[21.442,45.093],[21.449,45.101],[21.45,45.101],[21.458,45.108],[21.469,45.111],[21.481,45.112],[21.494,45.12],[21.494,45.12],[21.497,45.132],[21.493,45.146],[21.485,45.153],[21.504,45.16],[21.522,45.177],[21.527,45.185],[21.532,45.195],[21.532,45.205],[21.527,45.233],[21.527,45.243],[21.53,45.251],[21.55,45.268],[21.553,45.274],[21.554,45.28],[21.551,45.29],[21.55,45.296],[21.551,45.302],[21.55,45.309],[21.547,45.316],[21.542,45.323],[21.534,45.33],[21.514,45.341],[21.48,45.366],[21.474,45.374],[21.471,45.383],[21.47,45.391],[21.473,45.399],[21.483,45.413],[21.487,45.422],[21.487,45.431],[21.486,45.441],[21.485,45.45],[21.495,45.459],[21.513,45.47],[21.555,45.486],[21.569,45.496],[21.576,45.506],[21.576,45.516],[21.578,45.528],[21.582,45.538],[21.592,45.549],[21.609,45.557],[21.638,45.564],[21.669,45.564],[21.685,45.561],[21.704,45.553],[21.727,45.548],[21.738,45.545],[21.748,45.54],[21.761,45.528],[21.769,45.524],[21.786,45.524],[21.811,45.528],[21.857,45.543],[21.893,45.559],[21.902,45.56],[21.917,45.557],[21.927,45.551],[21.934,45.544],[21.943,45.527],[21.949,45.52],[21.956,45.513],[21.964,45.508],[21.975,45.504],[21.988,45.502],[22.008,45.505],[22.028,45.51],[22.053,45.522],[22.06,45.528],[22.059,45.532],[22.045,45.533],[22.04,45.534],[22.036,45.536],[22.034,45.541],[22.032,45.553],[22.029,45.559],[22.03,45.565],[22.037,45.568],[22.072,45.568],[22.095,45.571],[22.116,45.576],[22.141,45.588],[22.166,45.604],[22.177,45.607],[22.19,45.605],[22.198,45.601],[22.21,45.591],[22.217,45.588],[22.225,45.587],[22.239,45.588],[22.249,45.587],[22.257,45.586],[22.264,45.586],[22.27,45.589],[22.298,45.63],[22.335,45.648],[22.445,45.663],[22.454,45.64],[22.483,45.612],[22.497,45.605],[22.511,45.601],[22.523,45.6],[22.537,45.597],[22.542,45.592]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Caras-Severin'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Caras-Severin?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Caras-Severin located? </h2>Caras-Severin, is a county It belongs to the country of Romania. Its postal identifier is CS.Caras-Severin has an area of 8399 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

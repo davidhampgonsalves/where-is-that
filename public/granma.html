@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Granma?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[-76.722,20.722],[-76.717,20.714],[-76.713,20.71],[-76.707,20.706],[-76.7,20.705],[-76.69,20.708],[-76.68,20.713],[-76.677,20.713],[-76.674,20.711],[-76.664,20.696],[-76.658,20.691],[-76.65,20.688],[-76.635,20.685],[-76.628,20.682],[-76.618,20.682],[-76.608,20.684],[-76.581,20.697],[-76.57,20.696],[-76.565,20.68],[-76.563,20.673],[-76.563,20.661],[-76.564,20.646],[-76.564,20.642],[-76.56,20.638],[-76.551,20.634],[-76.504,20.623],[-76.486,20.616],[-76.44,20.59],[-76.405,20.58],[-76.396,20.576],[-76.393,20.577],[-76.39,20.578],[-76.387,20.58],[-76.385,20.582],[-76.381,20.583],[-76.378,20.582],[-76.374,20.581],[-76.371,20.579],[-76.368,20.572],[-76.367,20.567],[-76.373,20.546],[-76.36,20.545],[-76.338,20.536],[-76.313,20.532],[-76.301,20.529],[-76.28,20.52],[-76.253,20.514],[-76.244,20.509],[-76.234,20.503],[-76.204,20.474],[-76.18,20.438],[-76.206,20.404],[-76.22,20.394],[-76.227,20.393],[-76.231,20.398],[-76.236,20.411],[-76.241,20.42],[-76.242,20.426],[-76.242,20.432],[-76.241,20.438],[-76.241,20.444],[-76.243,20.45],[-76.248,20.455],[-76.258,20.461],[-76.266,20.461],[-76.27,20.459],[-76.271,20.455],[-76.267,20.436],[-76.267,20.427],[-76.269,20.418],[-76.272,20.412],[-76.277,20.406],[-76.283,20.4],[-76.287,20.395],[-76.288,20.391],[-76.289,20.382],[-76.29,20.377],[-76.293,20.371],[-76.299,20.369],[-76.308,20.369],[-76.33,20.373],[-76.34,20.373],[-76.356,20.373],[-76.363,20.367],[-76.369,20.357],[-76.39,20.276],[-76.39,20.272],[-76.391,20.269],[-76.389,20.259],[-76.404,20.244],[-76.413,20.235],[-76.42,20.231],[-76.42,20.226],[-76.417,20.219],[-76.412,20.19],[-76.408,20.105],[-76.419,20.087],[-76.447,20.061],[-76.462,20.051],[-76.477,20.044],[-76.489,20.039],[-76.498,20.037],[-76.505,20.037],[-76.529,20.038],[-76.557,20.043],[-76.564,20.039],[-76.564,20.036],[-76.562,20.03],[-76.554,20.01],[-76.556,20.005],[-76.562,20.004],[-76.59,20.01],[-76.599,20.013],[-76.605,20.014],[-76.607,20.013],[-76.61,20.004],[-76.613,20.002],[-76.637,20.002],[-76.655,19.999],[-76.663,19.999],[-76.669,20],[-76.671,20.001],[-76.675,20.002],[-76.691,20.006],[-76.699,20.009],[-76.705,20.013],[-76.714,20.023],[-76.72,20.027],[-76.726,20.027],[-76.745,20.023],[-76.75,20.021],[-76.754,20.018],[-76.756,20.015],[-76.759,20.011],[-76.763,20.011],[-76.766,20.014],[-76.769,20.016],[-76.772,20.018],[-76.774,20.019],[-76.778,20.02],[-76.781,20.021],[-76.785,20.023],[-76.789,20.027],[-76.791,20.029],[-76.801,20.038],[-76.817,20.029],[-76.834,20.012],[-76.843,20.008],[-76.859,20.006],[-76.881,20.005],[-76.895,20.006],[-76.919,20.005],[-76.926,20.003],[-76.931,20.001],[-76.969,19.953],[-76.974,19.95],[-76.981,19.948],[-77.039,19.941],[-77.048,19.939],[-77.048,19.936],[-77.047,19.933],[-77.044,19.928],[-77.035,19.911],[-77.035,19.888],[-77.088,19.886],[-77.113,19.889],[-77.163,19.908],[-77.189,19.913],[-77.203,19.903],[-77.21,19.903],[-77.217,19.91],[-77.227,19.911],[-77.237,19.907],[-77.244,19.897],[-77.269,19.905],[-77.298,19.907],[-77.324,19.9],[-77.34,19.883],[-77.313,19.883],[-77.313,19.876],[-77.33,19.875],[-77.358,19.865],[-77.377,19.862],[-77.47,19.86],[-77.533,19.845],[-77.569,19.842],[-77.611,19.845],[-77.673,19.829],[-77.692,19.828],[-77.706,19.83],[-77.719,19.836],[-77.73,19.845],[-77.737,19.856],[-77.736,19.874],[-77.717,19.907],[-77.716,19.917],[-77.709,19.919],[-77.696,19.92],[-77.689,19.923],[-77.682,19.93],[-77.675,19.94],[-77.668,19.944],[-77.671,19.955],[-77.667,19.963],[-77.648,19.979],[-77.625,20.008],[-77.624,20.013],[-77.62,20.02],[-77.573,20.061],[-77.575,20.07],[-77.588,20.083],[-77.586,20.089],[-77.577,20.088],[-77.551,20.08],[-77.541,20.089],[-77.522,20.095],[-77.517,20.099],[-77.515,20.104],[-77.497,20.13],[-77.479,20.141],[-77.437,20.163],[-77.42,20.185],[-77.401,20.198],[-77.301,20.243],[-77.281,20.246],[-77.266,20.253],[-77.251,20.289],[-77.236,20.301],[-77.233,20.301],[-77.23,20.301],[-77.223,20.301],[-77.229,20.289],[-77.223,20.283],[-77.21,20.283],[-77.195,20.287],[-77.182,20.295],[-77.171,20.307],[-77.164,20.322],[-77.162,20.338],[-77.154,20.344],[-77.113,20.368],[-77.11,20.416],[-77.103,20.424],[-77.096,20.43],[-77.082,20.465],[-77.113,20.512],[-77.123,20.521],[-77.15,20.538],[-77.186,20.551],[-77.196,20.552],[-77.189,20.541],[-77.195,20.534],[-77.214,20.546],[-77.229,20.553],[-77.24,20.563],[-77.244,20.585],[-77.24,20.592],[-77.232,20.596],[-77.223,20.599],[-77.216,20.603],[-77.195,20.63],[-77.195,20.637],[-77.232,20.658],[-77.251,20.662],[-77.258,20.643],[-77.278,20.662],[-77.295,20.687],[-77.315,20.709],[-77.337,20.716],[-77.332,20.719],[-77.317,20.726],[-77.313,20.728],[-77.311,20.731],[-77.31,20.733],[-77.307,20.739],[-77.304,20.745],[-77.294,20.756],[-77.291,20.761],[-77.289,20.766],[-77.288,20.777],[-77.285,20.782],[-77.282,20.783],[-77.276,20.777],[-77.272,20.767],[-77.268,20.768],[-77.262,20.771],[-77.246,20.781],[-77.239,20.784],[-77.232,20.784],[-77.228,20.778],[-77.226,20.772],[-77.202,20.766],[-77.104,20.763],[-77.068,20.751],[-77.053,20.741],[-77.047,20.739],[-77.038,20.739],[-77.022,20.744],[-77.008,20.744],[-76.993,20.746],[-76.971,20.754],[-76.929,20.747],[-76.921,20.748],[-76.901,20.748],[-76.859,20.743],[-76.836,20.743],[-76.821,20.74],[-76.812,20.733],[-76.793,20.695],[-76.783,20.691],[-76.766,20.704],[-76.762,20.707],[-76.722,20.722]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Granma'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Granma?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Granma located? </h2>Granma, is a province It belongs to the country of Cuba. Its postal identifier is GR.Granma has an area of 8540 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

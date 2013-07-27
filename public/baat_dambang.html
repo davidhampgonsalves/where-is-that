@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Baat Dambang?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[102.708,13.417],[102.716,13.417],[102.738,13.441],[102.746,13.452],[102.763,13.467],[102.779,13.451],[102.811,13.435],[102.897,13.414],[102.964,13.408],[102.978,13.413],[103.11,13.453],[103.161,13.458],[103.173,13.455],[103.195,13.441],[103.222,13.429],[103.252,13.423],[103.406,13.428],[103.425,13.405],[103.432,13.399],[103.441,13.394],[103.456,13.392],[103.489,13.397],[103.523,13.384],[103.538,13.381],[103.543,13.379],[103.548,13.375],[103.56,13.359],[103.566,13.354],[103.575,13.349],[103.59,13.344],[103.67,13.329],[103.684,13.316],[103.711,13.266],[103.749,13.208],[103.809,13.145],[103.731,13.068],[103.69,13.037],[103.685,13.033],[103.681,13.027],[103.679,13.019],[103.682,13.01],[103.687,13.003],[103.691,12.999],[103.697,12.995],[103.703,12.99],[103.706,12.982],[103.703,12.971],[103.686,12.947],[103.681,12.938],[103.68,12.926],[103.68,12.92],[103.681,12.912],[103.681,12.904],[103.678,12.896],[103.669,12.886],[103.663,12.881],[103.656,12.877],[103.636,12.869],[103.633,12.867],[103.628,12.861],[103.624,12.852],[103.623,12.838],[103.625,12.829],[103.63,12.823],[103.637,12.82],[103.639,12.818],[103.641,12.816],[103.642,12.814],[103.643,12.811],[103.643,12.809],[103.642,12.805],[103.623,12.751],[103.623,12.743],[103.629,12.717],[103.636,12.703],[103.642,12.677],[103.642,12.674],[103.642,12.669],[103.635,12.654],[103.614,12.623],[103.612,12.618],[103.612,12.616],[103.602,12.596],[103.596,12.589],[103.586,12.581],[103.57,12.572],[103.54,12.562],[103.506,12.559],[103.436,12.576],[103.34,12.588],[103.319,12.585],[103.235,12.562],[103.191,12.544],[103.169,12.529],[103.151,12.519],[103.14,12.517],[103.111,12.517],[103.092,12.513],[103.084,12.509],[103.08,12.506],[103.076,12.501],[103.074,12.498],[103.069,12.496],[103.062,12.493],[103.052,12.492],[103.044,12.492],[103.037,12.492],[103.031,12.493],[103.02,12.498],[103.006,12.509],[103,12.515],[102.998,12.517],[102.992,12.516],[102.988,12.514],[102.969,12.492],[102.958,12.478],[102.95,12.473],[102.896,12.452],[102.878,12.441],[102.863,12.436],[102.853,12.433],[102.843,12.432],[102.836,12.428],[102.818,12.413],[102.811,12.41],[102.804,12.409],[102.8,12.409],[102.796,12.41],[102.794,12.412],[102.792,12.413],[102.788,12.416],[102.764,12.425],[102.762,12.436],[102.751,12.449],[102.718,12.466],[102.705,12.481],[102.702,12.488],[102.7,12.505],[102.697,12.513],[102.69,12.52],[102.665,12.534],[102.589,12.61],[102.559,12.631],[102.502,12.65],[102.496,12.654],[102.517,12.661],[102.66,12.694],[102.739,12.742],[102.754,12.768],[102.758,12.809],[102.758,12.939],[102.752,13],[102.741,13.043],[102.721,13.076],[102.698,13.101],[102.674,13.113],[102.65,13.116],[102.629,13.108],[102.609,13.096],[102.595,13.077],[102.59,13.06],[102.59,13.041],[102.586,13.019],[102.577,13.006],[102.56,13.001],[102.547,12.998],[102.516,12.998],[102.49,12.995],[102.49,12.995],[102.49,12.996],[102.473,13.006],[102.463,13.02],[102.447,13.051],[102.402,13.103],[102.382,13.137],[102.329,13.273],[102.328,13.275],[102.327,13.346],[102.334,13.407],[102.329,13.482],[102.329,13.485],[102.357,13.484],[102.641,13.461],[102.669,13.425],[102.708,13.417]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Baat Dambang'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Baat Dambang?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Baat Dambang located? </h2>Baat Dambang, is a province It belongs to the country of Cambodia. Its postal identifier is BA.Baat Dambang has an area of 12232 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

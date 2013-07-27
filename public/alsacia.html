@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Alsacia?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      var map;
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+
+          var featureOpts = [
+              {
+                stylers: [
+                  { hue: '#FFF' },
+                  { visibility: 'simplified' },
+                  { gamma: 0.3 },
+                  { weight: 0.2 }
+                ]
+              },
+              {
+                elementType: 'labels',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+              {
+                featureType: 'water',
+                stylers: [
+                  { color: '#FFF' }
+                ]
+              }
+            ];
+          var MY_MAPTYPE_ID = 'Simplified';
+
+
+          var rawData = {"type":"Polygon","coordinates":[[[7.32,48.947],[7.342,48.943],[7.374,48.944],[7.481,48.959],[7.491,48.959],[7.5,48.957],[7.509,48.953],[7.536,48.94],[7.545,48.938],[7.555,48.938],[7.564,48.94],[7.573,48.944],[7.581,48.951],[7.59,48.961],[7.611,48.996],[7.645,49.037],[7.649,49.036],[7.66,49.038],[7.672,49.041],[7.685,49.043],[7.696,49.042],[7.717,49.037],[7.727,49.036],[7.739,49.038],[7.762,49.047],[7.773,49.048],[7.857,49.033],[7.914,49.037],[7.932,49.035],[8.09,48.98],[8.188,48.966],[8.2,48.959],[8.2,48.959],[8.198,48.958],[8.179,48.943],[8.148,48.904],[8.102,48.822],[8.09,48.808],[8.084,48.804],[8.047,48.791],[8.038,48.791],[8.036,48.789],[8.032,48.786],[8.027,48.78],[8.025,48.771],[8.023,48.765],[8.017,48.762],[8.009,48.76],[7.981,48.76],[7.97,48.758],[7.965,48.749],[7.963,48.73],[7.959,48.722],[7.948,48.712],[7.935,48.704],[7.923,48.699],[7.896,48.677],[7.88,48.668],[7.864,48.664],[7.852,48.659],[7.81,48.615],[7.801,48.583],[7.801,48.548],[7.801,48.548],[7.813,48.527],[7.813,48.52],[7.813,48.52],[7.788,48.507],[7.776,48.499],[7.771,48.489],[7.769,48.47],[7.764,48.461],[7.757,48.454],[7.75,48.445],[7.745,48.433],[7.738,48.407],[7.737,48.394],[7.737,48.394],[7.74,48.382],[7.747,48.369],[7.752,48.356],[7.752,48.356],[7.75,48.342],[7.737,48.327],[7.718,48.32],[7.702,48.312],[7.695,48.29],[7.693,48.27],[7.687,48.253],[7.676,48.239],[7.613,48.18],[7.606,48.167],[7.604,48.153],[7.599,48.145],[7.593,48.139],[7.585,48.13],[7.578,48.115],[7.572,48.095],[7.572,48.095],[7.575,48.054],[7.619,48.003],[7.621,47.972],[7.621,47.972],[7.611,47.96],[7.585,47.941],[7.579,47.927],[7.579,47.927],[7.58,47.911],[7.58,47.911],[7.579,47.907],[7.572,47.897],[7.568,47.892],[7.562,47.887],[7.559,47.883],[7.557,47.879],[7.557,47.879],[7.558,47.876],[7.559,47.874],[7.559,47.874],[7.559,47.869],[7.559,47.869],[7.564,47.851],[7.564,47.851],[7.562,47.84],[7.548,47.835],[7.543,47.83],[7.528,47.797],[7.526,47.784],[7.526,47.783],[7.538,47.749],[7.538,47.749],[7.538,47.732],[7.532,47.726],[7.515,47.714],[7.511,47.708],[7.511,47.708],[7.514,47.686],[7.517,47.675],[7.521,47.671],[7.536,47.666],[7.55,47.653],[7.572,47.622],[7.578,47.617],[7.585,47.614],[7.59,47.608],[7.592,47.599],[7.592,47.599],[7.59,47.595],[7.586,47.585],[7.586,47.585],[7.583,47.584],[7.585,47.584],[7.55,47.576],[7.526,47.567],[7.482,47.543],[7.485,47.542],[7.501,47.533],[7.505,47.533],[7.505,47.523],[7.501,47.518],[7.493,47.516],[7.482,47.517],[7.477,47.515],[7.475,47.512],[7.477,47.508],[7.485,47.501],[7.486,47.499],[7.485,47.496],[7.484,47.493],[7.482,47.492],[7.467,47.482],[7.454,47.484],[7.446,47.487],[7.441,47.489],[7.426,47.493],[7.414,47.491],[7.414,47.484],[7.419,47.478],[7.422,47.476],[7.427,47.471],[7.429,47.465],[7.426,47.456],[7.42,47.451],[7.406,47.439],[7.388,47.434],[7.378,47.431],[7.309,47.433],[7.282,47.429],[7.244,47.418],[7.238,47.417],[7.23,47.419],[7.226,47.423],[7.223,47.427],[7.219,47.429],[7.19,47.435],[7.168,47.444],[7.162,47.46],[7.18,47.489],[7.153,47.487],[7.142,47.488],[7.142,47.488],[7.147,47.499],[7.151,47.508],[7.151,47.513],[7.151,47.519],[7.151,47.525],[7.149,47.532],[7.143,47.54],[7.134,47.55],[7.08,47.591],[7.067,47.595],[7.056,47.597],[7.047,47.596],[7.037,47.596],[7.029,47.599],[7.023,47.606],[7.022,47.614],[7.024,47.619],[7.027,47.624],[7.044,47.639],[7.049,47.646],[7.053,47.653],[7.056,47.66],[7.058,47.666],[7.059,47.673],[7.059,47.68],[7.055,47.703],[7.05,47.716],[7.04,47.725],[7.024,47.736],[6.883,47.791],[6.875,47.797],[6.87,47.802],[6.869,47.819],[6.88,47.821],[6.908,47.831],[6.917,47.836],[6.924,47.843],[6.925,47.853],[6.922,47.861],[6.917,47.868],[6.915,47.876],[6.917,47.883],[6.934,47.903],[6.942,47.917],[6.945,47.927],[6.946,47.935],[6.948,47.948],[6.952,47.957],[6.96,47.968],[6.995,48],[7.009,48.01],[7.028,48.034],[7.059,48.085],[7.081,48.105],[7.087,48.114],[7.087,48.125],[7.082,48.133],[7.077,48.14],[7.074,48.146],[7.075,48.153],[7.083,48.165],[7.209,48.303],[7.209,48.315],[7.203,48.322],[7.189,48.331],[7.176,48.333],[7.144,48.332],[7.135,48.333],[7.127,48.335],[7.116,48.339],[7.11,48.342],[7.107,48.346],[7.104,48.353],[7.107,48.362],[7.116,48.378],[7.118,48.387],[7.119,48.402],[7.127,48.447],[7.128,48.484],[7.134,48.492],[7.141,48.497],[7.149,48.5],[7.139,48.505],[7.089,48.523],[7.098,48.529],[7.193,48.534],[7.201,48.537],[7.208,48.548],[7.214,48.553],[7.253,48.568],[7.263,48.576],[7.27,48.584],[7.277,48.597],[7.286,48.622],[7.297,48.645],[7.3,48.656],[7.295,48.661],[7.287,48.665],[7.277,48.668],[7.269,48.672],[7.265,48.678],[7.265,48.685],[7.273,48.696],[7.289,48.711],[7.313,48.741],[7.317,48.748],[7.317,48.751],[7.318,48.756],[7.317,48.759],[7.314,48.765],[7.31,48.77],[7.304,48.775],[7.248,48.818],[7.239,48.822],[7.222,48.825],[7.216,48.83],[7.215,48.835],[7.215,48.841],[7.214,48.847],[7.211,48.852],[7.204,48.854],[7.197,48.853],[7.192,48.847],[7.189,48.839],[7.189,48.831],[7.184,48.825],[7.175,48.82],[7.163,48.818],[7.155,48.816],[7.147,48.813],[7.135,48.799],[7.129,48.793],[7.12,48.789],[7.111,48.789],[7.103,48.793],[7.099,48.798],[7.093,48.811],[7.088,48.816],[7.081,48.82],[7.075,48.825],[7.075,48.832],[7.08,48.84],[7.097,48.852],[7.096,48.858],[7.091,48.861],[7.071,48.864],[7.015,48.882],[7,48.889],[6.993,48.893],[6.986,48.899],[6.981,48.905],[6.978,48.911],[6.977,48.918],[6.978,48.924],[6.981,48.93],[6.985,48.937],[6.991,48.944],[7.001,48.952],[7.037,48.972],[7.043,48.977],[7.045,48.981],[7.045,48.986],[7.045,48.991],[7.045,48.996],[7.046,48.999],[7.047,49],[7.055,49.011],[7.062,49.018],[7.077,49.029],[7.083,49.035],[7.083,49.041],[7.078,49.054],[7.079,49.06],[7.086,49.065],[7.097,49.066],[7.113,49.062],[7.119,49.056],[7.124,49.05],[7.133,49.021],[7.137,49.015],[7.145,49.01],[7.156,49.006],[7.196,48.998],[7.235,48.987],[7.275,48.98],[7.284,48.977],[7.291,48.973],[7.295,48.967],[7.297,48.961],[7.302,48.955],[7.31,48.95],[7.32,48.947]]]};
+
+          rawData = rawData.coordinates[0];
+
+          var centerLat, centerLon;
+          var regionCoords = [];
+          for(var i=0 ; i < rawData.length ; i++) {
+            var point = rawData[i];
+            var lat = point[0];
+            var lon = point[1];
+
+            centerLat = lat;
+            centerLon = lon;
+
+            regionCoords.push(new google.maps.LatLng(lat, lon));
+          }
+
+          var overlayOptions = {
+            paths: regionCoords,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.5,
+            strokeWeight: 1000,
+            fillColor: '#FFFFFF', 
+            fillOpacity: 0,
+            clickable: false,
+            strokePosition: google.maps.StrokePosition.OUTSIDE
+          };
+
+          regionOverlay = new google.maps.Polygon(overlayOptions);
+
+          overlayOptions.strokeColor = "#FFFFFF";
+          overlayOptions.strokeWeight = 8;
+          overlayOptions.strokeOpacity = 0.5;
+          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+          regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+          var regionCenter = regionOverlay.getBounds().getCenter();
+
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false, 
+            center: regionCenter,
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          
+          map.fitBounds(regionOverlay.getBounds());
+
+          var marker = new google.maps.Marker({
+            position: regionCenter,
+            map: map,
+            title: 'Alsacia'
+          });          
+
+          regionOverlay.setMap(map);
+          regionOverlay2.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>Where is</span><br>Alsacia?</h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Where is Alsacia located? </h2>Alsacia, is a region of the Alsace region. It belongs to the country of France.Alsacia has an area of 8041 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+
