@@ -1,4 +1,6 @@
-google analyitcs
 google ads
 
-sitemap.xml close
+
+other resources
+	cities: https://www.google.com/fusiontables/DataSource?dsrcid=423748
+	lakes : https://www.google.com/fusiontables/DataSource?dsrcid=425638

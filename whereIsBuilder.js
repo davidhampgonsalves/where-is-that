@@ -9,84 +9,116 @@ fs.readdirSync(directory).forEach(function(file) {
 	fs.unlinkSync(directory + file);
 });
 
+//moving index.html into place
+console.log('moving index.html into public');
+fs.writeFileSync(directory + 'index.html', fs.readFileSync('./index.html'));
+
+
 //creating robots.txt
 console.log('creating robots.txt');
-fs.writeFileSync(directory + 'robots.txt', 'User-agent: *\nDisallow:\nsitemap: http://whereisthis.herokuapp.com/sitemap.xml');
+fs.writeFile(directory + 'robots.txt', 'User-agent: *\nDisallow:\nsitemap: http://whereisthis.herokuapp.com/sitemap.xml');
 
 //creating sitemap
 console.log('creating sitemap.xml');
 fs.writeFileSync(directory + 'sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n\t<url><loc>http://whereisthis.herokuapp.com</loc></url>');
 
-//watch the sitemap file to see when we are done building
-var sitemapSize = 0;
-var sitemapSizeCheckInterval = setInterval(function() {
-	//check to see if we are done
-	var stats = fs.statSync(directory + 'sitemap.xml');
-	var currentSitemapSize = stats.size;
-	
-	if(sitemapSize === currentSitemapSize) {
-		finishSitemap();
-		clearInterval(sitemapSizeCheckInterval);
-		console.log('sitemap.xml generation is complete');
-	} else 
-		sitemapSize = currentSitemapSize;
-}, 200); 
-
-
 console.log('building files for states and provinces');
 var template = fs.readFileSync('template.html' ,'utf8');
 
-var reader = csv.createCsvFileReader('states-and-provinces.csv', {
-	separator: ',',
-	quote: '"',
-	'escape': '"',       
-	comment: '',
-	columnsFromHeader: true
-});
-reader.addListener('data', function(data) {
-	//data.alias
-	var names = [data.name];
+loadStaticBlurbs();
 
-	if(data.alias.trim() !== '') {
-		var aliases = data.alias.split('|');
-		for(var i in aliases)
-			names.push(aliases[i]);
-	}	
+var _staticBlurbs = {};
+function loadStaticBlurbs() {
+	console.log('loading static blurbs');
 
-	for(var i in names) {
-		var name = names[i].trim();
+ 	var reader = csv.createCsvFileReader('static-blurbs.csv', {
+		separator: ',',
+		quote: '"',
+		'escape': '"',       
+		comment: '',
+		columnsFromHeader: true
+	});
 
-		//skip place names that have unknown characters
-		if(name.indexOf('?') >= 0 || name === '')
-			continue;
+	reader.addListener('data', function(data) {
+		_staticBlurbs[data.name.toLowerCase()] = data.blurb;
+	});
 
-		var pageName = createProvincePage(name, data.engtype_1, data.country, data.region, data.area_sqkm, data.abbrev, data.postal, data.json);
-		addPageToSitemap(pageName);
-		addLinkToLandingPage(name, pageName)
-	}
-});
+	reader.addListener('end', function() {
+		generateStates();
+	});
+}
 
-console.log('building files for countries');
-reader = csv.createCsvFileReader('countries.csv', {
-	separator: ',',
-	quote: '"',
-	'escape': '"',       
-	comment: '',
-	columnsFromHeader: true
-});
-reader.addListener('data', function(data) {
-	if(data.name_forma && data.name_forma.indexOf('?') < 0 && data.name_forma !== '') {
-		var pageName1 = createCountryPage(data.name_forma, data.type, data.sovereignt, data.abbrev, data.postal, data.json_4326);
-		addPageToSitemap(pageName1);
+function getStaticBlurb(name) {
+	return _staticBlurbs[name.toLowerCase()];
+}
 
-		addLinkToLandingPage(data.name, pageName1)
-	}
+function generateStates() {
 
-	if(data.name && data.name.indexOf('?') < 0 && data.name !== '') {
-		var pageName2 = createCountryPage(data.name, data.type, data.sovereignt, data.abbrev, data.postal, data.json_4326);
-		addPageToSitemap(pageName2);
-	}
-});
+	console.log('generating states and provinces');
+	var reader = csv.createCsvFileReader('states-and-provinces.csv', {
+		separator: ',',
+		quote: '"',
+		'escape': '"',       
+		comment: '',
+		columnsFromHeader: true
+	});
+	reader.addListener('data', function(data) {
+		//data.alias
+		var names = [data.name];
+
+		if(data.alias.trim() !== '') {
+			var aliases = data.alias.split('|');
+			for(var i in aliases)
+				names.push(aliases[i]);
+		}	
+
+		for(var i in names) {
+			var name = names[i].trim();
+
+			//skip place names that have unknown characters
+			if(name.indexOf('?') >= 0 || name === '')
+				continue;
+
+			var pageName = createProvincePage(name, data.engtype_1, data.country, data.region, data.area_sqkm, data.abbrev, data.postal, data.json);
+			addPageToSitemap(pageName);
+			addLinkToLandingPage(name, pageName)
+		}
+	});
+
+	
+	reader.addListener('end', function() {
+		generateCountries();
+	});
+}
+
+function generateCountries() {
+	
+	console.log('building files for countries');
+	var reader = csv.createCsvFileReader('countries.csv', {
+		separator: ',',
+		quote: '"',
+		'escape': '"',       
+		comment: '',
+		columnsFromHeader: true
+	});
+	reader.addListener('data', function(data) {
+		if(data.name_forma && data.name_forma.indexOf('?') < 0 && data.name_forma !== '') {
+			var pageName1 = createCountryPage(data.name_forma, data.type, data.sovereignt, data.abbrev, data.postal, data.json_4326);
+			addPageToSitemap(pageName1);
+
+			addLinkToLandingPage(data.name, pageName1)
+		}
+
+		if(data.name && data.name.indexOf('?') < 0 && data.name !== '') {
+			var pageName2 = createCountryPage(data.name, data.type, data.sovereignt, data.abbrev, data.postal, data.json_4326);
+			addPageToSitemap(pageName2);
+		}
+	});
+
+	reader.addListener('end', function() {
+		finishSitemap();
+	});
+}
 
 function limitNameToAscii(name) {
 	//some names have their region after a comma, so just take the first part
@@ -129,11 +161,12 @@ function buildFileName(name) {
 }
 
 function addPageToSitemap(fileName) {
-	var sitemapEntry = '<url><loc>http://whereisthis.herokuapp.com/' + fileName + '</loc></url>'; //TODO: encode url
+	var sitemapEntry = '<url><loc>http://whereisthis.herokuapp.com/' + fileName + '</loc></url>\n'; //TODO: encode url
 	fs.appendFileSync(directory + 'sitemap.xml', sitemapEntry);
 }
 
 function finishSitemap() {
+	console.log('finishing sitemap.xml');
 	fs.appendFileSync(directory + 'sitemap.xml', '</urlset>');
 }
 
@@ -147,8 +180,16 @@ function addLinkToLandingPage(name, pageName) {
 	fs.appendFileSync(directory + 'index.html', link);
 }
 
+function generateBlurbHeader(name) {
+	return '<h2>Where is ' + name + ' located? </h2>';
+}
+
 function generateCountryBlurb(name, type, sovereignt, abbrev, postal) {
-	var blurb = ['<h2>Where is ', name, ' located? </h2>', name];
+	var blurb = getStaticBlurb(name);
+	if(blurb)
+		return generateBlurbHeader(name) + blurb;
+
+	blurb = [generateBlurbHeader(name), name];
 
 	blurb.push(' is a ');
 	blurb.push(type);
@@ -181,8 +222,13 @@ function generateCountryBlurb(name, type, sovereignt, abbrev, postal) {
 }
 
 function generateBlurb(name, type, country, region, size, abbrev, postal) {
+	
+	var blurb = getStaticBlurb(name);
+	if(blurb)
+		return generateBlurbHeader(name) + blurb;
+
 	//build blurb content
-	var blurb = ['<h2>Where is ', name, ' located? </h2>', name];
+	blurb = [generateBlurbHeader(name), name];
 
 	if(type) {
 		blurb.push(', is a ');
