@@ -4,9 +4,12 @@
     <title>Where is <% name %>?</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script>
-      var map;
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+    <script src="http://openlayers.org/api/OpenLayers.js"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = <% json %>;
+
       function initialize() {
 
           google.maps.visualRefresh = true;
@@ -21,77 +24,14 @@
             return bounds;
           }
 
-
-          var featureOpts = [
-              {
-                stylers: [
-                  { hue: '#FFF' },
-                  { visibility: 'simplified' },
-                  { gamma: 0.3 },
-                  { weight: 0.2 }
-                ]
-              },
-              {
-                elementType: 'labels',
-                stylers: [
-                  { visibility: 'off' }
-                ]
-              },
-              {
-                featureType: 'water',
-                stylers: [
-                  { color: '#FFF' }
-                ]
-              }
-            ];
           var MY_MAPTYPE_ID = 'Simplified';
-
-
-          var rawData = <% json %>;
-
-          rawData = rawData.coordinates[0];
-
-          var centerLat, centerLon;
-          var regionCoords = [];
-          for(var i=0 ; i < rawData.length ; i++) {
-            var point = rawData[i];
-            var lat = point[0];
-            var lon = point[1];
-
-            centerLat = lat;
-            centerLon = lon;
-
-            regionCoords.push(new google.maps.LatLng(lat, lon));
-          }
-
-          var overlayOptions = {
-            paths: regionCoords,
-            strokeColor: "#FF0000",
-            strokeOpacity: 0.5,
-            strokeWeight: 1000,
-            fillColor: '#FFFFFF', 
-            fillOpacity: 0,
-            clickable: false,
-            strokePosition: google.maps.StrokePosition.OUTSIDE
-          };
-
-          regionOverlay = new google.maps.Polygon(overlayOptions);
-
-          overlayOptions.strokeColor = "#FFFFFF";
-          overlayOptions.strokeWeight = 8;
-          overlayOptions.strokeOpacity = 0.5;
-          overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
-          regionOverlay2 = new google.maps.Polygon(overlayOptions);
-
-          var regionCenter = regionOverlay.getBounds().getCenter();
-
-          map = new google.maps.Map(document.getElementById('map-canvas'), {
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
             zoom: 8,
             panControl : false, 
             streetViewControl : false, 
             zoomControl : false, 
-            scaleControl : false, 
-            center: regionCenter,
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
             mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
             //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
             //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
@@ -99,20 +39,68 @@
             mapTypeId: MY_MAPTYPE_ID
           });
 
-          var customMapType = new google.maps.StyledMapType([], {name: 'Simplified'});
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
 
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
           map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      var _pointSourceFormat = new OpenLayers.Projection("EPSG:4326");
+      var _pointGoogleFormat = new OpenLayers.Projection("EPSG:3857");
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var realPoint = new OpenLayers.LonLat(data[i][0], data[i][1]);
+            
+            //this is wasteful but I only use open layers to convert from EPSG:4326 to EPSG:3857
+            OpenLayers.Projection.transform(realPoint, _pointSourceFormat, _pointGoogleFormat);
           
-          map.fitBounds(regionOverlay.getBounds());
+          var point = new google.maps.LatLng(realPoint.lat, realPoint.lon);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
 
-          var marker = new google.maps.Marker({
-            position: regionCenter,
-            map: map,
-            title: '<% name %>'
-          });          
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 20,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
 
-          regionOverlay.setMap(map);
-          regionOverlay2.setMap(map);
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.5;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: '<% name %>'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
       }
 
       google.maps.event.addDomListener(window, 'load', initialize);
