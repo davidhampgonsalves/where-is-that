@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Imbabura?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-77.814,0.346],[-77.846,0.305],[-77.852,0.293],[-77.852,0.286],[-77.851,0.283],[-77.85,0.282],[-77.849,0.281],[-77.847,0.28],[-77.844,0.279],[-77.842,0.279],[-77.839,0.278],[-77.836,0.277],[-77.834,0.272],[-77.836,0.269],[-77.839,0.266],[-77.842,0.263],[-77.855,0.248],[-77.874,0.222],[-77.878,0.216],[-77.882,0.214],[-77.886,0.211],[-77.891,0.209],[-77.896,0.208],[-77.911,0.198],[-77.945,0.161],[-78.061,0.197],[-78.078,0.198],[-78.09,0.191],[-78.113,0.172],[-78.131,0.161],[-78.175,0.141],[-78.202,0.135],[-78.227,0.133],[-78.255,0.142],[-78.273,0.151],[-78.288,0.162],[-78.309,0.181],[-78.32,0.189],[-78.331,0.19],[-78.342,0.185],[-78.36,0.168],[-78.365,0.167],[-78.367,0.172],[-78.366,0.179],[-78.36,0.196],[-78.359,0.206],[-78.361,0.218],[-78.364,0.228],[-78.37,0.236],[-78.387,0.242],[-78.414,0.245],[-78.467,0.242],[-78.52,0.232],[-78.534,0.233],[-78.555,0.227],[-78.607,0.221],[-78.619,0.217],[-78.631,0.215],[-78.652,0.216],[-78.754,0.237],[-78.778,0.239],[-78.864,0.23],[-78.903,0.218],[-78.925,0.215],[-78.937,0.212],[-78.952,0.211],[-78.97,0.216],[-78.984,0.222],[-78.994,0.229],[-79.011,0.267],[-78.993,0.267],[-78.988,0.267],[-78.983,0.271],[-78.977,0.278],[-78.945,0.33],[-78.924,0.353],[-78.913,0.358],[-78.911,0.361],[-78.912,0.367],[-78.911,0.373],[-78.908,0.379],[-78.902,0.387],[-78.89,0.401],[-78.879,0.411],[-78.86,0.423],[-78.848,0.426],[-78.836,0.427],[-78.807,0.417],[-78.772,0.413],[-78.759,0.409],[-78.739,0.404],[-78.728,0.404],[-78.72,0.403],[-78.711,0.399],[-78.704,0.394],[-78.69,0.38],[-78.681,0.374],[-78.675,0.372],[-78.667,0.373],[-78.661,0.376],[-78.644,0.389],[-78.627,0.407],[-78.595,0.451],[-78.561,0.487],[-78.547,0.507],[-78.539,0.515],[-78.507,0.538],[-78.497,0.542],[-78.489,0.543],[-78.473,0.54],[-78.463,0.539],[-78.449,0.542],[-78.439,0.545],[-78.431,0.551],[-78.426,0.559],[-78.423,0.572],[-78.424,0.586],[-78.432,0.603],[-78.459,0.636],[-78.465,0.646],[-78.469,0.656],[-78.477,0.686],[-78.481,0.697],[-78.511,0.751],[-78.513,0.76],[-78.512,0.766],[-78.502,0.772],[-78.493,0.774],[-78.474,0.775],[-78.466,0.777],[-78.459,0.782],[-78.451,0.789],[-78.445,0.801],[-78.442,0.816],[-78.444,0.834],[-78.442,0.872],[-78.429,0.865],[-78.409,0.859],[-78.372,0.856],[-78.36,0.853],[-78.352,0.848],[-78.334,0.832],[-78.289,0.802],[-78.258,0.775],[-78.234,0.747],[-78.208,0.701],[-78.169,0.651],[-78.148,0.594],[-78.147,0.585],[-78.148,0.556],[-78.147,0.538],[-78.142,0.521],[-78.131,0.506],[-78.093,0.499],[-78.086,0.492],[-78.073,0.484],[-78.053,0.479],[-78.035,0.477],[-78,0.469],[-77.955,0.443],[-77.915,0.414],[-77.868,0.389],[-77.856,0.38],[-77.838,0.358],[-77.814,0.346]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Imbabura'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Imbabura?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Imbabura is located? </h2>Imbabura, is a province It belongs to the country of Ecuador. Its postal identifier is IM.Imbabura has an area of 4595 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

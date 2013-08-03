@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Stann Creek?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-88.39,16.498],[-88.402,16.502],[-88.404,16.51],[-88.408,16.511],[-88.418,16.512],[-88.439,16.508],[-88.444,16.509],[-88.449,16.51],[-88.459,16.51],[-88.464,16.51],[-88.503,16.512],[-88.506,16.511],[-88.512,16.511],[-88.553,16.517],[-88.559,16.519],[-88.557,16.523],[-88.555,16.526],[-88.553,16.53],[-88.553,16.534],[-88.552,16.537],[-88.551,16.554],[-88.55,16.56],[-88.549,16.563],[-88.55,16.567],[-88.551,16.572],[-88.555,16.58],[-88.558,16.583],[-88.56,16.588],[-88.563,16.592],[-88.565,16.596],[-88.568,16.6],[-88.572,16.605],[-88.584,16.618],[-88.588,16.623],[-88.589,16.628],[-88.585,16.637],[-88.584,16.642],[-88.585,16.646],[-88.587,16.65],[-88.59,16.658],[-88.593,16.663],[-88.598,16.667],[-88.633,16.686],[-88.648,16.689],[-88.67,16.692],[-88.745,16.69],[-88.774,16.681],[-88.778,16.694],[-88.778,16.698],[-88.772,16.718],[-88.761,16.737],[-88.755,16.752],[-88.728,16.792],[-88.723,16.797],[-88.718,16.8],[-88.698,16.807],[-88.681,16.81],[-88.676,16.811],[-88.673,16.813],[-88.673,16.817],[-88.677,16.821],[-88.69,16.83],[-88.691,16.833],[-88.689,16.837],[-88.683,16.842],[-88.674,16.846],[-88.67,16.849],[-88.668,16.852],[-88.666,16.856],[-88.665,16.861],[-88.667,16.874],[-88.666,16.879],[-88.664,16.893],[-88.664,16.898],[-88.665,16.903],[-88.665,16.907],[-88.663,16.912],[-88.633,16.944],[-88.626,16.955],[-88.621,16.96],[-88.61,16.968],[-88.604,16.976],[-88.597,16.988],[-88.591,17.004],[-88.581,17.024],[-88.578,17.028],[-88.572,17.032],[-88.567,17.037],[-88.567,17.045],[-88.574,17.052],[-88.588,17.064],[-88.602,17.086],[-88.606,17.095],[-88.602,17.104],[-88.338,17.109],[-88.328,17.112],[-88.323,17.115],[-88.302,17.123],[-88.289,17.136],[-88.288,17.127],[-88.283,17.104],[-88.279,17.092],[-88.27,17.086],[-88.248,17.079],[-88.236,17.064],[-88.228,17.045],[-88.223,17.023],[-88.221,16.992],[-88.215,16.967],[-88.217,16.956],[-88.224,16.953],[-88.232,16.953],[-88.242,16.95],[-88.253,16.94],[-88.267,16.925],[-88.278,16.907],[-88.283,16.891],[-88.279,16.873],[-88.259,16.843],[-88.255,16.826],[-88.254,16.826],[-88.25,16.824],[-88.248,16.819],[-88.248,16.813],[-88.252,16.812],[-88.265,16.814],[-88.27,16.813],[-88.282,16.803],[-88.287,16.797],[-88.289,16.788],[-88.292,16.784],[-88.297,16.779],[-88.302,16.772],[-88.304,16.761],[-88.303,16.749],[-88.298,16.734],[-88.297,16.724],[-88.306,16.653],[-88.312,16.642],[-88.321,16.633],[-88.331,16.621],[-88.342,16.58],[-88.348,16.567],[-88.351,16.55],[-88.345,16.525],[-88.349,16.515],[-88.356,16.507],[-88.363,16.506],[-88.366,16.521],[-88.334,16.635],[-88.318,16.652],[-88.311,16.662],[-88.338,16.649],[-88.365,16.584],[-88.386,16.559],[-88.38,16.558],[-88.366,16.552],[-88.372,16.549],[-88.378,16.547],[-88.384,16.548],[-88.393,16.552],[-88.391,16.543],[-88.388,16.539],[-88.383,16.538],[-88.373,16.538],[-88.373,16.532],[-88.383,16.525],[-88.391,16.515],[-88.393,16.503],[-88.39,16.498]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Stann Creek'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Stann Creek?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Stann Creek is located? </h2>Stann Creek, is a district It belongs to the country of Belize. Its postal identifier is SC.Stann Creek has an area of 2459 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Wakayama?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[135.848,33.838],[135.847,33.825],[135.847,33.817],[135.852,33.803],[135.863,33.787],[135.902,33.748],[135.92,33.736],[135.929,33.724],[135.938,33.714],[135.951,33.704],[135.967,33.699],[135.994,33.686],[135.991,33.683],[135.981,33.653],[135.962,33.643],[135.958,33.626],[135.943,33.593],[135.944,33.578],[135.965,33.588],[135.956,33.577],[135.915,33.541],[135.899,33.533],[135.885,33.529],[135.827,33.499],[135.811,33.493],[135.805,33.49],[135.8,33.485],[135.797,33.476],[135.79,33.445],[135.771,33.436],[135.76,33.433],[135.763,33.441],[135.771,33.454],[135.768,33.46],[135.668,33.491],[135.638,33.495],[135.486,33.535],[135.445,33.551],[135.409,33.574],[135.401,33.586],[135.398,33.598],[135.397,33.61],[135.393,33.619],[135.381,33.637],[135.375,33.643],[135.37,33.645],[135.353,33.647],[135.348,33.65],[135.341,33.674],[135.362,33.682],[135.389,33.686],[135.403,33.701],[135.392,33.714],[135.341,33.745],[135.324,33.752],[135.297,33.756],[135.27,33.768],[135.244,33.784],[135.224,33.793],[135.197,33.815],[135.174,33.838],[135.154,33.867],[135.142,33.878],[135.122,33.883],[135.089,33.876],[135.073,33.875],[135.067,33.887],[135.07,33.895],[135.077,33.896],[135.085,33.896],[135.088,33.9],[135.085,33.918],[135.085,33.927],[135.091,33.931],[135.108,33.935],[135.105,33.944],[135.088,33.958],[135.092,33.974],[135.103,33.985],[135.117,33.991],[135.132,33.993],[135.142,33.998],[135.154,34.01],[135.162,34.025],[135.163,34.04],[135.153,34.049],[135.134,34.058],[135.111,34.066],[135.095,34.068],[135.115,34.102],[135.118,34.104],[135.126,34.106],[135.129,34.109],[135.131,34.113],[135.131,34.123],[135.132,34.126],[135.152,34.135],[135.187,34.136],[135.19,34.15],[135.18,34.166],[135.164,34.175],[135.149,34.186],[135.136,34.228],[135.119,34.237],[135.099,34.244],[135.081,34.253],[135.072,34.286],[135.087,34.297],[135.095,34.274],[135.108,34.266],[135.132,34.264],[135.313,34.297],[135.333,34.305],[135.457,34.335],[135.479,34.335],[135.493,34.332],[135.509,34.331],[135.525,34.335],[135.601,34.368],[135.647,34.372],[135.659,34.323],[135.663,34.285],[135.669,34.273],[135.694,34.249],[135.709,34.225],[135.708,34.213],[135.701,34.206],[135.661,34.204],[135.65,34.201],[135.64,34.193],[135.633,34.185],[135.615,34.157],[135.587,34.129],[135.575,34.112],[135.551,34.082],[135.543,34.065],[135.546,34.051],[135.554,34.042],[135.565,34.036],[135.571,34.029],[135.58,34.016],[135.585,33.998],[135.606,33.977],[135.613,33.955],[135.611,33.937],[135.604,33.917],[135.598,33.89],[135.603,33.875],[135.609,33.864],[135.619,33.857],[135.628,33.856],[135.637,33.859],[135.654,33.873],[135.668,33.878],[135.682,33.88],[135.696,33.879],[135.736,33.87],[135.747,33.869],[135.758,33.871],[135.771,33.875],[135.785,33.879],[135.801,33.877],[135.817,33.872],[135.848,33.838]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Wakayama'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Wakayama?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Wakayama is located? </h2>Wakayama, is a prefecture of the Kinki region. It belongs to the country of Japan. Its postal identifier is WK.Wakayama has an area of 4442 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

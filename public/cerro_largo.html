@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Cerro Largo?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-54.17,-31.896],[-54.147,-31.91],[-54.136,-31.909],[-54.126,-31.898],[-54.108,-31.884],[-54.089,-31.878],[-54.069,-31.88],[-54.05,-31.887],[-54.033,-31.898],[-54.027,-31.905],[-54.018,-31.919],[-54.009,-31.926],[-53.999,-31.93],[-53.967,-31.932],[-53.949,-31.937],[-53.935,-31.942],[-53.906,-31.959],[-53.895,-31.97],[-53.89,-31.98],[-53.888,-31.99],[-53.882,-32.001],[-53.872,-32.011],[-53.859,-32.021],[-53.831,-32.036],[-53.772,-32.047],[-53.758,-32.055],[-53.752,-32.069],[-53.751,-32.104],[-53.722,-32.162],[-53.671,-32.226],[-53.659,-32.254],[-53.652,-32.288],[-53.649,-32.339],[-53.644,-32.356],[-53.635,-32.369],[-53.61,-32.388],[-53.599,-32.4],[-53.583,-32.426],[-53.562,-32.449],[-53.538,-32.47],[-53.475,-32.508],[-53.416,-32.564],[-53.36,-32.58],[-53.317,-32.603],[-53.3,-32.607],[-53.267,-32.607],[-53.234,-32.625],[-53.202,-32.637],[-53.187,-32.647],[-53.12,-32.707],[-53.111,-32.722],[-53.115,-32.74],[-53.127,-32.755],[-53.164,-32.779],[-53.183,-32.8],[-53.183,-32.8],[-53.304,-32.779],[-53.329,-32.776],[-53.337,-32.777],[-53.347,-32.778],[-53.363,-32.787],[-53.371,-32.789],[-53.38,-32.789],[-53.393,-32.788],[-53.401,-32.786],[-53.407,-32.783],[-53.421,-32.773],[-53.428,-32.771],[-53.439,-32.771],[-53.458,-32.772],[-53.468,-32.77],[-53.475,-32.768],[-53.482,-32.76],[-53.486,-32.756],[-53.49,-32.753],[-53.495,-32.751],[-53.5,-32.75],[-53.607,-32.761],[-53.631,-32.76],[-53.667,-32.755],[-53.834,-32.766],[-53.844,-32.765],[-53.852,-32.764],[-53.858,-32.761],[-53.868,-32.756],[-53.931,-32.712],[-53.942,-32.707],[-53.948,-32.705],[-53.957,-32.705],[-53.968,-32.708],[-53.996,-32.721],[-54.001,-32.725],[-54.008,-32.731],[-54.029,-32.748],[-54.033,-32.751],[-54.036,-32.756],[-54.037,-32.761],[-54.035,-32.766],[-54.033,-32.77],[-54.027,-32.779],[-54.025,-32.784],[-54.023,-32.789],[-54.026,-32.794],[-54.031,-32.798],[-54.045,-32.799],[-54.053,-32.797],[-54.06,-32.795],[-54.064,-32.791],[-54.119,-32.76],[-54.124,-32.758],[-54.13,-32.756],[-54.137,-32.756],[-54.158,-32.758],[-54.166,-32.757],[-54.173,-32.756],[-54.179,-32.755],[-54.185,-32.752],[-54.194,-32.746],[-54.2,-32.744],[-54.228,-32.741],[-54.248,-32.736],[-54.286,-32.731],[-54.293,-32.73],[-54.298,-32.727],[-54.303,-32.724],[-54.311,-32.718],[-54.316,-32.715],[-54.326,-32.716],[-54.341,-32.721],[-54.391,-32.744],[-54.411,-32.75],[-54.467,-32.753],[-54.481,-32.751],[-54.489,-32.752],[-54.495,-32.755],[-54.501,-32.763],[-54.506,-32.776],[-54.509,-32.781],[-54.514,-32.785],[-54.521,-32.788],[-54.536,-32.79],[-54.545,-32.789],[-54.552,-32.788],[-54.558,-32.788],[-54.564,-32.79],[-54.569,-32.796],[-54.576,-32.806],[-54.583,-32.814],[-54.589,-32.818],[-54.597,-32.821],[-54.612,-32.824],[-54.622,-32.823],[-54.63,-32.822],[-54.648,-32.816],[-54.662,-32.813],[-54.675,-32.813],[-54.684,-32.814],[-54.731,-32.83],[-54.746,-32.833],[-54.779,-32.833],[-54.807,-32.835],[-54.82,-32.838],[-54.878,-32.863],[-54.896,-32.876],[-54.911,-32.89],[-54.92,-32.897],[-54.925,-32.899],[-54.959,-32.911],[-54.971,-32.918],[-54.979,-32.925],[-54.985,-32.929],[-55.007,-32.94],[-55.012,-32.944],[-55.019,-32.95],[-55.024,-32.957],[-55.027,-32.963],[-55.028,-32.97],[-55.026,-32.979],[-55.011,-33],[-55.01,-33.007],[-55.01,-33.025],[-55.061,-33.019],[-55.133,-33.021],[-55.149,-33.02],[-55.159,-33.018],[-55.163,-33.014],[-55.175,-33],[-55.175,-33],[-55.175,-33],[-55.178,-32.997],[-55.273,-32.946],[-55.286,-32.936],[-55.305,-32.918],[-55.316,-32.902],[-55.321,-32.891],[-55.323,-32.88],[-55.323,-32.874],[-55.317,-32.85],[-55.316,-32.831],[-55.316,-32.826],[-55.318,-32.82],[-55.322,-32.814],[-55.338,-32.792],[-55.343,-32.784],[-55.345,-32.777],[-55.343,-32.771],[-55.34,-32.767],[-55.336,-32.764],[-55.331,-32.762],[-55.318,-32.759],[-55.312,-32.757],[-55.309,-32.754],[-55.307,-32.748],[-55.307,-32.743],[-55.308,-32.737],[-55.334,-32.686],[-55.336,-32.68],[-55.335,-32.668],[-55.332,-32.657],[-55.318,-32.625],[-55.304,-32.573],[-55.303,-32.56],[-55.303,-32.548],[-55.308,-32.527],[-55.328,-32.494],[-55.24,-32.459],[-55.205,-32.457],[-55.14,-32.479],[-55.106,-32.485],[-55.071,-32.481],[-55.04,-32.469],[-55.014,-32.451],[-54.993,-32.431],[-54.972,-32.402],[-54.957,-32.389],[-54.921,-32.38],[-54.913,-32.371],[-54.906,-32.359],[-54.897,-32.349],[-54.887,-32.343],[-54.866,-32.335],[-54.856,-32.329],[-54.84,-32.31],[-54.818,-32.269],[-54.804,-32.249],[-54.8,-32.238],[-54.804,-32.227],[-54.811,-32.216],[-54.814,-32.205],[-54.813,-32.196],[-54.809,-32.186],[-54.801,-32.171],[-54.778,-32.149],[-54.77,-32.135],[-54.767,-32.112],[-54.756,-32.102],[-54.731,-32.109],[-54.691,-32.129],[-54.676,-32.128],[-54.655,-32.123],[-54.633,-32.118],[-54.612,-32.116],[-54.589,-32.11],[-54.575,-32.095],[-54.572,-32.077],[-54.582,-32.061],[-54.572,-32.049],[-54.546,-32.032],[-54.54,-32.019],[-54.544,-32.003],[-54.556,-31.999],[-54.573,-31.996],[-54.589,-31.985],[-54.554,-31.944],[-54.542,-31.915],[-54.528,-31.893],[-54.504,-31.842],[-54.499,-31.825],[-54.504,-31.8],[-54.521,-31.756],[-54.52,-31.732],[-54.515,-31.723],[-54.506,-31.711],[-54.496,-31.702],[-54.489,-31.698],[-54.486,-31.694],[-54.472,-31.67],[-54.468,-31.665],[-54.464,-31.672],[-54.437,-31.694],[-54.404,-31.714],[-54.374,-31.739],[-54.343,-31.769],[-54.275,-31.823],[-54.219,-31.857],[-54.17,-31.896]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Cerro Largo'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Cerro Largo?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Cerro Largo is located? </h2>Cerro Largo, is a department It belongs to the country of Uruguay. Its postal identifier is CL.Cerro Largo has an area of 13805 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

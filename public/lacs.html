@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Lacs?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-4.661,7.516],[-4.637,7.47],[-4.635,7.464],[-4.632,7.449],[-4.671,7.449],[-4.697,7.442],[-4.709,7.436],[-4.726,7.427],[-4.73,7.417],[-4.732,7.406],[-4.709,7.281],[-4.708,7.269],[-4.76,7.105],[-4.768,7.086],[-4.771,7.076],[-4.801,7.028],[-4.815,7.015],[-4.817,7.01],[-4.818,7.005],[-4.818,7.001],[-4.818,6.999],[-4.808,6.977],[-4.799,6.953],[-4.8,6.948],[-4.802,6.94],[-4.808,6.925],[-4.809,6.918],[-4.808,6.911],[-4.801,6.897],[-4.801,6.89],[-4.804,6.882],[-4.807,6.878],[-4.811,6.874],[-4.82,6.869],[-4.911,6.828],[-4.919,6.828],[-4.923,6.829],[-4.931,6.833],[-4.954,6.821],[-4.955,6.816],[-4.955,6.812],[-4.959,6.789],[-4.972,6.748],[-4.967,6.734],[-4.962,6.73],[-4.954,6.723],[-4.944,6.716],[-4.941,6.71],[-4.942,6.705],[-4.945,6.701],[-4.947,6.689],[-4.953,6.677],[-4.954,6.665],[-4.951,6.659],[-4.939,6.644],[-4.932,6.641],[-4.926,6.64],[-4.923,6.636],[-4.921,6.631],[-4.921,6.626],[-4.922,6.623],[-4.925,6.62],[-4.927,6.617],[-4.927,6.608],[-4.921,6.6],[-4.916,6.595],[-4.91,6.593],[-4.905,6.592],[-4.9,6.592],[-4.896,6.595],[-4.895,6.599],[-4.895,6.604],[-4.894,6.608],[-4.891,6.61],[-4.885,6.611],[-4.873,6.612],[-4.868,6.613],[-4.864,6.616],[-4.856,6.622],[-4.852,6.624],[-4.847,6.627],[-4.842,6.628],[-4.837,6.628],[-4.823,6.625],[-4.818,6.625],[-4.813,6.626],[-4.809,6.626],[-4.74,6.601],[-4.766,6.595],[-4.769,6.591],[-4.769,6.588],[-4.766,6.585],[-4.764,6.581],[-4.763,6.572],[-4.761,6.567],[-4.758,6.562],[-4.756,6.554],[-4.758,6.55],[-4.762,6.548],[-4.778,6.551],[-4.784,6.548],[-4.786,6.544],[-4.787,6.529],[-4.791,6.514],[-4.793,6.503],[-4.794,6.489],[-4.791,6.483],[-4.786,6.48],[-4.781,6.481],[-4.776,6.482],[-4.766,6.486],[-4.761,6.487],[-4.746,6.483],[-4.74,6.479],[-4.734,6.472],[-4.729,6.456],[-4.729,6.448],[-4.732,6.444],[-4.735,6.443],[-4.738,6.438],[-4.737,6.434],[-4.733,6.431],[-4.728,6.429],[-4.723,6.425],[-4.722,6.419],[-4.723,6.41],[-4.721,6.405],[-4.717,6.403],[-4.705,6.402],[-4.702,6.401],[-4.702,6.397],[-4.705,6.395],[-4.711,6.392],[-4.71,6.388],[-4.7,6.379],[-4.698,6.374],[-4.699,6.367],[-4.702,6.359],[-4.705,6.344],[-4.708,6.336],[-4.712,6.331],[-4.715,6.328],[-4.725,6.309],[-4.723,6.305],[-4.719,6.304],[-4.709,6.306],[-4.704,6.305],[-4.7,6.302],[-4.697,6.296],[-4.694,6.288],[-4.695,6.284],[-4.702,6.282],[-4.726,6.253],[-4.749,6.243],[-4.778,6.241],[-4.809,6.243],[-4.819,6.246],[-4.824,6.247],[-4.833,6.249],[-4.838,6.251],[-4.853,6.255],[-4.867,6.256],[-4.876,6.255],[-4.937,6.237],[-4.946,6.236],[-4.973,6.236],[-5.007,6.242],[-5.025,6.252],[-5.179,6.377],[-5.187,6.381],[-5.193,6.381],[-5.198,6.379],[-5.215,6.367],[-5.235,6.373],[-5.27,6.361],[-5.287,6.366],[-5.303,6.383],[-5.311,6.399],[-5.312,6.418],[-5.311,6.445],[-5.314,6.45],[-5.32,6.455],[-5.324,6.461],[-5.321,6.469],[-5.315,6.475],[-5.313,6.48],[-5.311,6.492],[-5.306,6.507],[-5.308,6.511],[-5.321,6.513],[-5.337,6.519],[-5.324,6.537],[-5.314,6.552],[-5.318,6.567],[-5.309,6.589],[-5.321,6.602],[-5.344,6.608],[-5.398,6.607],[-5.409,6.614],[-5.414,6.633],[-5.413,6.641],[-5.41,6.691],[-5.414,6.712],[-5.424,6.735],[-5.435,6.758],[-5.437,6.767],[-5.486,6.813],[-5.496,6.825],[-5.501,6.847],[-5.529,6.878],[-5.537,6.896],[-5.535,6.915],[-5.515,6.931],[-5.509,6.948],[-5.508,6.964],[-5.499,6.993],[-5.496,7.001],[-5.489,7.012],[-5.479,7.016],[-5.466,7.022],[-5.462,7.025],[-5.459,7.029],[-5.459,7.033],[-5.461,7.037],[-5.481,7.043],[-5.486,7.045],[-5.49,7.048],[-5.494,7.051],[-5.499,7.056],[-5.504,7.063],[-5.507,7.074],[-5.507,7.081],[-5.506,7.088],[-5.5,7.101],[-5.493,7.129],[-5.494,7.135],[-5.497,7.14],[-5.524,7.151],[-5.531,7.152],[-5.538,7.153],[-5.547,7.152],[-5.552,7.15],[-5.555,7.147],[-5.56,7.144],[-5.564,7.142],[-5.569,7.141],[-5.575,7.141],[-5.581,7.142],[-5.587,7.145],[-5.596,7.151],[-5.601,7.157],[-5.604,7.167],[-5.604,7.173],[-5.606,7.179],[-5.618,7.187],[-5.635,7.201],[-5.642,7.204],[-5.649,7.204],[-5.655,7.204],[-5.66,7.205],[-5.664,7.207],[-5.668,7.212],[-5.675,7.224],[-5.676,7.229],[-5.675,7.233],[-5.669,7.236],[-5.666,7.239],[-5.663,7.243],[-5.665,7.248],[-5.662,7.257],[-5.633,7.253],[-5.616,7.254],[-5.501,7.282],[-5.46,7.3],[-5.453,7.301],[-5.445,7.3],[-5.436,7.297],[-5.43,7.292],[-5.425,7.286],[-5.405,7.257],[-5.388,7.238],[-5.382,7.233],[-5.376,7.23],[-5.369,7.228],[-5.362,7.228],[-5.353,7.229],[-5.321,7.237],[-5.314,7.238],[-5.296,7.234],[-5.289,7.236],[-5.281,7.241],[-5.263,7.265],[-5.255,7.272],[-5.243,7.278],[-5.235,7.279],[-5.227,7.278],[-5.221,7.28],[-5.216,7.287],[-5.205,7.311],[-5.187,7.331],[-5.075,7.385],[-5.064,7.393],[-5.058,7.401],[-5.056,7.407],[-5.05,7.42],[-5.046,7.426],[-5.041,7.432],[-5.035,7.437],[-5.029,7.442],[-5.015,7.451],[-4.959,7.472],[-4.946,7.479],[-4.938,7.487],[-4.923,7.514],[-4.906,7.536],[-4.894,7.542],[-4.879,7.546],[-4.82,7.549],[-4.812,7.549],[-4.804,7.546],[-4.791,7.538],[-4.772,7.52],[-4.767,7.516],[-4.741,7.513],[-4.661,7.516]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Lacs'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Lacs?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Lacs is located? </h2>Lacs, is a department of the Toumodi region. It belongs to the country of Ivory Coast. Its postal identifier is TM.Lacs has an area of 8804 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

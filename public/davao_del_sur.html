@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Davao Del Sur?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[125.423,5.378],[125.419,5.368],[125.411,5.368],[125.399,5.372],[125.38,5.37],[125.364,5.367],[125.351,5.372],[125.343,5.38],[125.334,5.388],[125.333,5.392],[125.342,5.4],[125.358,5.422],[125.377,5.431],[125.405,5.43],[125.419,5.425],[125.422,5.42],[125.424,5.407],[125.423,5.378]]],[[[125.501,7.242],[125.522,7.236],[125.622,7.239],[125.635,7.248],[125.648,7.265],[125.663,7.274],[125.677,7.264],[125.668,7.257],[125.657,7.237],[125.654,7.215],[125.659,7.15],[125.658,7.129],[125.655,7.119],[125.646,7.108],[125.645,7.099],[125.639,7.089],[125.604,7.055],[125.576,7.039],[125.542,7.031],[125.51,7.016],[125.487,6.979],[125.485,6.935],[125.481,6.913],[125.47,6.904],[125.425,6.849],[125.404,6.812],[125.389,6.768],[125.38,6.721],[125.378,6.674],[125.381,6.657],[125.394,6.618],[125.397,6.598],[125.406,6.589],[125.422,6.582],[125.435,6.588],[125.432,6.616],[125.465,6.595],[125.508,6.539],[125.535,6.513],[125.553,6.525],[125.574,6.517],[125.59,6.499],[125.597,6.482],[125.598,6.443],[125.602,6.428],[125.63,6.366],[125.641,6.352],[125.645,6.344],[125.646,6.332],[125.645,6.31],[125.646,6.3],[125.649,6.292],[125.658,6.28],[125.707,6.15],[125.71,6.132],[125.711,6.111],[125.707,6.089],[125.696,6.071],[125.692,6.061],[125.699,6.04],[125.696,6.03],[125.692,6.022],[125.685,5.993],[125.667,5.95],[125.595,5.862],[125.499,5.726],[125.437,5.618],[125.422,5.598],[125.403,5.581],[125.388,5.574],[125.371,5.573],[125.323,5.575],[125.308,5.58],[125.306,5.584],[125.311,5.587],[125.347,5.605],[125.363,5.617],[125.377,5.634],[125.462,5.83],[125.466,5.834],[125.473,5.834],[125.479,5.835],[125.48,5.843],[125.478,5.852],[125.476,5.904],[125.478,5.915],[125.508,6.011],[125.508,6.03],[125.514,6.034],[125.519,6.038],[125.523,6.044],[125.525,6.052],[125.53,6.078],[125.53,6.093],[125.526,6.102],[125.52,6.108],[125.512,6.118],[125.506,6.129],[125.505,6.137],[125.506,6.147],[125.503,6.168],[125.503,6.179],[125.506,6.193],[125.511,6.205],[125.511,6.217],[125.489,6.252],[125.465,6.298],[125.446,6.314],[125.437,6.316],[125.426,6.317],[125.416,6.315],[125.397,6.306],[125.389,6.31],[125.382,6.316],[125.358,6.315],[125.312,6.322],[125.286,6.319],[125.277,6.32],[125.263,6.324],[125.249,6.332],[125.214,6.367],[125.202,6.375],[125.177,6.388],[125.168,6.395],[125.168,6.414],[125.167,6.42],[125.162,6.425],[125.153,6.428],[125.145,6.429],[125.141,6.431],[125.141,6.435],[125.14,6.443],[125.144,6.45],[125.151,6.455],[125.159,6.465],[125.165,6.488],[125.168,6.541],[125.176,6.563],[125.193,6.662],[125.192,6.678],[125.184,6.695],[125.161,6.722],[125.155,6.735],[125.149,6.782],[125.166,6.844],[125.268,6.955],[125.269,7.003],[125.279,7.009],[125.303,7.017],[125.309,7.02],[125.315,7.028],[125.314,7.031],[125.31,7.036],[125.306,7.048],[125.303,7.106],[125.297,7.122],[125.284,7.135],[125.247,7.156],[125.234,7.168],[125.222,7.183],[125.224,7.189],[125.235,7.214],[125.246,7.232],[125.25,7.238],[125.251,7.258],[125.244,7.301],[125.242,7.336],[125.236,7.362],[125.237,7.377],[125.245,7.43],[125.277,7.534],[125.277,7.548],[125.274,7.558],[125.265,7.57],[125.266,7.578],[125.274,7.58],[125.281,7.583],[125.286,7.588],[125.289,7.596],[125.501,7.591],[125.497,7.258],[125.501,7.242]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Davao Del Sur'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Davao Del Sur?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Davao Del Sur is located? </h2>Davao Del Sur, is a province of the Southern Mindanao region. It belongs to the country of Philippines. Its postal identifier is DS.Davao Del Sur has an area of 5927 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

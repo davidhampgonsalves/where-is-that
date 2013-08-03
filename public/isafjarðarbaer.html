@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Isafjarðarbaer?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-22.98,65.748],[-22.993,65.727],[-23.01,65.712],[-23.024,65.703],[-23.039,65.698],[-23.118,65.693],[-23.131,65.695],[-23.157,65.7],[-23.325,65.688],[-23.348,65.688],[-23.385,65.699],[-23.392,65.699],[-23.439,65.686],[-23.452,65.684],[-23.464,65.685],[-23.518,65.708],[-23.526,65.71],[-23.529,65.712],[-23.539,65.723],[-23.529,65.728],[-23.467,65.74],[-23.453,65.737],[-23.438,65.732],[-23.356,65.736],[-23.33,65.746],[-23.31,65.748],[-23.266,65.741],[-23.244,65.74],[-23.224,65.748],[-23.236,65.754],[-23.243,65.755],[-23.251,65.755],[-23.251,65.761],[-23.204,65.775],[-23.19,65.782],[-23.245,65.779],[-23.276,65.773],[-23.319,65.757],[-23.589,65.76],[-23.642,65.769],[-23.676,65.782],[-23.729,65.774],[-23.741,65.779],[-23.755,65.789],[-23.813,65.816],[-23.845,65.843],[-23.866,65.876],[-23.863,65.906],[-23.82,65.926],[-23.801,65.926],[-23.744,65.912],[-23.67,65.905],[-23.651,65.9],[-23.619,65.884],[-23.601,65.878],[-23.582,65.877],[-23.519,65.885],[-23.395,65.864],[-23.354,65.864],[-23.283,65.843],[-23.244,65.836],[-23.21,65.843],[-23.292,65.854],[-23.319,65.868],[-23.401,65.871],[-23.427,65.878],[-23.474,65.895],[-23.578,65.905],[-23.601,65.912],[-23.655,65.943],[-23.682,65.949],[-23.696,65.958],[-23.717,65.962],[-23.763,65.98],[-23.804,66.003],[-23.813,66.012],[-23.813,66.042],[-23.807,66.059],[-23.792,66.07],[-23.751,66.077],[-23.699,66.072],[-23.518,66.027],[-23.465,66.021],[-23.429,66.03],[-23.425,66.014],[-23.412,66],[-23.395,65.991],[-23.375,65.988],[-23.375,65.994],[-23.392,66.005],[-23.422,66.036],[-23.443,66.043],[-23.466,66.045],[-23.512,66.054],[-23.536,66.056],[-23.547,66.06],[-23.577,66.077],[-23.636,66.098],[-23.67,66.118],[-23.637,66.129],[-23.55,66.132],[-23.484,66.128],[-23.395,66.098],[-23.419,66.107],[-23.458,66.133],[-23.481,66.139],[-23.577,66.138],[-23.601,66.145],[-23.601,66.152],[-23.591,66.16],[-23.576,66.169],[-23.559,66.177],[-23.55,66.178],[-23.545,66.175],[-23.482,66.146],[-23.409,66.126],[-23.38,66.114],[-23.328,66.083],[-23.286,66.064],[-23.273,66.057],[-23.262,66.048],[-23.252,66.034],[-23.249,66.026],[-23.249,66.019],[-23.252,66.015],[-23.261,66.007],[-23.264,66.004],[-23.265,66.002],[-23.265,66.001],[-23.264,65.999],[-23.26,65.997],[-23.223,65.987],[-23.204,65.979],[-23.188,65.975],[-23.182,65.972],[-23.183,65.965],[-23.194,65.949],[-23.196,65.944],[-23.195,65.939],[-23.193,65.932],[-23.185,65.922],[-23.172,65.911],[-23.143,65.891],[-23.108,65.872],[-23.056,65.853],[-23.045,65.846],[-23.037,65.837],[-23.024,65.812],[-23.018,65.804],[-23.002,65.793],[-22.998,65.788],[-22.995,65.782],[-22.991,65.765],[-22.98,65.748]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Isafjarðarbaer'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Isafjarðarbaer?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Isafjarðarbaer is located? </h2>Isafjarðarbaer, is a municipality of the Vestfirðir region. It belongs to the country of Iceland. Its postal identifier is IS.Isafjarðarbaer has an area of 1174 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

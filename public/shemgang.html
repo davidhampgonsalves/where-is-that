@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Shemgang?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[90.932,27.369],[90.944,27.335],[90.952,27.319],[90.962,27.286],[90.971,27.264],[90.975,27.262],[90.989,27.25],[90.992,27.244],[90.993,27.24],[90.994,27.223],[91.004,27.211],[91.005,27.195],[91.003,27.179],[91.002,27.173],[90.995,27.158],[90.989,27.14],[90.991,27.113],[91.023,27.049],[91.061,27.039],[91.066,27.036],[91.078,27.025],[91.087,26.979],[91.093,26.974],[91.101,26.968],[91.11,26.967],[91.117,26.963],[91.127,26.957],[91.134,26.947],[91.142,26.941],[91.15,26.938],[91.155,26.937],[91.166,26.943],[91.184,26.942],[91.173,26.906],[91.163,26.891],[91.145,26.884],[91.098,26.882],[91.089,26.864],[91.086,26.864],[91.082,26.865],[91.08,26.865],[91.067,26.858],[91.024,26.85],[91.018,26.847],[91.011,26.841],[91.006,26.834],[91.004,26.828],[91.001,26.822],[91,26.818],[91.001,26.814],[91.013,26.785],[91.007,26.782],[90.945,26.779],[90.947,26.782],[90.953,26.784],[90.955,26.786],[90.958,26.788],[90.948,26.827],[90.931,26.82],[90.927,26.818],[90.924,26.817],[90.887,26.815],[90.882,26.815],[90.873,26.818],[90.836,26.821],[90.819,26.817],[90.814,26.82],[90.808,26.825],[90.802,26.838],[90.797,26.859],[90.795,26.864],[90.785,26.882],[90.783,26.889],[90.775,26.901],[90.766,26.906],[90.76,26.912],[90.756,26.914],[90.751,26.915],[90.746,26.918],[90.74,26.924],[90.731,26.936],[90.725,26.941],[90.72,26.944],[90.69,26.949],[90.68,26.953],[90.676,26.969],[90.682,26.977],[90.684,26.985],[90.683,26.989],[90.68,26.997],[90.679,27.003],[90.679,27.014],[90.677,27.019],[90.671,27.025],[90.669,27.034],[90.667,27.045],[90.663,27.051],[90.654,27.06],[90.63,27.072],[90.622,27.068],[90.614,27.064],[90.608,27.063],[90.603,27.063],[90.597,27.064],[90.583,27.069],[90.557,27.082],[90.541,27.094],[90.523,27.11],[90.517,27.126],[90.528,27.136],[90.544,27.142],[90.551,27.147],[90.564,27.158],[90.572,27.161],[90.577,27.162],[90.582,27.16],[90.586,27.156],[90.591,27.153],[90.597,27.152],[90.634,27.154],[90.64,27.156],[90.641,27.158],[90.64,27.161],[90.612,27.195],[90.605,27.206],[90.678,27.236],[90.706,27.254],[90.709,27.259],[90.709,27.262],[90.708,27.265],[90.708,27.268],[90.708,27.271],[90.708,27.274],[90.708,27.277],[90.706,27.284],[90.708,27.295],[90.717,27.316],[90.724,27.349],[90.729,27.371],[90.734,27.374],[90.741,27.377],[90.748,27.378],[90.753,27.378],[90.758,27.378],[90.764,27.376],[90.768,27.373],[90.776,27.365],[90.785,27.359],[90.787,27.355],[90.79,27.351],[90.802,27.34],[90.833,27.326],[90.864,27.339],[90.876,27.34],[90.889,27.349],[90.912,27.35],[90.919,27.353],[90.926,27.356],[90.929,27.359],[90.932,27.369]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Shemgang'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Shemgang?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Shemgang is located? </h2>Shemgang, is a district It belongs to the country of Bhutan. Its postal identifier is SG.Shemgang has an area of 2107 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

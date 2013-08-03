@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Libertad?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-79.348,-7.01],[-79.36,-7.162],[-79.343,-7.19],[-79.34,-7.2],[-79.338,-7.214],[-79.34,-7.226],[-79.342,-7.237],[-79.351,-7.257],[-79.36,-7.275],[-79.371,-7.29],[-79.38,-7.299],[-79.386,-7.326],[-79.383,-7.334],[-79.377,-7.342],[-79.37,-7.349],[-79.352,-7.358],[-79.31,-7.369],[-79.245,-7.393],[-79.23,-7.395],[-79.198,-7.403],[-79.174,-7.419],[-79.12,-7.464],[-79.105,-7.48],[-79.095,-7.493],[-79.093,-7.502],[-79.091,-7.508],[-79.062,-7.558],[-79.059,-7.568],[-79.057,-7.579],[-79.057,-7.589],[-79.058,-7.597],[-79.067,-7.623],[-79.069,-7.635],[-79.068,-7.651],[-79.062,-7.66],[-79.011,-7.7],[-79.003,-7.703],[-78.997,-7.703],[-78.984,-7.68],[-78.981,-7.676],[-78.977,-7.672],[-78.974,-7.669],[-78.97,-7.666],[-78.967,-7.662],[-78.966,-7.656],[-78.962,-7.638],[-78.96,-7.633],[-78.956,-7.624],[-78.947,-7.613],[-78.94,-7.607],[-78.923,-7.597],[-78.904,-7.59],[-78.9,-7.589],[-78.896,-7.588],[-78.871,-7.59],[-78.853,-7.588],[-78.814,-7.571],[-78.789,-7.556],[-78.784,-7.554],[-78.772,-7.554],[-78.734,-7.568],[-78.709,-7.583],[-78.703,-7.585],[-78.696,-7.585],[-78.678,-7.576],[-78.666,-7.572],[-78.65,-7.569],[-78.618,-7.568],[-78.6,-7.57],[-78.586,-7.574],[-78.543,-7.601],[-78.513,-7.628],[-78.492,-7.641],[-78.447,-7.65],[-78.405,-7.643],[-78.396,-7.646],[-78.386,-7.652],[-78.379,-7.662],[-78.371,-7.673],[-78.355,-7.685],[-78.338,-7.691],[-78.318,-7.697],[-78.309,-7.701],[-78.304,-7.706],[-78.302,-7.715],[-78.3,-7.753],[-78.294,-7.768],[-78.277,-7.766],[-78.266,-7.76],[-78.239,-7.757],[-78.226,-7.75],[-78.185,-7.719],[-78.141,-7.673],[-78.128,-7.667],[-78.116,-7.667],[-78.108,-7.673],[-78.095,-7.688],[-78.086,-7.695],[-78.073,-7.698],[-78.06,-7.696],[-78.004,-7.674],[-77.991,-7.673],[-77.952,-7.674],[-77.942,-7.67],[-77.935,-7.662],[-77.923,-7.632],[-77.915,-7.6],[-77.914,-7.575],[-77.917,-7.553],[-77.922,-7.531],[-77.923,-7.521],[-77.918,-7.509],[-77.865,-7.474],[-77.851,-7.47],[-77.839,-7.468],[-77.827,-7.468],[-77.794,-7.464],[-77.783,-7.464],[-77.754,-7.468],[-77.764,-7.45],[-77.771,-7.433],[-77.794,-7.413],[-77.82,-7.398],[-77.84,-7.377],[-77.847,-7.34],[-77.847,-7.306],[-77.849,-7.295],[-77.855,-7.293],[-77.861,-7.293],[-77.867,-7.289],[-77.873,-7.28],[-77.874,-7.275],[-77.874,-7.249],[-77.871,-7.241],[-77.87,-7.234],[-77.877,-7.223],[-77.885,-7.218],[-77.893,-7.215],[-77.899,-7.21],[-77.902,-7.203],[-77.906,-7.187],[-77.916,-7.176],[-77.927,-7.168],[-77.936,-7.158],[-77.941,-7.144],[-77.954,-7.075],[-77.972,-7.047],[-77.977,-7.028],[-77.992,-7.013],[-77.972,-7.007],[-77.929,-6.998],[-77.907,-6.99],[-77.891,-6.987],[-77.874,-6.986],[-77.852,-6.99],[-77.821,-7],[-77.799,-7.001],[-77.742,-6.994],[-77.729,-7.008],[-77.719,-7.022],[-77.707,-7.048],[-77.682,-7.122],[-77.672,-7.133],[-77.62,-7.169],[-77.609,-7.181],[-77.601,-7.195],[-77.601,-7.213],[-77.603,-7.228],[-77.629,-7.282],[-77.627,-7.306],[-77.621,-7.338],[-77.593,-7.401],[-77.569,-7.435],[-77.551,-7.455],[-77.523,-7.475],[-77.514,-7.485],[-77.488,-7.528],[-77.46,-7.558],[-77.45,-7.572],[-77.449,-7.592],[-77.45,-7.607],[-77.472,-7.662],[-77.477,-7.688],[-77.476,-7.721],[-77.471,-7.763],[-77.465,-7.784],[-77.458,-7.804],[-77.44,-7.841],[-77.4,-7.899],[-77.393,-7.914],[-77.389,-7.928],[-77.388,-7.96],[-77.39,-7.969],[-77.392,-7.975],[-77.4,-7.989],[-77.404,-7.996],[-77.405,-8],[-77.404,-8.003],[-77.4,-8.011],[-77.393,-8.019],[-77.375,-8.037],[-77.369,-8.046],[-77.366,-8.056],[-77.359,-8.067],[-77.347,-8.077],[-77.32,-8.083],[-77.3,-8.082],[-77.286,-8.078],[-77.267,-8.068],[-77.247,-8.068],[-77.232,-8.07],[-77.125,-8.101],[-77.091,-8.116],[-77.047,-8.129],[-77.028,-8.138],[-76.983,-8.164],[-76.975,-8.17],[-76.911,-8.247],[-76.906,-8.262],[-76.901,-8.285],[-76.879,-8.512],[-76.875,-8.527],[-76.871,-8.536],[-76.856,-8.556],[-76.867,-8.578],[-76.885,-8.604],[-76.896,-8.61],[-76.911,-8.612],[-76.953,-8.599],[-76.969,-8.6],[-76.982,-8.603],[-76.995,-8.602],[-77.003,-8.594],[-77.008,-8.582],[-77.016,-8.535],[-77.026,-8.51],[-77.032,-8.503],[-77.036,-8.499],[-77.047,-8.498],[-77.064,-8.499],[-77.112,-8.515],[-77.126,-8.524],[-77.144,-8.529],[-77.167,-8.532],[-77.26,-8.531],[-77.323,-8.534],[-77.322,-8.497],[-77.331,-8.47],[-77.35,-8.435],[-77.421,-8.347],[-77.484,-8.249],[-77.496,-8.236],[-77.503,-8.231],[-77.512,-8.226],[-77.534,-8.218],[-77.605,-8.152],[-77.62,-8.13],[-77.625,-8.118],[-77.628,-8.106],[-77.627,-8.093],[-77.62,-8.083],[-77.637,-8.066],[-77.648,-8.048],[-77.652,-8.029],[-77.647,-8.011],[-77.667,-8.021],[-77.683,-8.033],[-77.719,-8.047],[-77.744,-8.054],[-77.774,-8.068],[-77.793,-8.074],[-77.809,-8.076],[-77.834,-8.074],[-77.857,-8.069],[-77.869,-8.065],[-77.881,-8.063],[-77.898,-8.064],[-77.907,-8.073],[-77.914,-8.085],[-77.93,-8.134],[-77.941,-8.151],[-77.957,-8.171],[-78.111,-8.301],[-78.12,-8.312],[-78.124,-8.324],[-78.127,-8.34],[-78.13,-8.349],[-78.151,-8.382],[-78.155,-8.392],[-78.156,-8.4],[-78.157,-8.411],[-78.158,-8.419],[-78.162,-8.429],[-78.197,-8.49],[-78.229,-8.529],[-78.236,-8.542],[-78.237,-8.552],[-78.235,-8.562],[-78.227,-8.58],[-78.223,-8.598],[-78.254,-8.658],[-78.263,-8.661],[-78.267,-8.66],[-78.292,-8.66],[-78.317,-8.663],[-78.342,-8.67],[-78.395,-8.708],[-78.537,-8.755],[-78.575,-8.783],[-78.597,-8.825],[-78.607,-8.91],[-78.617,-8.944],[-78.621,-8.952],[-78.631,-8.96],[-78.664,-8.967],[-78.671,-8.968],[-78.669,-8.965],[-78.663,-8.954],[-78.661,-8.93],[-78.668,-8.914],[-78.678,-8.902],[-78.683,-8.888],[-78.686,-8.883],[-78.704,-8.865],[-78.717,-8.837],[-78.768,-8.778],[-78.774,-8.759],[-78.768,-8.735],[-78.751,-8.692],[-78.752,-8.649],[-78.766,-8.607],[-78.789,-8.567],[-78.82,-8.528],[-78.859,-8.491],[-78.882,-8.474],[-78.913,-8.462],[-78.928,-8.45],[-78.951,-8.426],[-78.951,-8.419],[-78.925,-8.415],[-78.918,-8.394],[-78.924,-8.368],[-78.977,-8.27],[-78.984,-8.248],[-78.997,-8.219],[-79.018,-8.191],[-79.116,-8.1],[-79.135,-8.089],[-79.167,-8.042],[-79.184,-8.026],[-79.3,-7.939],[-79.352,-7.881],[-79.445,-7.734],[-79.456,-7.726],[-79.457,-7.72],[-79.456,-7.706],[-79.454,-7.696],[-79.451,-7.688],[-79.448,-7.679],[-79.45,-7.665],[-79.469,-7.625],[-79.576,-7.482],[-79.582,-7.464],[-79.591,-7.448],[-79.594,-7.438],[-79.593,-7.427],[-79.589,-7.411],[-79.587,-7.404],[-79.593,-7.362],[-79.607,-7.317],[-79.626,-7.275],[-79.648,-7.24],[-79.688,-7.204],[-79.704,-7.185],[-79.706,-7.178],[-79.667,-7.131],[-79.499,-6.968],[-79.493,-6.964],[-79.484,-6.961],[-79.469,-6.961],[-79.375,-6.988],[-79.348,-7.01]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Libertad'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Libertad?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Libertad is located? </h2>Libertad, is a department It belongs to the country of Peru. Its postal identifier is LL.Libertad has an area of 24609 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

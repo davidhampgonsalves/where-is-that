@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Miye?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[136.673,35.139],[136.684,35.121],[136.698,35.107],[136.71,35.091],[136.725,35.059],[136.736,35.042],[136.752,35.026],[136.745,35.024],[136.726,35.027],[136.681,35.001],[136.659,34.984],[136.65,34.969],[136.649,34.963],[136.644,34.953],[136.643,34.948],[136.645,34.942],[136.655,34.934],[136.657,34.928],[136.655,34.905],[136.65,34.883],[136.63,34.846],[136.572,34.789],[136.547,34.76],[136.528,34.721],[136.522,34.702],[136.52,34.681],[136.522,34.676],[136.532,34.66],[136.537,34.657],[136.547,34.652],[136.546,34.64],[136.541,34.626],[136.54,34.616],[136.551,34.602],[136.568,34.596],[136.612,34.596],[136.633,34.591],[136.649,34.58],[136.663,34.566],[136.677,34.554],[136.753,34.513],[136.804,34.495],[136.815,34.486],[136.825,34.49],[136.839,34.489],[136.853,34.486],[136.862,34.479],[136.869,34.467],[136.871,34.457],[136.874,34.447],[136.884,34.438],[136.897,34.434],[136.907,34.435],[136.916,34.434],[136.924,34.424],[136.926,34.413],[136.917,34.376],[136.905,34.381],[136.893,34.383],[136.883,34.379],[136.876,34.369],[136.88,34.363],[136.887,34.357],[136.898,34.354],[136.91,34.355],[136.895,34.343],[136.889,34.336],[136.884,34.328],[136.891,34.318],[136.898,34.301],[136.901,34.283],[136.896,34.267],[136.886,34.261],[136.851,34.249],[136.836,34.246],[136.819,34.248],[136.794,34.253],[136.775,34.262],[136.774,34.273],[136.788,34.277],[136.81,34.274],[136.83,34.267],[136.842,34.26],[136.84,34.266],[136.838,34.275],[136.836,34.281],[136.849,34.273],[136.857,34.294],[136.847,34.308],[136.828,34.312],[136.808,34.308],[136.81,34.301],[136.81,34.298],[136.809,34.295],[136.808,34.287],[136.774,34.308],[136.757,34.296],[136.726,34.291],[136.703,34.295],[136.708,34.311],[136.724,34.331],[136.707,34.334],[136.677,34.327],[136.65,34.314],[136.668,34.31],[136.667,34.298],[136.655,34.286],[136.623,34.275],[136.608,34.265],[136.593,34.263],[136.574,34.281],[136.568,34.274],[136.564,34.272],[136.562,34.268],[136.561,34.26],[136.533,34.272],[136.523,34.273],[136.518,34.261],[136.513,34.252],[136.506,34.246],[136.515,34.23],[136.503,34.229],[136.472,34.239],[136.428,34.214],[136.417,34.204],[136.385,34.204],[136.337,34.184],[136.299,34.154],[136.297,34.126],[136.309,34.118],[136.317,34.114],[136.319,34.109],[136.314,34.095],[136.309,34.09],[136.301,34.086],[136.291,34.083],[136.284,34.081],[136.273,34.086],[136.261,34.105],[136.253,34.109],[136.247,34.104],[136.23,34.082],[136.219,34.075],[136.219,34.068],[136.233,34.068],[136.244,34.064],[136.251,34.056],[136.253,34.044],[136.271,34.028],[136.28,34.017],[136.277,34.012],[136.275,34.007],[136.276,33.98],[136.273,33.972],[136.259,33.966],[136.248,33.972],[136.239,33.983],[136.232,33.993],[136.219,33.981],[136.205,33.972],[136.205,33.965],[136.228,33.962],[136.235,33.948],[136.229,33.938],[136.211,33.945],[136.207,33.927],[136.199,33.921],[136.165,33.916],[136.161,33.913],[136.153,33.906],[136.143,33.894],[136.137,33.891],[136.126,33.89],[136.101,33.877],[136.081,33.849],[136.026,33.725],[135.994,33.686],[135.967,33.699],[135.951,33.704],[135.938,33.714],[135.929,33.724],[135.92,33.736],[135.902,33.748],[135.863,33.787],[135.852,33.803],[135.847,33.817],[135.847,33.825],[135.848,33.838],[135.875,33.851],[135.883,33.863],[135.891,33.883],[135.9,33.889],[135.915,33.889],[135.921,33.893],[135.926,33.901],[135.958,33.918],[135.974,33.937],[135.985,33.953],[135.991,33.97],[136.004,33.993],[136.018,34.005],[136.035,34.011],[136.087,34.009],[136.098,34.012],[136.101,34.018],[136.091,34.036],[136.086,34.05],[136.109,34.126],[136.11,34.139],[136.107,34.189],[136.118,34.228],[136.119,34.241],[136.113,34.255],[136.104,34.269],[136.101,34.283],[136.106,34.292],[136.108,34.301],[136.082,34.351],[136.074,34.364],[136.069,34.377],[136.071,34.394],[136.081,34.409],[136.096,34.42],[136.114,34.425],[136.157,34.431],[136.178,34.439],[136.203,34.459],[136.21,34.472],[136.211,34.486],[136.208,34.495],[136.203,34.502],[136.181,34.504],[136.171,34.509],[136.162,34.528],[136.154,34.534],[136.142,34.536],[136.129,34.535],[136.114,34.536],[136.097,34.542],[136.076,34.552],[136.06,34.563],[136.052,34.575],[136.054,34.589],[136.059,34.606],[136.058,34.619],[136.053,34.626],[136.041,34.634],[136.038,34.637],[136.04,34.641],[136.063,34.647],[136.072,34.656],[136.065,34.677],[136.063,34.692],[136.059,34.703],[136.055,34.708],[136.05,34.712],[136.036,34.715],[136.003,34.774],[136.082,34.801],[136.101,34.819],[136.113,34.833],[136.1,34.854],[136.102,34.865],[136.113,34.871],[136.125,34.872],[136.18,34.863],[136.241,34.863],[136.312,34.879],[136.343,34.893],[136.362,34.906],[136.37,34.916],[136.382,34.926],[136.392,34.937],[136.4,34.949],[136.407,34.967],[136.412,34.982],[136.418,35.022],[136.432,35.062],[136.443,35.132],[136.442,35.141],[136.436,35.151],[136.407,35.183],[136.399,35.203],[136.515,35.232],[136.528,35.229],[136.539,35.223],[136.549,35.204],[136.558,35.194],[136.585,35.174],[136.618,35.158],[136.673,35.139]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Miye'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Miye?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Miye is located? </h2>Miye, is a prefecture of the Chubu region. It belongs to the country of Japan. Its postal identifier is ME.Miye has an area of 5863 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

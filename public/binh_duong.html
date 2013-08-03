@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Binh Duong?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[106.965,11.284],[106.934,11.215],[106.931,11.198],[106.935,11.188],[106.944,11.182],[106.954,11.171],[106.964,11.153],[106.975,11.122],[106.976,11.107],[106.973,11.095],[106.955,11.064],[106.912,11.029],[106.902,11.026],[106.89,11.025],[106.878,11.027],[106.865,11.033],[106.855,11.041],[106.846,11.05],[106.837,11.054],[106.827,11.056],[106.814,11.052],[106.801,11.046],[106.788,11.035],[106.784,11.026],[106.785,11.017],[106.788,11.008],[106.787,10.989],[106.788,10.981],[106.791,10.972],[106.797,10.961],[106.806,10.95],[106.817,10.939],[106.826,10.927],[106.832,10.917],[106.836,10.888],[106.799,10.895],[106.788,10.892],[106.75,10.878],[106.735,10.875],[106.722,10.875],[106.712,10.881],[106.699,10.901],[106.674,10.934],[106.654,10.966],[106.619,11.01],[106.618,11.018],[106.618,11.026],[106.616,11.031],[106.611,11.034],[106.592,11.034],[106.583,11.038],[106.574,11.049],[106.531,11.121],[106.522,11.131],[106.514,11.136],[106.498,11.137],[106.486,11.136],[106.43,11.124],[106.421,11.156],[106.408,11.172],[106.392,11.184],[106.385,11.19],[106.381,11.196],[106.379,11.204],[106.377,11.213],[106.374,11.221],[106.37,11.229],[106.364,11.237],[106.352,11.258],[106.347,11.273],[106.343,11.289],[106.341,11.305],[106.343,11.344],[106.347,11.364],[106.353,11.381],[106.379,11.437],[106.387,11.449],[106.403,11.464],[106.412,11.472],[106.431,11.493],[106.464,11.553],[106.481,11.539],[106.495,11.529],[106.506,11.518],[106.514,11.509],[106.518,11.501],[106.52,11.489],[106.521,11.485],[106.525,11.482],[106.53,11.479],[106.543,11.477],[106.557,11.473],[106.572,11.466],[106.601,11.449],[106.613,11.44],[106.619,11.431],[106.62,11.424],[106.618,11.404],[106.615,11.388],[106.614,11.379],[106.615,11.37],[106.618,11.361],[106.629,11.348],[106.632,11.341],[106.633,11.326],[106.638,11.32],[106.648,11.317],[106.667,11.319],[106.678,11.325],[106.684,11.335],[106.686,11.347],[106.689,11.357],[106.696,11.361],[106.706,11.359],[106.721,11.346],[106.725,11.337],[106.725,11.33],[106.715,11.318],[106.713,11.312],[106.718,11.307],[106.729,11.305],[106.753,11.312],[106.765,11.321],[106.773,11.329],[106.778,11.335],[106.791,11.335],[106.812,11.33],[106.885,11.3],[106.933,11.285],[106.965,11.284]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Binh Duong'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Binh Duong?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Binh Duong is located? </h2>Binh Duong, is a province of the Ðông Nam B? region. It belongs to the country of Vietnam. Its postal identifier is BI.Binh Duong has an area of 2557 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

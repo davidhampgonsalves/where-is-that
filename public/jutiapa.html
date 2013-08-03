@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Jutiapa?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-89.598,14.524],[-89.595,14.523],[-89.519,14.526],[-89.513,14.524],[-89.499,14.509],[-89.496,14.502],[-89.497,14.497],[-89.498,14.492],[-89.502,14.478],[-89.505,14.472],[-89.509,14.462],[-89.511,14.451],[-89.512,14.445],[-89.512,14.442],[-89.511,14.44],[-89.51,14.438],[-89.497,14.423],[-89.504,14.42],[-89.528,14.391],[-89.542,14.382],[-89.545,14.4],[-89.556,14.411],[-89.571,14.412],[-89.585,14.402],[-89.591,14.386],[-89.591,14.386],[-89.587,14.375],[-89.58,14.365],[-89.577,14.353],[-89.577,14.353],[-89.583,14.344],[-89.593,14.337],[-89.599,14.328],[-89.599,14.328],[-89.593,14.314],[-89.572,14.311],[-89.565,14.308],[-89.559,14.303],[-89.556,14.299],[-89.551,14.289],[-89.549,14.284],[-89.547,14.269],[-89.546,14.262],[-89.541,14.258],[-89.529,14.252],[-89.525,14.248],[-89.525,14.232],[-89.525,14.232],[-89.532,14.226],[-89.639,14.201],[-89.665,14.189],[-89.691,14.17],[-89.711,14.149],[-89.753,14.076],[-89.756,14.067],[-89.756,14.067],[-89.755,14.06],[-89.749,14.045],[-89.748,14.044],[-89.748,14.043],[-89.748,14.038],[-89.763,14.03],[-89.778,14.036],[-89.804,14.056],[-89.822,14.06],[-89.837,14.059],[-89.881,14.043],[-89.891,14.036],[-89.913,14.016],[-90.009,13.95],[-90.024,13.937],[-90.032,13.923],[-90.039,13.909],[-90.048,13.895],[-90.06,13.885],[-90.088,13.871],[-90.1,13.859],[-90.108,13.844],[-90.113,13.829],[-90.115,13.812],[-90.115,13.812],[-90.115,13.797],[-90.099,13.749],[-90.099,13.749],[-90.134,13.757],[-90.237,13.802],[-90.231,13.827],[-90.23,13.845],[-90.231,13.85],[-90.233,13.855],[-90.245,13.878],[-90.255,13.913],[-90.259,13.921],[-90.261,13.925],[-90.267,13.928],[-90.269,13.929],[-90.27,13.931],[-90.271,13.933],[-90.279,13.975],[-90.28,13.979],[-90.285,13.984],[-90.289,13.988],[-90.292,13.995],[-90.293,13.999],[-90.293,14.004],[-90.292,14.01],[-90.29,14.013],[-90.284,14.018],[-90.266,14.023],[-90.238,14.007],[-90.219,13.991],[-90.213,13.989],[-90.174,13.98],[-90.164,13.976],[-90.16,13.976],[-90.157,13.977],[-90.141,13.987],[-90.125,14.016],[-90.119,14.027],[-90.116,14.03],[-90.11,14.033],[-90.099,14.036],[-90.085,14.038],[-90.083,14.039],[-90.077,14.045],[-90.06,14.07],[-90.054,14.081],[-90.052,14.089],[-90.05,14.095],[-90.05,14.098],[-90.055,14.138],[-90.053,14.16],[-90.058,14.17],[-90.083,14.193],[-90.114,14.218],[-90.121,14.225],[-90.125,14.228],[-90.13,14.23],[-90.177,14.243],[-90.191,14.253],[-90.155,14.339],[-90.142,14.35],[-90.14,14.352],[-90.105,14.358],[-90.094,14.358],[-90.089,14.356],[-90.084,14.354],[-90.082,14.355],[-90.081,14.358],[-90.084,14.377],[-90.07,14.378],[-90.052,14.433],[-89.989,14.434],[-89.965,14.465],[-89.961,14.469],[-89.958,14.471],[-89.954,14.472],[-89.947,14.473],[-89.943,14.474],[-89.939,14.473],[-89.936,14.473],[-89.933,14.472],[-89.93,14.471],[-89.885,14.436],[-89.88,14.471],[-89.872,14.483],[-89.851,14.496],[-89.832,14.509],[-89.816,14.519],[-89.796,14.525],[-89.789,14.523],[-89.785,14.52],[-89.782,14.516],[-89.775,14.51],[-89.764,14.501],[-89.762,14.5],[-89.7,14.53],[-89.678,14.542],[-89.678,14.545],[-89.678,14.555],[-89.686,14.578],[-89.645,14.573],[-89.633,14.569],[-89.631,14.567],[-89.624,14.56],[-89.618,14.552],[-89.613,14.543],[-89.602,14.526],[-89.598,14.524]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Jutiapa'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Jutiapa?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Jutiapa is located? </h2>Jutiapa, is a department It belongs to the country of Guatemala. Its postal identifier is JU.Jutiapa has an area of 3294 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

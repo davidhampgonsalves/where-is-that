@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ben Tre?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[106.544,9.838],[106.536,9.829],[106.521,9.838],[106.497,9.875],[106.469,9.89],[106.423,9.933],[106.423,9.939],[106.427,9.936],[106.443,9.933],[106.486,9.903],[106.498,9.891],[106.531,9.858],[106.544,9.838]]],[[[106.739,10.229],[106.724,10.227],[106.718,10.231],[106.71,10.244],[106.69,10.252],[106.56,10.275],[106.512,10.296],[106.527,10.297],[106.561,10.283],[106.588,10.277],[106.703,10.276],[106.724,10.269],[106.747,10.263],[106.756,10.258],[106.759,10.244],[106.753,10.236],[106.739,10.229]]],[[[106.314,10.565],[106.356,10.507],[106.37,10.498],[106.387,10.491],[106.415,10.486],[106.431,10.48],[106.441,10.472],[106.444,10.462],[106.444,10.453],[106.441,10.432],[106.443,10.423],[106.452,10.416],[106.466,10.414],[106.512,10.417],[106.542,10.414],[106.585,10.414],[106.608,10.425],[106.615,10.437],[106.616,10.437],[106.63,10.446],[106.642,10.459],[106.649,10.474],[106.656,10.474],[106.661,10.46],[106.663,10.444],[106.671,10.433],[106.69,10.433],[106.698,10.441],[106.714,10.468],[106.724,10.474],[106.741,10.468],[106.752,10.454],[106.76,10.436],[106.769,10.423],[106.782,10.408],[106.788,10.393],[106.796,10.307],[106.791,10.285],[106.776,10.275],[106.756,10.277],[106.704,10.289],[106.599,10.289],[106.526,10.303],[106.488,10.303],[106.468,10.307],[106.452,10.316],[106.438,10.322],[106.423,10.317],[106.481,10.281],[106.721,10.2],[106.726,10.197],[106.743,10.182],[106.748,10.179],[106.754,10.177],[106.759,10.172],[106.765,10.168],[106.776,10.166],[106.786,10.165],[106.793,10.163],[106.798,10.157],[106.799,10.148],[106.797,10.125],[106.792,10.11],[106.737,10.054],[106.721,10.045],[106.704,10.049],[106.709,10.057],[106.711,10.066],[106.709,10.075],[106.704,10.084],[106.697,10.084],[106.692,10.067],[106.69,10.063],[106.677,10.049],[106.671,10.041],[106.669,10.032],[106.673,10.03],[106.68,10.021],[106.684,10.012],[106.68,10.008],[106.664,10.006],[106.661,10.002],[106.661,9.995],[106.654,9.985],[106.652,9.978],[106.649,9.974],[106.645,9.973],[106.608,9.975],[106.591,9.981],[106.577,9.991],[106.563,10.005],[106.548,10.015],[106.498,10.036],[106.469,10.059],[106.444,10.09],[106.36,10.221],[106.331,10.25],[106.292,10.262],[106.298,10.256],[106.303,10.253],[106.308,10.252],[106.338,10.228],[106.35,10.215],[106.358,10.177],[106.369,10.156],[106.462,10.036],[106.485,10.015],[106.562,9.979],[106.614,9.939],[106.671,9.909],[106.687,9.906],[106.697,9.897],[106.694,9.877],[106.683,9.855],[106.669,9.843],[106.669,9.85],[106.675,9.858],[106.677,9.867],[106.674,9.876],[106.669,9.884],[106.663,9.884],[106.658,9.849],[106.638,9.826],[106.612,9.817],[106.587,9.823],[106.564,9.842],[106.505,9.906],[106.48,9.924],[106.395,9.974],[106.145,10.229],[106.137,10.235],[106.128,10.239],[106.122,10.241],[106.118,10.238],[106.101,10.249],[106.073,10.261],[105.985,10.284],[105.955,10.289],[105.898,10.29],[105.849,10.301],[105.845,10.307],[105.839,10.344],[105.843,10.353],[105.848,10.362],[105.858,10.368],[105.949,10.481],[105.958,10.504],[105.963,10.521],[105.963,10.553],[106.002,10.551],[106.051,10.544],[106.078,10.544],[106.099,10.549],[106.109,10.556],[106.127,10.58],[106.146,10.59],[106.166,10.592],[106.271,10.586],[106.288,10.583],[106.301,10.576],[106.314,10.565]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Ben Tre'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Ben Tre?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Ben Tre is located? </h2>Ben Tre, is a province of the d?ng b?ng sông C?u Long region. It belongs to the country of Vietnam. Its postal identifier is BR.Ben Tre has an area of 4319 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

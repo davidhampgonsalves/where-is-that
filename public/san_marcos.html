@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is San Marcos?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-92.044,15.28],[-91.993,15.278],[-91.99,15.281],[-91.957,15.319],[-91.943,15.327],[-91.91,15.33],[-91.88,15.348],[-91.863,15.358],[-91.856,15.361],[-91.85,15.361],[-91.841,15.357],[-91.807,15.337],[-91.786,15.335],[-91.731,15.35],[-91.716,15.35],[-91.715,15.346],[-91.71,15.333],[-91.696,15.308],[-91.679,15.286],[-91.661,15.266],[-91.641,15.25],[-91.631,15.244],[-91.621,15.234],[-91.616,15.221],[-91.621,15.202],[-91.627,15.196],[-91.662,15.168],[-91.68,15.149],[-91.699,15.122],[-91.708,15.092],[-91.696,15.065],[-91.677,15.049],[-91.673,15.033],[-91.68,14.99],[-91.683,14.98],[-91.692,14.969],[-91.721,14.942],[-91.729,14.938],[-91.736,14.934],[-91.738,14.931],[-91.739,14.927],[-91.738,14.92],[-91.74,14.91],[-91.749,14.898],[-91.756,14.861],[-91.763,14.848],[-91.765,14.845],[-91.792,14.79],[-91.793,14.787],[-91.795,14.783],[-91.799,14.779],[-91.812,14.77],[-91.817,14.765],[-91.819,14.762],[-91.832,14.738],[-91.842,14.732],[-91.851,14.729],[-91.861,14.728],[-91.889,14.73],[-91.951,14.736],[-92.039,14.712],[-92.061,14.708],[-92.072,14.702],[-92.1,14.68],[-92.134,14.642],[-92.138,14.636],[-92.137,14.633],[-92.134,14.63],[-92.125,14.627],[-92.12,14.626],[-92.061,14.62],[-92.052,14.618],[-92.05,14.616],[-92.04,14.599],[-92.017,14.531],[-92.046,14.524],[-92.055,14.52],[-92.066,14.508],[-92.07,14.505],[-92.074,14.504],[-92.077,14.503],[-92.08,14.503],[-92.083,14.504],[-92.088,14.506],[-92.097,14.508],[-92.107,14.508],[-92.112,14.507],[-92.116,14.506],[-92.125,14.498],[-92.134,14.492],[-92.139,14.49],[-92.144,14.489],[-92.154,14.492],[-92.158,14.491],[-92.161,14.49],[-92.162,14.487],[-92.246,14.546],[-92.246,14.546],[-92.246,14.546],[-92.227,14.55],[-92.209,14.571],[-92.209,14.571],[-92.209,14.571],[-92.187,14.63],[-92.172,14.656],[-92.165,14.668],[-92.165,14.669],[-92.162,14.684],[-92.162,14.703],[-92.18,14.752],[-92.181,14.759],[-92.18,14.774],[-92.18,14.782],[-92.189,14.806],[-92.192,14.815],[-92.192,14.836],[-92.188,14.847],[-92.188,14.848],[-92.167,14.871],[-92.167,14.871],[-92.155,14.901],[-92.158,14.963],[-92.155,14.996],[-92.155,14.996],[-92.143,15.008],[-92.131,15.011],[-92.118,15.013],[-92.105,15.018],[-92.094,15.03],[-92.09,15.038],[-92.075,15.074],[-92.204,15.237],[-92.212,15.254],[-92.212,15.272],[-92.205,15.29],[-92.106,15.455],[-92.1,15.434],[-92.082,15.413],[-92.068,15.407],[-92.065,15.392],[-92.055,15.288],[-92.044,15.28]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'San Marcos'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>San Marcos?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where San Marcos is located? </h2>San Marcos, is a department It belongs to the country of Guatemala. Its postal identifier is SM.San Marcos has an area of 3635 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

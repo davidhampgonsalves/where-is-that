@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Olt?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[24.438,44.85],[24.449,44.826],[24.456,44.822],[24.465,44.82],[24.474,44.823],[24.514,44.847],[24.521,44.853],[24.525,44.859],[24.535,44.877],[24.546,44.888],[24.554,44.892],[24.564,44.891],[24.569,44.886],[24.571,44.878],[24.57,44.869],[24.568,44.86],[24.57,44.848],[24.577,44.835],[24.622,44.768],[24.633,44.757],[24.653,44.744],[24.669,44.74],[24.685,44.74],[24.7,44.743],[24.718,44.742],[24.726,44.737],[24.731,44.732],[24.73,44.728],[24.725,44.726],[24.707,44.72],[24.699,44.716],[24.693,44.711],[24.69,44.705],[24.692,44.696],[24.717,44.666],[24.725,44.651],[24.73,44.629],[24.731,44.617],[24.734,44.607],[24.741,44.591],[24.751,44.546],[24.75,44.539],[24.745,44.526],[24.743,44.518],[24.744,44.509],[24.756,44.476],[24.76,44.431],[24.765,44.416],[24.772,44.408],[24.782,44.403],[24.83,44.401],[24.851,44.39],[24.839,44.367],[24.838,44.357],[24.837,44.341],[24.845,44.297],[24.848,44.249],[24.846,44.227],[24.834,44.193],[24.833,44.166],[24.834,44.15],[24.839,44.134],[24.841,44.116],[24.835,44.107],[24.822,44.101],[24.788,44.096],[24.775,44.093],[24.764,44.087],[24.734,44.063],[24.724,44.059],[24.71,44.056],[24.692,44.055],[24.676,44.052],[24.658,44.045],[24.637,44.025],[24.631,44.01],[24.632,43.991],[24.663,43.934],[24.698,43.882],[24.741,43.83],[24.747,43.815],[24.745,43.807],[24.736,43.802],[24.708,43.792],[24.695,43.785],[24.683,43.777],[24.663,43.757],[24.662,43.756],[24.5,43.8],[24.466,43.803],[24.431,43.795],[24.375,43.764],[24.358,43.76],[24.159,43.753],[24.15,43.755],[24.204,43.839],[24.211,43.846],[24.229,43.857],[24.234,43.862],[24.237,43.874],[24.24,43.879],[24.254,43.886],[24.26,43.893],[24.272,43.92],[24.273,43.927],[24.271,43.935],[24.257,43.952],[24.254,43.96],[24.26,43.969],[24.269,43.974],[24.288,43.982],[24.292,43.989],[24.293,43.997],[24.292,44.008],[24.287,44.017],[24.273,44.025],[24.26,44.027],[24.229,44.028],[24.221,44.03],[24.213,44.034],[24.207,44.039],[24.205,44.046],[24.207,44.056],[24.211,44.064],[24.215,44.079],[24.215,44.092],[24.216,44.097],[24.221,44.101],[24.226,44.104],[24.236,44.105],[24.247,44.103],[24.258,44.101],[24.27,44.1],[24.277,44.102],[24.276,44.108],[24.255,44.135],[24.248,44.16],[24.247,44.175],[24.248,44.187],[24.253,44.196],[24.257,44.202],[24.257,44.21],[24.251,44.22],[24.232,44.234],[24.221,44.24],[24.196,44.247],[24.159,44.264],[24.149,44.272],[24.138,44.284],[24.129,44.298],[24.121,44.31],[24.111,44.318],[24.089,44.331],[24.077,44.34],[24.065,44.353],[24.052,44.373],[24.038,44.384],[24.026,44.388],[24.014,44.39],[24.004,44.393],[23.996,44.399],[23.969,44.427],[23.959,44.434],[23.919,44.451],[23.91,44.458],[23.906,44.465],[23.905,44.473],[23.907,44.48],[23.92,44.498],[23.958,44.53],[23.996,44.547],[24.007,44.549],[24.02,44.551],[24.031,44.549],[24.042,44.546],[24.051,44.541],[24.059,44.534],[24.068,44.522],[24.076,44.517],[24.084,44.517],[24.096,44.521],[24.127,44.554],[24.137,44.561],[24.15,44.566],[24.161,44.568],[24.173,44.567],[24.197,44.563],[24.207,44.562],[24.217,44.564],[24.246,44.576],[24.254,44.584],[24.26,44.605],[24.266,44.613],[24.278,44.62],[24.287,44.62],[24.293,44.618],[24.295,44.614],[24.293,44.604],[24.294,44.597],[24.296,44.591],[24.301,44.584],[24.309,44.577],[24.318,44.574],[24.325,44.579],[24.333,44.583],[24.331,44.602],[24.323,44.624],[24.312,44.643],[24.3,44.656],[24.304,44.673],[24.291,44.716],[24.286,44.737],[24.286,44.746],[24.305,44.76],[24.321,44.778],[24.33,44.79],[24.336,44.801],[24.343,44.823],[24.345,44.837],[24.348,44.849],[24.353,44.86],[24.381,44.896],[24.389,44.903],[24.397,44.91],[24.408,44.913],[24.416,44.914],[24.427,44.912],[24.435,44.904],[24.44,44.897],[24.438,44.85]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Olt'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Olt?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Olt is located? </h2>Olt, is a county It belongs to the country of Romania. Its postal identifier is OT.Olt has an area of 5224 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

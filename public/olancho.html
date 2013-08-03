@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Olancho?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-85.746,15.576],[-85.736,15.572],[-85.728,15.573],[-85.718,15.577],[-85.709,15.582],[-85.688,15.577],[-85.608,15.535],[-85.505,15.449],[-85.396,15.409],[-85.36,15.381],[-85.307,15.305],[-85.249,15.237],[-85.233,15.227],[-85.093,15.167],[-85.06,15.137],[-85,15.069],[-85,14.981],[-85,14.743],[-85.003,14.741],[-85.016,14.728],[-85.025,14.713],[-85.03,14.676],[-85.034,14.67],[-85.039,14.667],[-85.055,14.663],[-85.055,14.663],[-85.049,14.654],[-85.021,14.634],[-85.021,14.634],[-85.043,14.614],[-85.049,14.606],[-85.023,14.606],[-85.023,14.606],[-85.024,14.604],[-85.03,14.589],[-85.066,14.555],[-85.087,14.545],[-85.104,14.557],[-85.12,14.574],[-85.138,14.579],[-85.146,14.564],[-85.15,14.537],[-85.152,14.486],[-85.156,14.48],[-85.179,14.456],[-85.18,14.45],[-85.178,14.434],[-85.179,14.428],[-85.206,14.407],[-85.206,14.407],[-85.19,14.397],[-85.173,14.381],[-85.16,14.361],[-85.159,14.339],[-85.17,14.322],[-85.191,14.31],[-85.216,14.302],[-85.241,14.298],[-85.278,14.298],[-85.289,14.295],[-85.313,14.284],[-85.322,14.282],[-85.327,14.276],[-85.332,14.269],[-85.339,14.261],[-85.341,14.254],[-85.343,14.252],[-85.344,14.25],[-85.346,14.25],[-85.348,14.249],[-85.359,14.251],[-85.361,14.251],[-85.364,14.25],[-85.368,14.246],[-85.373,14.241],[-85.379,14.234],[-85.385,14.227],[-85.394,14.211],[-85.402,14.185],[-85.41,14.166],[-85.421,14.147],[-85.432,14.133],[-85.445,14.123],[-85.458,14.113],[-85.475,14.104],[-85.511,14.094],[-85.517,14.081],[-85.519,14.065],[-85.529,14.051],[-85.547,14.045],[-85.563,14.042],[-85.563,14.042],[-85.576,14.075],[-85.58,14.079],[-85.588,14.085],[-85.596,14.09],[-85.606,14.097],[-85.61,14.105],[-85.611,14.115],[-85.611,14.126],[-85.615,14.147],[-85.622,14.16],[-85.631,14.17],[-85.647,14.183],[-85.655,14.186],[-85.66,14.185],[-85.662,14.177],[-85.665,14.176],[-85.672,14.177],[-85.71,14.189],[-85.757,14.199],[-85.764,14.198],[-85.768,14.194],[-85.78,14.17],[-85.784,14.167],[-85.791,14.165],[-85.804,14.168],[-85.814,14.172],[-85.827,14.181],[-85.836,14.183],[-85.845,14.182],[-85.849,14.179],[-85.853,14.176],[-85.858,14.173],[-85.868,14.168],[-85.871,14.166],[-85.874,14.162],[-85.875,14.157],[-85.876,14.147],[-85.877,14.142],[-85.88,14.138],[-85.885,14.134],[-85.893,14.132],[-85.906,14.131],[-85.913,14.133],[-85.925,14.142],[-85.944,14.168],[-85.983,14.185],[-85.991,14.191],[-85.995,14.199],[-85.997,14.208],[-86.001,14.221],[-86.007,14.235],[-86.019,14.255],[-86.03,14.263],[-86.04,14.269],[-86.058,14.273],[-86.062,14.273],[-86.067,14.272],[-86.07,14.269],[-86.073,14.266],[-86.076,14.257],[-86.08,14.253],[-86.088,14.253],[-86.114,14.259],[-86.142,14.269],[-86.149,14.276],[-86.176,14.324],[-86.185,14.334],[-86.194,14.338],[-86.207,14.341],[-86.232,14.341],[-86.243,14.34],[-86.262,14.335],[-86.277,14.328],[-86.287,14.321],[-86.293,14.319],[-86.299,14.317],[-86.304,14.313],[-86.313,14.305],[-86.336,14.291],[-86.343,14.288],[-86.354,14.286],[-86.428,14.291],[-86.437,14.294],[-86.442,14.298],[-86.448,14.311],[-86.453,14.318],[-86.457,14.323],[-86.476,14.337],[-86.499,14.343],[-86.503,14.345],[-86.523,14.365],[-86.579,14.38],[-86.6,14.382],[-86.607,14.381],[-86.612,14.382],[-86.616,14.387],[-86.621,14.397],[-86.631,14.408],[-86.635,14.41],[-86.639,14.411],[-86.649,14.409],[-86.653,14.408],[-86.656,14.406],[-86.666,14.406],[-86.671,14.406],[-86.714,14.424],[-86.714,14.438],[-86.726,14.472],[-86.729,14.485],[-86.731,14.5],[-86.735,14.508],[-86.745,14.524],[-86.748,14.533],[-86.749,14.541],[-86.744,14.557],[-86.744,14.575],[-86.762,14.599],[-86.797,14.63],[-86.807,14.64],[-86.826,14.644],[-86.835,14.652],[-86.848,14.666],[-86.86,14.688],[-86.891,14.762],[-86.899,14.799],[-86.907,14.81],[-86.91,14.821],[-86.912,14.848],[-86.917,14.858],[-86.924,14.869],[-86.927,14.876],[-86.933,14.897],[-86.924,14.905],[-86.915,14.933],[-86.906,14.94],[-86.908,14.943],[-86.912,14.946],[-86.927,14.954],[-86.938,14.965],[-86.962,14.977],[-86.971,14.986],[-86.981,14.998],[-86.985,15.005],[-86.987,15.016],[-86.973,15.041],[-86.97,15.044],[-86.963,15.048],[-86.959,15.047],[-86.951,15.046],[-86.921,15.054],[-86.901,15.072],[-86.886,15.082],[-86.881,15.091],[-86.879,15.098],[-86.879,15.105],[-86.878,15.111],[-86.876,15.118],[-86.871,15.127],[-86.865,15.138],[-86.862,15.144],[-86.863,15.148],[-86.863,15.152],[-86.863,15.155],[-86.855,15.172],[-86.863,15.232],[-86.862,15.24],[-86.859,15.254],[-86.856,15.258],[-86.851,15.261],[-86.845,15.262],[-86.83,15.27],[-86.826,15.271],[-86.818,15.277],[-86.815,15.285],[-86.769,15.295],[-86.738,15.271],[-86.73,15.269],[-86.719,15.267],[-86.701,15.267],[-86.693,15.269],[-86.686,15.272],[-86.676,15.279],[-86.666,15.282],[-86.66,15.297],[-86.652,15.306],[-86.642,15.331],[-86.638,15.337],[-86.633,15.341],[-86.629,15.34],[-86.624,15.339],[-86.619,15.339],[-86.611,15.341],[-86.527,15.386],[-86.514,15.389],[-86.503,15.389],[-86.479,15.382],[-86.465,15.375],[-86.452,15.366],[-86.443,15.358],[-86.434,15.35],[-86.43,15.343],[-86.427,15.337],[-86.42,15.332],[-86.409,15.328],[-86.385,15.328],[-86.372,15.329],[-86.346,15.342],[-86.291,15.374],[-86.278,15.379],[-86.233,15.41],[-86.172,15.378],[-86.149,15.373],[-86.126,15.378],[-86.107,15.387],[-86.09,15.39],[-86.081,15.394],[-86.063,15.397],[-86.054,15.396],[-86.046,15.394],[-86.038,15.39],[-86.032,15.39],[-86.028,15.397],[-85.97,15.427],[-85.909,15.484],[-85.885,15.523],[-85.88,15.529],[-85.873,15.531],[-85.866,15.53],[-85.86,15.528],[-85.848,15.521],[-85.837,15.52],[-85.817,15.532],[-85.796,15.549],[-85.788,15.558],[-85.785,15.565],[-85.786,15.574],[-85.764,15.585],[-85.759,15.584],[-85.752,15.581],[-85.746,15.576]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Olancho'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Olancho?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Olancho is located? </h2>Olancho, is a department It belongs to the country of Honduras. Its postal identifier is OL.Olancho has an area of 23886 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

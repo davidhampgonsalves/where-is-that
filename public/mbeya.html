@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Mbeya?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[33.187,-6.937],[33.268,-6.956],[33.485,-6.943],[33.515,-6.968],[33.538,-7.001],[33.552,-7.053],[33.56,-7.108],[33.584,-7.148],[33.627,-7.164],[33.661,-7.197],[33.685,-7.241],[33.701,-7.264],[33.72,-7.284],[33.778,-7.302],[33.791,-7.325],[33.794,-7.352],[33.812,-7.394],[33.815,-7.435],[33.832,-7.444],[33.852,-7.449],[33.893,-7.479],[33.939,-7.499],[33.964,-7.516],[33.98,-7.535],[33.966,-7.562],[33.946,-7.586],[33.919,-7.65],[33.896,-7.689],[33.869,-7.725],[33.85,-7.762],[33.842,-7.803],[33.856,-7.832],[33.895,-7.837],[34.36,-7.814],[34.411,-7.818],[34.559,-7.853],[34.596,-7.878],[34.639,-7.892],[34.91,-7.935],[34.92,-7.965],[34.916,-7.991],[34.942,-7.996],[34.991,-7.992],[35.036,-8.008],[35.064,-8.036],[35.039,-8.068],[34.996,-8.102],[34.941,-8.118],[34.916,-8.148],[34.88,-8.231],[34.854,-8.274],[34.819,-8.301],[34.777,-8.315],[34.74,-8.349],[34.712,-8.392],[34.691,-8.434],[34.707,-8.475],[34.728,-8.506],[34.744,-8.54],[34.732,-8.605],[34.707,-8.67],[34.685,-8.686],[34.652,-8.682],[34.615,-8.696],[34.583,-8.718],[34.556,-8.77],[34.521,-8.807],[34.475,-8.826],[34.423,-8.827],[34.328,-8.813],[34.228,-8.837],[34.17,-8.838],[34.112,-8.833],[34.061,-8.854],[34.051,-8.882],[34.023,-8.892],[33.949,-8.866],[33.894,-8.877],[33.853,-8.914],[33.796,-9.006],[33.802,-9.054],[33.835,-9.092],[33.858,-9.134],[33.875,-9.179],[33.854,-9.191],[33.848,-9.211],[33.882,-9.219],[33.893,-9.232],[33.896,-9.264],[33.918,-9.292],[33.973,-9.386],[34.003,-9.427],[34.022,-9.435],[34.042,-9.438],[34.082,-9.478],[34.078,-9.51],[34.078,-9.51],[34.047,-9.49],[34.012,-9.477],[34.012,-9.477],[33.996,-9.492],[33.984,-9.506],[33.96,-9.525],[33.945,-9.55],[33.964,-9.595],[33.962,-9.612],[33.955,-9.642],[33.954,-9.661],[33.951,-9.674],[33.943,-9.684],[33.928,-9.693],[33.928,-9.7],[33.912,-9.718],[33.911,-9.718],[33.9,-9.709],[33.889,-9.69],[33.865,-9.67],[33.836,-9.653],[33.813,-9.643],[33.787,-9.626],[33.762,-9.601],[33.734,-9.584],[33.714,-9.589],[33.702,-9.593],[33.68,-9.605],[33.676,-9.608],[33.65,-9.611],[33.65,-9.611],[33.623,-9.606],[33.593,-9.597],[33.559,-9.593],[33.535,-9.603],[33.524,-9.609],[33.511,-9.617],[33.511,-9.617],[33.48,-9.624],[33.439,-9.621],[33.419,-9.616],[33.404,-9.605],[33.392,-9.586],[33.374,-9.549],[33.356,-9.532],[33.3,-9.492],[33.282,-9.486],[33.273,-9.488],[33.273,-9.488],[33.257,-9.498],[33.257,-9.498],[33.249,-9.501],[33.237,-9.499],[33.216,-9.493],[33.202,-9.493],[33.195,-9.496],[33.195,-9.497],[33.182,-9.508],[33.177,-9.509],[33.172,-9.511],[33.169,-9.509],[33.14,-9.497],[33.112,-9.491],[33.103,-9.488],[33.042,-9.441],[32.992,-9.391],[32.974,-9.381],[32.955,-9.382],[32.955,-9.382],[32.955,-9.382],[32.936,-9.391],[32.936,-9.392],[32.921,-9.408],[32.92,-9.408],[32.905,-9.398],[32.83,-9.37],[32.784,-9.34],[32.777,-9.338],[32.759,-9.34],[32.752,-9.337],[32.746,-9.33],[32.743,-9.315],[32.739,-9.307],[32.725,-9.292],[32.713,-9.286],[32.641,-9.28],[32.555,-9.261],[32.518,-9.258],[32.504,-9.249],[32.49,-9.227],[32.47,-9.182],[32.459,-9.168],[32.423,-9.144],[32.383,-9.134],[32.252,-9.136],[32.231,-9.134],[32.211,-9.127],[32.191,-9.112],[32.154,-9.075],[32.146,-9.07],[32.146,-9.07],[32.146,-9.064],[32.137,-9.004],[32.146,-8.992],[32.162,-8.99],[32.149,-8.95],[32.111,-8.914],[32.088,-8.898],[32.07,-8.879],[32.091,-8.85],[32.055,-8.813],[32.009,-8.783],[32.03,-8.743],[32.155,-8.698],[32.212,-8.664],[32.287,-8.569],[32.292,-8.456],[32.275,-8.402],[32.278,-8.345],[32.315,-8.301],[32.376,-8.299],[32.502,-8.215],[32.528,-8.227],[32.532,-8.247],[32.528,-8.277],[32.543,-8.301],[32.544,-8.331],[32.549,-8.36],[32.632,-8.465],[32.674,-8.468],[32.713,-8.463],[32.75,-8.47],[32.742,-8.405],[32.511,-8.099],[32.464,-8.052],[32.279,-7.929],[32.01,-7.789],[31.993,-7.754],[32.02,-7.668],[32.059,-7.588],[32.094,-7.534],[32.197,-7.496],[32.233,-7.424],[32.273,-7.316],[32.274,-7.21],[32.501,-7.132],[32.553,-7.104],[32.623,-7.105],[32.691,-7.094],[32.716,-7.075],[32.781,-6.972],[32.792,-6.947],[32.817,-6.937],[32.861,-6.941],[32.895,-6.92],[32.919,-6.898],[32.95,-6.887],[33.036,-6.867],[33.118,-6.891],[33.187,-6.937]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Mbeya'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Mbeya?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Mbeya is located? </h2>Mbeya, is a region It belongs to the country of Tanzania. Its postal identifier is MB.Mbeya has an area of 58550 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

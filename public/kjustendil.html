@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kjustendil?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[22.481,42.635],[22.53,42.63],[22.568,42.632],[22.599,42.62],[22.612,42.592],[22.631,42.568],[22.648,42.554],[22.653,42.534],[22.669,42.519],[22.699,42.525],[22.716,42.506],[22.713,42.474],[22.729,42.457],[22.75,42.438],[22.765,42.419],[22.788,42.408],[22.81,42.392],[22.826,42.371],[22.85,42.36],[22.877,42.364],[22.917,42.389],[22.978,42.392],[23,42.397],[23.054,42.383],[23.073,42.374],[23.09,42.376],[23.103,42.403],[23.131,42.385],[23.161,42.381],[23.188,42.371],[23.216,42.373],[23.233,42.375],[23.25,42.369],[23.273,42.37],[23.294,42.374],[23.328,42.317],[23.339,42.312],[23.347,42.303],[23.363,42.289],[23.385,42.283],[23.399,42.262],[23.389,42.25],[23.368,42.245],[23.356,42.227],[23.325,42.196],[23.339,42.173],[23.384,42.178],[23.428,42.187],[23.454,42.172],[23.473,42.146],[23.503,42.145],[23.53,42.135],[23.519,42.114],[23.494,42.099],[23.444,42.07],[23.387,42.062],[23.261,42.093],[23.241,42.09],[23.222,42.092],[23.201,42.092],[23.151,42.073],[23.123,42.058],[23.092,42.051],[23.061,42.049],[23.035,42.062],[23.005,42.07],[22.976,42.068],[22.959,42.087],[22.934,42.086],[22.905,42.051],[22.897,42.03],[22.875,42.033],[22.858,42.02],[22.845,42.007],[22.845,42.007],[22.845,42.007],[22.843,42.015],[22.838,42.02],[22.826,42.025],[22.821,42.026],[22.805,42.022],[22.798,42.021],[22.791,42.026],[22.787,42.033],[22.785,42.039],[22.78,42.043],[22.77,42.044],[22.725,42.043],[22.718,42.045],[22.713,42.049],[22.71,42.053],[22.705,42.056],[22.675,42.061],[22.617,42.083],[22.531,42.129],[22.51,42.145],[22.507,42.149],[22.494,42.165],[22.481,42.193],[22.443,42.215],[22.345,42.314],[22.364,42.321],[22.405,42.322],[22.423,42.326],[22.438,42.34],[22.454,42.377],[22.469,42.392],[22.484,42.397],[22.497,42.399],[22.508,42.405],[22.515,42.416],[22.519,42.421],[22.527,42.444],[22.533,42.458],[22.536,42.479],[22.536,42.479],[22.532,42.494],[22.532,42.494],[22.532,42.494],[22.524,42.508],[22.512,42.519],[22.481,42.536],[22.429,42.572],[22.425,42.573],[22.425,42.573],[22.428,42.593],[22.432,42.604],[22.441,42.633],[22.441,42.633],[22.481,42.635]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Kjustendil'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Kjustendil?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Kjustendil is located? </h2>Kjustendil, is a province It belongs to the country of Bulgaria. Its postal identifier is KY.Kjustendil has an area of 3177 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

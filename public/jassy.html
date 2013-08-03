@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Jassy?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[27.436,47.56],[27.439,47.554],[27.44,47.55],[27.44,47.541],[27.442,47.537],[27.446,47.535],[27.457,47.534],[27.459,47.534],[27.466,47.507],[27.473,47.492],[27.483,47.486],[27.492,47.485],[27.497,47.483],[27.501,47.48],[27.507,47.478],[27.533,47.478],[27.534,47.478],[27.548,47.475],[27.563,47.469],[27.576,47.461],[27.583,47.451],[27.583,47.451],[27.575,47.447],[27.575,47.447],[27.569,47.439],[27.565,47.429],[27.562,47.417],[27.58,47.406],[27.572,47.376],[27.586,47.369],[27.589,47.367],[27.6,47.361],[27.624,47.322],[27.637,47.307],[27.644,47.304],[27.671,47.3],[27.682,47.296],[27.69,47.291],[27.698,47.288],[27.722,47.284],[27.733,47.276],[27.753,47.252],[27.752,47.239],[27.763,47.227],[27.788,47.205],[27.8,47.177],[27.802,47.177],[27.804,47.169],[27.807,47.163],[27.806,47.159],[27.805,47.159],[27.794,47.156],[27.794,47.156],[27.806,47.145],[27.85,47.129],[27.85,47.122],[27.844,47.115],[27.848,47.112],[27.857,47.11],[27.867,47.105],[27.897,47.082],[27.926,47.069],[27.938,47.061],[27.938,47.047],[27.963,47.044],[27.986,47.034],[28.008,47.027],[28.028,47.033],[28.037,47.017],[28.038,47.016],[28.069,46.989],[28.082,46.972],[28.102,46.936],[28.105,46.92],[28.105,46.918],[28.097,46.903],[28.113,46.895],[28.114,46.884],[28.113,46.872],[28.124,46.862],[28.124,46.855],[28.122,46.842],[28.122,46.842],[28.115,46.839],[28.064,46.835],[28.047,46.828],[28.04,46.823],[28.031,46.819],[28.02,46.819],[28.007,46.823],[27.998,46.829],[27.989,46.833],[27.981,46.834],[27.968,46.828],[27.965,46.822],[27.956,46.817],[27.941,46.817],[27.905,46.826],[27.873,46.84],[27.862,46.842],[27.846,46.84],[27.833,46.841],[27.823,46.847],[27.821,46.854],[27.824,46.862],[27.829,46.87],[27.838,46.89],[27.839,46.901],[27.835,46.911],[27.826,46.917],[27.814,46.918],[27.801,46.912],[27.796,46.903],[27.795,46.893],[27.796,46.884],[27.793,46.878],[27.786,46.878],[27.775,46.884],[27.737,46.918],[27.71,46.937],[27.65,46.969],[27.637,46.974],[27.626,46.974],[27.617,46.967],[27.616,46.96],[27.619,46.952],[27.623,46.945],[27.625,46.938],[27.624,46.929],[27.619,46.915],[27.621,46.91],[27.628,46.907],[27.639,46.906],[27.658,46.908],[27.664,46.907],[27.667,46.904],[27.667,46.898],[27.665,46.892],[27.661,46.885],[27.648,46.881],[27.629,46.879],[27.591,46.883],[27.573,46.888],[27.559,46.888],[27.553,46.882],[27.548,46.874],[27.541,46.867],[27.53,46.86],[27.493,46.852],[27.476,46.851],[27.451,46.855],[27.433,46.86],[27.414,46.863],[27.395,46.863],[27.32,46.854],[27.205,46.86],[27.2,46.873],[27.194,46.882],[27.176,46.902],[27.155,46.922],[27.144,46.934],[27.143,46.945],[27.149,46.955],[27.163,46.964],[27.18,46.97],[27.198,46.975],[27.227,46.98],[27.236,46.985],[27.239,46.992],[27.234,47.001],[27.22,47.011],[27.198,47.025],[27.185,47.034],[27.176,47.044],[27.173,47.054],[27.168,47.063],[27.16,47.071],[27.148,47.075],[27.125,47.077],[27.109,47.074],[27.096,47.069],[27.061,47.041],[27.051,47.035],[27.039,47.031],[27.021,47.032],[26.974,47.04],[26.96,47.038],[26.95,47.032],[26.942,47.015],[26.937,47.009],[26.928,47.006],[26.913,47.005],[26.872,47.011],[26.847,47.021],[26.788,47.052],[26.749,47.067],[26.721,47.072],[26.697,47.073],[26.679,47.071],[26.661,47.071],[26.648,47.076],[26.64,47.09],[26.632,47.106],[26.603,47.156],[26.552,47.207],[26.482,47.254],[26.559,47.266],[26.569,47.271],[26.578,47.279],[26.573,47.286],[26.511,47.324],[26.501,47.341],[26.505,47.35],[26.521,47.353],[26.626,47.345],[26.647,47.348],[26.656,47.353],[26.66,47.362],[26.662,47.375],[26.672,47.393],[26.676,47.404],[26.673,47.413],[26.658,47.427],[26.699,47.453],[26.713,47.474],[26.718,47.484],[26.725,47.49],[26.734,47.493],[26.744,47.493],[26.763,47.484],[26.774,47.48],[26.789,47.477],[26.957,47.477],[26.967,47.474],[26.976,47.471],[26.984,47.466],[26.999,47.452],[27.009,47.445],[27.021,47.439],[27.041,47.434],[27.056,47.436],[27.077,47.442],[27.087,47.447],[27.092,47.454],[27.091,47.463],[27.073,47.49],[27.071,47.498],[27.075,47.506],[27.082,47.513],[27.092,47.518],[27.104,47.519],[27.112,47.518],[27.128,47.509],[27.156,47.505],[27.174,47.5],[27.191,47.493],[27.205,47.491],[27.232,47.491],[27.244,47.495],[27.252,47.502],[27.256,47.52],[27.261,47.527],[27.269,47.534],[27.279,47.539],[27.296,47.553],[27.307,47.558],[27.32,47.558],[27.336,47.555],[27.376,47.555],[27.431,47.573],[27.431,47.573],[27.436,47.56]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Jassy'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Jassy?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where Jassy is located? </h2>Jassy, is a county It belongs to the country of Romania. Its postal identifier is IS.Jassy has an area of 5547 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

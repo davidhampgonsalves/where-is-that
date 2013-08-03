@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Arneshreppur?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-21.084,65.168],[-21.084,65.159],[-21.074,65.146],[-21.073,65.128],[-21.076,65.11],[-21.075,65.101],[-21.071,65.091],[-21.063,65.079],[-21.048,65.065],[-21.023,65.037],[-21.007,64.999],[-21.001,64.988],[-20.984,64.972],[-21.051,64.973],[-21.084,64.978],[-21.113,64.985],[-21.191,65.015],[-21.19,65.022],[-21.19,65.025],[-21.191,65.029],[-21.194,65.033],[-21.206,65.038],[-21.212,65.041],[-21.23,65.054],[-21.24,65.059],[-21.258,65.065],[-21.265,65.07],[-21.27,65.08],[-21.287,65.103],[-21.289,65.112],[-21.289,65.12],[-21.288,65.126],[-21.287,65.131],[-21.284,65.136],[-21.279,65.141],[-21.254,65.163],[-21.247,65.17],[-21.246,65.177],[-21.249,65.185],[-21.268,65.211],[-21.271,65.218],[-21.276,65.225],[-21.283,65.232],[-21.335,65.259],[-21.343,65.262],[-21.352,65.263],[-21.358,65.265],[-21.365,65.269],[-21.372,65.276],[-21.401,65.291],[-21.459,65.341],[-21.477,65.364],[-21.484,65.369],[-21.495,65.372],[-21.532,65.372],[-21.618,65.362],[-21.621,65.362],[-21.628,65.367],[-21.648,65.377],[-21.655,65.383],[-21.657,65.389],[-21.654,65.395],[-21.643,65.404],[-21.618,65.413],[-21.61,65.417],[-21.608,65.421],[-21.611,65.427],[-21.612,65.432],[-21.606,65.447],[-21.603,65.459],[-21.603,65.488],[-21.615,65.502],[-21.656,65.509],[-21.711,65.507],[-21.72,65.508],[-21.726,65.51],[-21.73,65.515],[-21.73,65.52],[-21.733,65.523],[-21.739,65.527],[-21.816,65.552],[-21.85,65.558],[-21.857,65.561],[-21.859,65.566],[-21.858,65.571],[-21.856,65.574],[-21.853,65.577],[-21.852,65.58],[-21.856,65.584],[-21.897,65.614],[-21.929,65.632],[-21.942,65.637],[-21.961,65.64],[-21.973,65.645],[-21.982,65.652],[-21.987,65.664],[-21.993,65.668],[-22.004,65.672],[-22.091,65.684],[-22.156,65.707],[-22.146,65.714],[-22.13,65.72],[-22.124,65.724],[-22.123,65.726],[-22.122,65.729],[-22.124,65.734],[-22.129,65.737],[-22.136,65.739],[-22.143,65.74],[-22.15,65.741],[-22.154,65.744],[-22.161,65.751],[-22.166,65.754],[-22.171,65.757],[-22.174,65.76],[-22.173,65.763],[-22.166,65.767],[-22.151,65.772],[-22.144,65.776],[-22.139,65.781],[-22.131,65.79],[-22.123,65.793],[-22.114,65.795],[-22.094,65.793],[-22.083,65.793],[-22.072,65.794],[-21.994,65.813],[-21.986,65.816],[-21.982,65.822],[-21.98,65.83],[-21.984,65.842],[-21.989,65.848],[-21.995,65.852],[-22.007,65.858],[-22.01,65.86],[-22.011,65.863],[-22.008,65.868],[-22.006,65.87],[-22.002,65.873],[-22,65.875],[-21.999,65.878],[-22,65.882],[-22.004,65.887],[-22.026,65.895],[-22.029,65.897],[-22.031,65.901],[-22.034,65.909],[-22.039,65.928],[-22.041,65.932],[-22.047,65.943],[-22.05,65.952],[-22.05,65.957],[-22.048,65.964],[-22.042,65.973],[-22.03,65.987],[-22.028,65.992],[-22.028,65.997],[-22.034,66.003],[-22.056,66.016],[-22.061,66.02],[-22.065,66.025],[-22.066,66.032],[-22.067,66.043],[-22.068,66.05],[-22.071,66.056],[-22.074,66.061],[-22.089,66.078],[-22.091,66.081],[-22.092,66.086],[-22.093,66.093],[-22.095,66.1],[-22.099,66.107],[-22.103,66.112],[-22.11,66.117],[-22.117,66.121],[-22.152,66.136],[-22.16,66.14],[-22.166,66.144],[-22.171,66.149],[-22.174,66.153],[-22.166,66.161],[-22.147,66.172],[-22.068,66.208],[-22.048,66.221],[-22.043,66.226],[-22.036,66.23],[-22.029,66.232],[-22,66.235],[-21.989,66.241],[-21.96,66.262],[-21.958,66.265],[-21.922,66.241],[-21.931,66.234],[-21.99,66.214],[-21.977,66.21],[-21.964,66.213],[-21.95,66.218],[-21.935,66.221],[-21.921,66.22],[-21.874,66.204],[-21.861,66.196],[-21.853,66.193],[-21.843,66.193],[-21.823,66.198],[-21.812,66.2],[-21.75,66.186],[-21.753,66.182],[-21.757,66.173],[-21.74,66.168],[-21.73,66.156],[-21.73,66.144],[-21.744,66.139],[-21.74,66.133],[-21.732,66.123],[-21.73,66.118],[-21.73,66.118],[-21.728,66.102],[-21.723,66.082],[-21.716,66.076],[-21.703,66.07],[-21.688,66.071],[-21.671,66.076],[-21.654,66.078],[-21.641,66.07],[-21.639,66.057],[-21.648,66.044],[-21.66,66.033],[-21.668,66.022],[-21.655,66.023],[-21.639,66.028],[-21.626,66.034],[-21.62,66.039],[-21.62,66.056],[-21.621,66.064],[-21.641,66.084],[-21.629,66.089],[-21.593,66.096],[-21.549,66.098],[-21.541,66.094],[-21.536,66.087],[-21.531,66.079],[-21.528,66.076],[-21.509,66.072],[-21.521,66.065],[-21.542,66.058],[-21.552,66.056],[-21.558,66.047],[-21.554,66.039],[-21.535,66.026],[-21.509,66.017],[-21.401,66.03],[-21.372,66.026],[-21.349,66.021],[-21.33,66.009],[-21.318,65.988],[-21.459,65.982],[-21.486,65.973],[-21.591,65.96],[-21.606,65.961],[-21.588,65.946],[-21.56,65.948],[-21.504,65.961],[-21.41,65.968],[-21.38,65.961],[-21.393,65.952],[-21.436,65.939],[-21.436,65.933],[-21.328,65.945],[-21.302,65.936],[-21.287,65.916],[-21.284,65.899],[-21.296,65.886],[-21.326,65.878],[-21.278,65.864],[-21.278,65.857],[-21.328,65.809],[-21.346,65.796],[-21.375,65.785],[-21.477,65.769],[-21.477,65.761],[-21.455,65.761],[-21.418,65.764],[-21.401,65.761],[-21.348,65.747],[-21.332,65.741],[-21.414,65.7],[-21.443,65.691],[-21.579,65.693],[-21.589,65.698],[-21.605,65.711],[-21.61,65.714],[-21.629,65.719],[-21.647,65.733],[-21.659,65.747],[-21.661,65.755],[-21.686,65.77],[-21.717,65.777],[-21.749,65.776],[-21.778,65.769],[-21.758,65.768],[-21.711,65.755],[-21.695,65.748],[-21.693,65.746],[-21.672,65.729],[-21.668,65.728],[-21.665,65.716],[-21.668,65.708],[-21.676,65.701],[-21.689,65.693],[-21.673,65.686],[-21.665,65.681],[-21.661,65.676],[-21.656,65.663],[-21.644,65.655],[-21.633,65.651],[-21.627,65.648],[-21.61,65.642],[-21.443,65.644],[-21.414,65.637],[-21.401,65.624],[-21.411,65.613],[-21.463,65.579],[-21.483,65.57],[-21.483,65.563],[-21.434,65.574],[-21.373,65.597],[-21.321,65.602],[-21.298,65.559],[-21.32,65.522],[-21.37,65.487],[-21.429,65.462],[-21.477,65.453],[-21.477,65.447],[-21.376,65.463],[-21.337,65.478],[-21.315,65.481],[-21.293,65.479],[-21.278,65.473],[-21.25,65.453],[-21.212,65.438],[-21.202,65.429],[-21.209,65.412],[-21.195,65.408],[-21.193,65.401],[-21.195,65.39],[-21.195,65.378],[-21.189,65.356],[-21.189,65.34],[-21.193,65.32],[-21.193,65.31],[-21.154,65.258],[-21.14,65.247],[-21.144,65.246],[-21.145,65.245],[-21.146,65.244],[-21.148,65.241],[-21.128,65.232],[-21.107,65.216],[-21.097,65.196],[-21.106,65.179],[-21.106,65.172],[-21.09,65.166],[-21.084,65.168]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Arneshreppur'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Arneshreppur?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Arneshreppur is located? </h2>Arneshreppur, is a municipality of the Vestfirðir region. It belongs to the country of Iceland. Its postal identifier is SD.Arneshreppur has an area of 2670 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Sfax?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[11.036,34.628],[11.026,34.626],[11.017,34.633],[10.974,34.647],[10.964,34.657],[10.971,34.668],[10.987,34.672],[11.102,34.671],[11.097,34.66],[11.095,34.657],[11.036,34.628]]],[[[11.286,34.756],[11.28,34.746],[11.167,34.698],[11.14,34.68],[11.123,34.673],[11.115,34.681],[11.119,34.698],[11.129,34.712],[11.15,34.733],[11.162,34.756],[11.167,34.76],[11.173,34.758],[11.178,34.755],[11.183,34.752],[11.19,34.754],[11.204,34.762],[11.21,34.771],[11.211,34.782],[11.211,34.798],[11.24,34.826],[11.246,34.825],[11.271,34.818],[11.29,34.81],[11.3,34.801],[11.278,34.798],[11.275,34.792],[11.268,34.785],[11.266,34.773],[11.271,34.768],[11.281,34.763],[11.286,34.756]]],[[[10.803,35.243],[10.811,35.207],[10.814,35.196],[10.828,35.166],[10.833,35.157],[10.839,35.153],[10.847,35.15],[10.861,35.149],[10.869,35.151],[10.874,35.154],[10.887,35.168],[10.891,35.172],[10.896,35.172],[10.903,35.169],[10.915,35.158],[10.925,35.146],[10.953,35.107],[10.967,35.1],[11.014,35.093],[11.016,35.093],[11.015,35.08],[11.002,35.047],[10.979,35.02],[10.944,34.993],[10.918,34.958],[10.907,34.935],[10.913,34.924],[10.917,34.913],[10.904,34.889],[10.876,34.849],[10.867,34.841],[10.861,34.837],[10.857,34.831],[10.855,34.818],[10.852,34.805],[10.844,34.802],[10.834,34.802],[10.824,34.798],[10.807,34.784],[10.775,34.765],[10.759,34.754],[10.751,34.739],[10.744,34.699],[10.735,34.681],[10.717,34.665],[10.701,34.656],[10.635,34.638],[10.625,34.633],[10.622,34.626],[10.62,34.616],[10.615,34.604],[10.608,34.593],[10.588,34.585],[10.584,34.575],[10.583,34.564],[10.581,34.554],[10.575,34.548],[10.567,34.542],[10.557,34.537],[10.466,34.512],[10.432,34.496],[10.344,34.421],[10.331,34.413],[10.321,34.413],[10.311,34.417],[10.3,34.418],[10.288,34.414],[10.282,34.409],[10.278,34.403],[10.257,34.379],[10.247,34.372],[10.234,34.369],[10.187,34.352],[10.167,34.339],[10.127,34.326],[10.108,34.314],[10.085,34.289],[10.031,34.207],[10.026,34.184],[10.019,34.181],[10.011,34.173],[10.01,34.173],[9.989,34.189],[9.985,34.191],[9.983,34.191],[9.979,34.191],[9.975,34.187],[9.973,34.183],[9.972,34.178],[9.973,34.167],[9.972,34.163],[9.97,34.16],[9.967,34.157],[9.961,34.156],[9.953,34.155],[9.931,34.158],[9.913,34.166],[9.894,34.177],[9.879,34.189],[9.867,34.206],[9.859,34.214],[9.851,34.217],[9.842,34.22],[9.826,34.22],[9.817,34.219],[9.799,34.216],[9.777,34.215],[9.773,34.215],[9.761,34.217],[9.744,34.222],[9.734,34.226],[9.726,34.233],[9.714,34.249],[9.733,34.24],[9.741,34.238],[9.745,34.237],[9.75,34.237],[9.754,34.238],[9.758,34.239],[9.761,34.243],[9.763,34.249],[9.762,34.26],[9.761,34.266],[9.759,34.272],[9.752,34.285],[9.746,34.293],[9.74,34.301],[9.723,34.313],[9.72,34.316],[9.718,34.32],[9.719,34.324],[9.722,34.33],[9.732,34.339],[9.744,34.349],[9.772,34.362],[9.832,34.378],[9.852,34.387],[9.861,34.392],[9.898,34.42],[9.905,34.423],[9.913,34.427],[9.918,34.428],[9.927,34.429],[9.949,34.428],[9.954,34.429],[9.959,34.43],[9.963,34.433],[9.978,34.448],[9.987,34.454],[10.035,34.474],[10.039,34.477],[10.043,34.481],[10.046,34.484],[10.049,34.489],[10.052,34.495],[10.057,34.512],[10.061,34.53],[10.06,34.534],[10.059,34.538],[10.055,34.543],[10.05,34.547],[9.969,34.58],[9.948,34.585],[9.839,34.596],[9.836,34.597],[9.833,34.6],[9.831,34.603],[9.83,34.606],[9.824,34.626],[9.824,34.637],[9.826,34.651],[9.829,34.659],[9.836,34.674],[9.859,34.714],[9.974,34.87],[10.052,35.014],[10.06,35.026],[10.078,35.051],[10.131,35.1],[10.17,35.129],[10.191,35.14],[10.204,35.144],[10.229,35.146],[10.344,35.13],[10.352,35.128],[10.357,35.126],[10.385,35.11],[10.393,35.106],[10.399,35.105],[10.407,35.106],[10.421,35.109],[10.532,35.152],[10.551,35.163],[10.568,35.177],[10.572,35.181],[10.574,35.184],[10.575,35.186],[10.575,35.188],[10.575,35.195],[10.575,35.199],[10.576,35.203],[10.578,35.206],[10.58,35.209],[10.599,35.218],[10.604,35.221],[10.606,35.224],[10.608,35.228],[10.611,35.235],[10.613,35.238],[10.616,35.24],[10.62,35.242],[10.624,35.242],[10.713,35.221],[10.726,35.22],[10.736,35.225],[10.74,35.228],[10.745,35.232],[10.749,35.236],[10.755,35.244],[10.771,35.271],[10.775,35.272],[10.781,35.27],[10.793,35.257],[10.8,35.249],[10.803,35.243]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Sfax'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Sfax?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Sfax is located? </h2>Sfax, is a governorate It belongs to the country of Tunisia. Its postal identifier is SF.Sfax has an area of 6940 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

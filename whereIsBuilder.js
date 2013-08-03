@@ -9,11 +9,6 @@ fs.readdirSync(directory).forEach(function(file) {
 	fs.unlinkSync(directory + file);
 });
 
-//moving index.html into place
-console.log('moving index.html into public');
-fs.writeFileSync(directory + 'index.html', fs.readFileSync('./index.html'));
-
-
 //creating robots.txt
 console.log('creating robots.txt');
 fs.writeFile(directory + 'robots.txt', 'User-agent: *\nDisallow:\nsitemap: http://whereisthis.herokuapp.com/sitemap.xml');
@@ -24,6 +19,7 @@ fs.writeFileSync(directory + 'sitemap.xml', '<?xml version="1.0" encoding="UTF-8
 
 console.log('building files for states and provinces');
 var template = fs.readFileSync('template.html' ,'utf8');
+var indexTemplate = fs.readFileSync('index_template.html' ,'utf8');
 
 loadStaticBlurbs();
 
@@ -81,7 +77,10 @@ function generateStates() {
 
 			var pageName = createProvincePage(name, data.engtype_1, data.country, data.region, data.area_sqkm, data.abbrev, data.postal, data.json);
 			addPageToSitemap(pageName);
-			addLinkToLandingPage(name, pageName)
+
+			//don't want to add aliases
+			if(name === data.name)
+				addLinkToLandingPage(name, pageName, data.country);
 		}
 	});
 
@@ -115,6 +114,7 @@ function generateCountries() {
 
 	reader.addListener('end', function() {
 		finishSitemap();
+		generateLandingPage();
 	});
 }
 
@@ -159,7 +159,7 @@ function buildFileName(name) {
 }
 
 function addPageToSitemap(fileName) {
-	var sitemapEntry = '<url><loc>http://whereisthis.herokuapp.com/' + fileName + '</loc></url>\n'; //TODO: encode url
+	var sitemapEntry = '<url><loc>http://iswhere.us' + fileName + '</loc></url>\n'; //TODO: encode url
 	fs.appendFileSync(directory + 'sitemap.xml', sitemapEntry);
 }
 
@@ -169,17 +169,49 @@ function finishSitemap() {
 }
 
 
-var landingPageQualitity = ['canada', 'nova scotia'];
-function addLinkToLandingPage(name, pageName) {
-	if(landingPageQualitity.indexOf(name.toLowerCase()) < 0)
+var landingPageQualitity = ['canada', 'united states of america', 'china', 'australia', 'brazil', 'switzerland'];
+var linksByCountry = {};
+function addLinkToLandingPage(name, pageName, country) {
+	if(landingPageQualitity.indexOf(country.toLowerCase()) < 0)
 		return;
 
-	var link = '<a href="' + pageName + '">' + name + '</a>';
-	fs.appendFileSync(directory + 'index.html', link);
+	if(!linksByCountry.hasOwnProperty(country))
+		linksByCountry[country] = [];
+
+	linksByCountry[country].push('<a href="' + pageName + '">' + name + '</a>');
+}
+
+var titlePrefixes = ['Have you ever wondered', 'Maybe you were curious about', 'Have a quandary about', 'Have you questioned ', 'Wondering ', 'Have you ever asked', 'Find out ', 'Want to find', 'Want to discover'];
+function getRandomTitlePrefix() {return titlePrefixes[Math.floor(Math.random()*titlePrefixes.length)]}
+
+function generateLandingPage() {
+	var linkHtml = [];
+
+	for(var country in linksByCountry) {
+		var countryLinks = linksByCountry[country];
+
+		linkHtml.push('<div class=country>');
+		linkHtml.push('<a href="');
+		linkHtml.push(buildFileName(country));
+		linkHtml.push('">');
+		linkHtml.push(generateBlurbHeader(country));
+		linkHtml.push('</a>');
+		linkHtml.push('<ul>');
+		for(var i in countryLinks) {
+			linkHtml.push('<li>');
+			linkHtml.push(countryLinks[i]);
+		}
+		linkHtml.push('</ul></div>');
+	}
+
+	var indexHtml = indexTemplate.replace(/<% links %>/g, linkHtml.join(''));
+
+	fs.writeFileSync(directory + 'index.html', indexHtml);
+	console.log('landing page generated');
 }
 
 function generateBlurbHeader(name) {
-	return '<h2>Where is ' + name + ' located? </h2>';
+	return '<h2>' + getRandomTitlePrefix() + ' where ' + name + ' is located? </h2>';
 }
 
 function generateCountryBlurb(name, type, sovereignt, abbrev, postal) {

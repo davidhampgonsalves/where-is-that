@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Alta Verapaz?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-90.217,16.052],[-90.047,15.999],[-90.04,15.999],[-90.038,16],[-90.038,16],[-90.038,16.001],[-90.037,16.003],[-90.034,16.006],[-90.03,16.009],[-90.019,16.01],[-90.015,16.009],[-90.012,16.006],[-90.011,16.003],[-90.009,15.999],[-90.005,15.999],[-89.999,16],[-89.996,16],[-89.995,16],[-89.991,15.995],[-89.989,15.995],[-89.986,15.995],[-89.983,15.997],[-89.975,15.998],[-89.973,15.999],[-89.973,16],[-89.972,16],[-89.972,16.001],[-89.973,16.003],[-89.975,16.011],[-89.975,16.014],[-89.973,16.014],[-89.971,16.014],[-89.963,16.011],[-89.961,16.009],[-89.96,16.008],[-89.96,16.005],[-89.96,16.003],[-89.961,16.001],[-89.961,16],[-89.961,16],[-89.96,15.997],[-89.957,15.996],[-89.955,15.994],[-89.955,15.992],[-89.957,15.985],[-89.94,15.973],[-89.929,15.97],[-89.927,15.971],[-89.922,15.976],[-89.905,15.964],[-89.895,15.963],[-89.89,15.964],[-89.887,15.963],[-89.884,15.959],[-89.881,15.953],[-89.868,15.936],[-89.865,15.93],[-89.864,15.925],[-89.859,15.916],[-89.855,15.913],[-89.852,15.911],[-89.849,15.912],[-89.846,15.913],[-89.841,15.912],[-89.826,15.91],[-89.792,15.912],[-89.787,15.913],[-89.785,15.914],[-89.784,15.915],[-89.783,15.917],[-89.778,15.922],[-89.777,15.924],[-89.775,15.926],[-89.772,15.927],[-89.769,15.927],[-89.76,15.926],[-89.758,15.926],[-89.752,15.929],[-89.748,15.932],[-89.745,15.932],[-89.743,15.931],[-89.719,15.92],[-89.716,15.919],[-89.7,15.906],[-89.68,15.892],[-89.674,15.889],[-89.669,15.888],[-89.656,15.887],[-89.65,15.888],[-89.648,15.889],[-89.646,15.891],[-89.634,15.9],[-89.627,15.9],[-89.565,15.892],[-89.561,15.892],[-89.558,15.893],[-89.556,15.894],[-89.553,15.895],[-89.551,15.896],[-89.547,15.898],[-89.541,15.899],[-89.527,15.9],[-89.521,15.899],[-89.516,15.898],[-89.516,15.895],[-89.513,15.843],[-89.512,15.842],[-89.511,15.842],[-89.485,15.854],[-89.463,15.858],[-89.446,15.849],[-89.438,15.849],[-89.426,15.854],[-89.396,15.861],[-89.424,15.826],[-89.434,15.818],[-89.453,15.816],[-89.457,15.814],[-89.459,15.812],[-89.464,15.803],[-89.465,15.801],[-89.478,15.779],[-89.481,15.774],[-89.485,15.772],[-89.495,15.767],[-89.512,15.756],[-89.517,15.753],[-89.528,15.75],[-89.531,15.748],[-89.533,15.745],[-89.535,15.74],[-89.598,15.655],[-89.654,15.578],[-89.661,15.561],[-89.659,15.56],[-89.654,15.558],[-89.652,15.556],[-89.65,15.554],[-89.649,15.552],[-89.645,15.546],[-89.623,15.523],[-89.615,15.511],[-89.606,15.502],[-89.593,15.491],[-89.59,15.485],[-89.588,15.481],[-89.596,15.468],[-89.598,15.466],[-89.599,15.461],[-89.602,15.45],[-89.605,15.445],[-89.606,15.443],[-89.608,15.441],[-89.61,15.44],[-89.612,15.438],[-89.631,15.429],[-89.637,15.425],[-89.638,15.423],[-89.647,15.306],[-89.647,15.291],[-89.646,15.287],[-89.642,15.278],[-89.64,15.273],[-89.633,15.264],[-89.627,15.255],[-89.627,15.251],[-89.627,15.246],[-89.63,15.229],[-89.63,15.224],[-89.63,15.219],[-89.628,15.214],[-89.623,15.205],[-89.606,15.18],[-89.675,15.164],[-89.707,15.166],[-89.77,15.157],[-89.782,15.159],[-89.817,15.172],[-89.84,15.173],[-89.851,15.172],[-89.878,15.16],[-89.907,15.152],[-89.924,15.151],[-89.973,15.157],[-89.929,15.218],[-89.918,15.247],[-89.917,15.257],[-89.919,15.262],[-89.922,15.267],[-89.926,15.272],[-89.938,15.282],[-89.945,15.287],[-89.949,15.288],[-89.952,15.288],[-89.997,15.285],[-90.006,15.283],[-90.039,15.27],[-90.078,15.269],[-90.187,15.284],[-90.235,15.295],[-90.249,15.296],[-90.253,15.293],[-90.255,15.291],[-90.256,15.289],[-90.259,15.284],[-90.26,15.282],[-90.261,15.276],[-90.269,15.245],[-90.275,15.236],[-90.28,15.232],[-90.292,15.217],[-90.296,15.213],[-90.306,15.208],[-90.31,15.207],[-90.313,15.208],[-90.324,15.218],[-90.379,15.254],[-90.401,15.261],[-90.424,15.26],[-90.458,15.261],[-90.481,15.261],[-90.504,15.262],[-90.497,15.271],[-90.488,15.288],[-90.478,15.311],[-90.478,15.331],[-90.494,15.34],[-90.651,15.363],[-90.682,15.375],[-90.703,15.394],[-90.708,15.408],[-90.71,15.427],[-90.706,15.442],[-90.692,15.449],[-90.652,15.453],[-90.64,15.459],[-90.648,15.469],[-90.648,15.476],[-90.62,15.501],[-90.615,15.503],[-90.604,15.514],[-90.597,15.526],[-90.603,15.532],[-90.609,15.541],[-90.615,15.561],[-90.626,15.582],[-90.641,15.592],[-90.632,15.609],[-90.633,15.623],[-90.643,15.636],[-90.662,15.648],[-90.662,15.652],[-90.661,15.654],[-90.658,15.654],[-90.654,15.654],[-90.662,15.659],[-90.672,15.661],[-90.681,15.659],[-90.689,15.654],[-90.701,15.661],[-90.743,15.673],[-90.781,15.679],[-90.788,15.688],[-90.784,15.7],[-90.771,15.709],[-90.777,15.712],[-90.791,15.723],[-90.791,15.73],[-90.787,15.731],[-90.782,15.735],[-90.777,15.737],[-90.784,15.746],[-90.793,15.751],[-90.805,15.752],[-90.818,15.751],[-90.812,15.765],[-90.785,15.798],[-90.771,15.833],[-90.767,15.839],[-90.743,15.849],[-90.733,15.868],[-90.739,15.885],[-90.764,15.888],[-90.754,15.921],[-90.746,15.936],[-90.736,15.942],[-90.736,15.949],[-90.741,15.95],[-90.742,15.951],[-90.742,15.953],[-90.744,15.956],[-90.751,15.949],[-90.759,15.959],[-90.764,15.962],[-90.764,15.97],[-90.75,15.973],[-90.734,15.985],[-90.723,15.99],[-90.721,15.987],[-90.717,15.98],[-90.713,15.976],[-90.706,15.98],[-90.702,15.989],[-90.704,15.994],[-90.704,15.998],[-90.695,16.004],[-90.703,16.018],[-90.66,16.04],[-90.634,16.045],[-90.62,16.031],[-90.613,16.031],[-90.61,16.039],[-90.606,16.043],[-90.6,16.043],[-90.593,16.039],[-90.593,16.031],[-90.597,16.029],[-90.602,16.026],[-90.607,16.025],[-90.607,16.018],[-90.59,16.018],[-90.58,16.013],[-90.571,16.004],[-90.558,15.998],[-90.555,16.001],[-90.549,16.006],[-90.544,16.011],[-90.543,16.005],[-90.542,16.004],[-90.54,16.007],[-90.538,16.011],[-90.531,16.004],[-90.528,16.005],[-90.524,16.011],[-90.517,16.011],[-90.507,16.006],[-90.487,16.018],[-90.476,16.011],[-90.469,16.011],[-90.468,16.016],[-90.464,16.02],[-90.462,16.025],[-90.45,16.021],[-90.44,16.025],[-90.436,16.034],[-90.442,16.045],[-90.434,16.056],[-90.432,16.065],[-90.436,16.073],[-90.449,16.08],[-90.449,16.08],[-90.449,16.08],[-90.421,16.082],[-90.217,16.052]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Alta Verapaz'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Alta Verapaz?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Alta Verapaz is located? </h2>Alta Verapaz, is a department It belongs to the country of Guatemala. Its postal identifier is AV.Alta Verapaz has an area of 9913 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

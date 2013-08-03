@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Þelamork?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[9.783,59.432],[9.77,59.369],[9.778,59.349],[9.787,59.337],[9.869,59.281],[9.863,59.267],[9.863,59.263],[9.873,59.241],[9.876,59.219],[9.884,59.204],[9.881,59.199],[9.869,59.191],[9.854,59.184],[9.841,59.177],[9.833,59.169],[9.831,59.162],[9.834,59.151],[9.845,59.136],[9.853,59.122],[9.855,59.108],[9.85,59.089],[9.845,59.076],[9.847,59.037],[9.827,59.019],[9.82,59.026],[9.782,59.051],[9.766,59.053],[9.758,59.033],[9.749,59.038],[9.724,59.06],[9.719,59.062],[9.712,59.062],[9.706,59.064],[9.704,59.07],[9.704,59.084],[9.704,59.087],[9.689,59.091],[9.686,59.08],[9.686,59.063],[9.683,59.046],[9.669,59.052],[9.661,59.056],[9.649,59.074],[9.646,59.084],[9.645,59.094],[9.642,59.103],[9.629,59.108],[9.641,59.118],[9.64,59.127],[9.631,59.132],[9.601,59.116],[9.539,59.121],[9.559,59.103],[9.622,59.075],[9.635,59.05],[9.654,59.037],[9.694,59.03],[9.727,59.015],[9.724,58.984],[9.718,58.984],[9.715,58.989],[9.709,58.994],[9.704,58.998],[9.696,58.988],[9.685,58.984],[9.656,58.984],[9.656,58.977],[9.668,58.976],[9.678,58.973],[9.685,58.966],[9.69,58.957],[9.663,58.959],[9.594,58.943],[9.594,58.936],[9.598,58.935],[9.608,58.929],[9.576,58.922],[9.47,58.929],[9.509,58.911],[9.524,58.9],[9.512,58.895],[9.472,58.901],[9.456,58.898],[9.451,58.882],[9.428,58.893],[9.4,58.899],[9.374,58.896],[9.36,58.882],[9.382,58.888],[9.394,58.89],[9.402,58.889],[9.404,58.881],[9.399,58.874],[9.392,58.869],[9.385,58.867],[9.34,58.863],[9.319,58.866],[9.299,58.882],[9.294,58.868],[9.271,58.833],[9.283,58.833],[9.303,58.827],[9.313,58.826],[9.323,58.829],[9.354,58.84],[9.38,58.844],[9.403,58.844],[9.426,58.84],[9.451,58.833],[9.436,58.82],[9.388,58.803],[9.367,58.792],[9.389,58.795],[9.409,58.8],[9.409,58.792],[9.393,58.788],[9.387,58.785],[9.372,58.791],[9.257,58.81],[9.226,58.81],[9.213,58.814],[9.207,58.818],[9.204,58.852],[9.202,58.868],[9.197,58.875],[9.191,58.884],[9.157,58.906],[9.031,58.972],[9.025,58.985],[9.014,58.997],[9.015,59],[9.016,59.001],[9.016,59.003],[9.015,59.006],[8.991,59.01],[8.901,59.008],[8.847,59.003],[8.84,59.002],[8.838,59.001],[8.837,59],[8.826,58.992],[8.816,58.977],[8.811,58.963],[8.83,58.938],[8.834,58.93],[8.832,58.924],[8.822,58.914],[8.805,58.894],[8.804,58.89],[8.805,58.883],[8.807,58.877],[8.806,58.871],[8.802,58.866],[8.793,58.861],[8.784,58.859],[8.761,58.857],[8.732,58.866],[8.685,58.889],[8.625,58.924],[8.601,58.936],[8.579,58.941],[8.55,58.939],[8.528,58.933],[8.493,58.918],[8.476,58.917],[8.454,58.92],[8.424,58.933],[8.41,58.943],[8.395,58.957],[8.383,58.961],[8.37,58.963],[8.332,58.955],[8.267,58.969],[8.205,58.993],[8.187,58.998],[8.168,59.001],[8.15,58.998],[8.13,58.992],[8.126,58.989],[8.128,58.987],[8.135,58.987],[8.14,58.986],[8.142,58.984],[8.142,58.981],[8.136,58.977],[8.119,58.975],[8.092,58.975],[8.034,58.982],[7.972,59.001],[7.968,59.003],[7.842,59.122],[7.814,59.136],[7.783,59.147],[7.771,59.157],[7.763,59.171],[7.76,59.195],[7.765,59.212],[7.777,59.225],[7.789,59.233],[7.789,59.244],[7.779,59.26],[7.726,59.319],[7.661,59.358],[7.635,59.36],[7.623,59.364],[7.61,59.373],[7.595,59.391],[7.577,59.409],[7.535,59.423],[7.527,59.427],[7.529,59.432],[7.538,59.436],[7.567,59.442],[7.583,59.449],[7.598,59.459],[7.615,59.48],[7.619,59.493],[7.614,59.506],[7.59,59.525],[7.548,59.537],[7.538,59.541],[7.531,59.549],[7.519,59.571],[7.518,59.582],[7.518,59.59],[7.546,59.615],[7.51,59.621],[7.5,59.625],[7.486,59.639],[7.474,59.655],[7.469,59.66],[7.462,59.666],[7.453,59.671],[7.439,59.676],[7.425,59.679],[7.399,59.678],[7.387,59.675],[7.38,59.671],[7.38,59.664],[7.375,59.66],[7.365,59.659],[7.339,59.662],[7.325,59.666],[7.308,59.674],[7.298,59.676],[7.267,59.676],[7.244,59.691],[7.144,59.715],[7.128,59.723],[7.113,59.736],[7.108,59.772],[7.092,59.794],[7.149,59.831],[7.154,59.837],[7.16,59.845],[7.158,59.859],[7.16,59.876],[7.158,59.903],[7.163,59.913],[7.175,59.926],[7.222,59.966],[7.242,59.979],[7.262,59.989],[7.348,60.011],[7.391,60.027],[7.427,60.056],[7.468,60.114],[7.624,60.146],[7.71,60.148],[7.823,60.128],[7.889,60.14],[8.171,60.198],[8.22,60.195],[8.276,60.196],[8.377,60.187],[8.409,60.179],[8.807,60.17],[8.843,60.161],[8.92,60.134],[8.933,60.127],[8.959,60.105],[8.982,60.046],[8.997,60.017],[9.021,60],[9.117,59.976],[9.138,59.968],[9.17,59.95],[9.18,59.942],[9.183,59.935],[9.179,59.931],[9.179,59.925],[9.183,59.922],[9.201,59.915],[9.207,59.879],[9.203,59.85],[9.26,59.835],[9.307,59.827],[9.36,59.808],[9.357,59.792],[9.35,59.773],[9.349,59.752],[9.352,59.736],[9.358,59.727],[9.369,59.721],[9.384,59.715],[9.405,59.704],[9.423,59.684],[9.446,59.65],[9.466,59.595],[9.478,59.575],[9.503,59.563],[9.505,59.557],[9.498,59.549],[9.484,59.539],[9.477,59.53],[9.477,59.522],[9.48,59.518],[9.493,59.515],[9.549,59.515],[9.559,59.511],[9.573,59.505],[9.595,59.486],[9.624,59.467],[9.635,59.456],[9.682,59.44],[9.783,59.432]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Þelamork'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Þelamork?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Þelamork is located? </h2>Þelamork, is a county It belongs to the country of Norway. Its postal identifier is TE.Þelamork has an area of 15203 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Mohale's Hoek?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[28.548,-29.846],[28.546,-29.865],[28.552,-29.895],[28.552,-29.907],[28.548,-29.919],[28.541,-29.925],[28.529,-29.931],[28.495,-29.943],[28.484,-29.949],[28.474,-29.957],[28.462,-29.973],[28.454,-29.98],[28.447,-29.984],[28.442,-29.986],[28.437,-29.988],[28.432,-29.991],[28.41,-30.007],[28.375,-30.028],[28.371,-30.029],[28.368,-30.03],[28.364,-30.026],[28.348,-30.001],[28.337,-29.992],[28.301,-29.985],[28.27,-29.998],[28.265,-30.001],[28.24,-30.017],[28.206,-30.026],[28.163,-30.023],[28.14,-30.026],[28.13,-30.039],[28.124,-30.053],[28.109,-30.061],[28.075,-30.07],[28.057,-30.073],[28.005,-30.061],[27.997,-30.062],[27.971,-30.066],[27.944,-30.066],[27.934,-30.07],[27.925,-30.076],[27.918,-30.084],[27.897,-30.118],[27.893,-30.131],[27.893,-30.146],[27.901,-30.171],[27.903,-30.183],[27.897,-30.195],[27.892,-30.199],[27.88,-30.206],[27.875,-30.211],[27.872,-30.216],[27.866,-30.229],[27.863,-30.234],[27.835,-30.247],[27.819,-30.264],[27.815,-30.268],[27.798,-30.274],[27.78,-30.274],[27.746,-30.268],[27.742,-30.265],[27.735,-30.255],[27.731,-30.252],[27.721,-30.253],[27.717,-30.259],[27.718,-30.268],[27.719,-30.277],[27.734,-30.316],[27.735,-30.335],[27.724,-30.354],[27.69,-30.368],[27.622,-30.344],[27.586,-30.352],[27.58,-30.361],[27.573,-30.383],[27.566,-30.391],[27.558,-30.392],[27.547,-30.389],[27.533,-30.393],[27.533,-30.394],[27.529,-30.382],[27.493,-30.368],[27.477,-30.356],[27.466,-30.341],[27.459,-30.317],[27.452,-30.31],[27.436,-30.31],[27.436,-30.31],[27.433,-30.311],[27.414,-30.317],[27.407,-30.318],[27.397,-30.317],[27.378,-30.312],[27.376,-30.312],[27.366,-30.311],[27.367,-30.295],[27.345,-30.241],[27.343,-30.213],[27.365,-30.166],[27.38,-30.153],[27.381,-30.143],[27.371,-30.136],[27.356,-30.132],[27.334,-30.132],[27.322,-30.135],[27.312,-30.131],[27.3,-30.115],[27.293,-30.101],[27.28,-30.053],[27.265,-30.033],[27.217,-29.998],[27.198,-29.978],[27.171,-29.922],[27.171,-29.922],[27.188,-29.916],[27.257,-29.887],[27.285,-29.868],[27.292,-29.866],[27.297,-29.867],[27.303,-29.87],[27.311,-29.872],[27.331,-29.871],[27.34,-29.868],[27.347,-29.863],[27.352,-29.858],[27.362,-29.852],[27.377,-29.849],[27.386,-29.852],[27.39,-29.857],[27.39,-29.863],[27.373,-29.905],[27.37,-29.914],[27.367,-29.932],[27.367,-29.949],[27.369,-29.963],[27.372,-29.975],[27.376,-29.984],[27.384,-30],[27.385,-30.002],[27.388,-30.005],[27.414,-30.021],[27.435,-30.039],[27.443,-30.041],[27.448,-30.04],[27.457,-30.036],[27.464,-30.034],[27.469,-30.03],[27.472,-30.027],[27.476,-30.019],[27.478,-30.016],[27.481,-30.013],[27.522,-29.977],[27.525,-29.973],[27.528,-29.968],[27.529,-29.962],[27.531,-29.959],[27.535,-29.956],[27.54,-29.953],[27.546,-29.949],[27.55,-29.945],[27.553,-29.941],[27.555,-29.936],[27.559,-29.92],[27.561,-29.92],[27.564,-29.922],[27.569,-29.928],[27.578,-29.932],[27.591,-29.933],[27.613,-29.931],[27.625,-29.932],[27.634,-29.937],[27.648,-29.957],[27.655,-29.964],[27.661,-29.97],[27.671,-29.975],[27.681,-29.975],[27.692,-29.971],[27.702,-29.965],[27.719,-29.964],[27.733,-29.961],[27.741,-29.945],[27.761,-29.935],[27.777,-29.948],[27.8,-29.96],[27.821,-29.955],[27.837,-29.938],[27.841,-29.925],[27.836,-29.904],[27.854,-29.906],[27.872,-29.925],[27.883,-29.94],[27.889,-29.925],[27.893,-29.901],[27.904,-29.888],[27.922,-29.898],[27.938,-29.914],[27.964,-29.914],[27.989,-29.914],[28.015,-29.929],[28.041,-29.935],[28.056,-29.938],[28.057,-29.916],[28.078,-29.905],[28.087,-29.927],[28.113,-29.92],[28.129,-29.904],[28.17,-29.906],[28.192,-29.907],[28.22,-29.911],[28.246,-29.924],[28.261,-29.94],[28.275,-29.951],[28.29,-29.961],[28.3,-29.95],[28.31,-29.94],[28.301,-29.92],[28.282,-29.894],[28.301,-29.885],[28.321,-29.883],[28.336,-29.88],[28.336,-29.865],[28.341,-29.849],[28.365,-29.841],[28.385,-29.849],[28.402,-29.844],[28.427,-29.831],[28.453,-29.816],[28.476,-29.81],[28.502,-29.806],[28.512,-29.795],[28.54,-29.776],[28.555,-29.8],[28.554,-29.821],[28.548,-29.846]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Mohale's Hoek'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Mohale's Hoek?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Mohale's Hoek is located? </h2>Mohale's Hoek, is a district It belongs to the country of Lesotho. Its postal identifier is MH.Mohale's Hoek has an area of 3341 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

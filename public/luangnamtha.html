@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Luangnamtha?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[101.208,21.384],[101.226,21.371],[101.23,21.372],[101.233,21.372],[101.234,21.364],[101.223,21.335],[101.207,21.315],[101.209,21.309],[101.218,21.3],[101.22,21.296],[101.219,21.283],[101.209,21.246],[101.22,21.234],[101.234,21.206],[101.244,21.193],[101.26,21.18],[101.275,21.174],[101.292,21.176],[101.293,21.176],[101.314,21.185],[101.362,21.216],[101.362,21.216],[101.381,21.223],[101.495,21.243],[101.517,21.243],[101.539,21.239],[101.573,21.228],[101.579,21.228],[101.584,21.225],[101.588,21.213],[101.586,21.204],[101.581,21.195],[101.577,21.185],[101.581,21.176],[101.596,21.174],[101.616,21.182],[101.636,21.19],[101.636,21.19],[101.655,21.189],[101.67,21.177],[101.688,21.146],[101.704,21.135],[101.718,21.135],[101.737,21.138],[101.756,21.143],[101.758,21.145],[101.766,21.151],[101.768,21.161],[101.768,21.161],[101.78,21.142],[101.768,21.065],[101.753,21.03],[101.731,20.999],[101.692,20.985],[101.653,20.966],[101.62,20.939],[101.617,20.901],[101.629,20.886],[101.623,20.87],[101.58,20.87],[101.565,20.863],[101.526,20.855],[101.481,20.816],[101.444,20.749],[101.409,20.732],[101.505,20.701],[101.516,20.676],[101.552,20.649],[101.561,20.633],[101.568,20.555],[101.54,20.476],[101.525,20.455],[101.506,20.438],[101.488,20.415],[101.455,20.356],[101.377,20.322],[101.277,20.316],[101.227,20.319],[101.229,20.308],[101.197,20.316],[101.127,20.299],[101.066,20.314],[101.044,20.322],[101.007,20.351],[101.004,20.377],[101.004,20.409],[100.988,20.445],[100.966,20.476],[100.938,20.496],[100.864,20.488],[100.832,20.5],[100.824,20.552],[100.824,20.594],[100.799,20.639],[100.789,20.662],[100.774,20.682],[100.752,20.698],[100.734,20.716],[100.718,20.761],[100.681,20.79],[100.635,20.803],[100.609,20.838],[100.608,20.84],[100.626,20.854],[100.652,20.877],[100.652,20.883],[100.623,20.889],[100.534,20.874],[100.515,20.887],[100.517,20.906],[100.527,20.947],[100.529,20.969],[100.533,20.974],[100.552,20.985],[100.557,20.992],[100.556,21],[100.543,21.028],[100.562,21.035],[100.606,21.044],[100.625,21.054],[100.637,21.07],[100.689,21.159],[100.721,21.281],[100.722,21.293],[100.722,21.304],[100.725,21.312],[100.738,21.315],[100.747,21.314],[100.756,21.313],[100.765,21.309],[100.765,21.309],[100.772,21.304],[100.772,21.304],[100.792,21.298],[100.814,21.3],[100.851,21.315],[100.862,21.323],[100.896,21.356],[100.91,21.36],[101.003,21.406],[101.143,21.514],[101.157,21.52],[101.161,21.535],[101.159,21.553],[101.174,21.552],[101.186,21.535],[101.187,21.506],[101.168,21.425],[101.171,21.404],[101.179,21.398],[101.208,21.384]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Luangnamtha'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Luangnamtha?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Luangnamtha is located? </h2>Luangnamtha, is a province It belongs to the country of Laos. Its postal identifier is LM.Luangnamtha has an area of 9665 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

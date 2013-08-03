@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Apayao?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[121.653,17.518],[121.67,17.49],[121.658,17.465],[121.613,17.42],[121.604,17.397],[121.594,17.328],[121.572,17.271],[121.571,17.25],[121.549,17.259],[121.48,17.277],[121.439,17.296],[121.424,17.298],[121.384,17.287],[121.341,17.257],[121.269,17.192],[121.194,17.168],[121.095,17.185],[120.915,17.249],[120.926,17.282],[120.983,17.366],[120.992,17.397],[120.997,17.462],[121.008,17.49],[121.029,17.508],[121.081,17.531],[121.104,17.546],[121.118,17.576],[121.111,17.603],[121.1,17.63],[121.1,17.661],[121.105,17.668],[121.121,17.676],[121.127,17.684],[121.128,17.698],[121.116,17.782],[121.111,17.8],[121.103,17.816],[121.092,17.83],[121.085,17.835],[121.043,17.837],[121.033,17.836],[121.026,17.839],[121.013,17.852],[121.005,17.864],[121.001,17.875],[120.991,17.926],[120.981,17.946],[120.964,17.96],[120.938,17.967],[120.934,17.978],[120.934,17.982],[120.947,17.996],[120.947,18.023],[120.939,18.076],[120.941,18.098],[120.946,18.116],[120.955,18.132],[120.979,18.16],[120.982,18.17],[120.979,18.181],[120.971,18.193],[120.956,18.203],[120.936,18.211],[120.918,18.222],[120.909,18.241],[120.912,18.253],[120.921,18.259],[120.932,18.263],[120.944,18.272],[120.954,18.291],[120.956,18.312],[120.953,18.333],[120.948,18.353],[120.946,18.376],[120.955,18.423],[120.957,18.447],[120.983,18.456],[120.999,18.468],[121.014,18.483],[121.033,18.497],[121.043,18.507],[121.05,18.52],[121.059,18.532],[121.073,18.536],[121.087,18.53],[121.091,18.517],[121.094,18.5],[121.1,18.485],[121.125,18.467],[121.228,18.435],[121.279,18.411],[121.457,18.302],[121.479,18.27],[121.487,18.232],[121.485,18.186],[121.476,18.14],[121.462,18.098],[121.376,17.941],[121.359,17.895],[121.351,17.881],[121.332,17.863],[121.318,17.843],[121.319,17.823],[121.341,17.807],[121.361,17.803],[121.374,17.804],[121.387,17.801],[121.401,17.788],[121.409,17.773],[121.421,17.735],[121.429,17.718],[121.448,17.691],[121.519,17.619],[121.549,17.58],[121.566,17.563],[121.588,17.552],[121.605,17.546],[121.622,17.538],[121.638,17.529],[121.653,17.518]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Apayao'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Apayao?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Apayao is located? </h2>Apayao, is a province of the Cordillera Administrative Region region. It belongs to the country of Philippines. Its postal identifier is AP.Apayao has an area of 6835 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

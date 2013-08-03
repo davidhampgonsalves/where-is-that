@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Mehedinti?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[22.741,45.033],[22.757,45.031],[22.804,45.035],[22.823,45.033],[22.835,45.028],[22.845,45.022],[22.852,45.013],[22.863,45.004],[22.88,44.993],[22.906,44.982],[22.918,44.973],[22.923,44.964],[22.922,44.955],[22.918,44.947],[22.913,44.93],[22.913,44.921],[22.915,44.912],[22.922,44.895],[22.924,44.885],[22.928,44.864],[22.931,44.853],[22.937,44.842],[23.027,44.769],[23.103,44.718],[23.126,44.707],[23.145,44.7],[23.319,44.664],[23.342,44.656],[23.407,44.625],[23.463,44.585],[23.473,44.575],[23.489,44.55],[23.475,44.539],[23.42,44.541],[23.396,44.537],[23.379,44.532],[23.367,44.527],[23.304,44.523],[23.291,44.519],[23.288,44.515],[23.295,44.513],[23.304,44.512],[23.31,44.51],[23.31,44.506],[23.288,44.492],[23.281,44.485],[23.275,44.478],[23.262,44.467],[23.246,44.461],[23.227,44.457],[23.219,44.452],[23.215,44.446],[23.213,44.438],[23.206,44.416],[23.206,44.409],[23.209,44.403],[23.218,44.399],[23.229,44.397],[23.25,44.395],[23.26,44.394],[23.267,44.391],[23.273,44.386],[23.276,44.381],[23.274,44.374],[23.268,44.373],[23.248,44.375],[23.235,44.374],[23.182,44.352],[23.173,44.343],[23.168,44.331],[23.163,44.313],[23.159,44.288],[23.155,44.28],[23.134,44.247],[23.132,44.236],[23.133,44.223],[23.14,44.207],[23.143,44.195],[23.144,44.183],[23.139,44.171],[23.132,44.168],[23.121,44.169],[23.091,44.162],[23.009,44.101],[22.988,44.107],[22.942,44.112],[22.906,44.123],[22.69,44.229],[22.685,44.244],[22.689,44.292],[22.681,44.306],[22.662,44.312],[22.621,44.316],[22.582,44.329],[22.549,44.349],[22.522,44.375],[22.505,44.404],[22.504,44.412],[22.506,44.428],[22.505,44.435],[22.501,44.442],[22.48,44.456],[22.477,44.464],[22.477,44.477],[22.479,44.491],[22.484,44.5],[22.484,44.5],[22.49,44.504],[22.49,44.504],[22.491,44.505],[22.5,44.507],[22.535,44.508],[22.548,44.512],[22.548,44.512],[22.556,44.522],[22.559,44.539],[22.565,44.556],[22.565,44.556],[22.58,44.566],[22.6,44.57],[22.621,44.57],[22.642,44.563],[22.678,44.546],[22.7,44.542],[22.719,44.545],[22.741,44.552],[22.759,44.565],[22.759,44.565],[22.765,44.583],[22.714,44.623],[22.7,44.631],[22.621,44.638],[22.587,44.65],[22.553,44.67],[22.483,44.724],[22.469,44.731],[22.45,44.733],[22.426,44.734],[22.415,44.728],[22.415,44.728],[22.38,44.701],[22.38,44.701],[22.361,44.692],[22.319,44.686],[22.305,44.678],[22.305,44.678],[22.299,44.662],[22.185,44.516],[22.18,44.512],[22.172,44.506],[22.148,44.501],[22.126,44.503],[22.104,44.51],[22.087,44.522],[22.076,44.551],[22.067,44.558],[22.055,44.563],[22.045,44.57],[22.04,44.577],[22.034,44.596],[22.089,44.603],[22.102,44.602],[22.127,44.597],[22.139,44.597],[22.15,44.598],[22.161,44.602],[22.169,44.609],[22.174,44.621],[22.173,44.634],[22.168,44.647],[22.161,44.664],[22.16,44.677],[22.162,44.691],[22.165,44.702],[22.172,44.717],[22.183,44.734],[22.206,44.761],[22.214,44.778],[22.219,44.791],[22.219,44.799],[22.222,44.806],[22.228,44.811],[22.243,44.813],[22.253,44.812],[22.263,44.808],[22.297,44.784],[22.304,44.78],[22.311,44.778],[22.321,44.777],[22.354,44.778],[22.363,44.776],[22.37,44.773],[22.377,44.769],[22.383,44.758],[22.388,44.754],[22.396,44.751],[22.406,44.75],[22.421,44.752],[22.432,44.758],[22.442,44.769],[22.452,44.792],[22.467,44.839],[22.492,44.885],[22.534,44.934],[22.545,44.958],[22.55,44.973],[22.554,44.987],[22.555,44.997],[22.559,45.009],[22.567,45.024],[22.599,45.06],[22.641,45.092],[22.68,45.079],[22.723,45.04],[22.741,45.033]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Mehedinti'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Mehedinti?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Mehedinti is located? </h2>Mehedinti, is a county It belongs to the country of Romania. Its postal identifier is MH.Mehedinti has an area of 4931 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Manipur?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[94.541,25.503],[94.553,25.49],[94.6,25.461],[94.616,25.452],[94.65,25.447],[94.65,25.447],[94.63,25.428],[94.608,25.395],[94.55,25.245],[94.553,25.204],[94.577,25.174],[94.577,25.174],[94.613,25.162],[94.653,25.154],[94.658,25.152],[94.689,25.139],[94.706,25.11],[94.714,25.068],[94.708,25.026],[94.689,24.995],[94.673,24.975],[94.655,24.889],[94.639,24.863],[94.599,24.814],[94.593,24.784],[94.593,24.766],[94.589,24.747],[94.581,24.73],[94.569,24.717],[94.555,24.709],[94.543,24.707],[94.531,24.708],[94.531,24.708],[94.531,24.708],[94.516,24.705],[94.508,24.689],[94.487,24.621],[94.475,24.598],[94.43,24.571],[94.418,24.561],[94.41,24.546],[94.397,24.495],[94.381,24.486],[94.37,24.478],[94.363,24.466],[94.361,24.426],[94.352,24.414],[94.34,24.406],[94.328,24.395],[94.328,24.389],[94.331,24.371],[94.331,24.371],[94.33,24.363],[94.323,24.355],[94.302,24.341],[94.295,24.333],[94.29,24.317],[94.287,24.283],[94.282,24.267],[94.234,24.16],[94.222,24.123],[94.218,24.087],[94.214,24.069],[94.203,24.058],[94.199,24.048],[94.194,24.01],[94.19,23.995],[94.145,23.939],[94.135,23.919],[94.133,23.899],[94.135,23.878],[94.132,23.857],[94.129,23.854],[94.117,23.842],[94.101,23.843],[94.1,23.843],[94.085,23.858],[94.071,23.876],[94.061,23.883],[94.055,23.888],[93.999,23.917],[93.998,23.917],[93.998,23.917],[93.983,23.92],[93.975,23.921],[93.959,23.925],[93.94,23.929],[93.912,23.939],[93.883,23.946],[93.803,23.936],[93.803,23.936],[93.784,23.945],[93.783,23.946],[93.783,23.946],[93.759,23.975],[93.743,23.995],[93.711,24.006],[93.66,24.011],[93.612,24.009],[93.588,23.995],[93.585,23.987],[93.582,23.98],[93.577,23.973],[93.571,23.968],[93.561,23.966],[93.561,23.966],[93.555,23.971],[93.55,23.978],[93.543,23.981],[93.527,23.976],[93.495,23.959],[93.475,23.958],[93.456,23.96],[93.456,23.96],[93.449,23.969],[93.445,23.982],[93.44,23.993],[93.439,23.995],[93.406,24.026],[93.396,24.038],[93.368,24.079],[93.348,24.089],[93.348,24.089],[93.322,24.08],[93.309,24.064],[93.303,24.041],[93.302,24.036],[93.302,24.036],[93.294,24.036],[93.257,24.018],[93.249,24.018],[93.246,24.022],[93.249,24.029],[93.252,24.035],[93.254,24.042],[93.252,24.049],[93.249,24.057],[93.238,24.066],[93.233,24.069],[93.227,24.067],[93.223,24.063],[93.219,24.055],[93.213,24.049],[93.204,24.044],[93.187,24.04],[93.178,24.04],[93.173,24.041],[93.17,24.044],[93.17,24.046],[93.171,24.051],[93.168,24.055],[93.159,24.06],[93.148,24.062],[93.141,24.062],[93.135,24.06],[93.124,24.049],[93.114,24.044],[93.106,24.045],[93.098,24.05],[93.093,24.057],[93.084,24.064],[93.071,24.072],[92.995,24.095],[92.984,24.101],[92.979,24.105],[92.978,24.109],[92.981,24.113],[92.986,24.118],[92.991,24.122],[92.995,24.126],[92.998,24.131],[92.998,24.138],[92.998,24.16],[93.002,24.185],[93.007,24.197],[93.009,24.203],[93.009,24.215],[93.016,24.233],[93.018,24.24],[93.013,24.262],[93.014,24.274],[93.019,24.289],[93.026,24.3],[93.043,24.315],[93.046,24.327],[93.042,24.341],[93.023,24.354],[93.019,24.368],[93.022,24.39],[93.018,24.399],[93.012,24.413],[93.037,24.415],[93.046,24.445],[93.053,24.523],[93.065,24.559],[93.074,24.567],[93.091,24.57],[93.101,24.577],[93.096,24.594],[93.08,24.624],[93.099,24.654],[93.106,24.672],[93.097,24.68],[93.091,24.683],[93.088,24.69],[93.087,24.707],[93.09,24.714],[93.093,24.717],[93.098,24.727],[93.103,24.743],[93.112,24.781],[93.118,24.797],[93.124,24.81],[93.129,24.815],[93.135,24.819],[93.14,24.821],[93.148,24.824],[93.151,24.824],[93.154,24.824],[93.156,24.823],[93.168,24.814],[93.174,24.811],[93.181,24.809],[93.189,24.811],[93.199,24.817],[93.204,24.824],[93.205,24.832],[93.207,24.848],[93.227,24.88],[93.253,24.915],[93.252,24.927],[93.248,24.932],[93.24,24.94],[93.239,24.945],[93.242,24.949],[93.246,24.952],[93.251,24.953],[93.258,24.955],[93.265,24.958],[93.274,24.967],[93.277,24.973],[93.276,24.98],[93.26,25.009],[93.26,25.029],[93.263,25.036],[93.269,25.046],[93.275,25.052],[93.281,25.056],[93.288,25.059],[93.304,25.061],[93.312,25.066],[93.316,25.075],[93.321,25.087],[93.328,25.099],[93.34,25.112],[93.346,25.124],[93.366,25.178],[93.394,25.235],[93.411,25.262],[93.423,25.277],[93.449,25.302],[93.457,25.294],[93.466,25.286],[93.473,25.282],[93.481,25.279],[93.488,25.277],[93.494,25.276],[93.499,25.275],[93.501,25.273],[93.509,25.265],[93.515,25.26],[93.524,25.256],[93.546,25.252],[93.558,25.248],[93.567,25.241],[93.573,25.233],[93.586,25.213],[93.596,25.207],[93.605,25.206],[93.611,25.211],[93.615,25.219],[93.649,25.262],[93.679,25.314],[93.68,25.324],[93.679,25.328],[93.699,25.347],[93.724,25.364],[93.809,25.446],[93.813,25.457],[93.813,25.463],[93.811,25.471],[93.808,25.48],[93.801,25.486],[93.793,25.49],[93.761,25.499],[93.76,25.5],[93.759,25.5],[93.759,25.5],[93.759,25.5],[93.76,25.504],[93.766,25.516],[93.768,25.525],[93.77,25.532],[93.781,25.537],[93.803,25.544],[93.93,25.554],[93.976,25.548],[93.996,25.551],[94.027,25.554],[94.04,25.548],[94.052,25.542],[94.071,25.525],[94.084,25.52],[94.096,25.516],[94.11,25.515],[94.126,25.516],[94.151,25.521],[94.164,25.519],[94.172,25.514],[94.177,25.507],[94.184,25.501],[94.185,25.5],[94.187,25.499],[94.195,25.497],[94.209,25.495],[94.252,25.5],[94.325,25.512],[94.366,25.528],[94.387,25.541],[94.401,25.554],[94.422,25.584],[94.435,25.594],[94.476,25.615],[94.49,25.624],[94.565,25.684],[94.57,25.688],[94.574,25.686],[94.575,25.676],[94.574,25.669],[94.57,25.655],[94.571,25.621],[94.563,25.595],[94.555,25.578],[94.537,25.525],[94.536,25.514],[94.541,25.503]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Manipur'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Manipur?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Manipur is located? </h2>Manipur, is a state It belongs to the country of India. Its postal identifier is MN.Manipur has an area of 21661 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

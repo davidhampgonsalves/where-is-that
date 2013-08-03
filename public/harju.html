@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Harju?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[24.543,59.548],[24.516,59.544],[24.489,59.56],[24.487,59.578],[24.5,59.596],[24.516,59.598],[24.531,59.584],[24.55,59.558],[24.543,59.548]]],[[[25.808,59.581],[25.826,59.575],[25.837,59.577],[25.838,59.573],[25.837,59.549],[25.832,59.545],[25.815,59.533],[25.813,59.527],[25.815,59.521],[25.824,59.51],[25.829,59.506],[25.841,59.497],[25.848,59.456],[25.851,59.451],[25.859,59.443],[25.889,59.432],[25.892,59.426],[25.894,59.418],[25.893,59.411],[25.896,59.399],[25.898,59.391],[25.901,59.381],[25.907,59.372],[25.918,59.361],[25.924,59.35],[25.945,59.299],[25.945,59.294],[25.944,59.285],[25.926,59.276],[25.848,59.29],[25.799,59.292],[25.666,59.273],[25.665,59.26],[25.658,59.259],[25.648,59.258],[25.633,59.261],[25.594,59.272],[25.523,59.268],[25.489,59.264],[25.487,59.26],[25.489,59.254],[25.5,59.244],[25.511,59.232],[25.517,59.212],[25.513,59.199],[25.504,59.185],[25.486,59.167],[25.459,59.132],[25.473,59.106],[25.478,59.102],[25.49,59.096],[25.49,59.086],[25.484,59.081],[25.477,59.075],[25.465,59.071],[25.451,59.072],[25.434,59.075],[25.411,59.075],[25.401,59.07],[25.399,59.061],[25.403,59.04],[25.397,59.016],[25.32,58.992],[25.279,59.003],[25.247,59.018],[25.216,59.029],[25.203,59.037],[25.196,59.044],[25.195,59.051],[25.192,59.057],[25.191,59.063],[25.188,59.07],[25.184,59.081],[25.168,59.09],[25.157,59.094],[25.147,59.095],[25.141,59.093],[25.118,59.093],[25.061,59.11],[25.046,59.126],[24.98,59.138],[24.957,59.147],[24.952,59.15],[24.942,59.16],[24.924,59.175],[24.905,59.184],[24.899,59.192],[24.898,59.202],[24.904,59.226],[24.866,59.227],[24.798,59.217],[24.784,59.213],[24.776,59.209],[24.664,59.217],[24.631,59.205],[24.617,59.195],[24.597,59.187],[24.589,59.181],[24.574,59.166],[24.568,59.146],[24.555,59.135],[24.557,59.129],[24.563,59.124],[24.571,59.115],[24.573,59.11],[24.566,59.097],[24.556,59.096],[24.483,59.099],[24.43,59.093],[24.374,59.086],[24.365,59.081],[24.311,59.036],[24.29,59.015],[24.223,59.018],[24.191,59.023],[24.168,59.023],[24.155,59.019],[24.147,59.014],[24.143,59.01],[24.141,59.005],[24.133,58.996],[24.105,58.985],[24.093,58.991],[24.089,58.996],[24.089,59.001],[24.093,59.01],[24.099,59.018],[24.105,59.024],[24.145,59.054],[24.148,59.058],[24.148,59.061],[24.143,59.065],[24.132,59.071],[24.122,59.078],[24.118,59.087],[24.12,59.095],[24.118,59.102],[24.115,59.107],[24.073,59.126],[24.022,59.137],[23.968,59.135],[23.942,59.129],[23.932,59.128],[23.908,59.131],[23.875,59.154],[23.86,59.16],[23.838,59.166],[23.807,59.17],[23.796,59.176],[23.779,59.197],[23.767,59.206],[23.735,59.216],[23.719,59.231],[23.718,59.232],[23.731,59.23],[23.742,59.239],[23.743,59.25],[23.736,59.26],[23.724,59.265],[23.735,59.278],[23.757,59.284],[23.846,59.285],[23.889,59.279],[23.936,59.281],[23.988,59.291],[24.039,59.293],[24.081,59.271],[24.1,59.295],[24.092,59.313],[24.028,59.358],[24.02,59.367],[24.022,59.378],[24.035,59.389],[24.048,59.395],[24.063,59.397],[24.081,59.396],[24.109,59.385],[24.165,59.354],[24.194,59.348],[24.222,59.355],[24.213,59.372],[24.187,59.391],[24.163,59.402],[24.183,59.409],[24.271,59.412],[24.306,59.419],[24.318,59.431],[24.33,59.464],[24.334,59.471],[24.4,59.479],[24.423,59.478],[24.442,59.47],[24.478,59.448],[24.498,59.444],[24.517,59.448],[24.533,59.457],[24.548,59.463],[24.567,59.46],[24.625,59.439],[24.643,59.437],[24.661,59.441],[24.657,59.45],[24.641,59.459],[24.622,59.463],[24.622,59.471],[24.648,59.469],[24.659,59.472],[24.663,59.481],[24.666,59.492],[24.675,59.496],[24.686,59.495],[24.698,59.491],[24.716,59.476],[24.728,59.459],[24.745,59.447],[24.773,59.45],[24.784,59.455],[24.79,59.459],[24.813,59.484],[24.816,59.489],[24.807,59.505],[24.801,59.511],[24.792,59.515],[24.784,59.52],[24.78,59.529],[24.78,59.539],[24.779,59.546],[24.777,59.552],[24.773,59.56],[24.804,59.571],[24.842,59.555],[24.909,59.512],[24.935,59.508],[25.012,59.518],[25.036,59.515],[25.077,59.501],[25.098,59.498],[25.117,59.503],[25.108,59.529],[25.122,59.54],[25.146,59.539],[25.194,59.523],[25.408,59.491],[25.41,59.491],[25.403,59.514],[25.416,59.527],[25.44,59.532],[25.533,59.532],[25.544,59.535],[25.544,59.542],[25.536,59.549],[25.526,59.553],[25.497,59.571],[25.482,59.611],[25.479,59.652],[25.485,59.67],[25.503,59.662],[25.536,59.629],[25.554,59.622],[25.575,59.617],[25.592,59.606],[25.623,59.581],[25.645,59.572],[25.677,59.566],[25.706,59.569],[25.719,59.588],[25.711,59.605],[25.696,59.616],[25.685,59.629],[25.691,59.649],[25.685,59.65],[25.676,59.654],[25.671,59.656],[25.695,59.671],[25.726,59.666],[25.781,59.636],[25.773,59.628],[25.786,59.616],[25.794,59.591],[25.808,59.581]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Harju'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Harju?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Harju is located? </h2>Harju, is a county It belongs to the country of Estonia. Its postal identifier is HA.Harju has an area of 4505 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

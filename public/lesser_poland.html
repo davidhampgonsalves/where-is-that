@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Lesser Poland?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[20.285,50.399],[20.33,50.341],[20.347,50.295],[20.364,50.272],[20.41,50.231],[20.429,50.205],[20.502,50.177],[20.634,50.174],[20.663,50.195],[20.667,50.206],[20.68,50.218],[20.712,50.228],[20.726,50.237],[20.729,50.242],[20.73,50.252],[20.734,50.257],[20.738,50.259],[20.747,50.26],[20.75,50.261],[20.771,50.274],[20.777,50.292],[20.784,50.298],[20.822,50.274],[20.839,50.279],[20.852,50.288],[20.865,50.294],[20.881,50.287],[20.895,50.293],[20.922,50.295],[20.931,50.298],[20.941,50.307],[20.949,50.311],[20.96,50.314],[21.034,50.315],[21.049,50.318],[21.06,50.324],[21.07,50.331],[21.079,50.336],[21.12,50.349],[21.13,50.35],[21.145,50.346],[21.154,50.339],[21.164,50.333],[21.181,50.336],[21.181,50.337],[21.199,50.353],[21.206,50.357],[21.211,50.357],[21.215,50.359],[21.216,50.367],[21.221,50.372],[21.233,50.376],[21.245,50.383],[21.25,50.397],[21.26,50.392],[21.266,50.392],[21.277,50.397],[21.279,50.4],[21.277,50.405],[21.277,50.41],[21.281,50.412],[21.295,50.411],[21.284,50.327],[21.254,50.279],[21.216,50.238],[21.21,50.182],[21.237,50.031],[21.229,49.987],[21.228,49.948],[21.237,49.937],[21.245,49.923],[21.266,49.907],[21.295,49.905],[21.332,49.892],[21.345,49.864],[21.246,49.814],[21.229,49.789],[21.259,49.772],[21.366,49.742],[21.426,49.7],[21.461,49.63],[21.464,49.594],[21.459,49.56],[21.477,49.487],[21.513,49.42],[21.514,49.418],[21.514,49.418],[21.496,49.413],[21.481,49.415],[21.444,49.41],[21.427,49.41],[21.33,49.428],[21.274,49.447],[21.26,49.45],[21.242,49.441],[21.218,49.419],[21.211,49.412],[21.211,49.411],[21.194,49.401],[21.172,49.398],[21.157,49.405],[21.143,49.416],[21.124,49.424],[21.109,49.425],[21.068,49.419],[21.053,49.415],[21.033,49.4],[21.033,49.4],[21.045,49.391],[21.068,49.382],[21.08,49.367],[21.08,49.367],[21.072,49.357],[21.054,49.355],[21.032,49.355],[21.017,49.353],[20.996,49.34],[20.964,49.308],[20.942,49.296],[20.918,49.291],[20.9,49.293],[20.884,49.301],[20.867,49.312],[20.849,49.321],[20.833,49.322],[20.816,49.322],[20.794,49.324],[20.778,49.331],[20.689,49.401],[20.673,49.403],[20.636,49.399],[20.614,49.401],[20.605,49.4],[20.594,49.396],[20.579,49.384],[20.567,49.377],[20.543,49.371],[20.522,49.375],[20.437,49.403],[20.422,49.4],[20.421,49.4],[20.422,49.383],[20.422,49.383],[20.37,49.382],[20.329,49.392],[20.317,49.392],[20.307,49.387],[20.307,49.387],[20.303,49.381],[20.301,49.371],[20.296,49.357],[20.289,49.343],[20.289,49.343],[20.287,49.341],[20.284,49.339],[20.284,49.339],[20.207,49.334],[20.191,49.329],[20.17,49.312],[20.16,49.306],[20.138,49.308],[20.135,49.309],[20.13,49.304],[20.13,49.304],[20.111,49.276],[20.105,49.264],[20.098,49.253],[20.098,49.253],[20.086,49.243],[20.086,49.243],[20.08,49.208],[20.069,49.183],[20.069,49.183],[20.05,49.173],[20.017,49.184],[19.965,49.216],[19.937,49.225],[19.905,49.223],[19.887,49.214],[19.868,49.201],[19.854,49.191],[19.831,49.186],[19.785,49.188],[19.76,49.194],[19.747,49.206],[19.751,49.219],[19.751,49.219],[19.78,49.25],[19.789,49.26],[19.789,49.26],[19.794,49.262],[19.8,49.263],[19.806,49.266],[19.806,49.266],[19.808,49.271],[19.806,49.275],[19.798,49.281],[19.796,49.284],[19.783,49.29],[19.779,49.294],[19.78,49.298],[19.78,49.298],[19.787,49.305],[19.787,49.305],[19.789,49.309],[19.783,49.358],[19.778,49.374],[19.769,49.393],[19.76,49.398],[19.726,49.389],[19.706,49.388],[19.684,49.389],[19.627,49.402],[19.627,49.402],[19.627,49.402],[19.629,49.414],[19.628,49.43],[19.63,49.435],[19.634,49.442],[19.594,49.442],[19.573,49.445],[19.556,49.454],[19.551,49.461],[19.535,49.493],[19.517,49.543],[19.505,49.564],[19.481,49.574],[19.474,49.579],[19.457,49.598],[19.449,49.6],[19.449,49.601],[19.444,49.612],[19.42,49.622],[19.407,49.64],[19.416,49.661],[19.433,49.684],[19.436,49.71],[19.369,49.718],[19.331,49.729],[19.299,49.748],[19.284,49.779],[19.263,49.803],[19.213,49.816],[19.183,49.851],[19.18,49.884],[19.159,49.901],[19.133,49.903],[19.112,49.92],[19.124,49.954],[19.146,49.983],[19.168,50.004],[19.405,50.175],[19.358,50.216],[19.305,50.25],[19.337,50.266],[19.404,50.26],[19.447,50.3],[19.475,50.335],[19.502,50.361],[19.557,50.341],[19.583,50.341],[19.608,50.344],[19.697,50.389],[19.751,50.394],[19.808,50.391],[19.839,50.394],[19.966,50.445],[19.963,50.463],[19.956,50.484],[20.051,50.484],[20.09,50.471],[20.124,50.448],[20.208,50.431],[20.285,50.399]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Lesser Poland'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Lesser Poland?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Lesser Poland is located? </h2>Lesser Poland, is a voivodeship|province It belongs to the country of Poland. Its postal identifier is MA.Lesser Poland has an area of 15614 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

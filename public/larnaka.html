@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Larnaka?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[33.774,34.989],[33.778,34.985],[33.782,34.985],[33.786,34.985],[33.791,34.983],[33.794,34.978],[33.792,34.978],[33.788,34.977],[33.785,34.976],[33.781,34.976],[33.78,34.98],[33.775,34.98],[33.77,34.98],[33.769,34.984],[33.765,34.986],[33.759,34.989],[33.761,34.991],[33.766,34.991],[33.774,34.989]]],[[[33.746,35.003],[33.742,35.001],[33.739,35.003],[33.739,35.005],[33.739,35.009],[33.741,35.014],[33.746,35.015],[33.752,35.015],[33.752,35.005],[33.746,35.003]]],[[[33.533,35],[33.546,34.995],[33.564,35.001],[33.571,35.015],[33.58,35.02],[33.591,35.019],[33.603,35.012],[33.611,35.014],[33.619,35.017],[33.63,35.014],[33.639,35.01],[33.661,35.001],[33.674,34.999],[33.685,34.998],[33.7,34.989],[33.703,34.988],[33.701,34.973],[33.681,34.966],[33.68,34.966],[33.68,34.966],[33.66,34.949],[33.654,34.945],[33.654,34.945],[33.647,34.932],[33.64,34.916],[33.635,34.898],[33.633,34.88],[33.635,34.861],[33.633,34.852],[33.623,34.849],[33.623,34.849],[33.623,34.849],[33.617,34.845],[33.61,34.827],[33.606,34.822],[33.59,34.818],[33.557,34.818],[33.544,34.815],[33.536,34.807],[33.525,34.796],[33.513,34.785],[33.509,34.784],[33.5,34.781],[33.481,34.777],[33.468,34.774],[33.439,34.763],[33.433,34.762],[33.415,34.758],[33.4,34.773],[33.4,34.773],[33.4,34.773],[33.399,34.745],[33.371,34.731],[33.322,34.723],[33.297,34.718],[33.282,34.712],[33.273,34.707],[33.272,34.709],[33.266,34.733],[33.266,34.736],[33.272,34.769],[33.272,34.773],[33.27,34.777],[33.264,34.789],[33.253,34.802],[33.223,34.831],[33.218,34.834],[33.21,34.838],[33.163,34.852],[33.16,34.852],[33.149,34.852],[33.145,34.853],[33.137,34.856],[33.13,34.861],[33.131,34.88],[33.134,34.888],[33.136,34.89],[33.138,34.893],[33.142,34.895],[33.16,34.905],[33.169,34.908],[33.18,34.911],[33.187,34.911],[33.192,34.91],[33.195,34.908],[33.2,34.903],[33.203,34.901],[33.208,34.9],[33.212,34.899],[33.217,34.9],[33.237,34.905],[33.241,34.904],[33.244,34.902],[33.25,34.899],[33.252,34.898],[33.252,34.896],[33.252,34.893],[33.253,34.891],[33.257,34.89],[33.264,34.893],[33.275,34.899],[33.295,34.916],[33.32,34.932],[33.329,34.934],[33.333,34.932],[33.337,34.93],[33.342,34.926],[33.347,34.925],[33.354,34.926],[33.366,34.93],[33.373,34.931],[33.392,34.928],[33.396,34.928],[33.4,34.93],[33.405,34.935],[33.412,34.947],[33.414,34.954],[33.414,34.959],[33.414,34.962],[33.414,34.964],[33.416,34.966],[33.421,34.966],[33.425,34.965],[33.428,34.964],[33.436,34.958],[33.44,34.956],[33.445,34.956],[33.45,34.957],[33.466,34.965],[33.472,34.966],[33.476,34.965],[33.479,34.964],[33.483,34.962],[33.488,34.962],[33.492,34.963],[33.496,34.965],[33.506,34.987],[33.507,34.992],[33.509,34.994],[33.511,34.997],[33.521,35],[33.52,35.001],[33.52,35.003],[33.517,35.007],[33.513,35.009],[33.51,35.012],[33.508,35.015],[33.505,35.026],[33.503,35.031],[33.51,35.037],[33.519,35.044],[33.527,35.037],[33.527,35.013],[33.533,35]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Larnaka'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Larnaka?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where Larnaka is located? </h2>Larnaka, is a district It belongs to the country of Cyprus. Its postal identifier is LA.Larnaka has an area of 855 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

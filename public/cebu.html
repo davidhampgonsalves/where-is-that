@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Cebu?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[124,11.077],[124.009,11.073],[124.013,11.066],[124.014,11.059],[124.017,11.056],[124.037,11.057],[124.046,11.06],[124.055,11.064],[124.052,11.043],[124.062,10.984],[124.06,10.962],[124.053,10.93],[124.055,10.913],[124.067,10.889],[124.069,10.878],[124.065,10.868],[124.051,10.845],[124.048,10.834],[124.044,10.809],[124.027,10.77],[124.021,10.748],[124.024,10.708],[124.051,10.627],[124.055,10.59],[124.052,10.589],[124.045,10.586],[124.037,10.581],[124.034,10.576],[124.035,10.571],[124.04,10.568],[124.041,10.563],[124.04,10.484],[124.036,10.467],[124.01,10.404],[124.01,10.395],[124.019,10.381],[124.015,10.372],[123.993,10.357],[123.99,10.369],[123.986,10.376],[123.98,10.377],[123.973,10.371],[123.971,10.362],[123.973,10.327],[123.961,10.323],[123.906,10.294],[123.89,10.282],[123.869,10.248],[123.857,10.242],[123.832,10.241],[123.808,10.237],[123.794,10.226],[123.774,10.2],[123.72,10.157],[123.712,10.141],[123.71,10.12],[123.705,10.105],[123.696,10.094],[123.684,10.084],[123.676,10.079],[123.664,10.075],[123.657,10.069],[123.653,10.064],[123.648,10.056],[123.645,10.047],[123.643,10.039],[123.643,9.96],[123.631,9.907],[123.629,9.887],[123.625,9.879],[123.615,9.874],[123.606,9.871],[123.602,9.868],[123.509,9.653],[123.504,9.615],[123.488,9.566],[123.48,9.549],[123.471,9.539],[123.453,9.528],[123.445,9.521],[123.436,9.51],[123.423,9.488],[123.37,9.426],[123.359,9.416],[123.342,9.407],[123.328,9.408],[123.321,9.429],[123.314,9.485],[123.314,9.508],[123.365,9.785],[123.405,9.878],[123.409,9.898],[123.411,9.922],[123.406,9.927],[123.388,9.937],[123.383,9.943],[123.387,9.974],[123.39,9.981],[123.399,9.985],[123.404,9.981],[123.408,9.976],[123.411,9.974],[123.415,9.981],[123.417,9.99],[123.418,10.012],[123.423,10.037],[123.435,10.055],[123.472,10.084],[123.508,10.122],[123.521,10.145],[123.534,10.19],[123.581,10.254],[123.597,10.318],[123.606,10.333],[123.623,10.35],[123.707,10.462],[123.712,10.477],[123.714,10.482],[123.718,10.487],[123.723,10.494],[123.725,10.505],[123.718,10.537],[123.719,10.549],[123.729,10.569],[123.755,10.599],[123.765,10.64],[123.778,10.663],[123.793,10.683],[123.832,10.725],[123.849,10.753],[123.916,10.94],[123.935,10.97],[123.93,10.993],[123.918,11.029],[123.924,11.046],[123.935,11.059],[123.944,11.074],[123.945,11.098],[123.952,11.098],[123.956,11.09],[123.96,11.085],[123.973,11.077],[123.961,11.131],[123.955,11.142],[123.952,11.157],[123.959,11.176],[123.97,11.194],[124.018,11.258],[124.046,11.277],[124.075,11.269],[124.073,11.262],[124.068,11.233],[124.056,11.205],[124.051,11.185],[124.048,11.149],[124.041,11.13],[124.011,11.094],[124,11.077]]],[[[123.75,11.141],[123.746,11.139],[123.734,11.154],[123.709,11.218],[123.705,11.241],[123.709,11.252],[123.716,11.264],[123.733,11.284],[123.746,11.292],[123.755,11.289],[123.761,11.279],[123.789,11.199],[123.801,11.179],[123.812,11.165],[123.818,11.155],[123.815,11.148],[123.75,11.141]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Cebu'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Cebu?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Cebu is located? </h2>Cebu, is a province of the Central Visayas region. It belongs to the country of Philippines. Its postal identifier is CB.Cebu has an area of 4616 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

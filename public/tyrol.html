@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Tyrol?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[12.228,47.685],[12.238,47.679],[12.249,47.68],[12.272,47.688],[12.293,47.69],[12.351,47.682],[12.368,47.684],[12.407,47.694],[12.424,47.692],[12.428,47.686],[12.439,47.665],[12.444,47.657],[12.452,47.65],[12.482,47.634],[12.496,47.629],[12.517,47.629],[12.538,47.632],[12.553,47.636],[12.563,47.642],[12.589,47.612],[12.61,47.599],[12.645,47.583],[12.654,47.576],[12.658,47.571],[12.657,47.566],[12.652,47.558],[12.653,47.55],[12.657,47.539],[12.677,47.505],[12.679,47.499],[12.677,47.495],[12.672,47.487],[12.665,47.479],[12.646,47.463],[12.635,47.451],[12.614,47.42],[12.607,47.412],[12.599,47.406],[12.59,47.401],[12.58,47.396],[12.568,47.393],[12.519,47.39],[12.509,47.388],[12.502,47.385],[12.496,47.38],[12.489,47.371],[12.48,47.353],[12.47,47.342],[12.457,47.333],[12.445,47.329],[12.425,47.324],[12.393,47.321],[12.378,47.321],[12.364,47.324],[12.342,47.333],[12.33,47.334],[12.315,47.333],[12.28,47.318],[12.168,47.291],[12.138,47.292],[12.124,47.29],[12.096,47.28],[12.098,47.26],[12.084,47.22],[12.082,47.206],[12.082,47.187],[12.084,47.176],[12.089,47.166],[12.095,47.16],[12.112,47.151],[12.12,47.145],[12.128,47.131],[12.131,47.121],[12.134,47.084],[12.133,47.079],[12.116,47.077],[12.015,47.041],[11.943,47.039],[11.899,47.028],[11.857,47.012],[11.822,46.994],[11.777,46.989],[11.766,46.984],[11.746,46.973],[11.735,46.971],[11.716,46.976],[11.684,46.992],[11.664,46.994],[11.657,46.993],[11.649,46.993],[11.648,46.994],[11.648,46.994],[11.596,47.001],[11.572,46.999],[11.543,46.993],[11.543,46.993],[11.543,46.993],[11.543,46.993],[11.533,46.99],[11.524,46.989],[11.515,46.99],[11.507,46.993],[11.501,46.998],[11.496,47.002],[11.489,47.005],[11.471,47.007],[11.461,47.006],[11.453,47.001],[11.445,46.993],[11.445,46.993],[11.411,46.971],[11.38,46.972],[11.349,46.982],[11.314,46.988],[11.243,46.98],[11.174,46.964],[11.156,46.957],[11.092,46.913],[11.083,46.901],[11.073,46.865],[11.054,46.835],[11.053,46.831],[11.054,46.82],[11.052,46.815],[11.048,46.812],[11.037,46.809],[11.033,46.806],[11.011,46.78],[10.997,46.769],[10.982,46.768],[10.965,46.772],[10.93,46.774],[10.913,46.773],[10.88,46.765],[10.87,46.765],[10.86,46.767],[10.843,46.777],[10.834,46.781],[10.824,46.781],[10.805,46.777],[10.795,46.777],[10.766,46.789],[10.754,46.791],[10.733,46.787],[10.723,46.787],[10.717,46.796],[10.721,46.801],[10.743,46.813],[10.748,46.82],[10.739,46.83],[10.662,46.861],[10.647,46.864],[10.629,46.863],[10.527,46.844],[10.486,46.847],[10.453,46.865],[10.451,46.886],[10.451,46.886],[10.464,46.92],[10.464,46.92],[10.458,46.937],[10.449,46.944],[10.415,46.963],[10.394,46.986],[10.384,46.993],[10.384,46.994],[10.384,46.994],[10.384,46.994],[10.379,46.996],[10.373,46.997],[10.368,46.996],[10.339,46.985],[10.313,46.965],[10.296,46.942],[10.295,46.923],[10.27,46.922],[10.251,46.926],[10.235,46.924],[10.22,46.906],[10.215,46.894],[10.214,46.885],[10.211,46.877],[10.201,46.867],[10.157,46.852],[10.132,46.847],[10.125,46.847],[10.124,46.85],[10.106,46.883],[10.083,46.908],[10.081,46.918],[10.084,46.926],[10.097,46.937],[10.109,46.945],[10.12,46.955],[10.127,46.968],[10.129,46.985],[10.129,46.996],[10.126,47.01],[10.125,47.022],[10.127,47.037],[10.138,47.077],[10.148,47.096],[10.187,47.136],[10.202,47.161],[10.204,47.189],[10.203,47.199],[10.191,47.244],[10.175,47.273],[10.175,47.273],[10.239,47.278],[10.261,47.284],[10.306,47.303],[10.325,47.315],[10.343,47.331],[10.365,47.362],[10.371,47.368],[10.382,47.373],[10.403,47.378],[10.411,47.381],[10.428,47.396],[10.442,47.417],[10.452,47.439],[10.451,47.461],[10.447,47.473],[10.442,47.482],[10.433,47.488],[10.419,47.493],[10.429,47.533],[10.431,47.543],[10.424,47.554],[10.415,47.565],[10.414,47.573],[10.429,47.577],[10.446,47.579],[10.453,47.581],[10.457,47.58],[10.461,47.57],[10.46,47.566],[10.455,47.562],[10.451,47.555],[10.453,47.547],[10.458,47.542],[10.467,47.538],[10.482,47.533],[10.525,47.529],[10.537,47.53],[10.549,47.537],[10.57,47.556],[10.583,47.563],[10.608,47.563],[10.74,47.529],[10.744,47.526],[10.747,47.521],[10.752,47.516],[10.76,47.514],[10.79,47.516],[10.83,47.529],[10.844,47.532],[10.858,47.531],[10.869,47.527],[10.892,47.515],[10.884,47.508],[10.851,47.494],[10.858,47.486],[10.91,47.469],[10.959,47.433],[10.963,47.428],[10.963,47.422],[10.96,47.415],[10.957,47.41],[10.955,47.41],[10.965,47.396],[10.979,47.391],[11.083,47.39],[11.103,47.394],[11.168,47.425],[11.194,47.429],[11.215,47.423],[11.213,47.396],[11.237,47.394],[11.258,47.401],[11.273,47.411],[11.286,47.424],[11.305,47.436],[11.324,47.44],[11.367,47.441],[11.383,47.445],[11.392,47.455],[11.388,47.463],[11.377,47.467],[11.365,47.47],[11.412,47.506],[11.435,47.51],[11.46,47.508],[11.482,47.503],[11.529,47.508],[11.551,47.514],[11.569,47.528],[11.574,47.537],[11.582,47.56],[11.589,47.571],[11.617,47.587],[11.62,47.59],[11.639,47.59],[11.682,47.584],[11.764,47.584],[11.82,47.576],[11.83,47.578],[11.84,47.595],[11.852,47.6],[11.936,47.611],[12.165,47.604],[12.173,47.605],[12.202,47.63],[12.205,47.637],[12.206,47.646],[12.205,47.673],[12.202,47.678],[12.197,47.681],[12.189,47.686],[12.181,47.693],[12.178,47.698],[12.176,47.706],[12.192,47.711],[12.216,47.724],[12.225,47.728],[12.239,47.732],[12.242,47.732],[12.239,47.728],[12.236,47.717],[12.233,47.709],[12.226,47.703],[12.223,47.696],[12.228,47.685]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Tyrol'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Tyrol?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Tyrol is located? </h2>Tyrol, is a state It belongs to the country of Austria. Its postal identifier is TR.Tyrol has an area of 10627 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

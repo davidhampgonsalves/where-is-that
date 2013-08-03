@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Mahrisch-Ostrau?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[16.944,50.42],[16.958,50.415],[16.982,50.417],[17.084,50.398],[17.095,50.394],[17.119,50.381],[17.131,50.377],[17.145,50.377],[17.176,50.381],[17.187,50.379],[17.185,50.376],[17.189,50.365],[17.195,50.352],[17.201,50.344],[17.211,50.337],[17.246,50.323],[17.27,50.318],[17.317,50.319],[17.337,50.313],[17.337,50.313],[17.319,50.309],[17.319,50.309],[17.322,50.305],[17.325,50.301],[17.329,50.299],[17.334,50.296],[17.332,50.283],[17.334,50.27],[17.341,50.26],[17.355,50.254],[17.355,50.254],[17.365,50.272],[17.366,50.272],[17.388,50.273],[17.409,50.262],[17.419,50.243],[17.424,50.241],[17.429,50.24],[17.435,50.241],[17.44,50.243],[17.44,50.243],[17.469,50.266],[17.469,50.266],[17.517,50.269],[17.606,50.259],[17.629,50.262],[17.646,50.271],[17.646,50.271],[17.676,50.298],[17.682,50.306],[17.684,50.313],[17.684,50.313],[17.691,50.315],[17.708,50.311],[17.713,50.308],[17.732,50.292],[17.734,50.29],[17.735,50.287],[17.734,50.284],[17.732,50.281],[17.721,50.262],[17.719,50.253],[17.721,50.243],[17.732,50.236],[17.747,50.218],[17.738,50.203],[17.738,50.203],[17.718,50.191],[17.675,50.175],[17.648,50.168],[17.6,50.167],[17.589,50.164],[17.589,50.164],[17.582,50.154],[17.584,50.146],[17.632,50.107],[17.648,50.102],[17.658,50.103],[17.667,50.107],[17.677,50.108],[17.69,50.106],[17.718,50.097],[17.732,50.095],[17.732,50.094],[17.732,50.093],[17.732,50.093],[17.732,50.092],[17.731,50.092],[17.722,50.087],[17.722,50.087],[17.719,50.081],[17.722,50.075],[17.732,50.069],[17.743,50.061],[17.749,50.05],[17.755,50.038],[17.763,50.026],[17.774,50.016],[17.839,49.974],[17.875,49.969],[17.912,49.976],[17.941,49.993],[17.959,49.996],[18,49.997],[18.032,50.003],[18.033,50.004],[18.037,50.008],[18.035,50.018],[18.028,50.024],[18.02,50.025],[18.012,50.023],[18.007,50.024],[18.002,50.047],[18.002,50.047],[18.019,50.044],[18.033,50.042],[18.091,50.018],[18.085,49.999],[18.098,49.989],[18.162,49.982],[18.177,49.976],[18.208,49.959],[18.22,49.955],[18.244,49.952],[18.255,49.946],[18.26,49.941],[18.267,49.925],[18.272,49.919],[18.292,49.908],[18.307,49.91],[18.334,49.926],[18.335,49.926],[18.333,49.927],[18.332,49.929],[18.33,49.929],[18.33,49.929],[18.328,49.929],[18.369,49.932],[18.407,49.923],[18.482,49.897],[18.505,49.897],[18.544,49.913],[18.559,49.908],[18.565,49.889],[18.563,49.874],[18.567,49.862],[18.594,49.853],[18.566,49.832],[18.566,49.805],[18.584,49.775],[18.607,49.743],[18.617,49.714],[18.624,49.707],[18.637,49.701],[18.668,49.699],[18.682,49.696],[18.695,49.689],[18.715,49.674],[18.727,49.669],[18.742,49.67],[18.757,49.674],[18.773,49.676],[18.788,49.669],[18.792,49.661],[18.799,49.627],[18.804,49.617],[18.815,49.6],[18.82,49.591],[18.834,49.548],[18.837,49.527],[18.833,49.511],[18.833,49.511],[18.833,49.511],[18.792,49.51],[18.773,49.505],[18.732,49.481],[18.704,49.48],[18.675,49.485],[18.643,49.496],[18.636,49.497],[18.629,49.496],[18.6,49.486],[18.556,49.491],[18.535,49.482],[18.53,49.474],[18.528,49.455],[18.523,49.446],[18.514,49.441],[18.482,49.429],[18.439,49.395],[18.416,49.386],[18.387,49.39],[18.385,49.343],[18.361,49.331],[18.324,49.312],[18.19,49.277],[18.16,49.259],[18.136,49.233],[18.117,49.203],[18.105,49.17],[18.101,49.143],[18.101,49.143],[18.101,49.137],[17.998,49.174],[17.991,49.178],[17.983,49.183],[17.973,49.193],[17.956,49.215],[17.949,49.22],[17.924,49.235],[17.92,49.242],[17.921,49.248],[17.923,49.251],[17.923,49.252],[17.924,49.256],[17.923,49.26],[17.918,49.265],[17.91,49.271],[17.894,49.281],[17.886,49.289],[17.88,49.297],[17.877,49.304],[17.873,49.31],[17.863,49.318],[17.818,49.34],[17.807,49.348],[17.802,49.355],[17.806,49.361],[17.828,49.382],[17.833,49.389],[17.835,49.395],[17.835,49.4],[17.833,49.406],[17.83,49.41],[17.825,49.415],[17.815,49.42],[17.769,49.436],[17.672,49.449],[17.656,49.449],[17.645,49.448],[17.633,49.445],[17.629,49.443],[17.627,49.44],[17.629,49.436],[17.635,49.426],[17.638,49.419],[17.638,49.415],[17.636,49.411],[17.632,49.408],[17.628,49.405],[17.622,49.403],[17.615,49.403],[17.544,49.404],[17.536,49.402],[17.519,49.398],[17.506,49.393],[17.501,49.39],[17.496,49.387],[17.492,49.381],[17.487,49.374],[17.482,49.369],[17.476,49.365],[17.47,49.364],[17.46,49.365],[17.417,49.378],[17.408,49.379],[17.387,49.387],[17.362,49.4],[17.347,49.404],[17.34,49.405],[17.322,49.406],[17.317,49.39],[17.316,49.373],[17.324,49.356],[17.333,49.349],[17.324,49.337],[17.32,49.334],[17.286,49.312],[17.281,49.308],[17.276,49.303],[17.273,49.301],[17.268,49.299],[17.265,49.299],[17.261,49.3],[17.257,49.301],[17.252,49.305],[17.243,49.321],[17.229,49.339],[17.225,49.345],[17.223,49.351],[17.22,49.363],[17.22,49.37],[17.221,49.376],[17.223,49.383],[17.224,49.389],[17.224,49.394],[17.222,49.401],[17.223,49.407],[17.225,49.411],[17.228,49.412],[17.239,49.414],[17.244,49.416],[17.247,49.418],[17.249,49.42],[17.249,49.424],[17.248,49.427],[17.248,49.43],[17.249,49.434],[17.256,49.442],[17.257,49.446],[17.258,49.45],[17.257,49.455],[17.255,49.459],[17.249,49.468],[17.187,49.535],[17.18,49.539],[17.169,49.543],[17.157,49.544],[17.115,49.541],[17.106,49.542],[17.044,49.565],[17.021,49.576],[16.996,49.601],[16.976,49.617],[16.972,49.622],[16.97,49.627],[16.969,49.632],[16.965,49.636],[16.959,49.639],[16.945,49.641],[16.936,49.643],[16.928,49.646],[16.912,49.66],[16.907,49.662],[16.902,49.662],[16.892,49.661],[16.873,49.663],[16.841,49.678],[16.834,49.712],[16.824,49.721],[16.808,49.725],[16.803,49.729],[16.799,49.735],[16.796,49.751],[16.755,49.806],[16.739,49.821],[16.733,49.829],[16.731,49.837],[16.733,49.845],[16.749,49.867],[16.747,49.891],[16.748,49.918],[16.747,49.924],[16.74,49.944],[16.736,49.966],[16.734,49.971],[16.731,49.975],[16.724,49.983],[16.724,49.988],[16.727,49.993],[16.744,50],[16.748,50.001],[16.754,50.003],[16.774,50.017],[16.805,50.032],[16.809,50.034],[16.812,50.038],[16.814,50.042],[16.813,50.049],[16.812,50.052],[16.805,50.063],[16.807,50.073],[16.832,50.128],[16.87,50.19],[16.87,50.19],[16.881,50.192],[16.89,50.197],[16.894,50.201],[16.907,50.212],[16.907,50.212],[16.919,50.218],[16.927,50.218],[16.946,50.213],[16.955,50.214],[16.955,50.214],[16.957,50.218],[16.957,50.23],[16.96,50.232],[16.96,50.232],[16.975,50.232],[16.981,50.23],[16.985,50.223],[16.996,50.213],[17.008,50.21],[17.008,50.21],[17.014,50.219],[17.013,50.232],[16.999,50.243],[16.998,50.267],[16.987,50.285],[16.969,50.298],[16.945,50.307],[16.926,50.32],[16.916,50.339],[16.909,50.36],[16.898,50.379],[16.866,50.409],[16.865,50.423],[16.865,50.423],[16.893,50.433],[16.916,50.431],[16.944,50.42]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Mahrisch-Ostrau'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Mahrisch-Ostrau?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Mahrisch-Ostrau is located? </h2>Mahrisch-Ostrau, is a region of the Severomoravsky region. It belongs to the country of Czech Republic. Its postal identifier is VK.Mahrisch-Ostrau has an area of 10875 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Commonwealth of Puerto Rico?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[-67.872,18.053],[-67.882,18.052],[-67.891,18.053],[-67.895,18.056],[-67.902,18.065],[-67.93,18.08],[-67.937,18.094],[-67.931,18.109],[-67.919,18.114],[-67.861,18.116],[-67.855,18.115],[-67.844,18.104],[-67.843,18.097],[-67.849,18.09],[-67.859,18.073],[-67.863,18.069],[-67.867,18.064],[-67.868,18.056],[-67.872,18.053]]],[[[-65.275,18.137],[-65.282,18.133],[-65.309,18.135],[-65.316,18.133],[-65.335,18.12],[-65.34,18.115],[-65.347,18.115],[-65.356,18.123],[-65.37,18.119],[-65.389,18.112],[-65.468,18.094],[-65.484,18.087],[-65.504,18.093],[-65.535,18.09],[-65.564,18.094],[-65.58,18.122],[-65.564,18.122],[-65.559,18.122],[-65.539,18.124],[-65.52,18.131],[-65.501,18.141],[-65.487,18.152],[-65.478,18.157],[-65.398,18.169],[-65.385,18.167],[-65.35,18.155],[-65.298,18.153],[-65.285,18.149],[-65.275,18.137]]],[[[-65.256,18.324],[-65.244,18.306],[-65.247,18.306],[-65.258,18.306],[-65.251,18.299],[-65.261,18.299],[-65.27,18.301],[-65.275,18.306],[-65.278,18.314],[-65.285,18.314],[-65.276,18.297],[-65.274,18.289],[-65.278,18.279],[-65.292,18.3],[-65.334,18.337],[-65.333,18.34],[-65.309,18.341],[-65.28,18.335],[-65.256,18.324]]],[[[-67.012,18.506],[-66.913,18.491],[-66.803,18.498],[-66.789,18.496],[-66.751,18.484],[-66.736,18.483],[-66.697,18.491],[-66.64,18.496],[-66.614,18.493],[-66.587,18.484],[-66.571,18.487],[-66.506,18.486],[-66.467,18.475],[-66.382,18.491],[-66.303,18.469],[-66.257,18.481],[-66.204,18.465],[-66.182,18.478],[-66.18,18.471],[-66.173,18.463],[-66.169,18.457],[-66.153,18.473],[-66.145,18.479],[-66.135,18.484],[-66.133,18.466],[-66.126,18.456],[-66.118,18.447],[-66.114,18.433],[-66.108,18.421],[-66.092,18.42],[-66.06,18.429],[-66.06,18.437],[-66.076,18.439],[-66.094,18.448],[-66.109,18.461],[-66.114,18.478],[-66.055,18.454],[-66.039,18.45],[-66.027,18.452],[-66.01,18.462],[-66.001,18.464],[-65.988,18.463],[-65.966,18.458],[-65.902,18.457],[-65.892,18.453],[-65.88,18.445],[-65.848,18.438],[-65.83,18.429],[-65.815,18.425],[-65.799,18.437],[-65.797,18.43],[-65.795,18.427],[-65.795,18.424],[-65.799,18.416],[-65.793,18.418],[-65.79,18.418],[-65.788,18.419],[-65.785,18.422],[-65.739,18.391],[-65.73,18.392],[-65.72,18.383],[-65.697,18.378],[-65.652,18.375],[-65.645,18.378],[-65.637,18.385],[-65.629,18.391],[-65.621,18.389],[-65.62,18.382],[-65.63,18.333],[-65.632,18.291],[-65.628,18.279],[-65.632,18.267],[-65.625,18.26],[-65.614,18.254],[-65.607,18.245],[-65.609,18.231],[-65.637,18.221],[-65.648,18.204],[-65.665,18.208],[-65.682,18.203],[-65.701,18.194],[-65.72,18.19],[-65.737,18.183],[-65.754,18.166],[-65.785,18.123],[-65.803,18.086],[-65.806,18.07],[-65.811,18.067],[-65.835,18.062],[-65.84,18.056],[-65.84,18.042],[-65.843,18.035],[-65.874,18.005],[-65.938,17.97],[-65.961,17.971],[-65.984,17.975],[-66.004,17.977],[-66.016,17.975],[-66.046,17.964],[-66.053,17.963],[-66.083,17.964],[-66.104,17.959],[-66.163,17.929],[-66.175,17.928],[-66.186,17.928],[-66.196,17.928],[-66.203,17.923],[-66.208,17.929],[-66.209,17.932],[-66.21,17.936],[-66.199,17.939],[-66.196,17.944],[-66.2,17.95],[-66.21,17.957],[-66.229,17.94],[-66.241,17.937],[-66.255,17.941],[-66.282,17.943],[-66.292,17.946],[-66.297,17.951],[-66.301,17.958],[-66.306,17.964],[-66.318,17.97],[-66.327,17.972],[-66.344,17.971],[-66.367,17.966],[-66.395,17.947],[-66.416,17.949],[-66.435,17.964],[-66.451,17.982],[-66.468,17.992],[-66.49,17.984],[-66.498,17.992],[-66.512,17.982],[-66.526,17.979],[-66.559,17.977],[-66.57,17.972],[-66.58,17.966],[-66.592,17.963],[-66.608,17.971],[-66.615,17.967],[-66.622,17.964],[-66.629,17.975],[-66.646,17.976],[-66.687,17.971],[-66.694,17.973],[-66.724,17.984],[-66.765,17.984],[-66.764,17.998],[-66.773,18.002],[-66.787,17.999],[-66.799,17.992],[-66.799,17.984],[-66.786,17.984],[-66.797,17.969],[-66.817,17.959],[-66.84,17.953],[-66.861,17.949],[-66.892,17.951],[-66.907,17.949],[-66.918,17.95],[-66.923,17.949],[-66.927,17.945],[-66.929,17.938],[-66.93,17.929],[-66.948,17.931],[-66.962,17.941],[-66.985,17.964],[-67.002,17.97],[-67.041,17.976],[-67.059,17.984],[-67.066,17.972],[-67.08,17.961],[-67.097,17.953],[-67.111,17.949],[-67.123,17.951],[-67.146,17.957],[-67.156,17.957],[-67.167,17.952],[-67.179,17.939],[-67.187,17.936],[-67.201,17.946],[-67.203,17.967],[-67.198,17.99],[-67.19,18.005],[-67.183,18.008],[-67.173,18.011],[-67.166,18.015],[-67.162,18.022],[-67.166,18.028],[-67.176,18.032],[-67.197,18.039],[-67.194,18.046],[-67.185,18.06],[-67.184,18.067],[-67.184,18.087],[-67.173,18.176],[-67.163,18.179],[-67.155,18.188],[-67.15,18.199],[-67.149,18.21],[-67.153,18.218],[-67.186,18.273],[-67.197,18.283],[-67.21,18.29],[-67.228,18.292],[-67.242,18.302],[-67.257,18.327],[-67.265,18.357],[-67.259,18.382],[-67.238,18.381],[-67.217,18.386],[-67.198,18.394],[-67.184,18.402],[-67.167,18.42],[-67.168,18.435],[-67.175,18.453],[-67.177,18.478],[-67.151,18.509],[-67.101,18.523],[-67.048,18.521],[-67.012,18.506]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Commonwealth of Puerto Rico'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Commonwealth of Puerto Rico?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Commonwealth of Puerto Rico is located? </h2>Commonwealth of Puerto Rico is a Dependency of United States of America. Its abbreviated name is P.R. and its postal identifier is PR.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

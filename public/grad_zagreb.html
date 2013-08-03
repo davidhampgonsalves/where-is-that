@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Grad Zagreb?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[16.256,46.061],[16.271,46.043],[16.274,46.039],[16.279,46.026],[16.282,46.022],[16.285,46.018],[16.291,46.014],[16.294,46.013],[16.3,46.013],[16.312,46.014],[16.328,46.02],[16.359,46.025],[16.433,46.008],[16.444,46.004],[16.46,45.987],[16.468,45.981],[16.47,45.979],[16.472,45.976],[16.472,45.974],[16.471,45.972],[16.469,45.967],[16.467,45.961],[16.469,45.959],[16.475,45.958],[16.489,45.961],[16.496,45.964],[16.5,45.966],[16.503,45.971],[16.505,45.974],[16.508,45.976],[16.51,45.978],[16.514,45.978],[16.52,45.975],[16.545,45.957],[16.551,45.954],[16.59,45.938],[16.596,45.934],[16.6,45.93],[16.601,45.927],[16.604,45.926],[16.608,45.925],[16.616,45.927],[16.622,45.927],[16.63,45.924],[16.635,45.921],[16.641,45.92],[16.648,45.92],[16.678,45.929],[16.693,45.924],[16.692,45.914],[16.692,45.904],[16.696,45.873],[16.696,45.866],[16.694,45.854],[16.688,45.839],[16.674,45.826],[16.666,45.822],[16.658,45.82],[16.645,45.82],[16.637,45.823],[16.634,45.826],[16.635,45.831],[16.637,45.836],[16.637,45.841],[16.634,45.844],[16.629,45.845],[16.622,45.842],[16.601,45.817],[16.598,45.81],[16.599,45.802],[16.602,45.787],[16.599,45.782],[16.593,45.78],[16.56,45.789],[16.532,45.788],[16.524,45.786],[16.513,45.772],[16.497,45.765],[16.454,45.801],[16.442,45.814],[16.44,45.82],[16.437,45.823],[16.434,45.823],[16.431,45.822],[16.429,45.821],[16.428,45.82],[16.424,45.813],[16.422,45.812],[16.382,45.812],[16.384,45.804],[16.385,45.8],[16.385,45.795],[16.384,45.789],[16.377,45.769],[16.373,45.749],[16.373,45.747],[16.37,45.745],[16.366,45.744],[16.347,45.739],[16.344,45.74],[16.337,45.741],[16.32,45.748],[16.315,45.748],[16.31,45.745],[16.294,45.728],[16.291,45.721],[16.29,45.711],[16.296,45.685],[16.292,45.672],[16.265,45.669],[16.253,45.673],[16.25,45.681],[16.25,45.693],[16.248,45.704],[16.242,45.701],[16.234,45.701],[16.214,45.704],[16.214,45.71],[16.224,45.713],[16.227,45.718],[16.223,45.725],[16.214,45.732],[16.223,45.737],[16.228,45.743],[16.23,45.75],[16.227,45.759],[16.209,45.755],[16.189,45.76],[16.171,45.768],[16.155,45.772],[16.152,45.775],[16.147,45.789],[16.145,45.793],[16.14,45.793],[16.129,45.792],[16.124,45.793],[16.13,45.803],[16.132,45.805],[16.133,45.807],[16.135,45.808],[16.138,45.808],[16.142,45.808],[16.17,45.795],[16.187,45.79],[16.19,45.791],[16.192,45.794],[16.195,45.802],[16.202,45.813],[16.202,45.814],[16.205,45.821],[16.207,45.83],[16.207,45.833],[16.209,45.835],[16.225,45.847],[16.227,45.85],[16.225,45.855],[16.219,45.864],[16.182,45.899],[16.177,45.906],[16.163,45.933],[16.136,45.97],[16.166,45.978],[16.169,45.98],[16.172,45.983],[16.171,45.984],[16.17,45.985],[16.164,45.989],[16.163,45.991],[16.162,45.994],[16.163,46],[16.164,46.002],[16.165,46.004],[16.167,46.004],[16.17,46.004],[16.174,46.004],[16.178,46.003],[16.184,46.001],[16.188,46],[16.192,46.001],[16.202,46.002],[16.205,46.004],[16.205,46.007],[16.202,46.009],[16.199,46.011],[16.19,46.016],[16.188,46.018],[16.186,46.022],[16.19,46.024],[16.205,46.03],[16.208,46.033],[16.208,46.036],[16.205,46.039],[16.203,46.041],[16.199,46.042],[16.193,46.044],[16.19,46.046],[16.188,46.049],[16.188,46.055],[16.19,46.059],[16.194,46.06],[16.199,46.06],[16.213,46.057],[16.217,46.057],[16.221,46.057],[16.235,46.063],[16.239,46.064],[16.24,46.064],[16.242,46.064],[16.256,46.061]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Grad Zagreb'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Grad Zagreb?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Grad Zagreb is located? </h2>Grad Zagreb, is a city It belongs to the country of Croatia. Its postal identifier is GZ.Grad Zagreb has an area of 962 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

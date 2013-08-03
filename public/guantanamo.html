@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Guantanamo?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-75.382,19.883],[-75.443,19.963],[-75.464,19.982],[-75.471,19.989],[-75.484,20.01],[-75.488,20.025],[-75.49,20.062],[-75.476,20.067],[-75.473,20.067],[-75.469,20.07],[-75.457,20.084],[-75.433,20.095],[-75.43,20.098],[-75.429,20.104],[-75.43,20.113],[-75.432,20.117],[-75.438,20.12],[-75.443,20.121],[-75.446,20.121],[-75.448,20.124],[-75.451,20.135],[-75.451,20.161],[-75.46,20.168],[-75.462,20.17],[-75.463,20.171],[-75.468,20.185],[-75.47,20.189],[-75.475,20.203],[-75.481,20.227],[-75.482,20.234],[-75.48,20.238],[-75.476,20.246],[-75.473,20.25],[-75.471,20.252],[-75.467,20.255],[-75.465,20.257],[-75.464,20.262],[-75.462,20.295],[-75.465,20.311],[-75.475,20.331],[-75.479,20.34],[-75.477,20.343],[-75.473,20.347],[-75.46,20.351],[-75.449,20.358],[-75.437,20.367],[-75.427,20.382],[-75.423,20.39],[-75.422,20.396],[-75.422,20.401],[-75.421,20.405],[-75.419,20.408],[-75.417,20.409],[-75.411,20.408],[-75.408,20.406],[-75.398,20.403],[-75.394,20.404],[-75.389,20.407],[-75.385,20.416],[-75.375,20.423],[-75.364,20.426],[-75.345,20.439],[-75.337,20.44],[-75.331,20.438],[-75.326,20.434],[-75.317,20.428],[-75.311,20.423],[-75.308,20.418],[-75.307,20.416],[-75.3,20.41],[-75.291,20.405],[-75.287,20.403],[-75.282,20.404],[-75.264,20.412],[-75.26,20.413],[-75.257,20.41],[-75.255,20.407],[-75.24,20.397],[-75.231,20.412],[-75.228,20.442],[-75.226,20.448],[-75.212,20.459],[-75.19,20.472],[-75.183,20.473],[-75.178,20.472],[-75.169,20.466],[-75.165,20.465],[-75.158,20.466],[-75.14,20.475],[-75.117,20.483],[-75.11,20.485],[-75.105,20.484],[-75.099,20.479],[-75.07,20.451],[-75.048,20.434],[-75.016,20.431],[-74.989,20.413],[-74.982,20.412],[-74.978,20.413],[-74.977,20.417],[-74.977,20.419],[-74.978,20.422],[-74.979,20.425],[-74.982,20.43],[-74.985,20.434],[-74.991,20.439],[-74.999,20.439],[-75.001,20.44],[-75.001,20.441],[-75,20.444],[-74.998,20.451],[-74.998,20.454],[-74.999,20.457],[-75.003,20.465],[-75.001,20.467],[-74.996,20.468],[-74.969,20.472],[-74.96,20.471],[-74.95,20.466],[-74.916,20.443],[-74.88,20.427],[-74.869,20.421],[-74.858,20.414],[-74.845,20.408],[-74.839,20.407],[-74.835,20.408],[-74.833,20.412],[-74.832,20.417],[-74.831,20.421],[-74.829,20.424],[-74.826,20.427],[-74.824,20.429],[-74.783,20.445],[-74.792,20.472],[-74.79,20.491],[-74.785,20.507],[-74.78,20.516],[-74.773,20.526],[-74.767,20.532],[-74.76,20.538],[-74.756,20.54],[-74.752,20.54],[-74.744,20.54],[-74.741,20.541],[-74.738,20.543],[-74.728,20.55],[-74.715,20.556],[-74.71,20.552],[-74.673,20.541],[-74.67,20.528],[-74.651,20.513],[-74.605,20.486],[-74.597,20.477],[-74.586,20.456],[-74.555,20.415],[-74.547,20.41],[-74.544,20.404],[-74.495,20.355],[-74.486,20.351],[-74.472,20.349],[-74.45,20.343],[-74.423,20.328],[-74.401,20.307],[-74.393,20.287],[-74.385,20.287],[-74.372,20.301],[-74.352,20.301],[-74.33,20.295],[-74.31,20.294],[-74.294,20.301],[-74.276,20.311],[-74.257,20.32],[-74.236,20.321],[-74.223,20.317],[-74.213,20.311],[-74.194,20.294],[-74.159,20.274],[-74.147,20.259],[-74.14,20.242],[-74.135,20.224],[-74.133,20.205],[-74.142,20.183],[-74.163,20.171],[-74.184,20.163],[-74.198,20.149],[-74.218,20.138],[-74.225,20.136],[-74.23,20.13],[-74.236,20.095],[-74.267,20.068],[-74.304,20.069],[-74.346,20.08],[-74.393,20.081],[-74.456,20.069],[-74.498,20.066],[-74.558,20.054],[-74.664,20.051],[-74.787,20.043],[-74.813,20.037],[-74.838,20.027],[-74.855,20.013],[-74.871,19.997],[-74.888,19.984],[-74.91,19.979],[-74.953,19.98],[-74.961,19.979],[-74.964,19.97],[-74.965,19.943],[-74.972,19.938],[-75.01,19.912],[-75.034,19.902],[-75.051,19.917],[-75.058,19.917],[-75.071,19.904],[-75.096,19.894],[-75.097,19.961],[-75.132,19.959],[-75.14,19.965],[-75.139,19.977],[-75.13,19.981],[-75.117,19.982],[-75.106,19.985],[-75.087,20],[-75.085,20.016],[-75.091,20.036],[-75.092,20.061],[-75.108,20.05],[-75.119,20.036],[-75.124,20.019],[-75.126,19.999],[-75.144,20.016],[-75.154,20.021],[-75.167,20.02],[-75.175,20.014],[-75.177,20.004],[-75.174,19.994],[-75.167,19.985],[-75.162,19.988],[-75.158,19.991],[-75.155,19.995],[-75.153,19.999],[-75.151,19.995],[-75.146,19.979],[-75.158,19.975],[-75.163,19.964],[-75.163,19.957],[-75.189,19.955],[-75.23,19.938],[-75.234,19.9],[-75.285,19.888],[-75.382,19.883]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Guantanamo'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Guantanamo?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Guantanamo is located? </h2>Guantanamo, is a province It belongs to the country of Cuba. Its postal identifier is GU.Guantanamo has an area of 6162 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

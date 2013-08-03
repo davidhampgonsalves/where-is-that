@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Caprivi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[24.407,-17.475],[24.449,-17.489],[24.479,-17.494],[24.498,-17.503],[24.523,-17.508],[24.531,-17.513],[24.537,-17.52],[24.546,-17.527],[24.562,-17.532],[24.571,-17.533],[24.58,-17.533],[24.591,-17.528],[24.591,-17.528],[24.606,-17.515],[24.617,-17.509],[24.622,-17.502],[24.629,-17.495],[24.629,-17.495],[24.639,-17.492],[24.684,-17.492],[24.769,-17.505],[24.775,-17.508],[24.78,-17.512],[24.786,-17.517],[24.797,-17.519],[24.829,-17.518],[24.898,-17.531],[24.924,-17.543],[24.937,-17.561],[24.958,-17.552],[24.971,-17.561],[24.982,-17.576],[24.998,-17.588],[25.007,-17.588],[25.026,-17.583],[25.036,-17.581],[25.04,-17.585],[25.033,-17.601],[25.033,-17.608],[25.039,-17.616],[25.045,-17.62],[25.052,-17.621],[25.064,-17.622],[25.067,-17.625],[25.085,-17.641],[25.088,-17.643],[25.096,-17.672],[25.098,-17.677],[25.107,-17.679],[25.115,-17.684],[25.12,-17.691],[25.122,-17.698],[25.122,-17.698],[25.131,-17.686],[25.131,-17.686],[25.138,-17.686],[25.153,-17.701],[25.156,-17.707],[25.155,-17.719],[25.156,-17.725],[25.161,-17.729],[25.172,-17.735],[25.177,-17.739],[25.19,-17.755],[25.198,-17.758],[25.215,-17.759],[25.228,-17.762],[25.242,-17.77],[25.253,-17.781],[25.259,-17.794],[25.259,-17.794],[25.194,-17.782],[25.154,-17.782],[25.153,-17.782],[25.12,-17.814],[25.12,-17.814],[25.087,-17.827],[25.056,-17.828],[25.047,-17.807],[25.047,-17.807],[25.019,-17.824],[25.019,-17.824],[25.006,-17.826],[24.998,-17.814],[24.983,-17.82],[24.975,-17.816],[24.968,-17.808],[24.958,-17.801],[24.964,-17.787],[24.953,-17.788],[24.953,-17.788],[24.948,-17.793],[24.945,-17.8],[24.937,-17.807],[24.931,-17.81],[24.931,-17.81],[24.857,-17.834],[24.837,-17.835],[24.82,-17.839],[24.82,-17.839],[24.797,-17.858],[24.797,-17.858],[24.776,-17.862],[24.77,-17.865],[24.77,-17.866],[24.764,-17.88],[24.764,-17.88],[24.756,-17.883],[24.746,-17.884],[24.738,-17.888],[24.738,-17.888],[24.73,-17.892],[24.725,-17.896],[24.698,-17.929],[24.664,-17.95],[24.649,-17.963],[24.598,-18.021],[24.594,-18.023],[24.591,-18.028],[24.577,-18.044],[24.574,-18.05],[24.574,-18.05],[24.564,-18.053],[24.518,-18.057],[24.505,-18.06],[24.471,-18.03],[24.469,-18.014],[24.465,-18.009],[24.458,-18.006],[24.451,-17.999],[24.433,-17.967],[24.421,-17.956],[24.399,-17.952],[24.365,-17.951],[24.35,-17.956],[24.35,-17.956],[24.334,-17.972],[24.305,-18.019],[24.296,-18.026],[24.296,-18.026],[24.287,-18.024],[24.269,-18.016],[24.259,-18.013],[24.238,-18.01],[24.218,-18.013],[24.183,-18.029],[24.183,-18.029],[24.135,-18.085],[24.101,-18.109],[24.101,-18.109],[24.065,-18.115],[24.057,-18.119],[24.056,-18.119],[24.028,-18.146],[24.02,-18.151],[24.02,-18.152],[23.991,-18.163],[23.991,-18.163],[23.979,-18.172],[23.974,-18.177],[23.971,-18.184],[23.971,-18.184],[23.966,-18.181],[23.961,-18.178],[23.956,-18.177],[23.95,-18.178],[23.95,-18.178],[23.915,-18.201],[23.912,-18.236],[23.896,-18.25],[23.869,-18.268],[23.867,-18.269],[23.867,-18.269],[23.855,-18.28],[23.837,-18.306],[23.825,-18.317],[23.825,-18.317],[23.809,-18.322],[23.809,-18.322],[23.715,-18.419],[23.701,-18.428],[23.7,-18.428],[23.68,-18.431],[23.68,-18.431],[23.656,-18.458],[23.649,-18.463],[23.647,-18.465],[23.645,-18.466],[23.609,-18.478],[23.592,-18.478],[23.579,-18.468],[23.571,-18.426],[23.555,-18.383],[23.546,-18.369],[23.56,-18.348],[23.551,-18.327],[23.518,-18.294],[23.527,-18.278],[23.521,-18.268],[23.511,-18.26],[23.505,-18.249],[23.501,-18.237],[23.491,-18.233],[23.477,-18.231],[23.464,-18.225],[23.458,-18.218],[23.444,-18.201],[23.429,-18.188],[23.429,-18.188],[23.418,-18.198],[23.418,-18.198],[23.41,-18.197],[23.401,-18.194],[23.395,-18.191],[23.394,-18.186],[23.396,-18.169],[23.395,-18.163],[23.389,-18.153],[23.359,-18.119],[23.348,-18.094],[23.336,-18.079],[23.333,-18.074],[23.332,-18.067],[23.333,-18.043],[23.33,-18.04],[23.323,-18.039],[23.315,-18.037],[23.312,-18.03],[23.312,-18.016],[23.311,-18.01],[23.305,-18.005],[23.292,-17.999],[23.254,-17.997],[22.981,-18.02],[21.475,-18.3],[20.993,-18.319],[20.993,-18.318],[20.993,-18.318],[20.986,-17.966],[21.093,-17.938],[21.109,-17.945],[21.125,-17.941],[21.143,-17.934],[21.161,-17.931],[21.175,-17.933],[21.216,-17.931],[21.232,-17.934],[21.277,-17.959],[21.334,-17.978],[21.364,-17.992],[21.381,-18.013],[21.386,-18.014],[21.405,-18.009],[22.481,-17.811],[23.381,-17.641],[23.457,-17.627],[23.476,-17.626],[24.22,-17.479],[24.238,-17.478],[24.257,-17.481],[24.31,-17.483],[24.321,-17.489],[24.329,-17.485],[24.371,-17.474],[24.388,-17.471],[24.407,-17.475]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Caprivi'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Caprivi?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Caprivi is located? </h2>Caprivi, is a region of the Caprivi Oos region. It belongs to the country of Namibia. Its postal identifier is CA.Caprivi has an area of 20015 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

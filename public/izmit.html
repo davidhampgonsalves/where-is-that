@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Izmit?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[30.429,41.171],[30.424,41.156],[30.392,41.094],[30.41,41.043],[30.483,41.033],[30.488,41],[30.465,40.969],[30.459,40.936],[30.441,40.933],[30.385,40.932],[30.353,40.944],[30.313,40.95],[30.295,40.941],[30.303,40.919],[30.317,40.916],[30.329,40.91],[30.264,40.857],[30.224,40.709],[30.183,40.646],[30.125,40.617],[30.059,40.605],[30.028,40.591],[29.996,40.582],[29.926,40.577],[29.789,40.615],[29.72,40.604],[29.535,40.552],[29.477,40.55],[29.421,40.563],[29.429,40.601],[29.428,40.691],[29.429,40.691],[29.438,40.695],[29.45,40.699],[29.461,40.704],[29.466,40.711],[29.47,40.719],[29.479,40.724],[29.491,40.727],[29.501,40.729],[29.511,40.727],[29.527,40.721],[29.542,40.71],[29.549,40.691],[29.56,40.691],[29.753,40.724],[29.867,40.729],[29.904,40.716],[29.924,40.716],[29.939,40.735],[29.929,40.758],[29.89,40.763],[29.809,40.756],[29.803,40.754],[29.795,40.751],[29.787,40.749],[29.775,40.749],[29.764,40.753],[29.744,40.767],[29.738,40.77],[29.722,40.772],[29.686,40.782],[29.666,40.783],[29.429,40.776],[29.41,40.771],[29.394,40.762],[29.378,40.756],[29.357,40.762],[29.349,40.771],[29.344,40.78],[29.34,40.788],[29.329,40.79],[29.333,40.792],[29.336,40.794],[29.339,40.796],[29.343,40.798],[29.34,40.808],[29.333,40.815],[29.325,40.82],[29.315,40.824],[29.311,40.818],[29.302,40.824],[29.293,40.819],[29.282,40.815],[29.255,40.811],[29.255,40.817],[29.264,40.818],[29.271,40.822],[29.274,40.829],[29.275,40.839],[29.284,40.834],[29.288,40.831],[29.288,40.836],[29.288,40.838],[29.291,40.839],[29.295,40.839],[29.284,40.852],[29.264,40.87],[29.254,40.875],[29.288,40.909],[29.34,40.943],[29.365,40.953],[29.407,40.984],[29.451,41.009],[29.504,41.005],[29.551,40.974],[29.582,40.925],[29.611,40.907],[29.647,40.91],[29.664,40.933],[29.673,40.957],[29.731,40.988],[29.795,41.007],[29.849,41.029],[29.877,41.08],[29.874,41.111],[29.863,41.142],[29.863,41.151],[29.885,41.149],[30.137,41.144],[30.165,41.147],[30.18,41.152],[30.203,41.164],[30.217,41.167],[30.226,41.173],[30.234,41.184],[30.24,41.192],[30.248,41.188],[30.259,41.196],[30.271,41.211],[30.283,41.215],[30.296,41.207],[30.337,41.201],[30.37,41.181],[30.429,41.171]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Izmit'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Izmit?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Izmit is located? </h2>Izmit, is a province It belongs to the country of Turkey. Its postal identifier is KC.Izmit has an area of 3990 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

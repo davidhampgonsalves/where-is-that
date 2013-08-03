@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Coimbra?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-8.35,40.372],[-8.339,40.368],[-8.329,40.362],[-8.298,40.356],[-8.275,40.343],[-8.259,40.332],[-8.243,40.327],[-8.235,40.321],[-8.229,40.321],[-8.227,40.323],[-8.224,40.328],[-8.224,40.332],[-8.221,40.337],[-8.217,40.34],[-8.174,40.346],[-8.116,40.339],[-8.04,40.382],[-7.986,40.399],[-7.942,40.423],[-7.925,40.43],[-7.901,40.459],[-7.867,40.478],[-7.856,40.488],[-7.845,40.494],[-7.825,40.498],[-7.814,40.475],[-7.808,40.471],[-7.802,40.464],[-7.801,40.457],[-7.805,40.448],[-7.811,40.441],[-7.819,40.438],[-7.828,40.435],[-7.835,40.43],[-7.838,40.424],[-7.831,40.414],[-7.822,40.409],[-7.805,40.407],[-7.799,40.402],[-7.8,40.393],[-7.792,40.357],[-7.785,40.349],[-7.771,40.34],[-7.767,40.334],[-7.77,40.327],[-7.793,40.315],[-7.801,40.307],[-7.808,40.297],[-7.813,40.281],[-7.825,40.261],[-7.797,40.25],[-7.782,40.232],[-7.804,40.193],[-7.807,40.185],[-7.802,40.173],[-7.796,40.166],[-7.786,40.159],[-7.769,40.143],[-7.742,40.128],[-7.737,40.118],[-7.736,40.111],[-7.736,40.106],[-7.736,40.1],[-7.74,40.094],[-7.749,40.088],[-7.769,40.078],[-7.779,40.076],[-7.786,40.078],[-7.79,40.082],[-7.791,40.085],[-7.796,40.086],[-7.801,40.083],[-7.806,40.078],[-7.804,40.061],[-7.807,40.041],[-7.827,40.053],[-7.836,40.056],[-7.845,40.058],[-7.857,40.058],[-7.871,40.056],[-7.895,40.047],[-7.907,40.037],[-7.911,40.029],[-7.906,40.015],[-7.908,40.01],[-7.917,40.004],[-7.937,40.004],[-7.944,40.003],[-7.952,39.999],[-7.965,39.985],[-7.97,39.982],[-7.974,39.984],[-7.98,39.985],[-7.987,39.986],[-7.996,39.984],[-8.001,39.982],[-8.006,39.978],[-8.021,39.977],[-8.026,39.975],[-8.027,39.97],[-8.029,39.965],[-8.032,39.961],[-8.049,39.961],[-8.072,39.957],[-8.082,39.947],[-8.096,39.945],[-8.101,39.944],[-8.108,39.94],[-8.11,39.934],[-8.126,39.921],[-8.123,39.933],[-8.124,39.935],[-8.126,39.939],[-8.128,39.944],[-8.124,39.954],[-8.119,39.958],[-8.108,39.965],[-8.149,40.017],[-8.152,40.034],[-8.145,40.062],[-8.149,40.069],[-8.155,40.076],[-8.162,40.08],[-8.175,40.086],[-8.205,40.055],[-8.235,40.064],[-8.278,40.035],[-8.293,40.016],[-8.292,40.01],[-8.291,40.003],[-8.287,39.999],[-8.275,39.991],[-8.271,39.985],[-8.273,39.976],[-8.279,39.972],[-8.288,39.971],[-8.304,39.976],[-8.314,39.975],[-8.349,39.944],[-8.39,39.933],[-8.398,39.933],[-8.405,39.934],[-8.4,39.938],[-8.393,39.942],[-8.387,39.948],[-8.385,39.957],[-8.39,39.97],[-8.399,39.989],[-8.413,40.01],[-8.42,40.015],[-8.429,40.016],[-8.431,40.011],[-8.451,40.012],[-8.484,39.99],[-8.51,39.978],[-8.528,39.961],[-8.535,39.956],[-8.54,39.96],[-8.544,39.965],[-8.546,39.972],[-8.546,39.988],[-8.547,39.998],[-8.554,40.02],[-8.56,40.026],[-8.567,40.028],[-8.573,40.028],[-8.581,40.028],[-8.588,40.025],[-8.595,40.021],[-8.61,40.001],[-8.613,39.999],[-8.619,39.997],[-8.629,39.996],[-8.636,39.998],[-8.639,40],[-8.648,40.011],[-8.665,40.022],[-8.677,40.028],[-8.698,40.032],[-8.718,40.033],[-8.769,40.037],[-8.794,40.029],[-8.805,40.022],[-8.815,40.021],[-8.848,40.026],[-8.862,40.032],[-8.871,40.036],[-8.896,40.045],[-8.902,40.047],[-8.868,40.125],[-8.853,40.139],[-8.841,40.126],[-8.825,40.12],[-8.785,40.119],[-8.785,40.126],[-8.801,40.138],[-8.816,40.147],[-8.833,40.152],[-8.879,40.156],[-8.896,40.165],[-8.906,40.18],[-8.908,40.201],[-8.895,40.229],[-8.865,40.276],[-8.798,40.474],[-8.792,40.526],[-8.786,40.521],[-8.675,40.435],[-8.642,40.432],[-8.634,40.442],[-8.631,40.458],[-8.609,40.484],[-8.57,40.464],[-8.577,40.439],[-8.576,40.429],[-8.573,40.411],[-8.566,40.404],[-8.557,40.403],[-8.548,40.406],[-8.532,40.414],[-8.517,40.419],[-8.505,40.42],[-8.5,40.4],[-8.488,40.384],[-8.486,40.376],[-8.488,40.37],[-8.493,40.355],[-8.495,40.353],[-8.499,40.35],[-8.502,40.348],[-8.507,40.344],[-8.513,40.338],[-8.521,40.322],[-8.524,40.312],[-8.524,40.303],[-8.522,40.297],[-8.515,40.29],[-8.457,40.286],[-8.45,40.29],[-8.441,40.297],[-8.436,40.306],[-8.413,40.328],[-8.408,40.336],[-8.399,40.344],[-8.392,40.345],[-8.37,40.344],[-8.358,40.356],[-8.359,40.365],[-8.35,40.372]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Coimbra'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Coimbra?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Coimbra is located? </h2>Coimbra, is a district It belongs to the country of Portugal. Its postal identifier is CO.Coimbra has an area of 3960 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

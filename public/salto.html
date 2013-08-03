@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Salto?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-57.563,-30.866],[-57.554,-30.868],[-57.519,-30.867],[-57.498,-30.87],[-57.487,-30.872],[-57.479,-30.875],[-57.463,-30.886],[-57.457,-30.891],[-57.424,-30.911],[-57.292,-30.972],[-57.244,-30.985],[-57.236,-30.989],[-57.221,-31],[-57.221,-31],[-57.175,-31.04],[-57.156,-31.051],[-57.131,-31.062],[-57.071,-31.078],[-57.061,-31.079],[-57.055,-31.078],[-57.049,-31.076],[-57.044,-31.074],[-57.016,-31.057],[-57.007,-31.052],[-57,-31.05],[-56.934,-31.043],[-56.91,-31.044],[-56.797,-31.062],[-56.783,-31.062],[-56.759,-31.056],[-56.711,-31.052],[-56.699,-31.05],[-56.688,-31.046],[-56.679,-31.042],[-56.62,-31],[-56.61,-30.995],[-56.599,-30.991],[-56.566,-30.988],[-56.554,-30.984],[-56.549,-30.982],[-56.545,-30.979],[-56.53,-30.963],[-56.526,-30.96],[-56.516,-30.955],[-56.494,-30.947],[-56.489,-30.945],[-56.481,-30.939],[-56.477,-30.935],[-56.471,-30.925],[-56.464,-30.911],[-56.458,-30.901],[-56.455,-30.897],[-56.451,-30.894],[-56.444,-30.891],[-56.434,-30.889],[-56.416,-30.887],[-56.406,-30.888],[-56.398,-30.89],[-56.342,-30.907],[-56.183,-30.937],[-56.177,-30.94],[-56.16,-30.948],[-56.14,-30.964],[-56.133,-30.971],[-56.118,-30.992],[-56.106,-31.004],[-56.081,-31.023],[-56.073,-31.03],[-56.063,-31.042],[-56.055,-31.049],[-56.018,-31.074],[-56.018,-31.074],[-56.012,-31.082],[-56.01,-31.082],[-56.01,-31.082],[-56.037,-31.16],[-56.043,-31.175],[-56.056,-31.196],[-56.066,-31.204],[-56.079,-31.211],[-56.148,-31.228],[-56.161,-31.234],[-56.176,-31.242],[-56.183,-31.25],[-56.187,-31.257],[-56.188,-31.263],[-56.188,-31.269],[-56.186,-31.275],[-56.182,-31.28],[-56.167,-31.295],[-56.158,-31.305],[-56.164,-31.323],[-56.173,-31.341],[-56.18,-31.379],[-56.183,-31.388],[-56.187,-31.395],[-56.192,-31.398],[-56.204,-31.409],[-56.214,-31.421],[-56.22,-31.427],[-56.226,-31.431],[-56.232,-31.433],[-56.25,-31.439],[-56.257,-31.443],[-56.263,-31.449],[-56.28,-31.48],[-56.284,-31.485],[-56.317,-31.512],[-56.321,-31.519],[-56.351,-31.589],[-56.354,-31.6],[-56.352,-31.604],[-56.349,-31.609],[-56.342,-31.616],[-56.337,-31.625],[-56.333,-31.635],[-56.331,-31.646],[-56.328,-31.689],[-56.325,-31.7],[-56.322,-31.71],[-56.32,-31.724],[-56.322,-31.751],[-56.374,-31.763],[-56.389,-31.773],[-56.391,-31.778],[-56.397,-31.787],[-56.406,-31.797],[-56.436,-31.825],[-56.442,-31.832],[-56.445,-31.844],[-56.447,-31.848],[-56.452,-31.857],[-56.457,-31.861],[-56.462,-31.865],[-56.476,-31.869],[-56.492,-31.871],[-56.503,-31.871],[-56.509,-31.871],[-56.58,-31.852],[-56.632,-31.851],[-56.639,-31.85],[-56.652,-31.846],[-56.702,-31.819],[-56.71,-31.817],[-56.721,-31.816],[-56.763,-31.815],[-56.77,-31.814],[-56.776,-31.812],[-56.796,-31.801],[-56.803,-31.798],[-56.812,-31.796],[-56.829,-31.793],[-56.841,-31.793],[-56.928,-31.809],[-56.939,-31.81],[-56.96,-31.806],[-57.004,-31.791],[-57.011,-31.791],[-57.018,-31.793],[-57.022,-31.796],[-57.028,-31.8],[-57.036,-31.804],[-57.05,-31.808],[-57.059,-31.809],[-57.068,-31.809],[-57.081,-31.806],[-57.166,-31.797],[-57.177,-31.794],[-57.214,-31.77],[-57.225,-31.765],[-57.304,-31.746],[-57.327,-31.736],[-57.34,-31.727],[-57.348,-31.72],[-57.37,-31.691],[-57.374,-31.687],[-57.385,-31.683],[-57.403,-31.679],[-57.432,-31.679],[-57.456,-31.676],[-57.48,-31.668],[-57.49,-31.662],[-57.524,-31.642],[-57.595,-31.611],[-57.743,-31.583],[-57.75,-31.581],[-57.755,-31.578],[-57.759,-31.575],[-57.763,-31.571],[-57.766,-31.567],[-57.768,-31.562],[-57.781,-31.527],[-57.784,-31.523],[-57.787,-31.519],[-57.796,-31.513],[-57.862,-31.481],[-57.888,-31.472],[-57.899,-31.47],[-57.907,-31.471],[-57.944,-31.479],[-57.948,-31.481],[-57.951,-31.485],[-57.953,-31.49],[-57.954,-31.5],[-57.954,-31.5],[-57.955,-31.501],[-57.96,-31.502],[-57.971,-31.502],[-57.989,-31.498],[-58.004,-31.496],[-58.019,-31.5],[-58.036,-31.507],[-58.039,-31.509],[-58.039,-31.509],[-58.051,-31.501],[-58.076,-31.475],[-58.076,-31.475],[-58.063,-31.444],[-58.044,-31.43],[-58.007,-31.411],[-57.991,-31.399],[-57.981,-31.38],[-57.976,-31.335],[-57.967,-31.314],[-57.96,-31.308],[-57.944,-31.297],[-57.936,-31.29],[-57.915,-31.252],[-57.906,-31.241],[-57.906,-31.215],[-57.906,-31.215],[-57.912,-31.17],[-57.912,-31.17],[-57.9,-31.126],[-57.874,-31.093],[-57.856,-31.059],[-57.856,-31.059],[-57.864,-31.012],[-57.906,-30.959],[-57.912,-30.947],[-57.912,-30.947],[-57.905,-30.93],[-57.886,-30.919],[-57.843,-30.909],[-57.82,-30.911],[-57.808,-30.907],[-57.802,-30.892],[-57.797,-30.868],[-57.796,-30.858],[-57.796,-30.858],[-57.797,-30.816],[-57.8,-30.792],[-57.8,-30.792],[-57.799,-30.791],[-57.775,-30.761],[-57.77,-30.757],[-57.763,-30.753],[-57.753,-30.752],[-57.726,-30.755],[-57.715,-30.758],[-57.701,-30.765],[-57.636,-30.807],[-57.62,-30.82],[-57.612,-30.827],[-57.596,-30.847],[-57.591,-30.852],[-57.584,-30.857],[-57.572,-30.863],[-57.563,-30.866]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Salto'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Salto?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Salto is located? </h2>Salto, is a department It belongs to the country of Uruguay. Its postal identifier is SA.Salto has an area of 14314 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

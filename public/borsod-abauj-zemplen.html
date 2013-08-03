@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Borsod-Abauj-Zemplen?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[20.945,48.519],[20.981,48.517],[21.006,48.518],[21.035,48.515],[21.063,48.506],[21.084,48.493],[21.109,48.489],[21.186,48.514],[21.219,48.519],[21.237,48.514],[21.25,48.507],[21.261,48.503],[21.276,48.509],[21.288,48.52],[21.288,48.52],[21.293,48.531],[21.302,48.54],[21.302,48.54],[21.321,48.548],[21.338,48.55],[21.372,48.551],[21.424,48.561],[21.439,48.559],[21.472,48.545],[21.49,48.54],[21.499,48.535],[21.506,48.527],[21.515,48.507],[21.521,48.5],[21.537,48.495],[21.574,48.496],[21.591,48.493],[21.6,48.482],[21.613,48.441],[21.621,48.43],[21.677,48.373],[21.701,48.354],[21.727,48.341],[21.758,48.334],[21.789,48.336],[21.841,48.353],[21.884,48.358],[21.914,48.369],[21.929,48.373],[21.981,48.375],[21.999,48.379],[22.017,48.38],[22.077,48.376],[22.096,48.38],[22.113,48.389],[22.13,48.403],[22.132,48.405],[22.132,48.405],[22.156,48.402],[22.159,48.403],[22.137,48.387],[22.1,48.334],[22.079,48.312],[22.052,48.3],[22.042,48.301],[22.023,48.308],[22.011,48.307],[22.005,48.303],[21.972,48.27],[21.943,48.248],[21.929,48.24],[21.909,48.235],[21.846,48.232],[21.831,48.225],[21.813,48.212],[21.794,48.202],[21.778,48.202],[21.766,48.199],[21.69,48.167],[21.671,48.165],[21.652,48.168],[21.613,48.18],[21.596,48.181],[21.559,48.177],[21.495,48.179],[21.476,48.177],[21.461,48.17],[21.447,48.158],[21.435,48.144],[21.428,48.13],[21.426,48.112],[21.432,48.103],[21.439,48.095],[21.443,48.082],[21.432,48.051],[21.407,48.034],[21.373,48.027],[21.339,48.026],[21.346,48.026],[21.299,48.024],[21.284,48.026],[21.272,48.033],[21.263,48.042],[21.253,48.048],[21.237,48.047],[21.23,48.042],[21.227,48.035],[21.223,48.029],[21.213,48.026],[21.188,48.027],[21.181,48.026],[21.138,48.007],[21.127,47.999],[21.12,47.987],[21.114,47.961],[21.112,47.952],[21.106,47.938],[21.098,47.93],[21.065,47.903],[21.056,47.891],[21.056,47.883],[21.058,47.874],[21.058,47.855],[21.055,47.839],[21.049,47.831],[21.029,47.816],[21.034,47.786],[21.034,47.78],[20.979,47.773],[20.979,47.765],[20.955,47.734],[20.949,47.728],[20.942,47.719],[20.892,47.684],[20.819,47.679],[20.792,47.677],[20.774,47.672],[20.742,47.676],[20.719,47.686],[20.609,47.701],[20.588,47.724],[20.575,47.755],[20.528,47.792],[20.465,47.868],[20.457,47.872],[20.448,47.881],[20.458,47.89],[20.465,47.899],[20.461,47.919],[20.447,47.934],[20.429,47.949],[20.422,47.969],[20.434,47.984],[20.479,48.015],[20.492,48.055],[20.495,48.078],[20.49,48.101],[20.418,48.151],[20.355,48.095],[20.321,48.112],[20.285,48.11],[20.256,48.093],[20.221,48.093],[20.204,48.102],[20.191,48.116],[20.177,48.12],[20.161,48.118],[20.142,48.134],[20.118,48.148],[20.096,48.141],[20.077,48.154],[20.049,48.168],[20.038,48.178],[20.077,48.194],[20.096,48.199],[20.105,48.203],[20.105,48.203],[20.112,48.212],[20.118,48.23],[20.121,48.237],[20.122,48.237],[20.134,48.247],[20.143,48.248],[20.153,48.245],[20.17,48.244],[20.187,48.249],[20.217,48.268],[20.229,48.271],[20.249,48.264],[20.26,48.256],[20.272,48.253],[20.295,48.261],[20.324,48.28],[20.324,48.28],[20.349,48.306],[20.37,48.335],[20.409,48.414],[20.42,48.429],[20.42,48.429],[20.435,48.443],[20.468,48.466],[20.481,48.479],[20.481,48.479],[20.482,48.482],[20.482,48.486],[20.482,48.49],[20.482,48.493],[20.48,48.51],[20.48,48.519],[20.481,48.526],[20.481,48.526],[20.51,48.534],[20.572,48.537],[20.784,48.569],[20.8,48.569],[20.815,48.564],[20.845,48.546],[20.859,48.543],[20.891,48.541],[20.945,48.519]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Borsod-Abauj-Zemplen'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Borsod-Abauj-Zemplen?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Borsod-Abauj-Zemplen is located? </h2>Borsod-Abauj-Zemplen, is a county It belongs to the country of Hungary. Its postal identifier is BZ.Borsod-Abauj-Zemplen has an area of 7190 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

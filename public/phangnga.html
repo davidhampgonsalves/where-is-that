@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Phangnga?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[98.541,8.106],[98.541,8.106],[98.541,8.105],[98.541,8.106],[98.587,8.079],[98.603,8.064],[98.611,8.035],[98.612,7.926],[98.604,7.904],[98.588,7.905],[98.578,7.92],[98.571,7.939],[98.568,7.963],[98.563,7.978],[98.563,7.986],[98.568,7.993],[98.575,7.994],[98.581,7.996],[98.583,8.007],[98.583,8.015],[98.58,8.025],[98.575,8.032],[98.566,8.035],[98.555,8.037],[98.551,8.043],[98.55,8.05],[98.537,8.071],[98.531,8.089],[98.528,8.107],[98.529,8.124],[98.533,8.12],[98.536,8.115],[98.541,8.106]]],[[[98.622,8.103],[98.621,8.09],[98.588,8.102],[98.58,8.106],[98.57,8.119],[98.575,8.125],[98.597,8.13],[98.593,8.147],[98.602,8.162],[98.616,8.176],[98.624,8.192],[98.632,8.19],[98.636,8.186],[98.637,8.179],[98.638,8.171],[98.622,8.103]]],[[[98.294,8.935],[98.271,8.877],[98.262,8.879],[98.253,8.898],[98.251,8.918],[98.256,8.94],[98.256,8.966],[98.252,8.997],[98.261,9.013],[98.279,9.009],[98.289,9.004],[98.299,8.997],[98.311,8.978],[98.307,8.958],[98.294,8.935]]],[[[98.295,9.042],[98.274,9.036],[98.254,9.037],[98.241,9.049],[98.24,9.063],[98.249,9.143],[98.248,9.15],[98.251,9.154],[98.261,9.158],[98.274,9.16],[98.282,9.157],[98.296,9.145],[98.308,9.133],[98.318,9.117],[98.323,9.098],[98.323,9.076],[98.302,9.055],[98.31,9.049],[98.295,9.042]]],[[[98.509,9.205],[98.508,9.198],[98.507,9.194],[98.506,9.191],[98.504,9.187],[98.504,9.183],[98.504,9.176],[98.504,9.171],[98.504,9.162],[98.507,9.157],[98.505,9.152],[98.502,9.149],[98.495,9.146],[98.493,9.144],[98.491,9.141],[98.491,9.133],[98.489,9.126],[98.489,9.12],[98.497,9.083],[98.497,9.077],[98.495,9.073],[98.493,9.071],[98.489,9.069],[98.486,9.068],[98.483,9.066],[98.482,9.063],[98.482,9.06],[98.483,9.056],[98.504,8.998],[98.507,8.986],[98.506,8.979],[98.503,8.979],[98.5,8.979],[98.496,8.979],[98.493,8.977],[98.491,8.976],[98.485,8.972],[98.474,8.965],[98.464,8.961],[98.462,8.959],[98.459,8.957],[98.457,8.954],[98.455,8.948],[98.454,8.944],[98.455,8.938],[98.456,8.93],[98.461,8.917],[98.462,8.911],[98.461,8.906],[98.456,8.897],[98.456,8.894],[98.456,8.89],[98.459,8.887],[98.47,8.883],[98.491,8.88],[98.498,8.879],[98.502,8.877],[98.539,8.848],[98.543,8.843],[98.549,8.831],[98.563,8.81],[98.568,8.804],[98.573,8.8],[98.579,8.799],[98.592,8.799],[98.596,8.798],[98.6,8.797],[98.603,8.795],[98.605,8.791],[98.607,8.782],[98.607,8.777],[98.603,8.748],[98.602,8.74],[98.604,8.719],[98.603,8.715],[98.603,8.711],[98.601,8.708],[98.599,8.706],[98.597,8.703],[98.586,8.696],[98.584,8.694],[98.582,8.691],[98.575,8.675],[98.573,8.673],[98.57,8.671],[98.567,8.669],[98.555,8.668],[98.552,8.667],[98.549,8.665],[98.547,8.663],[98.546,8.659],[98.547,8.655],[98.55,8.651],[98.581,8.627],[98.584,8.626],[98.59,8.625],[98.599,8.625],[98.625,8.629],[98.635,8.631],[98.642,8.634],[98.648,8.637],[98.653,8.641],[98.656,8.643],[98.659,8.644],[98.662,8.644],[98.671,8.639],[98.681,8.636],[98.7,8.632],[98.713,8.625],[98.713,8.6],[98.709,8.585],[98.704,8.576],[98.7,8.571],[98.697,8.567],[98.691,8.564],[98.684,8.562],[98.669,8.559],[98.666,8.558],[98.663,8.556],[98.661,8.546],[98.661,8.53],[98.665,8.474],[98.667,8.464],[98.669,8.462],[98.673,8.457],[98.675,8.455],[98.677,8.452],[98.676,8.445],[98.673,8.436],[98.664,8.417],[98.661,8.407],[98.662,8.397],[98.666,8.389],[98.666,8.385],[98.666,8.381],[98.655,8.369],[98.649,8.369],[98.656,8.38],[98.642,8.386],[98.621,8.39],[98.604,8.397],[98.599,8.375],[98.585,8.369],[98.568,8.368],[98.552,8.36],[98.542,8.349],[98.526,8.336],[98.511,8.331],[98.501,8.343],[98.494,8.343],[98.492,8.331],[98.487,8.325],[98.48,8.326],[98.473,8.336],[98.467,8.336],[98.467,8.323],[98.446,8.325],[98.429,8.317],[98.422,8.306],[98.453,8.294],[98.457,8.278],[98.457,8.258],[98.463,8.243],[98.463,8.216],[98.446,8.175],[98.425,8.149],[98.412,8.165],[98.406,8.165],[98.405,8.155],[98.402,8.149],[98.392,8.137],[98.376,8.151],[98.357,8.185],[98.331,8.195],[98.328,8.202],[98.324,8.21],[98.313,8.213],[98.302,8.214],[98.294,8.216],[98.287,8.22],[98.282,8.226],[98.278,8.241],[98.278,8.284],[98.272,8.298],[98.263,8.313],[98.242,8.407],[98.2,8.534],[98.198,8.556],[98.203,8.574],[98.21,8.582],[98.213,8.573],[98.216,8.553],[98.223,8.541],[98.248,8.515],[98.253,8.535],[98.244,8.547],[98.23,8.557],[98.22,8.569],[98.22,8.576],[98.222,8.581],[98.225,8.585],[98.227,8.589],[98.226,8.605],[98.227,8.61],[98.238,8.641],[98.241,8.651],[98.239,8.673],[98.223,8.712],[98.22,8.726],[98.224,8.735],[98.232,8.741],[98.24,8.746],[98.248,8.754],[98.251,8.76],[98.253,8.767],[98.257,8.829],[98.262,8.851],[98.284,8.885],[98.293,8.924],[98.312,8.951],[98.325,8.975],[98.333,8.98],[98.337,8.978],[98.352,8.974],[98.364,8.974],[98.361,8.984],[98.358,8.996],[98.368,9.01],[98.392,9.035],[98.362,9.023],[98.343,9.018],[98.333,9.026],[98.33,9.052],[98.342,9.063],[98.366,9.064],[98.382,9.072],[98.371,9.104],[98.342,9.142],[98.329,9.164],[98.323,9.189],[98.323,9.209],[98.327,9.204],[98.34,9.2],[98.348,9.203],[98.356,9.21],[98.371,9.227],[98.353,9.236],[98.352,9.251],[98.361,9.268],[98.364,9.282],[98.376,9.298],[98.384,9.317],[98.39,9.345],[98.403,9.348],[98.41,9.35],[98.419,9.355],[98.424,9.357],[98.427,9.357],[98.43,9.357],[98.437,9.353],[98.445,9.347],[98.476,9.316],[98.511,9.306],[98.528,9.298],[98.531,9.293],[98.533,9.285],[98.535,9.248],[98.534,9.244],[98.533,9.237],[98.531,9.234],[98.522,9.224],[98.515,9.217],[98.513,9.215],[98.512,9.212],[98.51,9.209],[98.509,9.205]]],[[[97.876,9.39],[97.872,9.38],[97.84,9.404],[97.836,9.412],[97.838,9.419],[97.844,9.425],[97.851,9.428],[97.858,9.429],[97.869,9.42],[97.875,9.406],[97.876,9.39]]],[[[97.899,9.445],[97.895,9.439],[97.887,9.438],[97.877,9.442],[97.87,9.441],[97.87,9.425],[97.85,9.442],[97.853,9.461],[97.872,9.473],[97.896,9.467],[97.9,9.461],[97.9,9.453],[97.899,9.445]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Phangnga'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Phangnga?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Phangnga is located? </h2>Phangnga, is a province It belongs to the country of Thailand. Its postal identifier is PG.Phangnga has an area of 4052 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

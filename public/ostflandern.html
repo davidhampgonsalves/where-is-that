@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ostflandern?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[4.301,51.211],[4.325,51.189],[4.331,51.177],[4.333,51.17],[4.329,51.148],[4.316,51.132],[4.276,51.124],[4.236,51.124],[4.216,51.122],[4.198,51.114],[4.185,51.104],[4.182,51.1],[4.183,51.096],[4.185,51.087],[4.188,51.077],[4.193,51.066],[4.196,51.055],[4.191,51.045],[4.189,51.044],[4.201,51.037],[4.212,51.034],[4.232,51.044],[4.24,51.038],[4.217,50.99],[4.194,50.984],[4.162,50.991],[4.146,50.971],[4.161,50.943],[4.16,50.93],[4.137,50.92],[4.091,50.932],[4.1,50.912],[4.074,50.9],[4.088,50.892],[4.087,50.881],[4.04,50.838],[4.066,50.835],[4.075,50.821],[4.06,50.793],[4.03,50.776],[4.013,50.772],[3.999,50.78],[3.982,50.767],[3.956,50.78],[3.944,50.775],[3.931,50.758],[3.952,50.739],[3.951,50.734],[3.918,50.729],[3.895,50.734],[3.884,50.751],[3.828,50.744],[3.815,50.752],[3.775,50.749],[3.758,50.78],[3.715,50.769],[3.704,50.782],[3.675,50.772],[3.635,50.722],[3.607,50.734],[3.541,50.735],[3.534,50.766],[3.494,50.759],[3.458,50.769],[3.52,50.798],[3.523,50.805],[3.499,50.825],[3.512,50.836],[3.45,50.869],[3.474,50.885],[3.466,50.903],[3.45,50.907],[3.427,50.898],[3.419,50.912],[3.433,50.921],[3.425,50.932],[3.448,50.93],[3.455,50.934],[3.44,50.944],[3.46,50.944],[3.412,50.959],[3.443,50.968],[3.426,50.982],[3.452,51.007],[3.422,51.039],[3.444,51.049],[3.331,51.1],[3.374,51.118],[3.41,51.161],[3.387,51.187],[3.36,51.193],[3.384,51.204],[3.367,51.23],[3.4,51.243],[3.399,51.245],[3.421,51.238],[3.453,51.236],[3.501,51.241],[3.501,51.241],[3.504,51.25],[3.501,51.263],[3.503,51.274],[3.509,51.278],[3.514,51.281],[3.528,51.284],[3.544,51.284],[3.584,51.29],[3.609,51.291],[3.634,51.288],[3.757,51.263],[3.776,51.255],[3.781,51.242],[3.779,51.231],[3.781,51.22],[3.796,51.209],[3.808,51.206],[3.851,51.206],[3.927,51.206],[3.949,51.211],[3.95,51.212],[3.979,51.226],[3.994,51.234],[3.995,51.234],[4.118,51.273],[4.168,51.297],[4.168,51.297],[4.207,51.331],[4.213,51.341],[4.22,51.364],[4.221,51.368],[4.221,51.368],[4.221,51.368],[4.222,51.368],[4.241,51.357],[4.249,51.347],[4.256,51.328],[4.273,51.316],[4.291,51.306],[4.303,51.296],[4.307,51.29],[4.308,51.284],[4.305,51.277],[4.299,51.27],[4.295,51.268],[4.289,51.258],[4.31,51.215],[4.301,51.211]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Ostflandern'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Ostflandern?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Ostflandern is located? </h2>Ostflandern, is a province of the Flemish region. It belongs to the country of Belgium.Ostflandern has an area of 2981 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

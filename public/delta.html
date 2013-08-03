@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Delta?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[6.606,5.723],[6.58,5.608],[6.56,5.562],[6.556,5.541],[6.552,5.514],[6.547,5.501],[6.539,5.489],[6.52,5.469],[6.514,5.465],[6.496,5.458],[6.49,5.454],[6.481,5.443],[6.475,5.439],[6.476,5.436],[6.493,5.393],[6.495,5.371],[6.479,5.362],[6.35,5.343],[6.333,5.337],[6.315,5.323],[6.306,5.315],[6.298,5.306],[6.293,5.295],[6.291,5.284],[6.291,5.269],[6.289,5.264],[6.271,5.259],[6.228,5.259],[6.209,5.253],[6.202,5.229],[6.204,5.217],[6.213,5.203],[6.215,5.194],[6.21,5.184],[6.199,5.178],[6.174,5.17],[6.166,5.164],[6.161,5.157],[6.154,5.152],[6.14,5.149],[6.128,5.151],[6.116,5.155],[6.104,5.157],[6.095,5.153],[6.067,5.113],[6.05,5.105],[6.023,5.108],[6.003,5.117],[5.982,5.129],[5.947,5.16],[5.935,5.153],[5.902,5.107],[5.874,5.092],[5.844,5.086],[5.825,5.09],[5.806,5.084],[5.788,5.076],[5.769,5.07],[5.735,5.046],[5.699,5.027],[5.683,5.027],[5.666,5.025],[5.641,5.028],[5.622,5.043],[5.572,5.071],[5.526,5.086],[5.487,5.111],[5.46,5.134],[5.454,5.149],[5.476,5.147],[5.496,5.142],[5.488,5.154],[5.461,5.184],[5.451,5.19],[5.447,5.186],[5.448,5.168],[5.444,5.163],[5.435,5.163],[5.428,5.162],[5.413,5.157],[5.4,5.162],[5.376,5.158],[5.366,5.163],[5.364,5.172],[5.366,5.208],[5.361,5.254],[5.34,5.344],[5.346,5.357],[5.369,5.362],[5.435,5.363],[5.454,5.369],[5.457,5.36],[5.459,5.353],[5.468,5.341],[5.476,5.347],[5.484,5.362],[5.489,5.369],[5.495,5.373],[5.53,5.386],[5.546,5.389],[5.561,5.389],[5.572,5.382],[5.578,5.382],[5.57,5.395],[5.546,5.415],[5.537,5.43],[5.533,5.444],[5.532,5.461],[5.534,5.476],[5.54,5.488],[5.554,5.497],[5.569,5.5],[5.602,5.499],[5.614,5.505],[5.626,5.518],[5.64,5.54],[5.624,5.534],[5.61,5.522],[5.596,5.514],[5.578,5.52],[5.575,5.515],[5.569,5.51],[5.564,5.505],[5.541,5.51],[5.517,5.499],[5.503,5.476],[5.51,5.451],[5.498,5.426],[5.485,5.411],[5.469,5.408],[5.447,5.417],[5.442,5.423],[5.44,5.43],[5.436,5.435],[5.424,5.436],[5.418,5.431],[5.421,5.418],[5.428,5.404],[5.434,5.396],[5.376,5.399],[5.263,5.436],[5.258,5.442],[5.254,5.453],[5.25,5.458],[5.219,5.487],[5.198,5.501],[5.191,5.523],[5.189,5.544],[5.191,5.554],[5.198,5.557],[5.214,5.575],[5.223,5.581],[5.23,5.582],[5.328,5.578],[5.365,5.572],[5.386,5.561],[5.393,5.561],[5.403,5.575],[5.419,5.61],[5.427,5.622],[5.44,5.628],[5.456,5.627],[5.471,5.623],[5.482,5.615],[5.484,5.608],[5.49,5.586],[5.493,5.581],[5.503,5.582],[5.508,5.584],[5.51,5.591],[5.51,5.602],[5.502,5.617],[5.485,5.634],[5.465,5.649],[5.447,5.656],[5.428,5.656],[5.419,5.646],[5.407,5.615],[5.396,5.606],[5.38,5.598],[5.361,5.594],[5.345,5.595],[5.326,5.605],[5.318,5.62],[5.318,5.637],[5.337,5.691],[5.339,5.706],[5.338,5.725],[5.331,5.725],[5.304,5.65],[5.293,5.63],[5.28,5.617],[5.263,5.611],[5.239,5.608],[5.228,5.606],[5.205,5.592],[5.18,5.583],[5.174,5.585],[5.16,5.595],[5.145,5.609],[5.129,5.628],[5.117,5.649],[5.107,5.677],[5.098,5.691],[5.089,5.709],[5.085,5.732],[5.087,5.752],[5.093,5.775],[5.103,5.793],[5.115,5.801],[5.126,5.797],[5.146,5.781],[5.154,5.779],[5.159,5.785],[5.157,5.794],[5.153,5.805],[5.154,5.814],[5.185,5.842],[5.268,5.872],[5.29,5.91],[5.27,5.906],[5.235,5.876],[5.196,5.864],[5.12,5.824],[5.105,5.814],[5.055,5.767],[5.045,5.767],[5.007,5.849],[5.003,5.855],[5.004,5.856],[5.115,6.127],[5.185,6.093],[5.232,6.039],[5.223,5.973],[5.231,5.921],[5.251,5.906],[5.269,5.913],[5.326,5.962],[5.321,5.995],[5.331,6.02],[5.396,6.016],[5.426,6.021],[5.463,6.019],[5.502,5.991],[5.52,5.984],[5.53,5.982],[5.54,5.99],[5.546,6.003],[5.602,6.037],[5.663,6.04],[5.78,5.977],[5.835,5.918],[5.868,5.899],[5.896,5.878],[5.892,5.842],[5.87,5.807],[5.875,5.795],[5.886,5.785],[5.891,5.774],[5.887,5.762],[5.889,5.746],[5.906,5.74],[5.923,5.741],[6.021,5.762],[6.073,5.799],[6.114,5.847],[6.169,5.889],[6.211,5.937],[6.222,5.975],[6.222,6.014],[6.209,6.025],[6.19,6.029],[6.131,6.084],[6.1,6.135],[6.088,6.174],[6.085,6.208],[6.053,6.264],[6.056,6.299],[6.07,6.328],[6.094,6.349],[6.128,6.346],[6.153,6.32],[6.173,6.288],[6.201,6.287],[6.243,6.339],[6.269,6.356],[6.364,6.395],[6.485,6.467],[6.546,6.493],[6.582,6.494],[6.617,6.488],[6.646,6.497],[6.677,6.535],[6.677,6.503],[6.681,6.474],[6.709,6.376],[6.715,6.321],[6.733,6.272],[6.737,6.233],[6.741,6.22],[6.754,6.194],[6.759,6.181],[6.761,6.167],[6.758,6.123],[6.754,6.11],[6.747,6.102],[6.737,6.097],[6.723,6.092],[6.704,6.076],[6.699,6.053],[6.703,6.001],[6.69,5.95],[6.689,5.941],[6.69,5.924],[6.689,5.914],[6.685,5.906],[6.645,5.853],[6.626,5.819],[6.616,5.793],[6.609,5.766],[6.606,5.723]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Delta'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Delta?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Delta is located? </h2>Delta, is a state It belongs to the country of Nigeria. Its postal identifier is DE.Delta has an area of 16289 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

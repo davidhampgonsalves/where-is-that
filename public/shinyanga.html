@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Shinyanga?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[35.208,-2.487],[35.216,-2.584],[35.15,-2.869],[35.123,-2.92],[35.068,-2.944],[35.053,-2.957],[35.036,-2.968],[34.997,-2.955],[34.974,-2.919],[34.936,-2.888],[34.901,-2.883],[34.892,-3.597],[34.865,-3.623],[34.842,-3.616],[34.822,-3.625],[34.82,-3.64],[34.814,-3.654],[34.78,-3.685],[34.753,-3.723],[34.749,-3.763],[34.76,-3.802],[34.725,-3.809],[34.698,-3.83],[34.685,-3.852],[34.515,-3.92],[34.479,-3.928],[34.443,-3.939],[34.413,-3.961],[34.388,-3.988],[34.327,-4.004],[34.289,-4.036],[34.26,-4.032],[34.237,-4.045],[34.224,-4.069],[34.196,-4.07],[34.162,-4.056],[34.126,-4.053],[34.106,-4.047],[34.091,-4.033],[34.071,-4.025],[34.049,-4.032],[34.017,-4.031],[33.984,-4.022],[33.957,-4.003],[33.936,-3.975],[33.91,-3.959],[33.878,-3.955],[33.818,-3.953],[33.743,-3.927],[33.709,-3.928],[33.676,-3.933],[33.656,-3.918],[33.651,-3.892],[33.596,-3.88],[33.538,-3.894],[33.51,-3.904],[33.442,-3.904],[33.386,-3.89],[33.271,-3.917],[33.182,-3.959],[33.129,-3.962],[33.069,-3.957],[33.024,-3.919],[32.983,-3.905],[32.935,-3.926],[32.864,-3.911],[32.846,-3.919],[32.832,-3.934],[32.768,-3.962],[32.713,-3.98],[32.724,-4.037],[32.709,-4.092],[32.685,-4.095],[32.674,-4.114],[32.657,-4.129],[32.65,-4.146],[32.667,-4.167],[32.687,-4.184],[32.732,-4.2],[32.713,-4.253],[32.616,-4.281],[32.592,-4.282],[32.591,-4.265],[32.592,-4.247],[32.581,-4.218],[32.562,-4.198],[32.529,-4.183],[32.494,-4.204],[32.468,-4.209],[32.452,-4.234],[32.445,-4.274],[32.452,-4.312],[32.448,-4.333],[32.433,-4.345],[32.407,-4.377],[32.371,-4.385],[32.331,-4.366],[32.293,-4.343],[32.211,-4.317],[32.128,-4.333],[32.046,-4.395],[31.972,-4.43],[31.979,-4.392],[31.982,-4.351],[31.968,-4.301],[31.964,-4.25],[31.966,-4.196],[31.959,-4.144],[31.93,-4.116],[31.896,-4.092],[31.807,-4.074],[31.691,-4.038],[31.651,-4.098],[31.637,-4.128],[31.645,-4.146],[31.664,-4.158],[31.676,-4.184],[31.682,-4.212],[31.613,-4.246],[31.516,-4.236],[31.476,-4.247],[31.45,-4.279],[31.439,-4.321],[31.417,-4.356],[31.384,-4.304],[31.362,-4.252],[31.359,-4.234],[31.347,-4.22],[31.343,-4.188],[31.335,-4.157],[31.338,-4.108],[31.371,-4.015],[31.376,-3.967],[31.359,-3.885],[31.298,-3.752],[31.242,-3.699],[31.218,-3.636],[31.216,-3.568],[31.206,-3.533],[31.202,-3.501],[31.205,-3.464],[31.187,-3.428],[31.197,-3.393],[31.217,-3.366],[31.212,-3.334],[31.211,-3.306],[31.269,-3.261],[31.332,-3.222],[31.374,-3.207],[31.417,-3.21],[31.436,-3.231],[31.446,-3.255],[31.462,-3.271],[31.48,-3.285],[31.502,-3.271],[31.511,-3.24],[31.521,-3.225],[31.537,-3.226],[31.551,-3.222],[31.557,-3.206],[31.618,-3.218],[31.643,-3.2],[31.672,-3.198],[31.704,-3.217],[31.731,-3.242],[31.749,-3.261],[31.773,-3.261],[31.805,-3.244],[31.834,-3.221],[31.867,-3.209],[31.901,-3.204],[31.956,-3.199],[32.012,-3.2],[32.024,-3.205],[32.036,-3.207],[32.054,-3.196],[32.074,-3.189],[32.118,-3.199],[32.159,-3.217],[32.159,-3.254],[32.181,-3.272],[32.212,-3.247],[32.25,-3.236],[32.28,-3.257],[32.289,-3.295],[32.315,-3.316],[32.346,-3.319],[32.363,-3.286],[32.386,-3.259],[32.416,-3.234],[32.478,-3.204],[32.51,-3.198],[32.532,-3.227],[32.541,-3.264],[32.533,-3.32],[32.534,-3.371],[32.569,-3.398],[32.649,-3.447],[32.687,-3.448],[32.688,-3.42],[32.664,-3.416],[32.66,-3.385],[32.674,-3.347],[32.681,-3.32],[32.71,-3.322],[32.739,-3.308],[32.754,-3.276],[32.774,-3.264],[32.8,-3.271],[32.833,-3.261],[32.862,-3.255],[32.893,-3.278],[32.921,-3.305],[32.937,-3.342],[32.964,-3.363],[32.997,-3.373],[33.028,-3.389],[33.048,-3.391],[33.067,-3.4],[33.086,-3.419],[33.11,-3.433],[33.176,-3.402],[33.214,-3.328],[33.249,-3.315],[33.286,-3.324],[33.329,-3.318],[33.368,-3.307],[33.423,-3.274],[33.447,-3.202],[33.472,-3.178],[33.486,-3.147],[33.492,-3.1],[33.521,-3.013],[33.529,-2.973],[33.499,-2.861],[33.513,-2.835],[33.537,-2.829],[33.552,-2.811],[33.569,-2.796],[33.593,-2.789],[33.62,-2.771],[33.689,-2.791],[33.727,-2.762],[33.745,-2.754],[33.765,-2.755],[33.784,-2.736],[33.787,-2.707],[33.763,-2.662],[33.718,-2.634],[33.672,-2.613],[33.636,-2.581],[33.643,-2.53],[33.678,-2.488],[33.729,-2.474],[33.782,-2.493],[33.889,-2.515],[33.902,-2.501],[33.889,-2.475],[33.897,-2.452],[33.913,-2.433],[33.925,-2.407],[33.928,-2.378],[33.959,-2.279],[34.004,-2.182],[34.011,-2.147],[34.036,-2.132],[34.1,-2.192],[34.134,-2.196],[34.17,-2.196],[34.248,-2.238],[34.275,-2.243],[34.298,-2.257],[34.322,-2.291],[34.355,-2.315],[34.428,-2.358],[34.456,-2.39],[34.479,-2.425],[34.507,-2.439],[34.54,-2.435],[34.565,-2.437],[34.621,-2.475],[34.658,-2.491],[35.208,-2.487]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Shinyanga'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Shinyanga?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Shinyanga is located? </h2>Shinyanga, is a region It belongs to the country of Tanzania. Its postal identifier is SH.Shinyanga has an area of 50415 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

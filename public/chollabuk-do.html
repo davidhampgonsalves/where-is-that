@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Chollabuk-Do?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[126.307,35.617],[126.309,35.611],[126.305,35.603],[126.287,35.59],[126.275,35.579],[126.267,35.574],[126.264,35.572],[126.258,35.571],[126.253,35.574],[126.25,35.581],[126.252,35.587],[126.263,35.592],[126.261,35.593],[126.256,35.596],[126.259,35.598],[126.264,35.601],[126.268,35.605],[126.274,35.606],[126.278,35.607],[126.276,35.613],[126.28,35.613],[126.291,35.611],[126.299,35.616],[126.303,35.619],[126.307,35.617]]],[[[127.093,36.083],[127.114,36.056],[127.144,36.06],[127.172,36.069],[127.227,36.078],[127.241,36.082],[127.255,36.087],[127.276,36.09],[127.29,36.107],[127.306,36.121],[127.338,36.098],[127.383,36.033],[127.417,36.019],[127.429,36.017],[127.435,36.007],[127.428,35.995],[127.432,35.987],[127.49,35.981],[127.512,35.985],[127.541,35.986],[127.571,35.993],[127.595,36.01],[127.619,36.03],[127.628,36.021],[127.637,36.014],[127.645,36.016],[127.652,36.023],[127.669,36.015],[127.684,36],[127.728,35.988],[127.738,35.979],[127.754,35.975],[127.786,35.991],[127.823,36.005],[127.837,35.993],[127.852,35.987],[127.865,35.996],[127.878,36.007],[127.919,35.951],[127.914,35.887],[127.877,35.855],[127.868,35.834],[127.818,35.813],[127.793,35.807],[127.78,35.808],[127.77,35.803],[127.751,35.77],[127.729,35.751],[127.707,35.735],[127.695,35.709],[127.692,35.678],[127.68,35.655],[127.664,35.632],[127.653,35.602],[127.644,35.571],[127.63,35.547],[127.629,35.522],[127.655,35.513],[127.658,35.502],[127.66,35.49],[127.671,35.466],[127.67,35.441],[127.68,35.422],[127.694,35.414],[127.688,35.386],[127.647,35.346],[127.64,35.319],[127.638,35.294],[127.617,35.277],[127.56,35.314],[127.496,35.333],[127.46,35.317],[127.431,35.291],[127.4,35.287],[127.367,35.287],[127.33,35.283],[127.293,35.284],[127.276,35.292],[127.261,35.301],[127.244,35.298],[127.223,35.298],[127.193,35.294],[127.164,35.28],[127.127,35.284],[127.103,35.305],[127.104,35.338],[127.084,35.357],[127.078,35.376],[127.086,35.405],[127.066,35.43],[127.037,35.428],[127.03,35.418],[127.02,35.41],[127.013,35.397],[127.011,35.383],[126.98,35.383],[126.933,35.434],[126.903,35.455],[126.885,35.461],[126.867,35.462],[126.85,35.446],[126.816,35.449],[126.791,35.43],[126.791,35.417],[126.792,35.403],[126.783,35.392],[126.77,35.384],[126.771,35.374],[126.773,35.363],[126.765,35.349],[126.751,35.34],[126.735,35.333],[126.718,35.329],[126.703,35.322],[126.69,35.314],[126.656,35.31],[126.625,35.3],[126.595,35.294],[126.57,35.301],[126.572,35.328],[126.578,35.355],[126.584,35.392],[126.555,35.398],[126.458,35.376],[126.437,35.371],[126.423,35.383],[126.418,35.394],[126.426,35.418],[126.443,35.447],[126.48,35.493],[126.504,35.512],[126.531,35.524],[126.56,35.532],[126.594,35.534],[126.61,35.539],[126.63,35.558],[126.645,35.562],[126.661,35.556],[126.679,35.538],[126.693,35.534],[126.68,35.572],[126.67,35.589],[126.655,35.596],[126.505,35.587],[126.474,35.599],[126.48,35.63],[126.478,35.64],[126.491,35.649],[126.522,35.664],[126.627,35.734],[126.656,35.741],[126.686,35.726],[126.692,35.741],[126.694,35.757],[126.699,35.769],[126.717,35.774],[126.756,35.778],[126.772,35.775],[126.782,35.76],[126.786,35.768],[126.79,35.78],[126.791,35.791],[126.789,35.801],[126.775,35.813],[126.753,35.825],[126.729,35.833],[126.71,35.836],[126.701,35.84],[126.704,35.848],[126.712,35.858],[126.72,35.863],[126.729,35.865],[126.785,35.862],[126.797,35.863],[126.806,35.867],[126.813,35.876],[126.815,35.883],[126.82,35.888],[126.833,35.89],[126.838,35.893],[126.832,35.901],[126.822,35.908],[126.81,35.912],[126.807,35.91],[126.733,35.886],[126.709,35.885],[126.666,35.904],[126.626,35.895],[126.618,35.912],[126.619,35.93],[126.625,35.951],[126.635,35.967],[126.648,35.973],[126.666,35.975],[126.711,35.986],[126.728,35.994],[126.745,35.99],[126.766,35.998],[126.803,36.021],[126.849,36.036],[126.869,36.047],[126.871,36.062],[126.812,36.047],[126.857,36.092],[126.905,36.096],[126.961,36.106],[127.065,36.133],[127.102,36.127],[127.093,36.083]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Chollabuk-Do'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Chollabuk-Do?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Chollabuk-Do is located? </h2>Chollabuk-Do, is a province It belongs to the country of Korea, South. Its postal identifier is CB.Chollabuk-Do has an area of 8089 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

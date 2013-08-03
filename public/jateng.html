@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Jateng?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[108.958,-7.72],[109.011,-7.75],[109.02,-7.758],[109.024,-7.762],[109.043,-7.761],[109.047,-7.768],[109.043,-7.779],[109.036,-7.78],[109.027,-7.777],[109,-7.773],[108.945,-7.754],[108.886,-7.744],[108.873,-7.737],[108.858,-7.732],[108.816,-7.738],[108.8,-7.734],[108.794,-7.719],[108.797,-7.701],[108.807,-7.686],[108.822,-7.679],[108.874,-7.703],[108.925,-7.71],[108.958,-7.72]]],[[[110.973,-6.432],[110.992,-6.432],[111.003,-6.431],[111.007,-6.428],[111.011,-6.421],[111.02,-6.426],[111.027,-6.435],[111.028,-6.438],[111.041,-6.447],[111.052,-6.457],[111.06,-6.47],[111.066,-6.509],[111.083,-6.544],[111.12,-6.65],[111.137,-6.685],[111.145,-6.692],[111.151,-6.693],[111.157,-6.692],[111.343,-6.713],[111.367,-6.712],[111.408,-6.702],[111.429,-6.699],[111.444,-6.689],[111.478,-6.64],[111.494,-6.623],[111.52,-6.64],[111.577,-6.651],[111.61,-6.665],[111.622,-6.674],[111.655,-6.716],[111.673,-6.733],[111.669,-6.738],[111.629,-6.8],[111.622,-6.826],[111.621,-6.844],[111.604,-6.934],[111.598,-6.961],[111.602,-7.047],[111.598,-7.081],[111.599,-7.093],[111.609,-7.136],[111.61,-7.146],[111.608,-7.154],[111.592,-7.164],[111.551,-7.199],[111.536,-7.218],[111.522,-7.23],[111.494,-7.251],[111.473,-7.263],[111.465,-7.269],[111.46,-7.274],[111.455,-7.28],[111.447,-7.292],[111.444,-7.299],[111.444,-7.311],[111.404,-7.304],[111.342,-7.282],[111.326,-7.274],[111.313,-7.266],[111.306,-7.264],[111.298,-7.266],[111.289,-7.269],[111.278,-7.269],[111.264,-7.265],[111.246,-7.256],[111.22,-7.251],[111.203,-7.267],[111.197,-7.309],[111.198,-7.355],[111.202,-7.385],[111.202,-7.405],[111.185,-7.529],[111.198,-7.583],[111.206,-7.601],[111.217,-7.613],[111.212,-7.624],[111.187,-7.644],[111.182,-7.652],[111.182,-7.658],[111.186,-7.664],[111.188,-7.673],[111.188,-7.69],[111.191,-7.707],[111.208,-7.716],[111.242,-7.719],[111.254,-7.723],[111.265,-7.732],[111.291,-7.76],[111.301,-7.773],[111.308,-7.784],[111.31,-7.799],[111.308,-7.838],[111.301,-7.861],[111.285,-7.904],[111.28,-7.939],[111.273,-7.945],[111.263,-7.951],[111.253,-7.951],[111.244,-7.946],[111.235,-7.941],[111.228,-7.938],[111.217,-7.94],[111.192,-7.958],[111.177,-7.967],[111.149,-7.978],[111.099,-8.009],[111.036,-8.06],[111,-8.084],[110.98,-8.1],[110.965,-8.117],[110.961,-8.126],[110.96,-8.134],[110.961,-8.157],[110.961,-8.165],[110.96,-8.17],[110.946,-8.219],[110.944,-8.226],[110.931,-8.22],[110.848,-8.201],[110.844,-8.201],[110.837,-8.133],[110.831,-8.132],[110.825,-8.133],[110.818,-8.138],[110.811,-8.139],[110.802,-8.132],[110.799,-8.122],[110.793,-7.947],[110.788,-7.92],[110.787,-7.874],[110.785,-7.863],[110.781,-7.854],[110.773,-7.843],[110.753,-7.833],[110.705,-7.825],[110.689,-7.82],[110.654,-7.823],[110.633,-7.821],[110.579,-7.821],[110.537,-7.81],[110.507,-7.783],[110.49,-7.757],[110.474,-7.72],[110.441,-7.569],[110.438,-7.56],[110.411,-7.59],[110.301,-7.669],[110.287,-7.682],[110.267,-7.707],[110.259,-7.715],[110.256,-7.712],[110.253,-7.704],[110.25,-7.677],[110.246,-7.672],[110.24,-7.672],[110.235,-7.674],[110.228,-7.676],[110.22,-7.675],[110.159,-7.668],[110.137,-7.677],[110.13,-7.686],[110.127,-7.698],[110.128,-7.724],[110.125,-7.744],[110.117,-7.762],[110.065,-7.837],[110.049,-7.855],[110.046,-7.865],[110.043,-7.889],[110.034,-7.885],[109.932,-7.855],[109.906,-7.838],[109.883,-7.845],[109.848,-7.837],[109.812,-7.823],[109.753,-7.812],[109.657,-7.782],[109.486,-7.762],[109.447,-7.772],[109.426,-7.774],[109.417,-7.765],[109.415,-7.758],[109.409,-7.755],[109.402,-7.753],[109.397,-7.747],[109.398,-7.742],[109.405,-7.731],[109.404,-7.726],[109.398,-7.723],[109.369,-7.713],[109.196,-7.688],[109.109,-7.693],[109.033,-7.72],[109.022,-7.732],[109.015,-7.732],[108.984,-7.707],[108.974,-7.702],[108.962,-7.7],[108.939,-7.699],[108.919,-7.696],[108.902,-7.69],[108.89,-7.678],[108.882,-7.632],[108.873,-7.611],[108.859,-7.614],[108.852,-7.619],[108.828,-7.631],[108.821,-7.638],[108.807,-7.658],[108.799,-7.665],[108.742,-7.618],[108.737,-7.612],[108.734,-7.605],[108.734,-7.591],[108.736,-7.581],[108.742,-7.564],[108.742,-7.552],[108.742,-7.537],[108.721,-7.464],[108.716,-7.421],[108.713,-7.406],[108.71,-7.398],[108.705,-7.391],[108.693,-7.386],[108.683,-7.383],[108.675,-7.38],[108.671,-7.358],[108.668,-7.344],[108.662,-7.34],[108.65,-7.341],[108.626,-7.348],[108.616,-7.346],[108.611,-7.339],[108.603,-7.323],[108.579,-7.317],[108.553,-7.31],[108.547,-7.279],[108.571,-7.201],[108.573,-7.179],[108.576,-7.163],[108.584,-7.151],[108.595,-7.142],[108.614,-7.137],[108.632,-7.136],[108.67,-7.141],[108.695,-7.14],[108.707,-7.135],[108.717,-7.13],[108.744,-7.111],[108.757,-7.098],[108.769,-7.083],[108.781,-7.073],[108.789,-7.061],[108.793,-7.048],[108.791,-7.03],[108.789,-7],[108.796,-6.951],[108.801,-6.935],[108.823,-6.896],[108.893,-6.816],[108.895,-6.814],[108.904,-6.822],[108.912,-6.835],[108.923,-6.845],[108.945,-6.849],[108.969,-6.848],[108.984,-6.842],[108.991,-6.828],[108.993,-6.805],[109.002,-6.789],[109.021,-6.789],[109.042,-6.796],[109.054,-6.801],[109.092,-6.831],[109.116,-6.838],[109.143,-6.856],[109.151,-6.857],[109.177,-6.856],[109.352,-6.875],[109.439,-6.86],[109.493,-6.801],[109.532,-6.835],[109.726,-6.863],[109.897,-6.918],[109.941,-6.923],[109.984,-6.923],[110.115,-6.904],[110.139,-6.897],[110.15,-6.887],[110.153,-6.882],[110.17,-6.861],[110.178,-6.856],[110.189,-6.86],[110.192,-6.87],[110.194,-6.881],[110.198,-6.891],[110.213,-6.9],[110.259,-6.921],[110.293,-6.931],[110.335,-6.961],[110.356,-6.973],[110.381,-6.975],[110.399,-6.968],[110.415,-6.957],[110.435,-6.952],[110.456,-6.951],[110.473,-6.946],[110.487,-6.938],[110.527,-6.895],[110.572,-6.836],[110.645,-6.688],[110.658,-6.644],[110.664,-6.606],[110.665,-6.565],[110.67,-6.546],[110.679,-6.535],[110.682,-6.522],[110.671,-6.5],[110.692,-6.496],[110.702,-6.489],[110.719,-6.466],[110.731,-6.457],[110.782,-6.436],[110.808,-6.432],[110.819,-6.428],[110.834,-6.421],[110.843,-6.418],[110.904,-6.411],[110.925,-6.404],[110.934,-6.411],[110.962,-6.428],[110.973,-6.432]]],[[[110.45,-5.874],[110.438,-5.881],[110.43,-5.874],[110.427,-5.862],[110.422,-5.851],[110.421,-5.844],[110.431,-5.837],[110.459,-5.832],[110.466,-5.84],[110.464,-5.857],[110.45,-5.874]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Jateng'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Jateng?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Jateng is located? </h2>Jateng, is a province It belongs to the country of Indonesia. Its postal identifier is JT.Jateng has an area of 34059 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

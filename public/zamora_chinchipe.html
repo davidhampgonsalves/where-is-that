@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Zamora Chinchipe?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-78.691,-3.579],[-78.684,-3.579],[-78.678,-3.575],[-78.673,-3.569],[-78.663,-3.55],[-78.66,-3.546],[-78.655,-3.542],[-78.645,-3.539],[-78.633,-3.538],[-78.595,-3.542],[-78.575,-3.542],[-78.501,-3.529],[-78.377,-3.529],[-78.377,-3.529],[-78.378,-3.533],[-78.396,-3.574],[-78.403,-3.594],[-78.405,-3.614],[-78.405,-3.614],[-78.405,-3.65],[-78.401,-3.67],[-78.401,-3.67],[-78.401,-3.68],[-78.409,-3.685],[-78.422,-3.688],[-78.427,-3.689],[-78.427,-3.694],[-78.427,-3.694],[-78.427,-3.707],[-78.414,-3.772],[-78.414,-3.772],[-78.42,-3.791],[-78.445,-3.815],[-78.453,-3.82],[-78.465,-3.825],[-78.471,-3.83],[-78.481,-3.849],[-78.489,-3.868],[-78.498,-3.942],[-78.498,-3.942],[-78.498,-3.949],[-78.498,-3.949],[-78.502,-3.954],[-78.516,-3.961],[-78.529,-3.965],[-78.541,-3.966],[-78.553,-3.969],[-78.563,-3.979],[-78.568,-3.996],[-78.568,-3.996],[-78.567,-4.055],[-78.567,-4.055],[-78.577,-4.1],[-78.638,-4.227],[-78.648,-4.271],[-78.656,-4.29],[-78.675,-4.306],[-78.683,-4.327],[-78.683,-4.327],[-78.682,-4.364],[-78.674,-4.401],[-78.662,-4.42],[-78.638,-4.435],[-78.638,-4.435],[-78.641,-4.451],[-78.656,-4.47],[-78.67,-4.493],[-78.673,-4.512],[-78.673,-4.512],[-78.672,-4.531],[-78.672,-4.532],[-78.673,-4.551],[-78.682,-4.567],[-78.709,-4.585],[-78.72,-4.592],[-78.812,-4.629],[-78.854,-4.652],[-78.899,-4.694],[-78.918,-4.72],[-78.929,-4.747],[-78.929,-4.747],[-78.929,-4.775],[-78.906,-4.82],[-78.901,-4.843],[-78.901,-4.843],[-78.912,-4.863],[-78.935,-4.868],[-78.961,-4.869],[-78.981,-4.874],[-78.992,-4.89],[-79.003,-4.939],[-79.01,-4.96],[-79.036,-4.987],[-79.065,-5.011],[-79.083,-4.993],[-79.094,-4.985],[-79.105,-4.98],[-79.115,-4.979],[-79.131,-4.983],[-79.141,-4.983],[-79.159,-4.979],[-79.192,-4.968],[-79.21,-4.965],[-79.234,-4.965],[-79.281,-4.967],[-79.304,-4.961],[-79.318,-4.944],[-79.329,-4.923],[-79.342,-4.904],[-79.351,-4.898],[-79.37,-4.891],[-79.379,-4.885],[-79.384,-4.876],[-79.391,-4.856],[-79.396,-4.847],[-79.413,-4.835],[-79.434,-4.824],[-79.451,-4.81],[-79.458,-4.789],[-79.461,-4.771],[-79.461,-4.771],[-79.452,-4.766],[-79.409,-4.72],[-79.375,-4.666],[-79.363,-4.652],[-79.332,-4.608],[-79.325,-4.596],[-79.32,-4.583],[-79.319,-4.572],[-79.323,-4.554],[-79.324,-4.543],[-79.318,-4.513],[-79.304,-4.501],[-79.297,-4.494],[-79.292,-4.482],[-79.284,-4.476],[-79.277,-4.475],[-79.266,-4.478],[-79.255,-4.482],[-79.242,-4.484],[-79.233,-4.488],[-79.223,-4.495],[-79.214,-4.503],[-79.205,-4.503],[-79.199,-4.497],[-79.194,-4.488],[-79.188,-4.484],[-79.18,-4.481],[-79.171,-4.479],[-79.162,-4.475],[-79.156,-4.47],[-79.148,-4.454],[-79.133,-4.434],[-79.121,-4.423],[-79.117,-4.416],[-79.114,-4.408],[-79.108,-4.376],[-79.106,-4.355],[-79.107,-4.33],[-79.109,-4.319],[-79.101,-4.262],[-79.104,-4.236],[-79.101,-4.223],[-79.103,-4.206],[-79.104,-4.198],[-79.106,-4.19],[-79.117,-4.177],[-79.12,-4.172],[-79.125,-4.167],[-79.13,-4.164],[-79.14,-4.16],[-79.143,-4.157],[-79.147,-4.154],[-79.15,-4.151],[-79.152,-4.146],[-79.155,-4.139],[-79.154,-4.124],[-79.152,-4.103],[-79.137,-4.047],[-79.136,-4.032],[-79.141,-4.002],[-79.142,-3.979],[-79.14,-3.947],[-79.134,-3.925],[-79.124,-3.904],[-79.12,-3.892],[-79.119,-3.883],[-79.122,-3.867],[-79.124,-3.857],[-79.136,-3.837],[-79.155,-3.814],[-79.165,-3.799],[-79.179,-3.766],[-79.189,-3.748],[-79.191,-3.74],[-79.194,-3.731],[-79.192,-3.724],[-79.189,-3.719],[-79.184,-3.716],[-79.179,-3.716],[-79.173,-3.716],[-79.163,-3.716],[-79.157,-3.713],[-79.153,-3.71],[-79.148,-3.704],[-79.147,-3.698],[-79.148,-3.683],[-79.144,-3.677],[-79.13,-3.664],[-79.122,-3.661],[-79.102,-3.636],[-79.085,-3.633],[-79.078,-3.631],[-79.071,-3.627],[-79.065,-3.619],[-79.061,-3.61],[-79.05,-3.552],[-79.056,-3.517],[-79.055,-3.505],[-79.053,-3.494],[-79.046,-3.475],[-79.047,-3.466],[-79.05,-3.46],[-79.055,-3.454],[-79.06,-3.439],[-79.061,-3.431],[-79.06,-3.422],[-79.055,-3.412],[-79.046,-3.399],[-79.033,-3.386],[-79.015,-3.373],[-78.959,-3.342],[-78.939,-3.323],[-78.856,-3.382],[-78.849,-3.389],[-78.846,-3.396],[-78.846,-3.403],[-78.849,-3.409],[-78.853,-3.414],[-78.864,-3.424],[-78.869,-3.43],[-78.873,-3.436],[-78.874,-3.443],[-78.874,-3.45],[-78.87,-3.463],[-78.868,-3.481],[-78.866,-3.49],[-78.864,-3.497],[-78.86,-3.504],[-78.855,-3.51],[-78.847,-3.517],[-78.842,-3.523],[-78.84,-3.529],[-78.839,-3.536],[-78.833,-3.542],[-78.822,-3.547],[-78.794,-3.551],[-78.753,-3.562],[-78.719,-3.567],[-78.709,-3.571],[-78.691,-3.579]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Zamora Chinchipe'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Zamora Chinchipe?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Zamora Chinchipe is located? </h2>Zamora Chinchipe, is a province It belongs to the country of Ecuador. Its postal identifier is ZC.Zamora Chinchipe has an area of 10252 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

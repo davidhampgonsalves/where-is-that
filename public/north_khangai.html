@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is North Khangai?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[101.654,49],[101.666,48.963],[101.678,48.944],[101.715,48.915],[101.737,48.902],[101.758,48.888],[101.807,48.868],[101.844,48.866],[101.869,48.862],[101.881,48.859],[101.903,48.85],[101.929,48.831],[101.939,48.816],[101.95,48.796],[101.96,48.785],[101.977,48.776],[101.997,48.772],[102.019,48.771],[102.049,48.777],[102.088,48.796],[102.131,48.81],[102.16,48.766],[102.199,48.677],[102.223,48.561],[102.225,48.546],[102.222,48.517],[102.229,48.495],[102.238,48.481],[102.253,48.468],[102.271,48.457],[102.318,48.433],[102.343,48.413],[102.358,48.388],[102.369,48.332],[102.399,48.309],[102.414,48.299],[102.48,48.266],[102.502,48.26],[102.524,48.257],[102.573,48.256],[102.632,48.251],[102.68,48.22],[102.731,48.172],[102.752,48.141],[102.78,48.113],[102.808,48.078],[102.819,48.054],[102.834,48.003],[102.842,47.93],[102.849,47.912],[102.854,47.904],[102.87,47.891],[102.89,47.883],[102.957,47.861],[103.014,47.843],[103.026,47.814],[103.034,47.799],[103.067,47.751],[103.09,47.723],[103.138,47.721],[103.163,47.718],[103.184,47.712],[103.207,47.699],[103.258,47.655],[103.288,47.619],[103.312,47.584],[103.343,47.547],[103.369,47.525],[103.401,47.495],[103.442,47.467],[103.487,47.446],[103.551,47.406],[103.594,47.384],[103.66,47.338],[103.673,47.292],[103.678,47.251],[103.572,47.205],[103.525,47.196],[103.37,47.192],[103.193,47.206],[103.155,47.216],[103.132,47.228],[103.079,47.309],[103.059,47.331],[103.03,47.351],[102.859,47.394],[102.833,47.397],[102.778,47.396],[102.697,47.428],[102.683,47.431],[102.656,47.432],[102.64,47.424],[102.632,47.408],[102.636,47.388],[102.646,47.368],[102.659,47.352],[102.676,47.339],[102.697,47.331],[102.719,47.325],[102.735,47.316],[102.731,47.287],[102.672,47.195],[102.631,47.149],[102.554,47.114],[102.543,47.099],[102.532,47.078],[102.528,47.03],[102.511,46.973],[102.459,46.958],[102.432,46.962],[102.407,46.975],[102.388,46.99],[102.347,47.032],[102.322,47.05],[102.298,47.056],[102.27,47.055],[102.152,47.02],[101.944,46.98],[101.874,46.945],[101.846,46.923],[101.801,46.901],[101.264,46.818],[101.201,46.861],[101.179,46.868],[101.054,46.849],[101.008,46.847],[100.897,46.861],[100.861,46.86],[100.789,46.842],[100.713,46.841],[100.692,46.85],[100.678,46.863],[100.664,46.887],[100.643,46.932],[100.626,46.952],[100.592,46.97],[100.561,46.979],[100.509,46.988],[100.498,46.991],[100.489,47.001],[100.475,47.037],[100.462,47.061],[100.439,47.089],[100.423,47.114],[100.412,47.176],[100.401,47.185],[100.381,47.186],[100.349,47.183],[100,47.111],[99.909,47.096],[99.89,47.097],[99.872,47.106],[99.859,47.122],[99.853,47.146],[99.854,47.166],[99.856,47.185],[99.855,47.199],[99.85,47.214],[99.838,47.233],[99.829,47.251],[99.824,47.279],[99.825,47.304],[99.834,47.353],[99.836,47.379],[99.832,47.404],[99.819,47.43],[99.794,47.453],[99.719,47.494],[99.689,47.514],[99.673,47.53],[99.658,47.555],[99.651,47.584],[99.653,47.664],[99.629,47.662],[99.558,47.633],[99.532,47.615],[99.513,47.6],[99.496,47.589],[99.476,47.581],[99.411,47.574],[99.385,47.568],[99.365,47.558],[99.314,47.514],[99.294,47.503],[99.277,47.497],[99.247,47.489],[99.165,47.479],[99.042,47.478],[99.012,47.479],[98.985,47.485],[98.811,47.563],[98.791,47.578],[98.78,47.596],[98.777,47.661],[98.755,47.704],[98.741,47.715],[98.727,47.722],[98.711,47.729],[98.694,47.733],[98.676,47.734],[98.595,47.727],[98.495,47.708],[98.457,47.691],[98.391,47.65],[98.244,47.661],[98.216,47.669],[98.185,47.681],[98.173,47.697],[98.169,47.716],[98.172,47.739],[98.215,47.834],[98.221,47.856],[98.219,47.883],[98.206,47.918],[98.17,47.978],[98.161,48.003],[98.187,48.055],[98.201,48.068],[98.22,48.083],[98.244,48.091],[98.273,48.097],[98.484,48.101],[98.561,48.118],[98.605,48.137],[98.635,48.16],[98.668,48.206],[98.697,48.227],[98.728,48.237],[98.787,48.242],[99.097,48.338],[99.183,48.276],[99.215,48.263],[99.238,48.261],[99.265,48.265],[99.295,48.28],[99.313,48.296],[99.327,48.31],[99.339,48.319],[99.352,48.322],[99.372,48.317],[99.393,48.309],[99.414,48.302],[99.438,48.299],[99.661,48.312],[99.681,48.316],[99.696,48.327],[99.707,48.348],[99.721,48.431],[99.73,48.451],[99.741,48.466],[99.763,48.477],[99.784,48.482],[99.878,48.479],[99.915,48.468],[100.065,48.409],[100.092,48.402],[100.122,48.399],[100.159,48.401],[100.188,48.412],[100.202,48.435],[100.2,48.454],[100.194,48.475],[100.205,48.493],[100.231,48.505],[100.325,48.517],[100.413,48.536],[100.456,48.558],[100.435,48.579],[100.424,48.587],[100.418,48.589],[100.412,48.592],[100.393,48.593],[100.379,48.597],[100.374,48.6],[100.369,48.603],[100.362,48.61],[100.352,48.624],[100.347,48.634],[100.343,48.648],[100.342,48.659],[100.331,48.676],[100.33,48.683],[100.333,48.695],[100.337,48.707],[100.347,48.725],[100.354,48.735],[100.355,48.744],[100.353,48.749],[100.35,48.754],[100.351,48.758],[100.355,48.763],[100.374,48.775],[100.379,48.779],[100.378,48.783],[100.374,48.786],[100.359,48.79],[100.358,48.795],[100.364,48.804],[100.379,48.82],[100.397,48.832],[100.411,48.843],[100.417,48.849],[100.416,48.856],[100.413,48.86],[100.412,48.865],[100.414,48.87],[100.435,48.878],[100.45,48.882],[100.49,48.901],[100.502,48.905],[100.514,48.907],[100.52,48.907],[100.527,48.908],[100.534,48.911],[100.556,48.924],[100.563,48.929],[100.57,48.939],[100.571,48.945],[100.57,48.948],[100.551,48.968],[100.432,49.011],[100.421,49.017],[100.414,49.024],[100.41,49.034],[100.413,49.04],[100.415,49.053],[100.419,49.065],[100.433,49.075],[100.452,49.061],[100.473,49.059],[100.59,49.078],[100.596,49.086],[100.596,49.095],[100.598,49.101],[100.614,49.114],[100.652,49.132],[100.669,49.146],[100.682,49.159],[100.685,49.167],[100.687,49.187],[100.689,49.192],[100.692,49.196],[100.697,49.201],[100.701,49.206],[100.713,49.214],[100.739,49.218],[100.767,49.208],[101.074,49.1],[101.307,48.988],[101.341,48.976],[101.451,48.971],[101.654,49]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'North Khangai'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>North Khangai?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where North Khangai is located? </h2>North Khangai, is a province It belongs to the country of Mongolia. Its postal identifier is AR.North Khangai has an area of 55257 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

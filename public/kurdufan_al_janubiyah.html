@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kurdufan al Janubiyah?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[30.052,12.505],[30.082,12.499],[30.342,12.509],[30.416,12.499],[30.442,12.488],[30.466,12.469],[30.551,12.347],[30.581,12.318],[30.619,12.292],[30.653,12.278],[30.678,12.273],[30.704,12.272],[30.731,12.276],[30.758,12.288],[30.78,12.307],[30.821,12.355],[30.832,12.365],[30.843,12.373],[30.862,12.382],[30.919,12.402],[30.953,12.418],[30.985,12.441],[31.011,12.469],[31.065,12.564],[31.088,12.591],[31.116,12.613],[31.147,12.623],[31.172,12.624],[31.226,12.612],[31.248,12.612],[31.271,12.616],[31.302,12.627],[31.415,12.696],[31.446,12.703],[31.468,12.703],[31.494,12.696],[31.689,12.593],[31.741,12.251],[31.745,12.235],[31.752,12.222],[31.765,12.216],[31.78,12.213],[31.869,12.206],[31.927,12.169],[32.082,12],[32.345,11.709],[32.348,11.703],[32.353,11.688],[32.355,11.676],[32.36,11.574],[32.345,11.412],[32.348,11.308],[32.364,11.24],[32.435,11.107],[32.43,11.083],[32.414,11.051],[31.943,10.656],[31.93,10.637],[31.864,10.472],[31.802,10.377],[31.774,10.349],[31.665,10.215],[31.235,9.793],[31.164,9.764],[30.95,9.753],[30.837,9.75],[30.824,9.746],[30.805,9.739],[30.793,9.728],[30.779,9.72],[30.765,9.725],[30.749,9.736],[30.484,9.972],[30.013,10.271],[29.904,10.467],[29.818,10.56],[29.713,10.613],[29.605,10.644],[29.455,10.667],[29.417,10.677],[29.171,10.774],[29.137,10.798],[29.087,10.861],[29.073,10.888],[29.061,10.92],[29.049,10.962],[29.042,11.014],[29.042,11.068],[29.052,11.131],[29.147,11.467],[29.279,11.791],[29.302,11.927],[29.307,12.004],[29.299,12.197],[29.307,12.23],[29.319,12.253],[29.343,12.278],[29.37,12.292],[29.401,12.298],[29.424,12.296],[29.444,12.291],[29.464,12.284],[29.481,12.28],[29.481,12.28],[29.5,12.281],[29.77,12.685],[29.805,12.713],[29.842,12.728],[29.882,12.734],[29.92,12.736],[29.95,12.733],[29.964,12.728],[29.974,12.724],[29.981,12.719],[29.992,12.709],[30.009,12.686],[30.016,12.675],[30.02,12.663],[30.022,12.647],[30.016,12.548],[30.019,12.533],[30.028,12.521],[30.052,12.505]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Kurdufan al Janubiyah'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Kurdufan al Janubiyah?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Kurdufan al Janubiyah is located? </h2>Kurdufan al Janubiyah, is a state of the Kurdufan region. It belongs to the country of Sudan. Its postal identifier is KS.Kurdufan al Janubiyah has an area of 81760 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

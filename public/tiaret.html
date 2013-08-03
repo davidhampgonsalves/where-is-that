@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Tiaret?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[2.25,35.56],[2.286,35.439],[2.287,35.329],[2.293,35.321],[2.301,35.315],[2.319,35.307],[2.328,35.304],[2.346,35.301],[2.353,35.297],[2.36,35.288],[2.374,35.264],[2.379,35.251],[2.382,35.236],[2.377,35.223],[2.376,35.212],[2.379,35.205],[2.387,35.198],[2.604,35.055],[2.617,35.042],[2.62,35.031],[2.612,35.023],[2.597,35.017],[2.526,35],[2.523,34.999],[2.507,34.972],[2.46,34.87],[2.439,34.841],[2.37,34.776],[2.358,34.693],[2.315,34.691],[2.238,34.68],[2.221,34.675],[2.212,34.668],[2.204,34.654],[2.196,34.643],[2.181,34.629],[2.088,34.584],[1.981,34.507],[1.958,34.496],[1.833,34.464],[1.806,34.449],[1.77,34.424],[1.716,34.375],[1.691,34.346],[1.675,34.318],[1.669,34.297],[1.658,34.272],[1.642,34.256],[1.336,34.069],[1.283,34.126],[1.263,34.167],[1.251,34.183],[1.231,34.192],[1.193,34.196],[1.039,34.189],[1.024,34.191],[1.018,34.202],[1.017,34.219],[1.032,34.339],[1.014,34.355],[0.974,34.382],[0.758,34.438],[0.776,34.45],[0.838,34.477],[0.848,34.484],[0.854,34.492],[0.856,34.497],[0.857,34.5],[0.856,34.502],[0.694,34.736],[0.673,34.789],[0.668,34.821],[0.667,34.842],[0.67,34.855],[0.682,34.867],[0.774,34.935],[0.783,34.948],[0.785,34.958],[0.782,34.973],[0.775,34.985],[0.754,35.008],[0.738,35.021],[0.718,35.032],[0.684,35.046],[0.659,35.058],[0.656,35.062],[0.654,35.065],[0.653,35.068],[0.653,35.09],[0.625,35.096],[0.492,35.086],[0.514,35.135],[0.566,35.191],[0.593,35.244],[0.604,35.262],[0.618,35.276],[0.632,35.285],[0.646,35.292],[0.661,35.296],[0.674,35.299],[0.684,35.3],[0.7,35.298],[0.736,35.287],[0.75,35.281],[0.764,35.278],[0.779,35.279],[0.802,35.29],[0.82,35.306],[0.868,35.358],[0.878,35.375],[0.88,35.386],[0.873,35.393],[0.839,35.41],[0.828,35.418],[0.823,35.425],[0.828,35.443],[0.848,35.438],[0.858,35.436],[0.866,35.436],[0.874,35.438],[0.881,35.444],[0.885,35.455],[0.882,35.47],[0.884,35.477],[0.89,35.486],[0.959,35.548],[0.97,35.554],[0.978,35.556],[0.99,35.557],[0.998,35.555],[1.004,35.552],[1.01,35.547],[1.014,35.544],[1.018,35.544],[1.024,35.547],[1.022,35.554],[1.015,35.561],[1.01,35.568],[1.011,35.575],[1.019,35.578],[1.048,35.579],[1.095,35.604],[1.133,35.614],[1.186,35.64],[1.206,35.646],[1.246,35.647],[1.27,35.623],[1.28,35.619],[1.292,35.618],[1.303,35.624],[1.31,35.633],[1.318,35.663],[1.324,35.677],[1.334,35.688],[1.346,35.69],[1.359,35.687],[1.374,35.681],[1.4,35.677],[1.456,35.656],[1.469,35.648],[1.478,35.64],[1.482,35.629],[1.486,35.606],[1.492,35.595],[1.501,35.594],[1.515,35.597],[1.534,35.603],[1.559,35.606],[1.576,35.597],[1.609,35.566],[1.635,35.55],[1.658,35.548],[1.672,35.554],[1.683,35.574],[1.692,35.58],[1.7,35.579],[1.706,35.573],[1.712,35.564],[1.717,35.559],[1.729,35.554],[1.745,35.552],[1.859,35.556],[1.949,35.572],[2.05,35.575],[2.06,35.571],[2.066,35.561],[2.066,35.552],[2.07,35.544],[2.08,35.544],[2.113,35.555],[2.16,35.56],[2.25,35.56]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Tiaret'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Tiaret?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Tiaret is located? </h2>Tiaret, is a province It belongs to the country of Algeria. Its postal identifier is TR.Tiaret has an area of 20278 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

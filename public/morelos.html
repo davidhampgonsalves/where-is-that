@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Morelos?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-98.964,19.089],[-98.951,19.085],[-98.934,19.083],[-98.916,19.08],[-98.9,19.076],[-98.898,19.075],[-98.897,19.075],[-98.895,19.074],[-98.893,19.073],[-98.885,19.065],[-98.877,19.057],[-98.869,19.049],[-98.86,19.043],[-98.852,19.042],[-98.846,19.044],[-98.84,19.045],[-98.835,19.036],[-98.834,19.033],[-98.833,19.03],[-98.832,19.027],[-98.832,19.024],[-98.829,19.015],[-98.826,19.007],[-98.823,18.998],[-98.82,18.99],[-98.819,18.988],[-98.818,18.986],[-98.818,18.985],[-98.817,18.983],[-98.815,18.974],[-98.811,18.969],[-98.804,18.966],[-98.795,18.966],[-98.783,18.966],[-98.772,18.963],[-98.761,18.961],[-98.749,18.961],[-98.734,18.963],[-98.72,18.965],[-98.71,18.97],[-98.704,18.982],[-98.699,18.995],[-98.689,19.003],[-98.677,19.009],[-98.663,19.015],[-98.659,19.017],[-98.655,19.019],[-98.65,19.022],[-98.646,19.024],[-98.648,19.008],[-98.649,18.992],[-98.65,18.976],[-98.651,18.96],[-98.655,18.946],[-98.662,18.945],[-98.669,18.947],[-98.677,18.941],[-98.676,18.921],[-98.664,18.905],[-98.658,18.891],[-98.676,18.878],[-98.693,18.863],[-98.707,18.846],[-98.719,18.829],[-98.733,18.812],[-98.728,18.808],[-98.722,18.805],[-98.716,18.802],[-98.71,18.799],[-98.711,18.797],[-98.711,18.794],[-98.711,18.792],[-98.712,18.789],[-98.714,18.782],[-98.714,18.776],[-98.711,18.77],[-98.707,18.765],[-98.704,18.763],[-98.701,18.76],[-98.698,18.758],[-98.695,18.755],[-98.686,18.743],[-98.678,18.73],[-98.671,18.717],[-98.666,18.702],[-98.665,18.697],[-98.666,18.692],[-98.669,18.688],[-98.673,18.685],[-98.691,18.683],[-98.711,18.685],[-98.731,18.689],[-98.75,18.692],[-98.749,18.682],[-98.747,18.672],[-98.746,18.662],[-98.743,18.652],[-98.739,18.637],[-98.735,18.622],[-98.733,18.607],[-98.73,18.592],[-98.729,18.589],[-98.728,18.587],[-98.727,18.585],[-98.725,18.582],[-98.713,18.564],[-98.703,18.541],[-98.696,18.517],[-98.69,18.495],[-98.685,18.48],[-98.679,18.46],[-98.676,18.44],[-98.677,18.428],[-98.696,18.423],[-98.718,18.435],[-98.739,18.453],[-98.757,18.468],[-98.771,18.48],[-98.788,18.49],[-98.807,18.495],[-98.826,18.494],[-98.838,18.49],[-98.853,18.488],[-98.866,18.485],[-98.878,18.48],[-98.886,18.472],[-98.892,18.463],[-98.9,18.454],[-98.911,18.45],[-98.912,18.45],[-98.913,18.45],[-98.914,18.449],[-98.914,18.449],[-98.929,18.437],[-98.934,18.42],[-98.94,18.404],[-98.959,18.393],[-98.985,18.387],[-99.007,18.378],[-99.028,18.366],[-99.05,18.35],[-99.059,18.385],[-99.08,18.408],[-99.103,18.429],[-99.115,18.456],[-99.117,18.466],[-99.121,18.474],[-99.127,18.48],[-99.134,18.487],[-99.142,18.497],[-99.145,18.508],[-99.146,18.52],[-99.149,18.533],[-99.15,18.543],[-99.155,18.549],[-99.161,18.553],[-99.17,18.556],[-99.197,18.558],[-99.216,18.546],[-99.228,18.526],[-99.235,18.502],[-99.236,18.489],[-99.238,18.476],[-99.241,18.464],[-99.245,18.454],[-99.266,18.452],[-99.288,18.452],[-99.31,18.452],[-99.331,18.453],[-99.338,18.462],[-99.339,18.482],[-99.345,18.498],[-99.363,18.499],[-99.378,18.499],[-99.39,18.506],[-99.401,18.516],[-99.41,18.528],[-99.417,18.54],[-99.423,18.552],[-99.43,18.564],[-99.436,18.574],[-99.458,18.581],[-99.463,18.598],[-99.468,18.615],[-99.487,18.618],[-99.507,18.624],[-99.511,18.638],[-99.504,18.656],[-99.495,18.674],[-99.495,18.675],[-99.495,18.676],[-99.495,18.677],[-99.494,18.677],[-99.487,18.707],[-99.48,18.737],[-99.474,18.766],[-99.472,18.794],[-99.472,18.796],[-99.472,18.798],[-99.472,18.799],[-99.472,18.8],[-99.464,18.81],[-99.45,18.816],[-99.437,18.824],[-99.427,18.836],[-99.42,18.852],[-99.413,18.869],[-99.404,18.884],[-99.391,18.896],[-99.38,18.901],[-99.369,18.905],[-99.358,18.908],[-99.346,18.911],[-99.323,18.923],[-99.308,18.935],[-99.302,18.952],[-99.306,18.978],[-99.312,18.984],[-99.318,18.989],[-99.324,18.994],[-99.33,19],[-99.337,19.018],[-99.334,19.03],[-99.322,19.038],[-99.306,19.047],[-99.319,19.06],[-99.329,19.074],[-99.332,19.089],[-99.322,19.105],[-99.313,19.114],[-99.302,19.123],[-99.293,19.132],[-99.285,19.142],[-99.262,19.121],[-99.229,19.109],[-99.194,19.104],[-99.161,19.099],[-99.154,19.098],[-99.146,19.097],[-99.139,19.096],[-99.131,19.096],[-99.11,19.091],[-99.09,19.084],[-99.072,19.074],[-99.055,19.062],[-99.043,19.058],[-99.034,19.066],[-99.027,19.078],[-99.018,19.086],[-99.006,19.089],[-98.991,19.089],[-98.977,19.088],[-98.964,19.089]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Morelos'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Morelos?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Morelos is located? </h2>Morelos, is a state It belongs to the country of Mexico. Its postal identifier is MO.Morelos has an area of 5080 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

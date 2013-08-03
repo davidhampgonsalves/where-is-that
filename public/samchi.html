@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Samchi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[88.95,27.239],[88.974,27.215],[88.985,27.216],[88.991,27.22],[88.993,27.222],[88.999,27.226],[89.003,27.226],[89.006,27.225],[89.01,27.215],[89.011,27.21],[89.013,27.206],[89.014,27.202],[89.015,27.199],[89.015,27.197],[89.015,27.195],[89.015,27.193],[89.016,27.19],[89.017,27.185],[89.019,27.18],[89.024,27.174],[89.026,27.17],[89.027,27.166],[89.027,27.162],[89.029,27.159],[89.048,27.151],[89.12,27.145],[89.124,27.138],[89.125,27.132],[89.127,27.129],[89.128,27.126],[89.131,27.123],[89.133,27.12],[89.135,27.116],[89.137,27.113],[89.139,27.104],[89.142,27.1],[89.157,27.099],[89.191,27.126],[89.236,27.074],[89.237,27.075],[89.25,27.093],[89.252,27.101],[89.262,27.118],[89.283,27.127],[89.329,27.119],[89.315,27.111],[89.31,27.104],[89.307,27.092],[89.31,27.073],[89.31,27.047],[89.322,27.045],[89.328,27.043],[89.333,27.039],[89.338,27.034],[89.342,27.026],[89.344,27.021],[89.34,27],[89.302,26.952],[89.267,26.931],[89.271,26.922],[89.274,26.92],[89.279,26.919],[89.282,26.921],[89.286,26.921],[89.291,26.92],[89.312,26.91],[89.319,26.904],[89.324,26.889],[89.327,26.883],[89.327,26.879],[89.326,26.875],[89.327,26.873],[89.331,26.872],[89.352,26.876],[89.36,26.876],[89.365,26.875],[89.369,26.859],[89.369,26.838],[89.342,26.855],[89.3,26.845],[89.286,26.845],[89.273,26.844],[89.27,26.842],[89.263,26.837],[89.252,26.827],[89.248,26.824],[89.241,26.82],[89.213,26.813],[89.184,26.811],[89.128,26.814],[89.096,26.822],[89.082,26.836],[89.074,26.857],[89.061,26.882],[89.045,26.897],[89.022,26.913],[88.996,26.923],[88.975,26.922],[88.975,26.922],[88.966,26.916],[88.966,26.916],[88.954,26.913],[88.943,26.914],[88.932,26.92],[88.925,26.93],[88.925,26.939],[88.927,26.95],[88.924,26.962],[88.906,26.981],[88.886,26.979],[88.886,26.979],[88.867,26.965],[88.852,26.946],[88.852,26.946],[88.845,26.995],[88.845,26.995],[88.845,27.05],[88.841,27.076],[88.827,27.098],[88.805,27.113],[88.742,27.143],[88.73,27.151],[88.738,27.18],[88.754,27.213],[88.776,27.241],[88.776,27.241],[88.777,27.242],[88.801,27.257],[88.801,27.257],[88.861,27.271],[88.861,27.271],[88.876,27.281],[88.89,27.276],[88.925,27.267],[88.933,27.264],[88.937,27.26],[88.95,27.239]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Samchi'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Samchi?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Samchi is located? </h2>Samchi, is a district It belongs to the country of Bhutan. Its postal identifier is SM.Samchi has an area of 1688 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

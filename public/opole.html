@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Opole?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[17.782,51.141],[17.796,51.119],[17.801,51.095],[17.854,51.068],[17.917,51.066],[18.036,51.093],[18.15,51.136],[18.173,51.111],[18.202,51.096],[18.426,51.06],[18.496,51.061],[18.509,51.068],[18.519,51.078],[18.53,51.083],[18.557,51.062],[18.581,51.033],[18.656,50.995],[18.621,50.918],[18.609,50.909],[18.601,50.893],[18.607,50.871],[18.621,50.852],[18.614,50.817],[18.535,50.785],[18.509,50.749],[18.491,50.686],[18.467,50.646],[18.486,50.608],[18.513,50.585],[18.545,50.569],[18.577,50.547],[18.589,50.511],[18.443,50.512],[18.414,50.507],[18.401,50.485],[18.412,50.467],[18.41,50.449],[18.388,50.443],[18.367,50.44],[18.357,50.419],[18.374,50.291],[18.374,50.24],[18.363,50.211],[18.266,50.182],[18.206,50.153],[18.08,50.136],[18.021,50.061],[18.019,50.044],[18.019,50.044],[18.002,50.047],[18.002,50.047],[18.006,50.024],[18.012,50.023],[18.02,50.024],[18.028,50.024],[18.035,50.017],[18.037,50.007],[18.033,50.004],[18.032,50.003],[17.999,49.997],[17.959,49.996],[17.941,49.993],[17.912,49.976],[17.875,49.969],[17.839,49.974],[17.774,50.015],[17.763,50.025],[17.755,50.037],[17.749,50.05],[17.743,50.061],[17.731,50.069],[17.722,50.075],[17.719,50.081],[17.722,50.087],[17.722,50.087],[17.731,50.092],[17.731,50.092],[17.732,50.092],[17.732,50.093],[17.732,50.094],[17.731,50.095],[17.717,50.097],[17.69,50.106],[17.677,50.108],[17.666,50.106],[17.658,50.103],[17.648,50.102],[17.632,50.107],[17.584,50.146],[17.582,50.153],[17.589,50.164],[17.589,50.164],[17.6,50.167],[17.648,50.168],[17.675,50.175],[17.717,50.191],[17.738,50.203],[17.738,50.203],[17.747,50.218],[17.731,50.236],[17.721,50.243],[17.719,50.253],[17.721,50.262],[17.731,50.281],[17.734,50.284],[17.734,50.287],[17.734,50.29],[17.731,50.292],[17.713,50.308],[17.707,50.311],[17.691,50.315],[17.684,50.313],[17.684,50.313],[17.681,50.306],[17.676,50.298],[17.646,50.271],[17.646,50.271],[17.629,50.262],[17.606,50.258],[17.516,50.269],[17.469,50.266],[17.469,50.266],[17.44,50.243],[17.439,50.243],[17.434,50.241],[17.429,50.24],[17.424,50.241],[17.419,50.243],[17.409,50.262],[17.387,50.273],[17.365,50.272],[17.365,50.272],[17.355,50.254],[17.354,50.253],[17.341,50.26],[17.334,50.27],[17.332,50.283],[17.334,50.296],[17.329,50.298],[17.325,50.301],[17.321,50.305],[17.319,50.308],[17.319,50.309],[17.337,50.313],[17.337,50.313],[17.316,50.319],[17.269,50.318],[17.245,50.322],[17.21,50.337],[17.201,50.343],[17.194,50.352],[17.188,50.365],[17.185,50.376],[17.187,50.379],[17.175,50.381],[17.145,50.377],[17.131,50.377],[17.118,50.381],[17.095,50.394],[17.084,50.398],[16.981,50.417],[16.958,50.415],[16.944,50.42],[16.944,50.42],[16.948,50.432],[17.02,50.547],[17.073,50.572],[17.133,50.579],[17.169,50.618],[17.192,50.674],[17.264,50.761],[17.347,50.839],[17.383,50.892],[17.431,50.931],[17.463,50.944],[17.479,50.974],[17.485,51],[17.496,51.025],[17.554,51.109],[17.58,51.127],[17.612,51.134],[17.647,51.132],[17.681,51.137],[17.715,51.15],[17.749,51.151],[17.782,51.141]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Opole'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Opole?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Opole is located? </h2>Opole, is a voivodeship|province It belongs to the country of Poland. Its postal identifier is OP.Opole has an area of 9201 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

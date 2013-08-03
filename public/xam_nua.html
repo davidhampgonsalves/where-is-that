@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Xam Nua?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[104.207,20.918],[104.217,20.897],[104.221,20.892],[104.228,20.892],[104.25,20.898],[104.26,20.899],[104.269,20.896],[104.279,20.892],[104.288,20.886],[104.295,20.88],[104.307,20.865],[104.323,20.834],[104.336,20.819],[104.344,20.814],[104.36,20.808],[104.368,20.803],[104.373,20.796],[104.381,20.779],[104.389,20.771],[104.409,20.765],[104.432,20.766],[104.452,20.764],[104.466,20.75],[104.475,20.718],[104.492,20.702],[104.544,20.679],[104.6,20.661],[104.615,20.647],[104.607,20.619],[104.542,20.536],[104.52,20.519],[104.52,20.519],[104.495,20.512],[104.469,20.516],[104.445,20.535],[104.445,20.535],[104.423,20.496],[104.423,20.496],[104.423,20.496],[104.405,20.484],[104.366,20.459],[104.36,20.44],[104.391,20.421],[104.432,20.411],[104.575,20.414],[104.589,20.407],[104.612,20.377],[104.628,20.366],[104.666,20.352],[104.681,20.341],[104.684,20.333],[104.687,20.322],[104.689,20.31],[104.688,20.301],[104.682,20.288],[104.681,20.288],[104.674,20.285],[104.666,20.286],[104.665,20.286],[104.657,20.28],[104.653,20.267],[104.652,20.246],[104.653,20.226],[104.657,20.213],[104.69,20.197],[104.733,20.205],[104.778,20.219],[104.819,20.221],[104.908,20.175],[104.909,20.168],[104.903,20.157],[104.904,20.135],[104.918,20.116],[104.956,20.092],[104.964,20.076],[104.961,20.072],[104.961,20.072],[104.947,20.07],[104.947,20.07],[104.944,20.068],[104.944,20.067],[104.944,20.067],[104.943,20.061],[104.946,20.052],[104.948,20.034],[104.951,20.022],[104.953,20.009],[104.949,19.996],[104.936,19.984],[104.935,19.984],[104.922,19.982],[104.893,19.986],[104.874,19.983],[104.874,19.983],[104.869,19.978],[104.867,19.969],[104.858,19.955],[104.835,19.939],[104.78,19.908],[104.761,19.886],[104.755,19.867],[104.76,19.862],[104.79,19.86],[104.809,19.854],[104.816,19.848],[104.817,19.839],[104.815,19.823],[104.805,19.791],[104.785,19.777],[104.785,19.777],[104.76,19.767],[104.76,19.767],[104.736,19.746],[104.736,19.746],[104.718,19.74],[104.704,19.739],[104.691,19.736],[104.691,19.736],[104.676,19.725],[104.663,19.711],[104.654,19.698],[104.623,19.618],[104.614,19.608],[104.614,19.608],[104.605,19.607],[104.588,19.616],[104.579,19.618],[104.57,19.616],[104.57,19.615],[104.554,19.606],[104.551,19.604],[104.546,19.602],[104.523,19.6],[104.505,19.603],[104.449,19.635],[104.424,19.646],[104.415,19.651],[104.401,19.665],[104.391,19.677],[104.38,19.685],[104.36,19.688],[104.342,19.683],[104.342,19.683],[104.295,19.655],[104.295,19.655],[104.277,19.684],[104.242,19.695],[104.229,19.706],[104.2,19.699],[104.2,19.699],[104.2,19.699],[104.198,19.733],[104.189,19.763],[104.186,19.787],[104.209,19.855],[104.205,19.902],[104.195,19.885],[104.192,19.863],[104.174,19.849],[104.153,19.841],[104.115,19.844],[104.083,19.864],[104.067,19.852],[104.056,19.835],[104.051,19.816],[104.038,19.805],[103.952,19.783],[103.938,19.788],[103.928,19.794],[103.909,19.826],[103.9,19.834],[103.875,19.846],[103.885,19.873],[103.892,19.902],[103.887,19.926],[103.888,19.95],[103.849,19.998],[103.795,20.028],[103.768,20.029],[103.741,20.025],[103.695,19.992],[103.688,19.959],[103.687,19.93],[103.659,19.926],[103.63,19.939],[103.608,19.912],[103.573,19.904],[103.545,19.9],[103.518,19.892],[103.496,19.875],[103.471,19.868],[103.419,19.883],[103.368,19.888],[103.347,19.903],[103.325,19.915],[103.276,19.896],[103.249,19.91],[103.228,19.931],[103.182,19.928],[103.138,19.915],[103.133,19.958],[103.137,20.029],[103.141,20.051],[103.14,20.066],[103.147,20.08],[103.159,20.088],[103.169,20.1],[103.162,20.113],[103.127,20.153],[103.114,20.176],[103.147,20.223],[103.215,20.286],[103.236,20.312],[103.237,20.351],[103.232,20.388],[103.239,20.4],[103.245,20.414],[103.227,20.415],[103.209,20.42],[103.19,20.448],[103.177,20.475],[103.201,20.501],[103.215,20.559],[103.21,20.619],[103.214,20.666],[103.227,20.707],[103.25,20.723],[103.275,20.735],[103.333,20.752],[103.385,20.778],[103.388,20.783],[103.39,20.789],[103.389,20.794],[103.39,20.795],[103.39,20.795],[103.402,20.801],[103.411,20.806],[103.411,20.806],[103.418,20.812],[103.421,20.818],[103.426,20.821],[103.426,20.821],[103.44,20.816],[103.452,20.805],[103.471,20.771],[103.481,20.758],[103.489,20.753],[103.497,20.749],[103.506,20.746],[103.516,20.746],[103.516,20.746],[103.516,20.746],[103.516,20.746],[103.578,20.733],[103.597,20.722],[103.636,20.683],[103.658,20.665],[103.661,20.661],[103.665,20.658],[103.676,20.657],[103.685,20.658],[103.697,20.662],[103.708,20.667],[103.708,20.667],[103.714,20.672],[103.713,20.68],[103.703,20.699],[103.702,20.709],[103.707,20.722],[103.713,20.726],[103.713,20.726],[103.722,20.727],[103.734,20.731],[103.734,20.731],[103.754,20.743],[103.758,20.75],[103.755,20.76],[103.753,20.78],[103.756,20.796],[103.765,20.816],[103.775,20.835],[103.785,20.846],[103.785,20.846],[103.796,20.85],[103.816,20.847],[103.826,20.848],[103.827,20.848],[103.835,20.852],[103.85,20.865],[103.858,20.87],[103.858,20.87],[103.932,20.892],[103.937,20.894],[103.952,20.9],[103.952,20.9],[103.962,20.903],[103.974,20.902],[104.01,20.908],[104.01,20.908],[104.056,20.959],[104.057,20.959],[104.092,20.961],[104.099,20.958],[104.114,20.947],[104.122,20.943],[104.132,20.942],[104.154,20.941],[104.165,20.94],[104.194,20.93],[104.201,20.926],[104.207,20.918]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Xam Nua'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Xam Nua?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Xam Nua is located? </h2>Xam Nua, is a province It belongs to the country of Laos. Its postal identifier is HO.Xam Nua has an area of 17263 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

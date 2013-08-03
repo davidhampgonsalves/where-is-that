@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Worcestershire?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-2.154,52.423],[-2.119,52.422],[-2.083,52.436],[-2.058,52.422],[-2.048,52.434],[-2.031,52.437],[-2.022,52.424],[-2.007,52.427],[-1.983,52.418],[-1.984,52.41],[-2.002,52.393],[-1.996,52.379],[-1.983,52.377],[-1.955,52.387],[-1.925,52.385],[-1.901,52.393],[-1.844,52.384],[-1.843,52.376],[-1.853,52.362],[-1.877,52.345],[-1.874,52.338],[-1.851,52.323],[-1.848,52.31],[-1.868,52.299],[-1.883,52.274],[-1.92,52.266],[-1.92,52.259],[-1.903,52.231],[-1.902,52.211],[-1.923,52.195],[-1.933,52.176],[-1.944,52.165],[-1.93,52.16],[-1.914,52.143],[-1.891,52.134],[-1.885,52.144],[-1.875,52.149],[-1.841,52.136],[-1.829,52.142],[-1.813,52.134],[-1.787,52.129],[-1.781,52.117],[-1.763,52.112],[-1.758,52.106],[-1.778,52.099],[-1.814,52.069],[-1.843,52.073],[-1.863,52.063],[-1.864,52.058],[-1.849,52.053],[-1.828,52.034],[-1.825,52.019],[-1.832,52.008],[-1.844,52.008],[-1.879,52.028],[-1.904,52.031],[-1.919,52.027],[-1.942,52.03],[-1.971,52.026],[-2.031,52],[-2.072,52.008],[-2.106,52.008],[-2.13,51.995],[-2.143,52.006],[-2.115,52.042],[-2.165,52.04],[-2.171,52.034],[-2.176,52.007],[-2.16,51.995],[-2.175,51.988],[-2.208,51.991],[-2.234,51.964],[-2.252,51.963],[-2.308,51.974],[-2.319,51.992],[-2.342,52.015],[-2.352,52.014],[-2.351,52.028],[-2.351,52.054],[-2.349,52.077],[-2.349,52.094],[-2.35,52.107],[-2.36,52.122],[-2.376,52.127],[-2.392,52.131],[-2.405,52.143],[-2.41,52.157],[-2.41,52.179],[-2.406,52.206],[-2.415,52.22],[-2.44,52.224],[-2.458,52.23],[-2.46,52.237],[-2.454,52.249],[-2.448,52.258],[-2.475,52.265],[-2.489,52.265],[-2.503,52.258],[-2.513,52.251],[-2.527,52.243],[-2.55,52.242],[-2.581,52.242],[-2.607,52.242],[-2.619,52.252],[-2.616,52.266],[-2.616,52.278],[-2.631,52.292],[-2.643,52.323],[-2.641,52.332],[-2.616,52.324],[-2.61,52.319],[-2.608,52.308],[-2.598,52.305],[-2.556,52.309],[-2.547,52.33],[-2.525,52.34],[-2.493,52.327],[-2.474,52.327],[-2.468,52.337],[-2.474,52.35],[-2.47,52.357],[-2.41,52.363],[-2.399,52.37],[-2.398,52.379],[-2.391,52.384],[-2.32,52.385],[-2.328,52.39],[-2.351,52.424],[-2.34,52.434],[-2.305,52.431],[-2.286,52.445],[-2.261,52.436],[-2.221,52.436],[-2.171,52.422],[-2.154,52.423]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Worcestershire'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Worcestershire?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Worcestershire is located? </h2>Worcestershire, is a administrative county of the England region. It belongs to the country of United Kingdom. Its postal identifier is WC.Worcestershire has an area of 1786 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

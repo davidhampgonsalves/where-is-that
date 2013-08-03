@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Vaslui?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[27.737,46.918],[27.775,46.884],[27.786,46.878],[27.793,46.878],[27.796,46.884],[27.795,46.893],[27.796,46.903],[27.801,46.912],[27.814,46.918],[27.826,46.917],[27.835,46.911],[27.839,46.901],[27.838,46.89],[27.829,46.87],[27.824,46.862],[27.821,46.854],[27.823,46.847],[27.833,46.841],[27.846,46.84],[27.862,46.842],[27.873,46.84],[27.905,46.826],[27.941,46.817],[27.956,46.817],[27.965,46.822],[27.968,46.828],[27.981,46.834],[27.989,46.833],[27.998,46.829],[28.007,46.823],[28.02,46.819],[28.031,46.819],[28.04,46.823],[28.047,46.828],[28.064,46.835],[28.115,46.839],[28.122,46.842],[28.122,46.842],[28.121,46.835],[28.137,46.807],[28.178,46.759],[28.178,46.74],[28.234,46.663],[28.244,46.636],[28.245,46.631],[28.247,46.621],[28.247,46.608],[28.24,46.597],[28.23,46.584],[28.225,46.57],[28.234,46.554],[28.234,46.553],[28.224,46.549],[28.224,46.549],[28.221,46.542],[28.219,46.504],[28.221,46.496],[28.234,46.478],[28.238,46.476],[28.242,46.477],[28.245,46.476],[28.247,46.468],[28.247,46.437],[28.246,46.428],[28.24,46.421],[28.24,46.421],[28.226,46.416],[28.226,46.416],[28.233,46.402],[28.228,46.396],[28.228,46.396],[28.219,46.394],[28.219,46.394],[28.217,46.392],[28.213,46.389],[28.213,46.389],[28.207,46.359],[28.202,46.354],[28.202,46.354],[28.19,46.351],[28.19,46.351],[28.188,46.344],[28.192,46.324],[28.193,46.312],[28.191,46.308],[28.177,46.287],[28.177,46.287],[28.165,46.279],[28.156,46.276],[28.145,46.273],[28.135,46.27],[28.135,46.27],[28.131,46.263],[28.134,46.246],[28.132,46.24],[28.132,46.24],[28.12,46.238],[28.109,46.235],[28.109,46.234],[28.111,46.226],[28.129,46.205],[28.135,46.199],[28.141,46.192],[28.144,46.184],[28.133,46.16],[28.127,46.136],[28.11,46.102],[28.107,46.096],[28.107,46.096],[28.104,46.095],[28.071,46.089],[28.056,46.09],[28.03,46.094],[27.993,46.108],[27.918,46.125],[27.904,46.125],[27.888,46.12],[27.878,46.114],[27.871,46.106],[27.861,46.092],[27.855,46.086],[27.846,46.082],[27.836,46.082],[27.829,46.088],[27.827,46.095],[27.827,46.103],[27.819,46.109],[27.803,46.113],[27.631,46.128],[27.618,46.122],[27.614,46.115],[27.615,46.107],[27.636,46.081],[27.641,46.071],[27.645,46.062],[27.644,46.053],[27.639,46.026],[27.639,46.011],[27.636,46.005],[27.633,46],[27.628,45.998],[27.62,45.996],[27.61,46.001],[27.601,46.013],[27.589,46.038],[27.58,46.066],[27.568,46.084],[27.533,46.117],[27.52,46.163],[27.513,46.289],[27.502,46.336],[27.479,46.397],[27.442,46.459],[27.338,46.585],[27.333,46.607],[27.336,46.63],[27.336,46.655],[27.324,46.673],[27.305,46.687],[27.259,46.713],[27.246,46.724],[27.24,46.73],[27.226,46.743],[27.237,46.759],[27.236,46.77],[27.233,46.786],[27.211,46.828],[27.205,46.86],[27.32,46.854],[27.395,46.863],[27.414,46.863],[27.433,46.86],[27.451,46.855],[27.476,46.851],[27.493,46.852],[27.53,46.86],[27.541,46.867],[27.548,46.874],[27.553,46.882],[27.559,46.888],[27.573,46.888],[27.591,46.883],[27.629,46.879],[27.648,46.881],[27.661,46.885],[27.665,46.892],[27.667,46.898],[27.667,46.904],[27.664,46.907],[27.658,46.908],[27.639,46.906],[27.628,46.907],[27.621,46.91],[27.619,46.915],[27.624,46.929],[27.625,46.938],[27.623,46.945],[27.619,46.952],[27.616,46.96],[27.617,46.967],[27.626,46.974],[27.637,46.974],[27.65,46.969],[27.71,46.937],[27.737,46.918]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Vaslui'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Vaslui?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Vaslui is located? </h2>Vaslui, is a county It belongs to the country of Romania. Its postal identifier is VS.Vaslui has an area of 5149 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

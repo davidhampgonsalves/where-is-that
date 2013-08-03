@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Turg¢via?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[8.852,47.671],[8.881,47.656],[8.906,47.652],[8.945,47.655],[8.981,47.662],[8.997,47.674],[9.016,47.679],[9.128,47.671],[9.183,47.671],[9.197,47.656],[9.234,47.657],[9.273,47.65],[9.547,47.535],[9.547,47.535],[9.553,47.517],[9.473,47.499],[9.464,47.497],[9.46,47.496],[9.456,47.497],[9.446,47.5],[9.445,47.502],[9.444,47.503],[9.448,47.512],[9.438,47.517],[9.387,47.491],[9.38,47.481],[9.374,47.483],[9.365,47.488],[9.343,47.508],[9.341,47.512],[9.344,47.518],[9.344,47.521],[9.344,47.525],[9.335,47.535],[9.321,47.535],[9.316,47.534],[9.311,47.533],[9.306,47.529],[9.303,47.529],[9.295,47.528],[9.289,47.528],[9.283,47.526],[9.279,47.524],[9.276,47.521],[9.274,47.52],[9.272,47.52],[9.27,47.521],[9.268,47.521],[9.266,47.519],[9.266,47.517],[9.27,47.515],[9.281,47.514],[9.287,47.515],[9.292,47.516],[9.297,47.516],[9.3,47.516],[9.305,47.501],[9.301,47.493],[9.299,47.49],[9.295,47.486],[9.29,47.483],[9.283,47.482],[9.275,47.483],[9.269,47.483],[9.26,47.48],[9.256,47.477],[9.238,47.479],[9.199,47.485],[9.166,47.496],[9.151,47.508],[9.142,47.497],[9.138,47.493],[9.13,47.49],[9.113,47.488],[9.101,47.488],[9.088,47.49],[9.084,47.49],[9.076,47.489],[9.073,47.49],[9.07,47.491],[9.068,47.494],[9.066,47.496],[9.062,47.496],[9.045,47.494],[9.039,47.494],[9.031,47.496],[9.028,47.496],[9.019,47.49],[9.015,47.489],[9.01,47.488],[9.004,47.486],[9,47.482],[9.001,47.477],[9.003,47.474],[9.031,47.46],[9.031,47.457],[9.033,47.446],[9.032,47.443],[9.03,47.44],[9.027,47.439],[9.02,47.438],[9.014,47.437],[9.009,47.436],[9.005,47.434],[9.001,47.434],[8.997,47.434],[8.994,47.435],[8.989,47.433],[8.985,47.43],[8.974,47.413],[8.964,47.405],[8.951,47.388],[8.942,47.38],[8.932,47.38],[8.893,47.409],[8.9,47.416],[8.902,47.419],[8.904,47.423],[8.906,47.43],[8.911,47.435],[8.911,47.436],[8.903,47.439],[8.893,47.446],[8.889,47.467],[8.879,47.471],[8.877,47.474],[8.874,47.48],[8.875,47.483],[8.875,47.485],[8.877,47.486],[8.882,47.488],[8.884,47.49],[8.886,47.492],[8.886,47.494],[8.886,47.495],[8.885,47.497],[8.884,47.498],[8.885,47.501],[8.891,47.522],[8.891,47.525],[8.888,47.528],[8.881,47.532],[8.852,47.54],[8.842,47.544],[8.836,47.549],[8.832,47.558],[8.837,47.564],[8.839,47.566],[8.833,47.572],[8.828,47.576],[8.764,47.597],[8.752,47.6],[8.743,47.607],[8.739,47.611],[8.739,47.613],[8.741,47.615],[8.747,47.618],[8.754,47.62],[8.762,47.619],[8.776,47.614],[8.781,47.61],[8.786,47.608],[8.79,47.608],[8.793,47.608],[8.8,47.615],[8.808,47.622],[8.816,47.632],[8.82,47.636],[8.822,47.641],[8.82,47.645],[8.809,47.654],[8.805,47.667],[8.789,47.663],[8.8,47.682],[8.801,47.682],[8.81,47.679],[8.822,47.682],[8.852,47.671]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Turg¢via'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Turg¢via?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Turg¢via is located? </h2>Turg¢via, is a canton It belongs to the country of Switzerland. Its postal identifier is TG.Turg¢via has an area of 945 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

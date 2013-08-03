@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Batangas?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[121.086,13.57],[121.091,13.562],[121.094,13.537],[121.088,13.53],[121.072,13.536],[121.043,13.561],[121.043,13.567],[121.051,13.568],[121.058,13.565],[121.067,13.567],[121.077,13.572],[121.086,13.57]]],[[[120.597,14.219],[120.611,14.21],[120.623,14.21],[120.634,14.214],[120.651,14.216],[120.664,14.212],[120.678,14.204],[120.687,14.192],[120.686,14.179],[120.687,14.17],[120.694,14.158],[120.705,14.147],[120.718,14.14],[120.727,14.137],[120.745,14.135],[120.753,14.133],[120.763,14.128],[120.78,14.115],[120.788,14.11],[120.795,14.109],[120.81,14.111],[120.815,14.11],[120.844,14.087],[120.861,14.078],[120.869,14.076],[120.898,14.079],[120.934,14.087],[120.983,14.105],[121.024,14.127],[121.033,14.144],[121.073,14.15],[121.13,14.149],[121.181,14.139],[121.205,14.112],[121.224,14.006],[121.234,13.995],[121.251,13.992],[121.264,13.985],[121.264,13.962],[121.273,13.948],[121.297,13.933],[121.306,13.922],[121.313,13.907],[121.32,13.898],[121.342,13.884],[121.396,13.842],[121.41,13.837],[121.425,13.837],[121.439,13.832],[121.451,13.824],[121.455,13.819],[121.433,13.796],[121.441,13.726],[121.436,13.701],[121.446,13.701],[121.452,13.699],[121.464,13.695],[121.434,13.664],[121.43,13.657],[121.389,13.667],[121.375,13.667],[121.356,13.657],[121.298,13.615],[121.279,13.595],[121.264,13.6],[121.249,13.609],[121.245,13.612],[121.218,13.623],[121.205,13.626],[121.187,13.626],[121.178,13.629],[121.17,13.635],[121.159,13.639],[121.143,13.64],[121.11,13.633],[121.094,13.627],[121.081,13.619],[121.07,13.622],[121.048,13.627],[121.039,13.633],[121.034,13.642],[121.037,13.647],[121.043,13.653],[121.046,13.664],[121.049,13.688],[121.053,13.706],[121.054,13.722],[121.04,13.759],[121.036,13.763],[121.016,13.775],[121.004,13.781],[120.991,13.784],[120.981,13.78],[120.903,13.693],[120.895,13.688],[120.888,13.693],[120.882,13.705],[120.881,13.717],[120.885,13.722],[120.893,13.727],[120.898,13.739],[120.902,13.75],[120.906,13.756],[120.919,13.757],[120.926,13.762],[120.929,13.77],[120.929,13.783],[120.913,13.8],[120.909,13.805],[120.909,13.816],[120.914,13.837],[120.915,13.849],[120.915,13.865],[120.912,13.882],[120.906,13.896],[120.895,13.906],[120.877,13.912],[120.787,13.923],[120.746,13.934],[120.724,13.934],[120.705,13.927],[120.697,13.914],[120.701,13.896],[120.714,13.876],[120.723,13.855],[120.703,13.852],[120.662,13.859],[120.653,13.845],[120.656,13.827],[120.665,13.807],[120.67,13.787],[120.664,13.775],[120.65,13.784],[120.628,13.811],[120.62,13.846],[120.619,13.932],[120.601,13.969],[120.617,13.972],[120.629,13.981],[120.635,13.991],[120.632,13.996],[120.62,14.003],[120.618,14.018],[120.622,14.076],[120.62,14.104],[120.608,14.125],[120.58,14.133],[120.58,14.14],[120.596,14.148],[120.597,14.157],[120.589,14.166],[120.573,14.174],[120.583,14.174],[120.59,14.176],[120.601,14.181],[120.601,14.188],[120.587,14.2],[120.596,14.218],[120.597,14.219]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Batangas'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Batangas?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Batangas is located? </h2>Batangas, is a province of the National Capital Region region. It belongs to the country of Philippines. Its postal identifier is BT.Batangas has an area of 3227 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

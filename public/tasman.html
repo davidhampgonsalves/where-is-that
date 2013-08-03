@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Tasman?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[173.185,-41.31],[173.189,-41.323],[173.21,-41.347],[173.249,-41.375],[173.285,-41.389],[173.276,-41.414],[173.275,-41.428],[173.269,-41.45],[173.267,-41.476],[173.272,-41.499],[173.262,-41.514],[173.243,-41.522],[173.219,-41.524],[173.173,-41.534],[173.147,-41.566],[173.068,-41.635],[173.039,-41.671],[172.997,-41.71],[172.938,-41.748],[172.929,-41.764],[172.925,-41.777],[172.908,-41.792],[172.873,-41.831],[172.862,-41.861],[172.851,-41.915],[172.842,-41.934],[172.741,-42.03],[172.706,-42.116],[172.691,-42.114],[172.684,-42.111],[172.673,-42.109],[172.661,-42.109],[172.65,-42.111],[172.643,-42.116],[172.64,-42.127],[172.637,-42.141],[172.61,-42.197],[172.596,-42.219],[172.55,-42.26],[172.531,-42.272],[172.514,-42.281],[172.485,-42.286],[172.467,-42.284],[172.457,-42.284],[172.448,-42.286],[172.441,-42.289],[172.436,-42.294],[172.432,-42.3],[172.427,-42.306],[172.42,-42.311],[172.41,-42.313],[172.396,-42.306],[172.381,-42.291],[172.36,-42.257],[172.353,-42.233],[172.344,-42.192],[172.337,-42.175],[172.325,-42.162],[172.308,-42.154],[172.294,-42.152],[172.269,-42.154],[172.258,-42.152],[172.25,-42.148],[172.242,-42.143],[172.236,-42.141],[172.23,-42.137],[172.224,-42.13],[172.218,-42.117],[172.21,-42.108],[172.196,-42.104],[172.166,-42.107],[172.153,-42.105],[172.142,-42.099],[172.132,-42.086],[172.125,-42.071],[172.123,-42.052],[172.124,-42.037],[172.121,-42.025],[172.112,-42.017],[172.102,-42.013],[172.091,-42.008],[172.081,-41.999],[172.072,-41.98],[172.067,-41.966],[172.064,-41.955],[172.076,-41.905],[172.1,-41.89],[172.11,-41.876],[172.121,-41.85],[172.124,-41.825],[172.121,-41.808],[172.119,-41.799],[172.114,-41.79],[172.112,-41.781],[172.112,-41.775],[172.115,-41.758],[172.12,-41.748],[172.129,-41.737],[172.149,-41.724],[172.165,-41.717],[172.182,-41.711],[172.233,-41.705],[172.243,-41.699],[172.245,-41.686],[172.242,-41.673],[172.246,-41.66],[172.258,-41.65],[172.282,-41.643],[172.298,-41.636],[172.31,-41.625],[172.323,-41.602],[172.333,-41.577],[172.345,-41.537],[172.351,-41.523],[172.36,-41.512],[172.408,-41.487],[172.418,-41.474],[172.422,-41.462],[172.421,-41.453],[172.411,-41.44],[172.409,-41.433],[172.414,-41.428],[172.43,-41.42],[172.443,-41.417],[172.455,-41.416],[172.493,-41.424],[172.51,-41.424],[172.528,-41.42],[172.546,-41.41],[172.566,-41.393],[172.578,-41.378],[172.582,-41.359],[172.582,-41.342],[172.584,-41.325],[172.588,-41.314],[172.589,-41.304],[172.585,-41.298],[172.571,-41.285],[172.571,-41.277],[172.582,-41.269],[172.652,-41.248],[172.698,-41.217],[172.702,-41.209],[172.699,-41.202],[172.69,-41.194],[172.671,-41.185],[172.622,-41.174],[172.607,-41.169],[172.595,-41.162],[172.552,-41.127],[172.539,-41.121],[172.527,-41.118],[172.518,-41.114],[172.51,-41.107],[172.502,-41.095],[172.494,-41.087],[172.488,-41.079],[172.484,-41.068],[172.478,-41.057],[172.465,-41.048],[172.453,-41.044],[172.431,-41.044],[172.402,-41.049],[172.392,-41.047],[172.381,-41.044],[172.372,-41.044],[172.364,-41.048],[172.345,-41.069],[172.332,-41.071],[172.323,-41.062],[172.32,-41.033],[172.325,-41.017],[172.335,-41.005],[172.342,-41],[172.353,-40.987],[172.358,-40.975],[172.357,-40.963],[172.345,-40.95],[172.332,-40.942],[172.32,-40.932],[172.311,-40.92],[172.304,-40.902],[172.294,-40.89],[172.262,-40.869],[172.252,-40.854],[172.238,-40.787],[172.233,-40.778],[172.247,-40.778],[172.254,-40.777],[172.268,-40.768],[172.296,-40.753],[172.308,-40.75],[172.312,-40.746],[172.363,-40.716],[172.464,-40.622],[172.507,-40.59],[172.544,-40.578],[172.528,-40.611],[172.527,-40.622],[172.541,-40.627],[172.546,-40.622],[172.552,-40.612],[172.559,-40.606],[172.575,-40.612],[172.584,-40.609],[172.593,-40.604],[172.599,-40.599],[172.594,-40.585],[172.625,-40.574],[172.626,-40.565],[172.615,-40.555],[172.611,-40.552],[172.599,-40.561],[172.584,-40.567],[172.57,-40.569],[172.557,-40.565],[172.596,-40.528],[172.641,-40.51],[172.84,-40.502],[172.904,-40.508],[172.964,-40.522],[172.997,-40.524],[172.974,-40.531],[172.758,-40.518],[172.742,-40.521],[172.732,-40.531],[172.722,-40.552],[172.712,-40.591],[172.703,-40.61],[172.688,-40.62],[172.697,-40.641],[172.691,-40.648],[172.677,-40.649],[172.66,-40.648],[172.674,-40.674],[172.68,-40.678],[172.697,-40.683],[172.701,-40.687],[172.701,-40.704],[172.689,-40.734],[172.695,-40.75],[172.701,-40.745],[172.722,-40.737],[172.736,-40.765],[172.771,-40.792],[172.856,-40.844],[172.869,-40.847],[172.882,-40.843],[172.906,-40.829],[172.912,-40.827],[172.924,-40.826],[172.928,-40.823],[172.926,-40.81],[172.928,-40.805],[172.944,-40.793],[172.952,-40.794],[172.962,-40.805],[172.975,-40.79],[172.989,-40.781],[173.003,-40.782],[173.017,-40.797],[173.023,-40.81],[173.023,-40.819],[173.017,-40.839],[173.023,-40.848],[173.022,-40.857],[173.01,-40.867],[173.026,-40.869],[173.041,-40.868],[173.054,-40.872],[173.065,-40.887],[173.062,-40.892],[173.052,-40.936],[173.056,-40.954],[173.058,-40.963],[173.056,-40.97],[173.045,-40.983],[173.022,-41.001],[172.997,-41.017],[173.006,-41.021],[173.014,-41.023],[173.021,-41.022],[173.031,-41.017],[173.043,-41.067],[173.045,-41.082],[173.05,-41.098],[173.062,-41.111],[173.069,-41.124],[173.065,-41.141],[173.061,-41.131],[173.055,-41.123],[173.047,-41.117],[173.038,-41.113],[173.031,-41.149],[173.034,-41.158],[173.05,-41.17],[173.055,-41.178],[173.058,-41.189],[173.065,-41.189],[173.076,-41.176],[173.084,-41.189],[173.093,-41.23],[173.105,-41.257],[173.106,-41.265],[173.1,-41.271],[173.083,-41.277],[173.079,-41.285],[173.086,-41.299],[173.104,-41.308],[173.126,-41.312],[173.172,-41.312],[173.185,-41.31]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Tasman'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Tasman?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Tasman is located? </h2>Tasman, is a unitary authority It belongs to the country of New Zealand.Tasman has an area of 9645 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

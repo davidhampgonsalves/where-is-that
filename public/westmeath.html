@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Westmeath?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-7.182,53.428],[-7.207,53.408],[-7.22,53.402],[-7.259,53.398],[-7.267,53.395],[-7.273,53.393],[-7.369,53.341],[-7.43,53.326],[-7.443,53.325],[-7.452,53.325],[-7.459,53.331],[-7.463,53.332],[-7.478,53.333],[-7.483,53.334],[-7.492,53.34],[-7.498,53.342],[-7.509,53.342],[-7.514,53.34],[-7.515,53.336],[-7.515,53.332],[-7.517,53.327],[-7.521,53.326],[-7.526,53.327],[-7.529,53.33],[-7.532,53.332],[-7.543,53.344],[-7.555,53.359],[-7.557,53.362],[-7.564,53.38],[-7.566,53.387],[-7.567,53.389],[-7.569,53.391],[-7.572,53.394],[-7.587,53.398],[-7.605,53.406],[-7.619,53.409],[-7.631,53.409],[-7.639,53.408],[-7.67,53.395],[-7.686,53.386],[-7.693,53.381],[-7.695,53.378],[-7.695,53.374],[-7.697,53.37],[-7.705,53.366],[-7.757,53.353],[-7.788,53.35],[-7.827,53.354],[-7.836,53.353],[-7.842,53.351],[-7.848,53.346],[-7.853,53.345],[-7.858,53.347],[-7.863,53.349],[-7.873,53.351],[-7.883,53.354],[-7.886,53.357],[-7.891,53.359],[-7.898,53.361],[-7.944,53.367],[-7.943,53.367],[-7.933,53.376],[-7.932,53.398],[-7.958,53.455],[-7.959,53.463],[-7.954,53.475],[-7.954,53.489],[-7.963,53.524],[-7.922,53.539],[-7.905,53.543],[-7.829,53.55],[-7.817,53.55],[-7.811,53.548],[-7.806,53.547],[-7.801,53.545],[-7.797,53.543],[-7.761,53.535],[-7.717,53.533],[-7.677,53.537],[-7.66,53.541],[-7.652,53.545],[-7.652,53.552],[-7.651,53.556],[-7.649,53.559],[-7.636,53.57],[-7.633,53.573],[-7.626,53.583],[-7.621,53.587],[-7.613,53.592],[-7.608,53.596],[-7.603,53.6],[-7.598,53.604],[-7.588,53.61],[-7.57,53.613],[-7.563,53.617],[-7.56,53.621],[-7.56,53.629],[-7.562,53.633],[-7.565,53.635],[-7.569,53.638],[-7.598,53.649],[-7.601,53.651],[-7.604,53.654],[-7.602,53.658],[-7.598,53.659],[-7.592,53.659],[-7.587,53.658],[-7.576,53.654],[-7.57,53.653],[-7.567,53.654],[-7.557,53.664],[-7.532,53.677],[-7.529,53.679],[-7.526,53.681],[-7.519,53.691],[-7.51,53.699],[-7.504,53.702],[-7.5,53.704],[-7.479,53.705],[-7.474,53.706],[-7.469,53.709],[-7.461,53.717],[-7.453,53.724],[-7.448,53.727],[-7.442,53.73],[-7.437,53.731],[-7.431,53.731],[-7.424,53.731],[-7.409,53.729],[-7.396,53.729],[-7.388,53.731],[-7.383,53.733],[-7.38,53.736],[-7.377,53.738],[-7.375,53.742],[-7.374,53.746],[-7.374,53.754],[-7.373,53.756],[-7.373,53.758],[-7.372,53.759],[-7.373,53.761],[-7.374,53.763],[-7.377,53.769],[-7.383,53.774],[-7.389,53.779],[-7.339,53.795],[-7.287,53.777],[-7.273,53.769],[-7.267,53.762],[-7.249,53.747],[-7.234,53.739],[-7.226,53.734],[-7.222,53.73],[-7.221,53.726],[-7.221,53.722],[-7.222,53.717],[-7.221,53.712],[-7.218,53.709],[-7.214,53.706],[-7.162,53.685],[-7.137,53.677],[-7.128,53.676],[-7.121,53.676],[-7.111,53.674],[-7.097,53.67],[-7.074,53.657],[-7.062,53.651],[-7.054,53.649],[-7.048,53.649],[-7.038,53.657],[-7.033,53.659],[-7.019,53.664],[-7.011,53.668],[-7.007,53.67],[-7.002,53.671],[-6.998,53.671],[-6.989,53.67],[-6.975,53.667],[-6.958,53.659],[-6.951,53.654],[-6.948,53.649],[-6.948,53.645],[-6.95,53.641],[-6.952,53.638],[-6.954,53.635],[-6.962,53.63],[-6.965,53.627],[-6.967,53.623],[-6.968,53.619],[-6.968,53.611],[-6.972,53.604],[-6.977,53.598],[-6.979,53.594],[-6.979,53.589],[-6.979,53.584],[-6.981,53.581],[-6.986,53.578],[-7.001,53.577],[-7.005,53.576],[-7.009,53.574],[-7.012,53.572],[-7.014,53.567],[-7.013,53.561],[-7.009,53.551],[-7.007,53.544],[-7.007,53.54],[-7.014,53.529],[-7.018,53.522],[-7.02,53.514],[-7.021,53.51],[-7.023,53.506],[-7.026,53.503],[-7.029,53.501],[-7.033,53.501],[-7.035,53.5],[-7.046,53.503],[-7.05,53.502],[-7.053,53.499],[-7.053,53.487],[-7.053,53.482],[-7.054,53.479],[-7.055,53.476],[-7.058,53.471],[-7.061,53.468],[-7.068,53.463],[-7.072,53.461],[-7.098,53.449],[-7.107,53.446],[-7.12,53.445],[-7.133,53.446],[-7.138,53.444],[-7.143,53.443],[-7.147,53.44],[-7.151,53.438],[-7.167,53.434],[-7.176,53.431],[-7.182,53.428]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Westmeath'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Westmeath?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Westmeath is located? </h2>Westmeath, is a county It belongs to the country of Ireland. Its postal identifier is WH.Westmeath has an area of 1862 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

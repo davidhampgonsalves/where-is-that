@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is West Sepik?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[141.122,-2.607],[141.163,-2.615],[141.194,-2.615],[141.206,-2.619],[141.215,-2.625],[141.221,-2.631],[141.228,-2.635],[141.239,-2.637],[141.265,-2.638],[141.276,-2.642],[141.281,-2.649],[141.291,-2.67],[141.297,-2.676],[141.31,-2.671],[141.339,-2.702],[141.361,-2.711],[141.383,-2.714],[141.577,-2.794],[141.802,-2.9],[141.833,-2.906],[141.836,-2.913],[141.837,-2.923],[141.841,-2.933],[141.886,-2.964],[141.906,-2.967],[141.943,-2.96],[142,-2.956],[142.011,-2.96],[142.065,-3.009],[142.071,-3.018],[142.068,-3.027],[142.064,-3.038],[142.061,-3.05],[142.063,-3.06],[142.07,-3.062],[142.095,-3.064],[142.105,-3.067],[142.138,-3.056],[142.16,-3.066],[142.182,-3.08],[142.204,-3.087],[142.227,-3.089],[142.242,-3.094],[142.27,-3.108],[142.395,-3.144],[142.502,-3.196],[142.616,-3.231],[142.813,-3.291],[142.835,-3.293],[142.846,-3.296],[142.879,-3.314],[142.892,-3.316],[142.907,-3.316],[142.92,-3.318],[142.949,-3.335],[143.03,-3.355],[143.052,-3.356],[143.085,-3.353],[143.085,-3.357],[143.078,-3.489],[143.067,-3.511],[143.055,-3.521],[143.04,-3.522],[143.025,-3.521],[142.997,-3.514],[142.814,-3.44],[142.784,-3.421],[142.769,-3.414],[142.756,-3.41],[142.744,-3.41],[142.731,-3.414],[142.705,-3.427],[142.691,-3.433],[142.664,-3.44],[142.651,-3.45],[142.639,-3.466],[142.625,-3.5],[142.608,-3.53],[142.604,-3.54],[142.603,-3.555],[142.606,-3.629],[142.603,-3.67],[142.605,-3.716],[142.607,-3.728],[142.614,-3.745],[142.622,-3.773],[142.626,-3.781],[142.634,-3.793],[142.637,-3.803],[142.639,-3.827],[142.634,-3.865],[142.62,-3.903],[142.59,-3.925],[142.558,-3.945],[142.539,-3.994],[142.539,-4.009],[142.533,-4.025],[142.513,-4.062],[142.457,-4.075],[141.848,-4.085],[141.832,-4.085],[141.824,-4.081],[141.796,-4.095],[141.791,-4.087],[141.796,-4.077],[141.81,-4.061],[141.796,-4.047],[141.778,-4.041],[141.764,-4.034],[141.762,-4.013],[141.744,-4.017],[141.739,-4.016],[141.724,-4.019],[141.716,-4.022],[141.364,-4.259],[141.342,-4.288],[141.336,-4.332],[141.338,-4.499],[141.346,-4.546],[141.368,-4.588],[141.423,-4.605],[141.495,-4.613],[142.196,-4.618],[142.299,-4.678],[142.324,-4.968],[142.326,-5.065],[142.333,-5.107],[142.347,-5.136],[142.357,-5.163],[142.352,-5.196],[142.345,-5.216],[142.32,-5.263],[142.319,-5.269],[142.317,-5.282],[142.302,-5.322],[142.301,-5.328],[142.293,-5.352],[142.275,-5.365],[142.235,-5.385],[142.209,-5.407],[141.006,-4.997],[140.977,-4.988],[140.977,-4.988],[140.976,-4.596],[140.975,-4.173],[140.974,-4.002],[140.972,-3.25],[140.972,-3.25],[140.973,-3.002],[140.973,-3.002],[140.974,-2.631],[140.974,-2.6],[140.974,-2.6],[140.988,-2.6],[141.008,-2.608],[141.043,-2.59],[141.081,-2.594],[141.122,-2.607]]],[[[142.829,-1.723],[142.818,-1.733],[142.819,-1.712],[142.834,-1.697],[142.853,-1.693],[142.866,-1.703],[142.859,-1.705],[142.845,-1.713],[142.829,-1.723]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'West Sepik'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>West Sepik?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where West Sepik is located? </h2>West Sepik, is a province It belongs to the country of Papua New Guinea. Its postal identifier is SA.West Sepik has an area of 37164 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Intibuca?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-88.075,14.665],[-88.061,14.646],[-88.056,14.644],[-88.046,14.641],[-88.039,14.64],[-88.004,14.632],[-87.987,14.619],[-87.969,14.613],[-87.96,14.601],[-87.952,14.586],[-87.951,14.582],[-87.95,14.572],[-87.947,14.565],[-87.941,14.553],[-87.933,14.547],[-87.909,14.535],[-87.903,14.53],[-87.899,14.526],[-87.899,14.516],[-87.9,14.507],[-87.888,14.496],[-87.856,14.456],[-87.848,14.442],[-87.848,14.438],[-87.848,14.435],[-87.849,14.433],[-87.853,14.429],[-87.898,14.397],[-87.91,14.39],[-87.922,14.385],[-87.932,14.385],[-87.94,14.387],[-87.947,14.39],[-87.952,14.389],[-87.955,14.384],[-87.957,14.371],[-87.953,14.34],[-87.969,14.31],[-87.975,14.304],[-87.984,14.297],[-87.996,14.293],[-88.002,14.288],[-88.006,14.275],[-88.005,14.268],[-88.013,14.254],[-88.055,14.252],[-88.09,14.224],[-88.106,14.208],[-88.115,14.188],[-88.123,14.176],[-88.126,14.173],[-88.154,14.159],[-88.165,14.15],[-88.22,14.091],[-88.226,14.085],[-88.23,14.086],[-88.232,14.084],[-88.232,14.079],[-88.226,14.069],[-88.219,14.062],[-88.21,14.043],[-88.219,13.993],[-88.218,13.991],[-88.218,13.991],[-88.221,13.992],[-88.236,13.993],[-88.246,13.989],[-88.246,13.986],[-88.246,13.986],[-88.245,13.966],[-88.243,13.963],[-88.234,13.955],[-88.232,13.952],[-88.237,13.938],[-88.243,13.937],[-88.252,13.938],[-88.264,13.933],[-88.271,13.926],[-88.275,13.92],[-88.278,13.914],[-88.286,13.906],[-88.297,13.903],[-88.303,13.902],[-88.309,13.902],[-88.32,13.898],[-88.327,13.885],[-88.33,13.887],[-88.333,13.888],[-88.337,13.889],[-88.341,13.89],[-88.349,13.892],[-88.356,13.891],[-88.359,13.888],[-88.36,13.881],[-88.36,13.878],[-88.36,13.876],[-88.361,13.873],[-88.368,13.873],[-88.384,13.879],[-88.394,13.88],[-88.434,13.871],[-88.452,13.864],[-88.471,13.853],[-88.498,13.851],[-88.498,13.851],[-88.489,13.866],[-88.489,13.882],[-88.5,13.908],[-88.503,13.917],[-88.503,13.917],[-88.501,13.932],[-88.498,13.944],[-88.497,13.956],[-88.502,13.966],[-88.502,13.966],[-88.495,13.97],[-88.484,13.985],[-88.483,13.988],[-88.48,13.992],[-88.464,14.005],[-88.431,14.019],[-88.375,14.051],[-88.353,14.07],[-88.344,14.074],[-88.339,14.075],[-88.336,14.077],[-88.334,14.081],[-88.334,14.089],[-88.333,14.095],[-88.331,14.099],[-88.326,14.105],[-88.322,14.108],[-88.32,14.122],[-88.327,14.166],[-88.328,14.188],[-88.328,14.192],[-88.328,14.201],[-88.327,14.205],[-88.328,14.216],[-88.346,14.226],[-88.368,14.23],[-88.374,14.231],[-88.379,14.231],[-88.384,14.229],[-88.388,14.23],[-88.393,14.231],[-88.399,14.234],[-88.405,14.238],[-88.411,14.241],[-88.417,14.244],[-88.421,14.248],[-88.424,14.253],[-88.423,14.261],[-88.413,14.281],[-88.412,14.299],[-88.422,14.349],[-88.429,14.358],[-88.432,14.361],[-88.454,14.364],[-88.475,14.381],[-88.495,14.407],[-88.501,14.449],[-88.498,14.456],[-88.482,14.467],[-88.457,14.474],[-88.412,14.474],[-88.388,14.477],[-88.36,14.491],[-88.35,14.508],[-88.348,14.519],[-88.342,14.538],[-88.323,14.573],[-88.334,14.636],[-88.344,14.654],[-88.266,14.649],[-88.207,14.655],[-88.163,14.659],[-88.13,14.652],[-88.1,14.649],[-88.093,14.654],[-88.075,14.665]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Intibuca'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Intibuca?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Intibuca is located? </h2>Intibuca, is a department It belongs to the country of Honduras. Its postal identifier is IN.Intibuca has an area of 3137 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

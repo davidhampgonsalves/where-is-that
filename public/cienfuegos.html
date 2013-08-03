@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Cienfuegos?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-80.024,21.939],[-80.06,21.904],[-80.087,21.883],[-80.094,21.876],[-80.098,21.871],[-80.099,21.866],[-80.101,21.825],[-80.105,21.825],[-80.146,21.84],[-80.188,21.849],[-80.218,21.872],[-80.27,21.887],[-80.301,21.912],[-80.41,22.021],[-80.412,22.025],[-80.412,22.03],[-80.412,22.036],[-80.417,22.041],[-80.421,22.042],[-80.433,22.04],[-80.437,22.041],[-80.448,22.05],[-80.451,22.057],[-80.451,22.069],[-80.437,22.066],[-80.419,22.067],[-80.402,22.072],[-80.389,22.082],[-80.404,22.079],[-80.41,22.076],[-80.406,22.085],[-80.4,22.093],[-80.396,22.101],[-80.396,22.11],[-80.404,22.113],[-80.416,22.11],[-80.425,22.11],[-80.424,22.123],[-80.444,22.123],[-80.456,22.131],[-80.458,22.143],[-80.443,22.158],[-80.467,22.172],[-80.477,22.18],[-80.484,22.192],[-80.491,22.182],[-80.503,22.178],[-80.518,22.18],[-80.533,22.186],[-80.538,22.165],[-80.529,22.151],[-80.499,22.131],[-80.484,22.112],[-80.471,22.089],[-80.465,22.065],[-80.471,22.041],[-80.514,22.056],[-80.593,22.054],[-80.601,22.065],[-80.603,22.071],[-80.605,22.083],[-80.605,22.1],[-80.606,22.105],[-80.608,22.11],[-80.611,22.114],[-80.618,22.121],[-80.625,22.124],[-80.636,22.124],[-80.656,22.122],[-80.671,22.118],[-80.68,22.118],[-80.685,22.12],[-80.691,22.126],[-80.696,22.128],[-80.706,22.128],[-80.713,22.126],[-80.729,22.126],[-80.733,22.125],[-80.736,22.122],[-80.738,22.119],[-80.741,22.117],[-80.745,22.117],[-80.752,22.12],[-80.766,22.127],[-80.801,22.141],[-80.832,22.158],[-80.843,22.173],[-80.855,22.184],[-80.897,22.211],[-80.893,22.23],[-80.894,22.238],[-80.896,22.242],[-80.896,22.247],[-80.897,22.249],[-80.899,22.25],[-80.903,22.25],[-80.919,22.248],[-80.924,22.249],[-80.926,22.252],[-80.928,22.255],[-80.93,22.26],[-80.931,22.269],[-80.93,22.277],[-80.928,22.285],[-80.923,22.299],[-80.921,22.307],[-80.921,22.312],[-80.924,22.319],[-80.926,22.323],[-80.924,22.328],[-80.921,22.334],[-80.913,22.345],[-80.912,22.35],[-80.913,22.354],[-80.917,22.356],[-80.92,22.357],[-80.923,22.357],[-80.926,22.356],[-80.931,22.354],[-80.936,22.353],[-80.939,22.352],[-80.942,22.353],[-80.943,22.355],[-80.941,22.36],[-80.925,22.384],[-80.922,22.391],[-80.915,22.407],[-80.915,22.411],[-80.916,22.413],[-80.92,22.415],[-80.925,22.416],[-80.928,22.417],[-80.929,22.419],[-80.921,22.428],[-80.909,22.436],[-80.904,22.44],[-80.901,22.443],[-80.889,22.454],[-80.883,22.457],[-80.862,22.467],[-80.85,22.474],[-80.846,22.477],[-80.837,22.482],[-80.829,22.483],[-80.818,22.483],[-80.768,22.471],[-80.76,22.47],[-80.737,22.472],[-80.645,22.463],[-80.635,22.46],[-80.63,22.459],[-80.624,22.46],[-80.602,22.469],[-80.595,22.471],[-80.588,22.473],[-80.58,22.474],[-80.576,22.474],[-80.572,22.479],[-80.565,22.487],[-80.543,22.525],[-80.54,22.529],[-80.52,22.542],[-80.478,22.565],[-80.466,22.578],[-80.463,22.581],[-80.459,22.585],[-80.455,22.587],[-80.446,22.586],[-80.441,22.585],[-80.417,22.566],[-80.392,22.571],[-80.384,22.569],[-80.379,22.564],[-80.38,22.549],[-80.382,22.54],[-80.387,22.527],[-80.387,22.522],[-80.387,22.52],[-80.385,22.517],[-80.381,22.516],[-80.375,22.516],[-80.364,22.52],[-80.358,22.523],[-80.346,22.53],[-80.342,22.531],[-80.336,22.532],[-80.329,22.531],[-80.323,22.532],[-80.32,22.533],[-80.318,22.536],[-80.31,22.558],[-80.307,22.565],[-80.304,22.569],[-80.3,22.57],[-80.294,22.57],[-80.28,22.569],[-80.274,22.569],[-80.268,22.57],[-80.265,22.572],[-80.26,22.577],[-80.258,22.579],[-80.255,22.576],[-80.254,22.569],[-80.254,22.551],[-80.255,22.543],[-80.258,22.538],[-80.261,22.537],[-80.265,22.536],[-80.268,22.534],[-80.271,22.532],[-80.271,22.526],[-80.27,22.518],[-80.259,22.494],[-80.256,22.488],[-80.237,22.478],[-80.234,22.468],[-80.237,22.46],[-80.239,22.452],[-80.238,22.447],[-80.234,22.44],[-80.227,22.436],[-80.224,22.432],[-80.221,22.428],[-80.224,22.415],[-80.243,22.395],[-80.242,22.385],[-80.239,22.378],[-80.233,22.37],[-80.197,22.337],[-80.184,22.331],[-80.177,22.33],[-80.17,22.331],[-80.155,22.335],[-80.15,22.335],[-80.146,22.335],[-80.143,22.333],[-80.142,22.329],[-80.138,22.307],[-80.136,22.298],[-80.13,22.286],[-80.121,22.271],[-80.109,22.256],[-80.084,22.246],[-80.095,22.213],[-80.099,22.208],[-80.102,22.199],[-80.104,22.19],[-80.1,22.152],[-80.1,22.132],[-80.1,22.123],[-80.089,22.084],[-80.084,22.07],[-80.077,22.058],[-80.059,22.043],[-80.053,22.037],[-80.051,22.028],[-80.049,22.002],[-80.05,21.987],[-80.048,21.977],[-80.045,21.969],[-80.025,21.954],[-80.023,21.952],[-80.024,21.939]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Cienfuegos'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Cienfuegos?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Cienfuegos is located? </h2>Cienfuegos, is a province It belongs to the country of Cuba. Its postal identifier is CF.Cienfuegos has an area of 4190 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

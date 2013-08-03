@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Takev?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[104.77,11.338],[104.78,11.336],[104.782,11.337],[104.79,11.341],[104.803,11.343],[104.834,11.345],[104.865,11.353],[104.871,11.353],[104.876,11.353],[104.879,11.351],[104.882,11.349],[104.888,11.346],[104.923,11.339],[104.929,11.336],[104.931,11.335],[104.935,11.329],[104.933,11.283],[104.935,11.268],[104.936,11.265],[104.938,11.263],[104.943,11.259],[104.949,11.255],[104.969,11.225],[104.981,11.214],[105,11.199],[105.02,11.185],[105.027,11.17],[105.027,11.161],[105.014,11.113],[105.013,11.089],[105.017,11.041],[105.009,11.01],[105.01,10.989],[105.012,10.984],[105.014,10.982],[105.016,10.979],[105.019,10.975],[105.022,10.968],[105.031,10.936],[105.033,10.933],[105.034,10.93],[105.038,10.923],[105.038,10.923],[105.029,10.914],[105.018,10.9],[105.011,10.884],[105.015,10.849],[105.03,10.812],[105.066,10.747],[105.067,10.714],[105.042,10.691],[104.944,10.642],[104.931,10.631],[104.92,10.618],[104.879,10.556],[104.854,10.532],[104.819,10.517],[104.774,10.516],[104.724,10.522],[104.701,10.524],[104.701,10.524],[104.702,10.531],[104.71,10.619],[104.708,10.641],[104.706,10.644],[104.703,10.646],[104.7,10.647],[104.696,10.648],[104.688,10.658],[104.676,10.696],[104.679,10.713],[104.697,10.748],[104.705,10.761],[104.714,10.772],[104.739,10.793],[104.703,10.889],[104.646,10.903],[104.63,10.905],[104.61,10.898],[104.578,10.889],[104.547,10.901],[104.545,10.903],[104.544,10.909],[104.554,10.942],[104.556,10.954],[104.553,10.96],[104.551,10.963],[104.539,11.018],[104.537,11.026],[104.525,11.036],[104.514,11.042],[104.495,11.049],[104.462,11.055],[104.454,11.058],[104.444,11.064],[104.439,11.072],[104.436,11.079],[104.435,11.089],[104.438,11.121],[104.471,11.109],[104.483,11.106],[104.512,11.106],[104.523,11.104],[104.533,11.102],[104.556,11.089],[104.561,11.087],[104.613,11.088],[104.617,11.089],[104.623,11.091],[104.629,11.094],[104.64,11.097],[104.674,11.1],[104.673,11.148],[104.683,11.194],[104.689,11.223],[104.703,11.308],[104.705,11.319],[104.713,11.328],[104.744,11.355],[104.77,11.338]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Takev'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Takev?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where Takev is located? </h2>Takev, is a province It belongs to the country of Cambodia. Its postal identifier is TA.Takev has an area of 3360 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

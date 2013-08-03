@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Pirot?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[22.664,43.397],[22.674,43.394],[22.693,43.395],[22.702,43.394],[22.719,43.389],[22.724,43.386],[22.732,43.382],[22.804,43.329],[22.817,43.316],[22.82,43.308],[22.823,43.29],[22.826,43.282],[22.833,43.275],[22.857,43.257],[22.883,43.231],[22.897,43.221],[22.915,43.213],[22.964,43.205],[22.981,43.199],[22.982,43.187],[22.984,43.175],[22.984,43.175],[22.974,43.141],[22.955,43.109],[22.937,43.088],[22.935,43.086],[22.935,43.086],[22.927,43.081],[22.91,43.076],[22.901,43.07],[22.901,43.07],[22.896,43.063],[22.889,43.045],[22.884,43.037],[22.884,43.037],[22.842,43.008],[22.842,43.008],[22.841,43.007],[22.829,42.994],[22.829,42.994],[22.829,42.994],[22.828,42.994],[22.828,42.994],[22.815,42.99],[22.788,42.985],[22.776,42.98],[22.77,42.973],[22.769,42.972],[22.763,42.959],[22.745,42.91],[22.739,42.899],[22.739,42.899],[22.738,42.898],[22.727,42.887],[22.696,42.878],[22.666,42.872],[22.59,42.887],[22.563,42.885],[22.55,42.878],[22.549,42.878],[22.548,42.876],[22.544,42.872],[22.528,42.874],[22.523,42.875],[22.516,42.876],[22.512,42.877],[22.504,42.879],[22.5,42.88],[22.496,42.88],[22.488,42.88],[22.477,42.878],[22.473,42.878],[22.465,42.878],[22.462,42.878],[22.458,42.879],[22.45,42.882],[22.447,42.882],[22.438,42.883],[22.436,42.884],[22.434,42.885],[22.428,42.888],[22.426,42.889],[22.419,42.891],[22.414,42.893],[22.41,42.896],[22.406,42.899],[22.401,42.903],[22.4,42.905],[22.396,42.91],[22.395,42.912],[22.393,42.913],[22.39,42.914],[22.383,42.916],[22.38,42.918],[22.377,42.919],[22.367,42.925],[22.359,42.93],[22.377,42.932],[22.388,42.935],[22.393,42.936],[22.396,42.937],[22.398,42.939],[22.4,42.941],[22.401,42.943],[22.402,42.944],[22.401,42.946],[22.399,42.948],[22.398,42.95],[22.395,42.953],[22.39,42.956],[22.379,42.961],[22.376,42.963],[22.364,42.967],[22.361,42.968],[22.358,42.969],[22.355,42.969],[22.347,42.969],[22.346,42.969],[22.343,42.969],[22.34,42.97],[22.335,42.974],[22.326,42.977],[22.318,42.981],[22.299,42.988],[22.289,42.991],[22.285,42.992],[22.281,42.993],[22.277,42.993],[22.273,42.992],[22.27,42.992],[22.264,42.991],[22.261,42.991],[22.258,42.992],[22.256,42.993],[22.252,42.995],[22.247,42.999],[22.245,43.001],[22.242,43.002],[22.238,43.004],[22.235,43.004],[22.223,43.005],[22.218,43.007],[22.215,43.008],[22.207,43.012],[22.204,43.013],[22.202,43.015],[22.201,43.017],[22.201,43.019],[22.201,43.021],[22.202,43.022],[22.216,43.03],[22.218,43.032],[22.22,43.035],[22.222,43.036],[22.224,43.037],[22.231,43.04],[22.233,43.041],[22.241,43.043],[22.243,43.044],[22.245,43.045],[22.25,43.05],[22.257,43.054],[22.258,43.055],[22.258,43.056],[22.258,43.057],[22.257,43.058],[22.247,43.065],[22.241,43.069],[22.234,43.074],[22.234,43.076],[22.237,43.084],[22.238,43.085],[22.239,43.087],[22.241,43.088],[22.247,43.091],[22.253,43.093],[22.261,43.095],[22.264,43.097],[22.269,43.1],[22.286,43.106],[22.296,43.11],[22.282,43.13],[22.28,43.132],[22.277,43.135],[22.275,43.136],[22.275,43.137],[22.277,43.141],[22.277,43.143],[22.276,43.144],[22.275,43.145],[22.269,43.149],[22.266,43.15],[22.263,43.151],[22.26,43.152],[22.259,43.151],[22.256,43.151],[22.25,43.149],[22.246,43.148],[22.242,43.148],[22.238,43.148],[22.234,43.148],[22.23,43.15],[22.226,43.151],[22.223,43.153],[22.221,43.155],[22.216,43.161],[22.214,43.162],[22.212,43.162],[22.21,43.163],[22.207,43.163],[22.204,43.163],[22.201,43.163],[22.199,43.164],[22.197,43.165],[22.192,43.168],[22.184,43.173],[22.177,43.178],[22.174,43.181],[22.172,43.181],[22.17,43.182],[22.161,43.183],[22.158,43.184],[22.155,43.185],[22.146,43.189],[22.137,43.195],[22.135,43.196],[22.114,43.203],[22.119,43.212],[22.126,43.222],[22.131,43.228],[22.132,43.23],[22.132,43.232],[22.13,43.239],[22.13,43.241],[22.131,43.243],[22.133,43.245],[22.138,43.248],[22.139,43.25],[22.141,43.251],[22.142,43.255],[22.143,43.256],[22.145,43.258],[22.148,43.259],[22.151,43.259],[22.158,43.259],[22.16,43.259],[22.161,43.26],[22.163,43.261],[22.164,43.263],[22.166,43.266],[22.167,43.268],[22.167,43.269],[22.165,43.273],[22.165,43.274],[22.164,43.279],[22.164,43.28],[22.163,43.281],[22.162,43.283],[22.154,43.286],[22.15,43.288],[22.148,43.29],[22.147,43.291],[22.146,43.293],[22.146,43.295],[22.147,43.3],[22.147,43.302],[22.146,43.305],[22.143,43.313],[22.142,43.315],[22.14,43.327],[22.137,43.337],[22.15,43.34],[22.161,43.343],[22.165,43.344],[22.168,43.344],[22.17,43.344],[22.178,43.342],[22.188,43.341],[22.198,43.34],[22.201,43.339],[22.206,43.338],[22.209,43.337],[22.218,43.332],[22.221,43.33],[22.225,43.329],[22.235,43.328],[22.239,43.327],[22.241,43.325],[22.247,43.322],[22.249,43.321],[22.255,43.32],[22.258,43.319],[22.262,43.319],[22.268,43.319],[22.275,43.32],[22.283,43.321],[22.303,43.321],[22.308,43.321],[22.311,43.321],[22.321,43.324],[22.324,43.324],[22.325,43.325],[22.327,43.327],[22.328,43.328],[22.33,43.334],[22.334,43.342],[22.334,43.344],[22.334,43.347],[22.333,43.352],[22.333,43.354],[22.334,43.356],[22.335,43.358],[22.338,43.362],[22.339,43.363],[22.339,43.365],[22.339,43.37],[22.337,43.382],[22.36,43.376],[22.362,43.375],[22.367,43.372],[22.371,43.37],[22.376,43.368],[22.384,43.366],[22.394,43.363],[22.399,43.362],[22.402,43.362],[22.407,43.363],[22.41,43.363],[22.414,43.362],[22.416,43.361],[22.422,43.358],[22.445,43.345],[22.446,43.345],[22.449,43.346],[22.452,43.347],[22.461,43.346],[22.465,43.346],[22.467,43.347],[22.469,43.347],[22.472,43.349],[22.474,43.351],[22.478,43.356],[22.483,43.365],[22.484,43.366],[22.486,43.367],[22.487,43.367],[22.49,43.367],[22.491,43.366],[22.493,43.365],[22.496,43.363],[22.498,43.36],[22.503,43.353],[22.505,43.351],[22.515,43.344],[22.521,43.338],[22.525,43.335],[22.533,43.333],[22.539,43.33],[22.541,43.329],[22.552,43.329],[22.555,43.328],[22.572,43.325],[22.575,43.325],[22.577,43.325],[22.579,43.326],[22.581,43.327],[22.581,43.328],[22.581,43.329],[22.581,43.331],[22.578,43.337],[22.577,43.339],[22.578,43.341],[22.579,43.343],[22.581,43.345],[22.587,43.349],[22.602,43.36],[22.606,43.362],[22.618,43.366],[22.62,43.366],[22.622,43.368],[22.625,43.37],[22.63,43.375],[22.634,43.38],[22.639,43.384],[22.644,43.388],[22.651,43.394],[22.652,43.395],[22.659,43.401],[22.659,43.401],[22.664,43.397]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Pirot'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Pirot?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Pirot is located? </h2>Pirot, is a district It belongs to the country of Serbia. Its postal identifier is PI.Pirot has an area of 2667 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

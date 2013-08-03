@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Szabolcs-Szatmar-Bereg?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[22.256,48.373],[22.256,48.357],[22.284,48.359],[22.291,48.358],[22.298,48.349],[22.298,48.34],[22.296,48.328],[22.297,48.314],[22.308,48.294],[22.357,48.243],[22.363,48.239],[22.37,48.238],[22.378,48.239],[22.386,48.243],[22.39,48.244],[22.394,48.245],[22.398,48.244],[22.418,48.239],[22.434,48.237],[22.449,48.238],[22.469,48.244],[22.473,48.245],[22.477,48.244],[22.481,48.243],[22.555,48.177],[22.568,48.157],[22.583,48.125],[22.599,48.101],[22.605,48.097],[22.608,48.097],[22.621,48.102],[22.693,48.102],[22.711,48.106],[22.728,48.113],[22.745,48.116],[22.762,48.109],[22.765,48.105],[22.801,48.091],[22.83,48.073],[22.844,48.061],[22.854,48.048],[22.861,48.029],[22.857,48.018],[22.851,48.009],[22.849,47.993],[22.838,47.985],[22.832,47.979],[22.832,47.979],[22.84,47.967],[22.877,47.947],[22.877,47.947],[22.861,47.934],[22.861,47.934],[22.836,47.903],[22.836,47.903],[22.819,47.893],[22.779,47.883],[22.763,47.875],[22.763,47.875],[22.752,47.861],[22.753,47.853],[22.758,47.846],[22.76,47.839],[22.751,47.828],[22.751,47.828],[22.745,47.825],[22.724,47.824],[22.703,47.817],[22.691,47.811],[22.666,47.789],[22.637,47.772],[22.601,47.761],[22.562,47.757],[22.528,47.761],[22.454,47.788],[22.423,47.783],[22.423,47.783],[22.407,47.743],[22.407,47.743],[22.395,47.736],[22.382,47.732],[22.368,47.731],[22.322,47.736],[22.309,47.735],[22.291,47.731],[22.273,47.724],[22.261,47.716],[22.243,47.698],[22.239,47.694],[22.239,47.694],[22.232,47.688],[22.215,47.68],[22.207,47.674],[22.207,47.674],[22.204,47.666],[22.2,47.648],[22.197,47.64],[22.197,47.64],[22.172,47.616],[22.172,47.616],[22.169,47.609],[22.168,47.602],[22.167,47.594],[22.162,47.587],[22.162,47.586],[22.154,47.583],[22.154,47.583],[22.132,47.601],[22.112,47.659],[22.095,47.676],[22.049,47.642],[22.023,47.659],[22.028,47.685],[21.999,47.72],[21.93,47.746],[21.896,47.745],[21.871,47.717],[21.859,47.696],[21.841,47.683],[21.82,47.691],[21.802,47.706],[21.782,47.712],[21.76,47.712],[21.718,47.723],[21.699,47.735],[21.65,47.742],[21.633,47.758],[21.54,47.807],[21.544,47.864],[21.556,47.917],[21.546,47.938],[21.515,47.945],[21.476,47.93],[21.314,47.922],[21.269,47.91],[21.187,47.954],[21.114,47.961],[21.12,47.987],[21.127,47.999],[21.138,48.007],[21.181,48.026],[21.188,48.027],[21.213,48.026],[21.223,48.029],[21.227,48.035],[21.23,48.042],[21.237,48.047],[21.253,48.048],[21.263,48.042],[21.272,48.033],[21.284,48.026],[21.299,48.024],[21.346,48.026],[21.339,48.026],[21.373,48.027],[21.407,48.034],[21.432,48.051],[21.443,48.082],[21.439,48.095],[21.432,48.103],[21.426,48.112],[21.428,48.13],[21.435,48.144],[21.447,48.158],[21.461,48.17],[21.476,48.177],[21.495,48.179],[21.559,48.177],[21.596,48.181],[21.613,48.18],[21.652,48.168],[21.671,48.165],[21.69,48.167],[21.766,48.199],[21.778,48.202],[21.794,48.202],[21.813,48.212],[21.831,48.225],[21.846,48.232],[21.909,48.235],[21.929,48.24],[21.943,48.248],[21.972,48.27],[22.005,48.303],[22.011,48.307],[22.023,48.308],[22.042,48.301],[22.052,48.3],[22.079,48.312],[22.1,48.334],[22.137,48.387],[22.159,48.403],[22.159,48.403],[22.169,48.41],[22.201,48.418],[22.236,48.415],[22.271,48.404],[22.256,48.373]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Szabolcs-Szatmar-Bereg'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Szabolcs-Szatmar-Bereg?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Szabolcs-Szatmar-Bereg is located? </h2>Szabolcs-Szatmar-Bereg, is a county It belongs to the country of Hungary. Its postal identifier is SZ.Szabolcs-Szatmar-Bereg has an area of 5710 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

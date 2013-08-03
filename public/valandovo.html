@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Valandovo?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[22.461,41.429],[22.471,41.42],[22.481,41.413],[22.493,41.409],[22.505,41.409],[22.512,41.41],[22.522,41.409],[22.527,41.405],[22.532,41.4],[22.532,41.395],[22.528,41.388],[22.521,41.381],[22.517,41.373],[22.517,41.369],[22.522,41.362],[22.531,41.352],[22.535,41.345],[22.536,41.335],[22.536,41.33],[22.543,41.329],[22.556,41.329],[22.566,41.33],[22.573,41.332],[22.578,41.333],[22.584,41.333],[22.592,41.328],[22.602,41.32],[22.602,41.313],[22.61,41.311],[22.621,41.311],[22.63,41.311],[22.637,41.313],[22.641,41.318],[22.646,41.32],[22.653,41.32],[22.656,41.316],[22.661,41.316],[22.664,41.318],[22.671,41.324],[22.676,41.335],[22.682,41.344],[22.689,41.347],[22.695,41.348],[22.707,41.346],[22.724,41.339],[22.743,41.332],[22.759,41.325],[22.762,41.323],[22.762,41.323],[22.761,41.322],[22.751,41.315],[22.741,41.287],[22.74,41.288],[22.728,41.291],[22.721,41.291],[22.713,41.292],[22.704,41.292],[22.697,41.292],[22.69,41.291],[22.684,41.291],[22.672,41.293],[22.662,41.294],[22.655,41.291],[22.65,41.284],[22.65,41.278],[22.647,41.273],[22.641,41.27],[22.626,41.27],[22.605,41.271],[22.601,41.266],[22.593,41.257],[22.585,41.248],[22.576,41.244],[22.568,41.241],[22.566,41.241],[22.562,41.242],[22.552,41.246],[22.55,41.25],[22.548,41.253],[22.53,41.253],[22.526,41.247],[22.525,41.24],[22.524,41.228],[22.523,41.223],[22.516,41.219],[22.51,41.216],[22.506,41.213],[22.505,41.213],[22.502,41.213],[22.497,41.219],[22.493,41.225],[22.493,41.23],[22.489,41.234],[22.481,41.236],[22.481,41.244],[22.481,41.254],[22.475,41.269],[22.47,41.278],[22.47,41.297],[22.47,41.307],[22.468,41.313],[22.465,41.315],[22.457,41.315],[22.447,41.318],[22.44,41.323],[22.431,41.334],[22.415,41.348],[22.407,41.357],[22.4,41.361],[22.39,41.363],[22.377,41.367],[22.367,41.375],[22.359,41.376],[22.351,41.377],[22.337,41.378],[22.337,41.378],[22.332,41.382],[22.326,41.394],[22.324,41.402],[22.325,41.412],[22.327,41.419],[22.33,41.425],[22.331,41.423],[22.336,41.423],[22.337,41.428],[22.341,41.433],[22.365,41.44],[22.384,41.443],[22.409,41.448],[22.427,41.449],[22.441,41.447],[22.446,41.446],[22.445,41.443],[22.452,41.438],[22.461,41.429]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Valandovo'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Valandovo?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Valandovo is located? </h2>Valandovo, is a statistical region of the Southeastern region. It belongs to the country of Macedonia. Its postal identifier is VA.Valandovo has an area of 327 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

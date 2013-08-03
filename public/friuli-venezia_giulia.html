@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Friuli-Venezia Giulia?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[13.231,46.553],[13.271,46.551],[13.373,46.566],[13.417,46.561],[13.478,46.564],[13.485,46.562],[13.499,46.551],[13.506,46.547],[13.549,46.546],[13.67,46.519],[13.685,46.518],[13.7,46.52],[13.7,46.52],[13.701,46.512],[13.699,46.505],[13.695,46.499],[13.695,46.499],[13.689,46.494],[13.689,46.494],[13.688,46.468],[13.686,46.465],[13.677,46.452],[13.677,46.452],[13.658,46.445],[13.634,46.446],[13.6,46.443],[13.575,46.427],[13.554,46.406],[13.53,46.389],[13.483,46.372],[13.459,46.359],[13.447,46.355],[13.434,46.354],[13.423,46.345],[13.423,46.345],[13.409,46.324],[13.395,46.307],[13.391,46.302],[13.391,46.302],[13.365,46.291],[13.365,46.291],[13.373,46.281],[13.378,46.269],[13.384,46.244],[13.384,46.244],[13.384,46.244],[13.398,46.231],[13.401,46.217],[13.41,46.208],[13.437,46.211],[13.437,46.211],[13.423,46.229],[13.422,46.229],[13.438,46.225],[13.468,46.224],[13.482,46.218],[13.51,46.214],[13.529,46.205],[13.559,46.185],[13.584,46.182],[13.614,46.184],[13.628,46.182],[13.637,46.181],[13.641,46.171],[13.645,46.162],[13.616,46.125],[13.616,46.125],[13.505,46.066],[13.501,46.063],[13.482,46.045],[13.49,46.039],[13.492,46.033],[13.49,46.026],[13.482,46.019],[13.482,46.019],[13.477,46.016],[13.461,46.007],[13.461,46.007],[13.474,45.996],[13.479,45.994],[13.48,45.993],[13.481,45.992],[13.481,45.991],[13.482,45.99],[13.509,45.968],[13.539,45.969],[13.571,45.98],[13.602,45.985],[13.606,45.986],[13.622,45.967],[13.615,45.946],[13.608,45.927],[13.599,45.913],[13.569,45.865],[13.566,45.831],[13.574,45.819],[13.581,45.81],[13.609,45.799],[13.643,45.796],[13.66,45.793],[13.7,45.771],[13.709,45.766],[13.778,45.744],[13.858,45.65],[13.869,45.642],[13.884,45.636],[13.893,45.635],[13.894,45.634],[13.894,45.632],[13.887,45.619],[13.868,45.603],[13.855,45.592],[13.847,45.585],[13.8,45.582],[13.761,45.597],[13.712,45.593],[13.719,45.601],[13.73,45.613],[13.757,45.614],[13.787,45.611],[13.808,45.614],[13.796,45.617],[13.787,45.624],[13.777,45.636],[13.739,45.649],[13.758,45.655],[13.754,45.672],[13.739,45.692],[13.726,45.704],[13.648,45.762],[13.629,45.773],[13.574,45.79],[13.551,45.793],[13.535,45.782],[13.524,45.76],[13.529,45.741],[13.555,45.737],[13.519,45.725],[13.514,45.721],[13.508,45.715],[13.48,45.711],[13.469,45.707],[13.452,45.694],[13.428,45.681],[13.402,45.676],[13.377,45.683],[13.391,45.686],[13.409,45.691],[13.425,45.699],[13.432,45.707],[13.423,45.724],[13.382,45.73],[13.37,45.745],[13.352,45.74],[13.255,45.756],[13.246,45.759],[13.222,45.776],[13.216,45.779],[13.205,45.778],[13.17,45.769],[13.158,45.755],[13.15,45.752],[13.14,45.755],[13.132,45.769],[13.119,45.772],[13.111,45.768],[13.108,45.758],[13.112,45.749],[13.123,45.745],[13.123,45.737],[13.101,45.736],[13.081,45.728],[13.07,45.714],[13.075,45.697],[13.092,45.689],[13.112,45.691],[13.15,45.704],[13.138,45.69],[13.103,45.669],[13.096,45.652],[13.096,45.652],[13.081,45.665],[13.075,45.674],[13.052,45.719],[13.047,45.725],[13.037,45.733],[13.032,45.738],[13.029,45.743],[13.03,45.75],[13.03,45.751],[13.029,45.754],[13.026,45.76],[13.002,45.782],[13,45.786],[12.999,45.791],[12.997,45.802],[12.997,45.813],[13,45.823],[12.999,45.825],[12.993,45.833],[12.973,45.843],[12.962,45.834],[12.955,45.824],[12.952,45.821],[12.947,45.819],[12.94,45.819],[12.895,45.826],[12.889,45.829],[12.886,45.833],[12.887,45.836],[12.886,45.839],[12.884,45.842],[12.88,45.844],[12.875,45.846],[12.87,45.847],[12.863,45.847],[12.856,45.844],[12.846,45.839],[12.841,45.834],[12.837,45.83],[12.835,45.827],[12.832,45.825],[12.827,45.824],[12.819,45.828],[12.815,45.831],[12.814,45.834],[12.814,45.837],[12.814,45.841],[12.813,45.844],[12.811,45.847],[12.808,45.849],[12.8,45.853],[12.792,45.856],[12.787,45.855],[12.784,45.853],[12.778,45.847],[12.775,45.842],[12.77,45.838],[12.765,45.836],[12.748,45.834],[12.74,45.831],[12.731,45.827],[12.699,45.804],[12.69,45.801],[12.673,45.802],[12.666,45.815],[12.661,45.819],[12.644,45.83],[12.639,45.832],[12.634,45.833],[12.629,45.833],[12.625,45.832],[12.613,45.826],[12.608,45.826],[12.603,45.826],[12.568,45.839],[12.564,45.842],[12.561,45.847],[12.558,45.855],[12.532,45.903],[12.53,45.911],[12.528,45.916],[12.526,45.92],[12.522,45.924],[12.513,45.929],[12.498,45.932],[12.494,45.934],[12.473,45.95],[12.467,45.953],[12.463,45.954],[12.453,45.956],[12.448,45.96],[12.445,45.966],[12.44,45.998],[12.434,46.017],[12.419,46.051],[12.43,46.063],[12.435,46.07],[12.439,46.077],[12.441,46.08],[12.444,46.083],[12.447,46.085],[12.451,46.087],[12.455,46.089],[12.479,46.094],[12.488,46.097],[12.495,46.102],[12.497,46.104],[12.499,46.107],[12.502,46.111],[12.503,46.118],[12.502,46.127],[12.498,46.147],[12.495,46.156],[12.491,46.161],[12.472,46.171],[12.465,46.176],[12.463,46.178],[12.461,46.181],[12.46,46.185],[12.458,46.199],[12.456,46.206],[12.453,46.21],[12.448,46.211],[12.436,46.211],[12.431,46.212],[12.428,46.214],[12.426,46.217],[12.425,46.22],[12.423,46.223],[12.42,46.226],[12.415,46.227],[12.392,46.227],[12.387,46.228],[12.383,46.23],[12.358,46.245],[12.343,46.258],[12.34,46.26],[12.337,46.266],[12.336,46.269],[12.338,46.274],[12.344,46.282],[12.36,46.298],[12.37,46.306],[12.385,46.314],[12.437,46.332],[12.445,46.338],[12.465,46.356],[12.497,46.397],[12.508,46.423],[12.52,46.442],[12.524,46.446],[12.529,46.449],[12.551,46.457],[12.593,46.464],[12.641,46.464],[12.652,46.462],[12.661,46.459],[12.666,46.458],[12.67,46.459],[12.672,46.463],[12.672,46.472],[12.67,46.477],[12.667,46.481],[12.658,46.484],[12.653,46.485],[12.649,46.487],[12.645,46.489],[12.642,46.491],[12.643,46.496],[12.646,46.502],[12.664,46.517],[12.669,46.52],[12.673,46.522],[12.682,46.525],[12.691,46.527],[12.757,46.534],[12.76,46.537],[12.762,46.542],[12.759,46.55],[12.761,46.56],[12.761,46.573],[12.755,46.593],[12.748,46.641],[12.748,46.641],[12.773,46.636],[12.83,46.61],[13.064,46.598],[13.146,46.585],[13.21,46.558],[13.231,46.553]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Friuli-Venezia Giulia'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Friuli-Venezia Giulia?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Friuli-Venezia Giulia is located? </h2>Friuli-Venezia Giulia, is a autonomous region It belongs to the country of Italy.Friuli-Venezia Giulia has an area of 7341 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

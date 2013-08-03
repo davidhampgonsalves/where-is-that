@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Connecticut?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-71.801,42.011],[-71.8,41.953],[-71.8,41.895],[-71.799,41.838],[-71.798,41.78],[-71.798,41.722],[-71.797,41.664],[-71.797,41.607],[-71.796,41.549],[-71.796,41.519],[-71.799,41.477],[-71.804,41.416],[-71.818,41.413],[-71.824,41.405],[-71.83,41.392],[-71.839,41.341],[-71.845,41.322],[-71.878,41.318],[-71.878,41.325],[-71.862,41.327],[-71.862,41.333],[-71.872,41.339],[-71.885,41.345],[-71.898,41.347],[-71.963,41.345],[-71.973,41.344],[-72.036,41.318],[-72.083,41.352],[-72.095,41.346],[-72.101,41.323],[-72.111,41.311],[-72.135,41.312],[-72.168,41.323],[-72.194,41.324],[-72.2,41.298],[-72.227,41.311],[-72.288,41.283],[-72.32,41.294],[-72.327,41.299],[-72.341,41.303],[-72.347,41.307],[-72.35,41.315],[-72.348,41.322],[-72.344,41.329],[-72.343,41.338],[-72.348,41.348],[-72.358,41.358],[-72.373,41.365],[-72.392,41.366],[-72.38,41.35],[-72.364,41.337],[-72.354,41.321],[-72.364,41.298],[-72.355,41.292],[-72.351,41.29],[-72.37,41.277],[-72.391,41.278],[-72.433,41.29],[-72.453,41.288],[-72.475,41.281],[-72.495,41.27],[-72.508,41.257],[-72.513,41.261],[-72.517,41.263],[-72.519,41.265],[-72.522,41.27],[-72.53,41.27],[-72.541,41.264],[-72.582,41.279],[-72.605,41.284],[-72.662,41.274],[-72.671,41.268],[-72.679,41.261],[-72.687,41.257],[-72.699,41.257],[-72.709,41.261],[-72.718,41.266],[-72.728,41.27],[-72.741,41.272],[-72.779,41.27],[-72.79,41.267],[-72.806,41.258],[-72.813,41.26],[-72.824,41.264],[-72.882,41.262],[-72.895,41.266],[-72.903,41.277],[-72.906,41.301],[-72.91,41.305],[-72.919,41.299],[-72.927,41.289],[-72.93,41.284],[-72.967,41.257],[-72.993,41.229],[-73.002,41.222],[-73.014,41.218],[-73.043,41.217],[-73.053,41.212],[-73.064,41.205],[-73.085,41.197],[-73.094,41.191],[-73.104,41.18],[-73.107,41.175],[-73.112,41.171],[-73.125,41.167],[-73.144,41.164],[-73.15,41.168],[-73.155,41.175],[-73.167,41.181],[-73.174,41.18],[-73.207,41.16],[-73.212,41.16],[-73.216,41.163],[-73.219,41.166],[-73.221,41.167],[-73.225,41.163],[-73.228,41.155],[-73.232,41.153],[-73.235,41.15],[-73.248,41.137],[-73.255,41.133],[-73.264,41.133],[-73.278,41.139],[-73.286,41.14],[-73.295,41.138],[-73.306,41.128],[-73.314,41.126],[-73.327,41.125],[-73.347,41.12],[-73.364,41.113],[-73.372,41.102],[-73.38,41.1],[-73.424,41.078],[-73.438,41.073],[-73.474,41.055],[-73.485,41.054],[-73.501,41.059],[-73.52,41.034],[-73.529,41.043],[-73.547,41.029],[-73.565,41.019],[-73.584,41.018],[-73.605,41.031],[-73.608,41.027],[-73.611,41.025],[-73.624,41.021],[-73.647,41.011],[-73.65,41.019],[-73.655,41.028],[-73.659,41.031],[-73.661,41.033],[-73.666,41.035],[-73.669,41.038],[-73.693,41.067],[-73.717,41.096],[-73.723,41.103],[-73.709,41.111],[-73.665,41.131],[-73.609,41.157],[-73.549,41.186],[-73.5,41.209],[-73.484,41.218],[-73.499,41.234],[-73.512,41.252],[-73.526,41.27],[-73.545,41.295],[-73.543,41.314],[-73.539,41.36],[-73.535,41.406],[-73.531,41.453],[-73.527,41.499],[-73.523,41.545],[-73.52,41.592],[-73.516,41.638],[-73.512,41.684],[-73.508,41.73],[-73.504,41.777],[-73.5,41.823],[-73.496,41.869],[-73.492,41.916],[-73.488,41.962],[-73.484,42.008],[-73.481,42.055],[-73.359,42.051],[-73.237,42.048],[-73.115,42.044],[-72.993,42.041],[-72.926,42.039],[-72.862,42.037],[-72.808,42.033],[-72.806,42.007],[-72.763,42.01],[-72.758,42.033],[-72.62,42.031],[-72.597,42.026],[-72.584,42.024],[-72.576,42.025],[-72.557,42.032],[-72.507,42.031],[-72.359,42.029],[-72.211,42.027],[-72.064,42.025],[-71.916,42.022],[-71.802,42.022],[-71.801,42.011]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Connecticut'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Connecticut?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Connecticut is located? </h2>Connecticut, is a state It belongs to the country of United States of America. Its abbreviated name is Conn. and its postal identifier is CT.Connecticut has an area of 12653 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

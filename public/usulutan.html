@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Usulutan?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-88.113,13.171],[-88.122,13.168],[-88.208,13.16],[-88.301,13.174],[-88.325,13.167],[-88.338,13.171],[-88.352,13.174],[-88.352,13.18],[-88.33,13.182],[-88.328,13.197],[-88.34,13.216],[-88.358,13.229],[-88.354,13.221],[-88.342,13.205],[-88.338,13.195],[-88.374,13.196],[-88.392,13.194],[-88.407,13.188],[-88.397,13.184],[-88.389,13.185],[-88.38,13.187],[-88.366,13.188],[-88.366,13.18],[-88.389,13.171],[-88.415,13.172],[-88.435,13.184],[-88.441,13.208],[-88.431,13.204],[-88.427,13.201],[-88.414,13.215],[-88.414,13.221],[-88.431,13.229],[-88.449,13.255],[-88.462,13.262],[-88.459,13.248],[-88.453,13.236],[-88.45,13.225],[-88.455,13.215],[-88.469,13.223],[-88.511,13.234],[-88.53,13.243],[-88.546,13.272],[-88.554,13.277],[-88.566,13.277],[-88.599,13.284],[-88.613,13.284],[-88.654,13.277],[-88.71,13.275],[-88.723,13.27],[-88.716,13.264],[-88.709,13.261],[-88.701,13.259],[-88.695,13.262],[-88.667,13.256],[-88.586,13.264],[-88.577,13.263],[-88.564,13.256],[-88.557,13.25],[-88.545,13.235],[-88.536,13.229],[-88.536,13.221],[-88.555,13.224],[-88.569,13.227],[-88.599,13.236],[-88.599,13.229],[-88.517,13.212],[-88.474,13.199],[-88.455,13.18],[-88.462,13.168],[-88.48,13.171],[-88.499,13.181],[-88.513,13.191],[-88.527,13.198],[-88.786,13.245],[-88.817,13.259],[-88.817,13.26],[-88.817,13.262],[-88.813,13.276],[-88.806,13.286],[-88.794,13.29],[-88.774,13.293],[-88.765,13.3],[-88.759,13.311],[-88.749,13.325],[-88.732,13.341],[-88.729,13.348],[-88.728,13.379],[-88.726,13.392],[-88.721,13.403],[-88.676,13.487],[-88.667,13.517],[-88.665,13.547],[-88.659,13.555],[-88.643,13.558],[-88.642,13.564],[-88.613,13.599],[-88.591,13.594],[-88.571,13.606],[-88.556,13.626],[-88.55,13.644],[-88.487,13.688],[-88.446,13.693],[-88.435,13.692],[-88.428,13.685],[-88.42,13.672],[-88.413,13.665],[-88.405,13.659],[-88.397,13.657],[-88.372,13.654],[-88.366,13.652],[-88.363,13.649],[-88.363,13.647],[-88.368,13.634],[-88.368,13.631],[-88.368,13.628],[-88.366,13.619],[-88.364,13.612],[-88.362,13.608],[-88.362,13.605],[-88.362,13.602],[-88.363,13.599],[-88.364,13.597],[-88.366,13.596],[-88.368,13.594],[-88.374,13.593],[-88.376,13.592],[-88.378,13.59],[-88.379,13.587],[-88.38,13.585],[-88.38,13.582],[-88.38,13.576],[-88.38,13.573],[-88.379,13.57],[-88.367,13.545],[-88.365,13.542],[-88.365,13.539],[-88.367,13.532],[-88.367,13.527],[-88.367,13.522],[-88.363,13.509],[-88.362,13.505],[-88.363,13.503],[-88.364,13.501],[-88.364,13.5],[-88.369,13.495],[-88.371,13.494],[-88.372,13.491],[-88.373,13.489],[-88.373,13.486],[-88.373,13.479],[-88.374,13.473],[-88.375,13.471],[-88.376,13.469],[-88.378,13.469],[-88.379,13.47],[-88.381,13.472],[-88.382,13.473],[-88.383,13.474],[-88.385,13.473],[-88.387,13.471],[-88.388,13.469],[-88.388,13.466],[-88.388,13.463],[-88.386,13.449],[-88.386,13.443],[-88.383,13.424],[-88.381,13.421],[-88.38,13.42],[-88.378,13.42],[-88.374,13.422],[-88.37,13.42],[-88.368,13.418],[-88.368,13.415],[-88.368,13.408],[-88.367,13.402],[-88.366,13.395],[-88.36,13.377],[-88.355,13.366],[-88.345,13.35],[-88.338,13.342],[-88.336,13.34],[-88.334,13.339],[-88.326,13.336],[-88.321,13.334],[-88.301,13.332],[-88.297,13.329],[-88.292,13.325],[-88.283,13.315],[-88.279,13.311],[-88.276,13.309],[-88.273,13.309],[-88.271,13.309],[-88.268,13.308],[-88.266,13.307],[-88.262,13.304],[-88.26,13.302],[-88.257,13.302],[-88.255,13.301],[-88.252,13.301],[-88.249,13.302],[-88.244,13.304],[-88.235,13.309],[-88.231,13.309],[-88.227,13.309],[-88.224,13.305],[-88.222,13.302],[-88.221,13.299],[-88.221,13.296],[-88.221,13.281],[-88.218,13.278],[-88.215,13.275],[-88.208,13.271],[-88.206,13.268],[-88.205,13.266],[-88.213,13.252],[-88.213,13.249],[-88.214,13.246],[-88.214,13.241],[-88.212,13.239],[-88.21,13.238],[-88.182,13.242],[-88.179,13.242],[-88.176,13.242],[-88.174,13.241],[-88.113,13.171]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Usulutan'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Usulutan?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Usulutan is located? </h2>Usulutan, is a department It belongs to the country of El Salvador. Its postal identifier is US.Usulutan has an area of 2058 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

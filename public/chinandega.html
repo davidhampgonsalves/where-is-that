@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Chinandega?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-86.759,13.264],[-86.75,13.262],[-86.741,13.264],[-86.733,13.269],[-86.733,13.269],[-86.732,13.267],[-86.713,13.263],[-86.707,13.259],[-86.704,13.25],[-86.703,13.243],[-86.703,13.237],[-86.705,13.231],[-86.706,13.229],[-86.715,13.2],[-86.725,13.191],[-86.726,13.19],[-86.729,13.181],[-86.732,13.15],[-86.721,13.09],[-86.711,13.056],[-86.69,13.009],[-86.676,12.987],[-86.664,12.959],[-86.655,12.838],[-86.658,12.807],[-86.67,12.779],[-86.688,12.768],[-86.696,12.765],[-86.71,12.761],[-86.782,12.752],[-86.793,12.746],[-86.8,12.739],[-86.814,12.713],[-86.833,12.69],[-86.853,12.682],[-86.877,12.656],[-86.903,12.629],[-86.922,12.611],[-86.926,12.604],[-86.934,12.584],[-86.954,12.552],[-87.006,12.5],[-87.015,12.494],[-87.032,12.484],[-87.049,12.477],[-87.099,12.471],[-87.121,12.458],[-87.123,12.46],[-87.135,12.471],[-87.149,12.475],[-87.158,12.481],[-87.18,12.523],[-87.186,12.523],[-87.176,12.486],[-87.193,12.5],[-87.219,12.532],[-87.238,12.55],[-87.25,12.555],[-87.313,12.603],[-87.321,12.611],[-87.326,12.622],[-87.331,12.639],[-87.334,12.634],[-87.342,12.624],[-87.345,12.619],[-87.455,12.744],[-87.468,12.77],[-87.463,12.765],[-87.459,12.762],[-87.447,12.756],[-87.447,12.763],[-87.452,12.764],[-87.461,12.77],[-87.461,12.776],[-87.463,12.786],[-87.48,12.8],[-87.503,12.812],[-87.523,12.817],[-87.523,12.811],[-87.496,12.794],[-87.482,12.781],[-87.482,12.77],[-87.492,12.771],[-87.507,12.783],[-87.529,12.804],[-87.646,12.872],[-87.671,12.894],[-87.686,12.918],[-87.686,12.948],[-87.667,12.982],[-87.639,13.007],[-87.61,13.024],[-87.589,13.046],[-87.584,13.085],[-87.578,13.085],[-87.58,13.063],[-87.584,13.057],[-87.573,13.057],[-87.559,13.056],[-87.548,13.052],[-87.543,13.047],[-87.538,13.045],[-87.513,13.023],[-87.506,13.02],[-87.488,12.996],[-87.484,12.993],[-87.471,12.985],[-87.468,12.982],[-87.467,12.976],[-87.469,12.961],[-87.468,12.954],[-87.435,12.922],[-87.392,12.913],[-87.29,12.92],[-87.29,12.927],[-87.342,12.926],[-87.368,12.929],[-87.379,12.938],[-87.369,12.954],[-87.32,12.977],[-87.314,12.982],[-87.085,12.996],[-87.071,12.995],[-87.048,12.981],[-87.036,12.98],[-87.03,12.996],[-87.009,13.006],[-86.984,13.022],[-86.973,13.034],[-86.949,13.07],[-86.943,13.074],[-86.936,13.078],[-86.929,13.082],[-86.926,13.084],[-86.924,13.087],[-86.921,13.096],[-86.921,13.096],[-86.925,13.1],[-86.928,13.101],[-86.931,13.102],[-86.933,13.109],[-86.924,13.161],[-86.926,13.164],[-86.934,13.18],[-86.936,13.186],[-86.936,13.186],[-86.934,13.188],[-86.927,13.217],[-86.92,13.23],[-86.911,13.24],[-86.863,13.28],[-86.85,13.289],[-86.834,13.294],[-86.817,13.292],[-86.759,13.264]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Chinandega'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Chinandega?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Chinandega is located? </h2>Chinandega, is a department It belongs to the country of Nicaragua. Its postal identifier is CI.Chinandega has an area of 4803 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

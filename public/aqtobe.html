@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Aqtobe?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[61.96,51.129],[62.03,51.065],[62.154,51.11],[62.294,51.04],[62.26,51.012],[62.239,50.946],[62.375,50.851],[62.304,50.754],[62.314,50.696],[62.349,50.673],[62.446,50.675],[62.534,50.439],[62.693,50.222],[62.89,50.024],[62.913,49.897],[62.82,49.874],[62.714,49.908],[62.611,49.855],[62.558,49.751],[62.459,49.687],[62.413,49.601],[62.453,49.52],[62.322,49.524],[62.279,49.488],[62.294,49.444],[62.485,49.228],[62.384,49.219],[62.278,49.186],[62.373,49.167],[62.447,49.051],[62.665,48.878],[62.817,48.851],[62.906,48.883],[63.031,48.863],[63.056,48.789],[63.03,48.692],[63.661,48.47],[63.97,48.151],[64.162,47.937],[64.204,47.879],[64.106,47.806],[62.842,47.184],[62.753,47.181],[62.637,47.219],[62.543,47.229],[62.45,47.248],[62.467,47.292],[62.32,47.446],[62.17,47.544],[62.048,47.571],[61.859,47.776],[61.574,47.776],[61.327,47.733],[61.108,47.528],[61.017,47.361],[60.765,47.1],[60.538,47.112],[60.441,47.046],[60.411,46.924],[60.169,46.885],[59.921,46.76],[59.668,46.58],[59.113,46.066],[59.027,45.818],[59.055,45.324],[59.055,45.324],[58.582,45.549],[58.554,45.557],[58.531,45.559],[58.209,45.494],[57.978,45.445],[57.478,45.337],[56.708,45.162],[56.708,45.162],[56.707,45.167],[56.541,45.954],[56.473,46.084],[56.422,46.154],[56.4,46.218],[56.378,46.267],[56.296,46.353],[56.271,46.457],[55.494,46.66],[55.291,46.791],[55.167,46.917],[55.08,47.068],[54.998,47.152],[55.002,47.297],[55.073,47.646],[55.061,47.763],[54.973,48.012],[54.873,48.091],[54.876,48.2],[54.84,48.321],[54.794,48.428],[54.821,48.553],[54.843,48.575],[54.849,48.629],[54.801,48.741],[54.711,48.746],[54.666,48.77],[54.633,48.807],[54.578,48.813],[54.537,48.794],[54.493,48.747],[54.443,48.658],[54.072,48.717],[54.092,48.75],[54.08,48.799],[54.082,48.895],[54.053,49.006],[53.979,49.128],[53.905,49.058],[53.865,49.074],[53.859,49.104],[53.743,49.143],[53.673,49.184],[53.671,49.288],[53.719,49.401],[53.713,49.463],[53.765,49.472],[53.806,49.528],[53.856,49.559],[53.977,49.582],[54.006,49.617],[54.057,49.62],[54.179,49.613],[54.293,49.65],[54.296,49.692],[54.337,49.728],[54.4,49.765],[54.453,49.815],[54.467,49.87],[54.514,49.932],[54.525,49.972],[54.551,50.031],[54.522,50.069],[54.475,50.09],[54.424,50.15],[54.435,50.256],[54.392,50.358],[54.458,50.405],[54.474,50.455],[54.546,50.531],[54.55,50.532],[54.591,50.543],[54.647,50.573],[54.676,50.603],[54.673,50.635],[54.639,50.707],[54.638,50.728],[54.651,50.766],[54.65,50.787],[54.645,50.793],[54.63,50.804],[54.626,50.812],[54.63,50.821],[54.646,50.838],[54.651,50.846],[54.638,50.886],[54.583,50.906],[54.526,50.917],[54.503,50.928],[54.515,50.937],[54.534,50.944],[54.546,50.953],[54.525,50.991],[54.533,51.003],[54.552,51.01],[54.638,51.028],[54.662,51.028],[54.685,51.024],[54.706,51.017],[54.746,50.993],[54.811,50.973],[54.831,50.96],[54.861,50.934],[54.894,50.913],[55.047,50.884],[55.063,50.862],[55.061,50.823],[55.084,50.797],[55.305,50.665],[55.329,50.655],[55.347,50.652],[55.366,50.653],[55.416,50.662],[55.442,50.662],[55.467,50.657],[55.491,50.646],[55.505,50.63],[55.513,50.614],[55.524,50.601],[55.57,50.589],[55.586,50.579],[55.616,50.55],[55.659,50.53],[55.694,50.539],[55.764,50.587],[55.932,50.647],[56.078,50.725],[56.1,50.748],[56.137,50.869],[56.147,50.892],[56.158,50.906],[56.174,50.909],[56.258,50.885],[56.288,50.88],[56.315,50.884],[56.335,50.896],[56.343,50.912],[56.35,50.948],[56.365,50.958],[56.415,50.963],[56.432,50.976],[56.431,50.99],[56.42,51.019],[56.421,51.034],[56.43,51.046],[56.446,51.057],[56.478,51.073],[56.507,51.066],[56.596,50.984],[56.616,50.979],[56.688,50.969],[56.707,50.971],[56.709,50.982],[56.702,50.998],[56.682,51.031],[56.68,51.05],[56.694,51.064],[56.716,51.073],[56.735,51.078],[56.76,51.08],[56.776,51.076],[56.813,51.057],[56.838,51.052],[56.865,51.052],[56.891,51.057],[56.915,51.064],[56.941,51.069],[57.025,51.063],[57.072,51.07],[57.137,51.096],[57.154,51.1],[57.168,51.094],[57.181,51.074],[57.189,51.035],[57.197,51.018],[57.213,51.01],[57.237,51.01],[57.256,51.006],[57.272,50.998],[57.288,50.981],[57.297,50.965],[57.31,50.93],[57.318,50.913],[57.334,50.898],[57.352,50.886],[57.418,50.863],[57.443,50.858],[57.467,50.859],[57.491,50.867],[57.508,50.882],[57.52,50.897],[57.532,50.91],[57.555,50.919],[57.596,50.916],[57.689,50.897],[57.722,50.909],[57.737,50.938],[57.737,50.971],[57.728,51.037],[57.734,51.074],[57.752,51.098],[57.768,51.12],[57.796,51.123],[57.841,51.106],[57.857,51.104],[57.912,51.104],[57.925,51.1],[57.934,51.094],[57.95,51.079],[57.96,51.078],[57.988,51.088],[58.001,51.09],[58.077,51.098],[58.084,51.097],[58.088,51.092],[58.089,51.086],[58.089,51.08],[58.091,51.076],[58.113,51.065],[58.14,51.057],[58.167,51.055],[58.19,51.066],[58.202,51.084],[58.211,51.105],[58.223,51.123],[58.245,51.131],[58.268,51.135],[58.308,51.15],[58.323,51.142],[58.353,51.122],[58.366,51.109],[58.369,51.095],[58.37,51.082],[58.377,51.071],[58.398,51.064],[58.52,51.062],[58.563,51.049],[58.594,51.024],[58.602,50.981],[58.596,50.963],[58.585,50.948],[58.57,50.936],[58.554,50.926],[58.546,50.912],[58.55,50.893],[58.56,50.875],[58.571,50.864],[58.59,50.861],[58.64,50.864],[58.651,50.854],[58.643,50.815],[58.646,50.802],[58.664,50.79],[58.689,50.789],[58.719,50.794],[58.747,50.795],[58.768,50.783],[58.785,50.75],[58.794,50.738],[58.811,50.726],[58.886,50.689],[58.926,50.678],[59.197,50.663],[59.219,50.659],[59.235,50.645],[59.247,50.63],[59.259,50.621],[59.273,50.616],[59.29,50.616],[59.386,50.631],[59.437,50.631],[59.478,50.615],[59.498,50.6],[59.551,50.586],[59.563,50.58],[59.56,50.554],[59.535,50.547],[59.478,50.553],[59.451,50.537],[59.45,50.522],[59.466,50.508],[59.522,50.475],[59.555,50.485],[59.587,50.506],[59.622,50.524],[59.673,50.53],[59.725,50.528],[59.774,50.534],[59.815,50.563],[59.859,50.623],[59.872,50.636],[59.903,50.661],[59.915,50.674],[59.919,50.691],[59.913,50.726],[59.914,50.746],[59.92,50.763],[59.962,50.83],[59.969,50.838],[59.978,50.844],[60.021,50.854],[60.083,50.857],[60.136,50.845],[60.152,50.808],[60.154,50.771],[60.176,50.742],[60.209,50.72],[60.245,50.702],[60.3,50.685],[60.718,50.653],[60.818,50.663],[61.372,50.783],[61.404,50.803],[61.426,50.833],[61.441,50.875],[61.456,50.965],[61.465,50.993],[61.513,51.16],[61.534,51.206],[61.567,51.234],[61.611,51.249],[61.663,51.259],[61.647,51.263],[61.671,51.264],[61.814,51.269],[61.873,51.296],[61.925,51.239],[61.935,51.186],[61.96,51.129]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Aqtobe'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Aqtobe?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Aqtobe is located? </h2>Aqtobe, is a region It belongs to the country of Kazakhstan. Its postal identifier is AT.Aqtobe has an area of 301750 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

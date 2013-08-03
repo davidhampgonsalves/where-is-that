@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Shkodra?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[19.747,42.582],[19.747,42.579],[19.747,42.579],[19.746,42.58],[19.741,42.575],[19.734,42.563],[19.732,42.556],[19.73,42.541],[19.73,42.541],[19.731,42.534],[19.734,42.525],[19.751,42.494],[19.784,42.475],[19.801,42.469],[19.819,42.467],[19.829,42.469],[19.829,42.469],[19.823,42.459],[19.82,42.455],[19.816,42.452],[19.812,42.449],[19.809,42.445],[19.806,42.441],[19.802,42.431],[19.799,42.427],[19.789,42.42],[19.788,42.418],[19.789,42.414],[19.805,42.399],[19.808,42.393],[19.81,42.385],[19.811,42.36],[19.81,42.352],[19.81,42.34],[19.814,42.324],[19.827,42.29],[19.831,42.276],[19.831,42.268],[19.829,42.265],[19.828,42.262],[19.828,42.257],[19.828,42.254],[19.825,42.246],[19.822,42.239],[19.824,42.235],[19.831,42.231],[19.845,42.225],[19.87,42.223],[19.875,42.228],[19.878,42.229],[19.881,42.23],[19.886,42.231],[19.891,42.232],[19.897,42.236],[19.911,42.247],[19.918,42.25],[19.924,42.252],[19.983,42.25],[20,42.262],[20.024,42.26],[20.037,42.257],[20.151,42.216],[20.174,42.217],[20.182,42.216],[20.187,42.212],[20.192,42.208],[20.197,42.204],[20.205,42.202],[20.236,42.192],[20.243,42.176],[20.232,42.16],[20.215,42.15],[20.202,42.144],[20.193,42.139],[20.186,42.133],[20.159,42.104],[20.156,42.096],[20.161,42.088],[20.163,42.082],[20.157,42.068],[20.143,42.053],[20.142,42.051],[20.154,42.052],[20.162,42.054],[20.168,42.057],[20.174,42.058],[20.181,42.054],[20.189,42.044],[20.213,42.028],[20.172,42],[20.109,41.976],[20.097,41.97],[20.088,41.963],[20.08,41.943],[20.07,41.933],[20.061,41.927],[20.046,41.92],[20.024,41.903],[20.017,41.896],[20.005,41.88],[20,41.877],[19.992,41.875],[19.953,41.876],[19.944,41.878],[19.939,41.882],[19.935,41.887],[19.934,41.891],[19.935,41.895],[19.944,41.901],[19.946,41.903],[19.946,41.907],[19.943,41.912],[19.924,41.93],[19.92,41.935],[19.912,41.95],[19.909,41.96],[19.908,41.965],[19.902,41.969],[19.895,41.969],[19.885,41.967],[19.873,41.962],[19.864,41.953],[19.854,41.947],[19.847,41.94],[19.841,41.937],[19.834,41.935],[19.825,41.936],[19.81,41.94],[19.802,41.944],[19.796,41.947],[19.789,41.946],[19.77,41.939],[19.739,41.938],[19.751,41.919],[19.752,41.915],[19.751,41.912],[19.747,41.908],[19.74,41.903],[19.732,41.898],[19.723,41.895],[19.71,41.899],[19.692,41.91],[19.684,41.914],[19.675,41.914],[19.639,41.91],[19.631,41.91],[19.622,41.914],[19.618,41.916],[19.617,41.919],[19.617,41.923],[19.621,41.928],[19.624,41.931],[19.625,41.934],[19.624,41.936],[19.621,41.936],[19.61,41.937],[19.604,41.937],[19.598,41.94],[19.594,41.942],[19.591,41.944],[19.588,41.944],[19.571,41.942],[19.56,41.939],[19.565,41.934],[19.57,41.923],[19.573,41.903],[19.562,41.893],[19.547,41.89],[19.53,41.895],[19.496,41.911],[19.482,41.915],[19.473,41.914],[19.465,41.906],[19.462,41.895],[19.466,41.883],[19.527,41.847],[19.529,41.836],[19.466,41.856],[19.451,41.863],[19.433,41.869],[19.365,41.852],[19.364,41.863],[19.364,41.863],[19.365,41.889],[19.365,41.889],[19.357,41.9],[19.347,41.907],[19.345,41.911],[19.345,41.911],[19.346,41.915],[19.346,41.915],[19.345,41.922],[19.345,41.922],[19.346,41.927],[19.35,41.932],[19.352,41.939],[19.352,41.939],[19.346,41.962],[19.346,41.962],[19.351,41.966],[19.359,41.966],[19.365,41.97],[19.371,41.987],[19.371,41.987],[19.363,41.994],[19.363,41.994],[19.354,42.009],[19.35,42.028],[19.35,42.028],[19.351,42.048],[19.356,42.065],[19.375,42.095],[19.375,42.095],[19.372,42.105],[19.355,42.12],[19.297,42.152],[19.282,42.165],[19.272,42.181],[19.272,42.181],[19.275,42.192],[19.283,42.198],[19.304,42.215],[19.4,42.326],[19.401,42.331],[19.401,42.331],[19.4,42.345],[19.4,42.345],[19.402,42.352],[19.412,42.369],[19.417,42.374],[19.468,42.418],[19.481,42.435],[19.501,42.445],[19.518,42.458],[19.531,42.475],[19.543,42.494],[19.543,42.494],[19.543,42.494],[19.549,42.509],[19.561,42.517],[19.575,42.523],[19.588,42.533],[19.593,42.545],[19.599,42.571],[19.605,42.585],[19.621,42.605],[19.648,42.628],[19.658,42.635],[19.676,42.647],[19.699,42.655],[19.722,42.646],[19.737,42.625],[19.746,42.599],[19.746,42.596],[19.747,42.582]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Shkodra'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Shkodra?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Shkodra is located? </h2>Shkodra, is a county It belongs to the country of Albania. Its postal identifier is SD.Shkodra has an area of 3597 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

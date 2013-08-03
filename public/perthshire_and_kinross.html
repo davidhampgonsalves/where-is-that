@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Perthshire and Kinross?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-3.898,56.928],[-3.878,56.925],[-3.817,56.934],[-3.796,56.93],[-3.744,56.933],[-3.728,56.923],[-3.708,56.919],[-3.688,56.92],[-3.662,56.93],[-3.625,56.923],[-3.588,56.93],[-3.569,56.921],[-3.57,56.894],[-3.563,56.889],[-3.549,56.886],[-3.503,56.89],[-3.461,56.875],[-3.433,56.883],[-3.395,56.881],[-3.392,56.852],[-3.38,56.827],[-3.37,56.82],[-3.355,56.797],[-3.355,56.778],[-3.355,56.76],[-3.344,56.737],[-3.335,56.724],[-3.304,56.699],[-3.278,56.677],[-3.262,56.67],[-3.233,56.665],[-3.202,56.661],[-3.182,56.658],[-3.156,56.648],[-3.148,56.639],[-3.147,56.628],[-3.129,56.616],[-3.105,56.614],[-3.084,56.607],[-3.084,56.598],[-3.112,56.591],[-3.143,56.569],[-3.169,56.531],[-3.17,56.517],[-3.147,56.49],[-3.112,56.479],[-3.084,56.477],[-3.079,56.475],[-3.067,56.469],[-3.057,56.456],[-3.056,56.452],[-3.061,56.452],[-3.099,56.442],[-3.134,56.427],[-3.238,56.368],[-3.28,56.358],[-3.324,56.366],[-3.311,56.356],[-3.294,56.353],[-3.262,56.353],[-3.262,56.351],[-3.26,56.347],[-3.253,56.335],[-3.266,56.328],[-3.266,56.324],[-3.242,56.314],[-3.243,56.306],[-3.259,56.302],[-3.291,56.303],[-3.295,56.3],[-3.291,56.287],[-3.3,56.282],[-3.334,56.282],[-3.363,56.265],[-3.363,56.26],[-3.348,56.254],[-3.348,56.237],[-3.289,56.233],[-3.264,56.219],[-3.261,56.196],[-3.298,56.185],[-3.303,56.18],[-3.293,56.172],[-3.271,56.169],[-3.275,56.166],[-3.292,56.162],[-3.324,56.167],[-3.349,56.165],[-3.36,56.162],[-3.366,56.144],[-3.387,56.137],[-3.473,56.144],[-3.529,56.142],[-3.551,56.152],[-3.569,56.149],[-3.575,56.138],[-3.585,56.135],[-3.631,56.128],[-3.637,56.134],[-3.643,56.155],[-3.563,56.177],[-3.554,56.182],[-3.561,56.187],[-3.612,56.198],[-3.628,56.194],[-3.656,56.197],[-3.664,56.187],[-3.723,56.19],[-3.734,56.194],[-3.748,56.212],[-3.759,56.216],[-3.824,56.193],[-3.828,56.191],[-3.836,56.196],[-3.838,56.216],[-3.843,56.218],[-3.878,56.214],[-3.907,56.234],[-3.963,56.251],[-3.996,56.269],[-4.045,56.273],[-4.061,56.286],[-4.068,56.285],[-4.075,56.274],[-4.083,56.274],[-4.099,56.279],[-4.12,56.294],[-4.171,56.3],[-4.219,56.329],[-4.217,56.348],[-4.229,56.356],[-4.229,56.372],[-4.235,56.373],[-4.229,56.373],[-4.224,56.38],[-4.2,56.379],[-4.193,56.384],[-4.192,56.384],[-4.186,56.391],[-4.187,56.457],[-4.148,56.453],[-4.126,56.463],[-4.095,56.468],[-4.122,56.502],[-4.145,56.512],[-4.146,56.512],[-4.155,56.513],[-4.176,56.509],[-4.234,56.491],[-4.285,56.481],[-4.29,56.487],[-4.29,56.487],[-4.323,56.533],[-4.352,56.541],[-4.391,56.526],[-4.471,56.512],[-4.483,56.511],[-4.5,56.519],[-4.513,56.519],[-4.521,56.514],[-4.521,56.506],[-4.53,56.501],[-4.566,56.5],[-4.6,56.492],[-4.639,56.472],[-4.639,56.472],[-4.664,56.476],[-4.676,56.484],[-4.676,56.492],[-4.649,56.519],[-4.65,56.527],[-4.653,56.529],[-4.661,56.534],[-4.688,56.538],[-4.694,56.544],[-4.694,56.546],[-4.693,56.548],[-4.595,56.574],[-4.575,56.568],[-4.564,56.564],[-4.558,56.57],[-4.584,56.595],[-4.596,56.607],[-4.601,56.608],[-4.628,56.612],[-4.629,56.624],[-4.618,56.631],[-4.621,56.647],[-4.634,56.65],[-4.672,56.64],[-4.709,56.641],[-4.709,56.663],[-4.703,56.67],[-4.645,56.676],[-4.586,56.692],[-4.598,56.709],[-4.594,56.716],[-4.574,56.727],[-4.578,56.755],[-4.552,56.764],[-4.544,56.778],[-4.514,56.804],[-4.494,56.802],[-4.474,56.786],[-4.447,56.778],[-4.437,56.778],[-4.393,56.813],[-4.381,56.819],[-4.378,56.822],[-4.367,56.827],[-4.333,56.824],[-4.303,56.845],[-4.253,56.853],[-4.201,56.869],[-4.195,56.875],[-4.202,56.893],[-4.178,56.907],[-4.164,56.909],[-4.099,56.895],[-4.033,56.902],[-3.976,56.895],[-3.966,56.9],[-3.96,56.929],[-3.95,56.943],[-3.941,56.947],[-3.898,56.928]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Perthshire and Kinross'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Perthshire and Kinross?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Perthshire and Kinross is located? </h2>Perthshire and Kinross, is a unitary district of the Scotland region. It belongs to the country of United Kingdom.Perthshire and Kinross has an area of 5434 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

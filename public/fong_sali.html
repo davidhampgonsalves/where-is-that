@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Fong Sali?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[101.842,22.383],[101.868,22.379],[101.868,22.379],[101.877,22.392],[101.881,22.412],[101.891,22.43],[101.892,22.43],[101.909,22.436],[101.953,22.437],[101.974,22.445],[101.995,22.448],[102.014,22.446],[102.076,22.433],[102.085,22.429],[102.095,22.423],[102.1,22.415],[102.1,22.406],[102.103,22.398],[102.118,22.398],[102.125,22.384],[102.131,22.374],[102.141,22.342],[102.144,22.339],[102.153,22.333],[102.156,22.328],[102.156,22.323],[102.153,22.311],[102.154,22.305],[102.169,22.29],[102.186,22.279],[102.2,22.266],[102.207,22.246],[102.226,22.229],[102.286,22.2],[102.358,22.135],[102.389,22.117],[102.398,22.109],[102.405,22.098],[102.415,22.074],[102.422,22.062],[102.442,22.048],[102.467,22.034],[102.483,22.022],[102.474,22.009],[102.471,22.006],[102.469,22.003],[102.467,21.999],[102.466,21.995],[102.478,21.958],[102.516,21.939],[102.56,21.926],[102.591,21.902],[102.625,21.829],[102.634,21.788],[102.63,21.729],[102.632,21.706],[102.637,21.684],[102.643,21.668],[102.65,21.658],[102.653,21.656],[102.653,21.657],[102.657,21.659],[102.657,21.659],[102.71,21.659],[102.721,21.662],[102.721,21.662],[102.751,21.681],[102.752,21.681],[102.752,21.681],[102.774,21.708],[102.786,21.74],[102.789,21.82],[102.806,21.836],[102.807,21.836],[102.826,21.821],[102.835,21.776],[102.832,21.736],[102.835,21.717],[102.847,21.705],[102.864,21.706],[102.874,21.71],[102.937,21.735],[102.942,21.739],[102.942,21.739],[102.947,21.737],[102.956,21.724],[102.96,21.713],[102.961,21.702],[102.96,21.633],[102.964,21.609],[102.974,21.587],[102.975,21.584],[102.975,21.581],[102.975,21.578],[102.974,21.575],[102.954,21.557],[102.916,21.514],[102.895,21.495],[102.849,21.426],[102.85,21.426],[102.864,21.432],[102.884,21.444],[102.885,21.444],[102.904,21.453],[102.918,21.45],[102.916,21.439],[102.883,21.389],[102.879,21.368],[102.878,21.322],[102.875,21.305],[102.863,21.294],[102.863,21.294],[102.829,21.286],[102.829,21.286],[102.814,21.275],[102.813,21.274],[102.812,21.274],[102.801,21.255],[102.809,21.251],[102.828,21.253],[102.85,21.252],[102.865,21.246],[102.878,21.238],[102.887,21.227],[102.893,21.215],[102.891,21.206],[102.883,21.186],[102.883,21.177],[102.889,21.167],[102.896,21.165],[102.904,21.164],[102.914,21.159],[102.925,21.142],[102.926,21.141],[102.845,21.135],[102.829,21.14],[102.814,21.14],[102.804,21.121],[102.796,21.074],[102.796,21.048],[102.787,21.032],[102.758,21.029],[102.749,21.026],[102.745,21.018],[102.744,21.013],[102.677,20.987],[102.663,20.979],[102.647,20.948],[102.613,20.953],[102.588,20.948],[102.566,20.934],[102.509,20.869],[102.454,20.889],[102.45,20.909],[102.437,20.92],[102.408,20.925],[102.378,20.927],[102.346,20.946],[102.309,20.962],[102.285,20.989],[102.25,21.009],[102.216,21.021],[102.182,21.013],[102.148,21.015],[102.113,21.034],[102.085,21.06],[102.038,21.118],[102.007,21.134],[101.93,21.154],[101.919,21.165],[101.903,21.174],[101.885,21.179],[101.84,21.212],[101.821,21.221],[101.821,21.221],[101.822,21.224],[101.823,21.235],[101.82,21.247],[101.812,21.258],[101.801,21.267],[101.788,21.274],[101.736,21.292],[101.722,21.304],[101.715,21.321],[101.715,21.338],[101.725,21.375],[101.729,21.474],[101.744,21.496],[101.748,21.515],[101.734,21.555],[101.736,21.571],[101.751,21.58],[101.751,21.58],[101.772,21.583],[101.793,21.588],[101.793,21.589],[101.806,21.606],[101.804,21.626],[101.789,21.634],[101.771,21.639],[101.756,21.649],[101.752,21.659],[101.755,21.68],[101.754,21.69],[101.749,21.698],[101.733,21.712],[101.728,21.718],[101.727,21.733],[101.731,21.751],[101.751,21.807],[101.751,21.816],[101.726,21.837],[101.721,21.844],[101.708,21.87],[101.686,21.899],[101.683,21.907],[101.682,21.915],[101.68,21.923],[101.673,21.932],[101.638,21.941],[101.616,21.954],[101.607,21.968],[101.6,22.008],[101.592,22.028],[101.565,22.07],[101.555,22.09],[101.555,22.113],[101.561,22.13],[101.567,22.15],[101.561,22.176],[101.549,22.194],[101.518,22.228],[101.515,22.246],[101.531,22.264],[101.54,22.272],[101.551,22.277],[101.551,22.277],[101.563,22.277],[101.575,22.273],[101.588,22.272],[101.588,22.272],[101.593,22.274],[101.601,22.277],[101.601,22.277],[101.606,22.285],[101.62,22.327],[101.622,22.343],[101.623,22.347],[101.641,22.363],[101.643,22.365],[101.645,22.385],[101.644,22.404],[101.645,22.424],[101.654,22.446],[101.668,22.462],[101.689,22.479],[101.689,22.479],[101.713,22.492],[101.742,22.496],[101.75,22.496],[101.755,22.496],[101.785,22.472],[101.817,22.406],[101.842,22.383]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Fong Sali'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Fong Sali?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Fong Sali is located? </h2>Fong Sali, is a province It belongs to the country of Laos. Its postal identifier is PH.Fong Sali has an area of 15279 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Wadi Fira?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[21.909,15.945],[21.916,15.944],[21.922,15.946],[21.968,15.965],[21.991,15.978],[22.018,15.986],[22.061,15.991],[22.093,15.99],[22.118,15.986],[22.144,15.979],[22.15,15.98],[22.154,15.982],[22.166,15.994],[22.173,15.999],[22.177,16],[22.179,16],[22.181,15.998],[22.209,15.972],[22.249,15.941],[22.259,15.936],[22.271,15.931],[22.28,15.929],[22.295,15.927],[22.304,15.927],[22.312,15.928],[22.317,15.929],[22.333,15.934],[22.337,15.937],[22.348,15.944],[22.356,15.948],[22.363,15.949],[22.371,15.948],[22.377,15.947],[22.381,15.944],[22.388,15.937],[22.392,15.934],[22.397,15.932],[22.419,15.924],[22.432,15.922],[22.471,15.909],[22.475,15.905],[22.479,15.898],[22.484,15.882],[22.487,15.878],[22.49,15.874],[22.494,15.871],[22.498,15.869],[22.505,15.867],[22.51,15.865],[22.513,15.861],[22.516,15.857],[22.519,15.847],[22.522,15.842],[22.526,15.839],[22.53,15.837],[22.534,15.833],[22.537,15.829],[22.538,15.824],[22.541,15.819],[22.545,15.815],[22.551,15.812],[22.561,15.81],[22.568,15.81],[22.573,15.812],[22.587,15.819],[22.592,15.821],[22.604,15.823],[22.634,15.824],[22.669,15.83],[22.691,15.83],[22.719,15.828],[22.727,15.828],[22.747,15.835],[22.759,15.838],[22.768,15.839],[22.774,15.837],[22.779,15.834],[22.799,15.819],[22.804,15.816],[22.809,15.815],[22.835,15.811],[22.84,15.809],[22.845,15.806],[22.853,15.803],[22.867,15.799],[22.876,15.797],[22.883,15.797],[22.895,15.799],[22.916,15.806],[22.936,15.815],[22.944,15.818],[22.957,15.821],[22.966,15.822],[22.974,15.821],[22.998,15.817],[23.058,15.794],[23.062,15.792],[23.066,15.788],[23.07,15.785],[23.118,15.71],[23.119,15.708],[23.119,15.708],[23.094,15.704],[23.068,15.687],[23.004,15.612],[22.925,15.564],[22.906,15.542],[22.899,15.51],[22.899,15.51],[22.906,15.482],[22.923,15.456],[22.945,15.433],[22.966,15.405],[22.976,15.374],[22.978,15.34],[22.978,15.34],[22.965,15.224],[22.958,15.202],[22.913,15.122],[22.905,15.113],[22.871,15.1],[22.848,15.088],[22.829,15.072],[22.739,14.98],[22.727,14.959],[22.722,14.935],[22.721,14.916],[22.715,14.9],[22.695,14.882],[22.659,14.858],[22.65,14.842],[22.65,14.816],[22.65,14.816],[22.659,14.761],[22.664,14.744],[22.679,14.712],[22.681,14.703],[22.681,14.703],[22.676,14.689],[22.666,14.682],[22.465,14.63],[22.422,14.609],[22.382,14.579],[22.363,14.544],[22.363,14.544],[22.386,14.507],[22.417,14.484],[22.425,14.471],[22.439,14.363],[22.442,14.357],[22.447,14.352],[22.451,14.346],[22.451,14.346],[22.45,14.339],[22.445,14.334],[22.431,14.327],[22.427,14.323],[22.418,14.306],[22.417,14.298],[22.417,14.298],[22.42,14.286],[22.429,14.265],[22.441,14.25],[22.457,14.241],[22.514,14.232],[22.532,14.221],[22.541,14.201],[22.547,14.169],[22.547,14.169],[22.546,14.14],[22.531,14.123],[22.508,14.114],[22.481,14.109],[22.458,14.096],[22.421,14.062],[22.402,14.05],[22.243,13.976],[22.214,13.957],[22.19,13.933],[22.18,13.92],[22.18,13.92],[22.153,13.917],[22.138,13.917],[22.125,13.92],[22.114,13.931],[22.089,13.969],[22.085,13.973],[22.042,13.999],[21.702,14.111],[21.436,14.151],[21.422,14.152],[21.362,14.148],[21.333,14.143],[21.287,14.12],[21.279,14.114],[21.261,14.103],[21.252,14.099],[21.232,14.093],[21.221,14.092],[21.202,14.093],[21.168,14.101],[21.071,14.149],[21,14.197],[20.996,14.197],[20.99,14.198],[20.978,14.196],[20.969,14.198],[20.963,14.201],[20.958,14.204],[20.899,14.265],[20.875,14.297],[20.854,14.344],[20.851,14.348],[20.848,14.352],[20.844,14.355],[20.816,14.365],[20.807,14.369],[20.799,14.375],[20.784,14.389],[20.78,14.391],[20.775,14.394],[20.753,14.4],[20.748,14.403],[20.74,14.409],[20.736,14.412],[20.559,14.469],[20.552,14.47],[20.542,14.471],[20.497,14.465],[20.492,14.464],[20.487,14.462],[20.441,14.439],[20.435,14.438],[20.429,14.438],[20.416,14.439],[20.381,14.447],[20.376,14.447],[20.371,14.446],[20.362,14.441],[20.358,14.439],[20.353,14.439],[20.348,14.441],[20.343,14.443],[20.338,14.445],[20.326,14.447],[20.32,14.448],[20.302,14.447],[20.295,14.445],[20.288,14.441],[20.281,14.432],[20.274,14.419],[20.271,14.415],[20.266,14.411],[20.241,14.405],[20.238,14.401],[20.234,14.395],[20.229,14.381],[20.214,14.371],[20.158,14.326],[20,14.156],[20,15.784],[20.08,15.773],[20.113,15.764],[20.133,15.753],[20.183,15.718],[20.278,15.674],[20.292,15.669],[20.298,15.669],[20.304,15.67],[20.353,15.683],[20.393,15.7],[20.484,15.712],[20.492,15.711],[20.497,15.709],[20.506,15.703],[20.524,15.695],[20.547,15.687],[20.558,15.685],[20.567,15.685],[20.587,15.693],[20.597,15.697],[20.625,15.718],[20.66,15.737],[20.833,15.799],[20.896,15.839],[20.91,15.854],[20.923,15.87],[20.941,15.902],[20.944,15.906],[20.951,15.913],[20.959,15.919],[20.977,15.929],[21.035,15.945],[21.053,15.955],[21.077,15.975],[21.092,15.984],[21.097,15.985],[21.102,15.985],[21.112,15.98],[21.182,15.936],[21.293,15.89],[21.305,15.888],[21.313,15.888],[21.319,15.889],[21.378,15.921],[21.389,15.924],[21.643,15.976],[21.695,15.992],[21.732,16],[21.742,16.001],[21.758,15.999],[21.763,15.998],[21.845,15.97],[21.89,15.949],[21.909,15.945]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Wadi Fira'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Wadi Fira?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Wadi Fira is located? </h2>Wadi Fira, is a prefecture It belongs to the country of Chad. Its postal identifier is BI.Wadi Fira has an area of 54859 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

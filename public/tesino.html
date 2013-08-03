@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Tesino?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[9.026,46.571],[9.023,46.564],[9.021,46.558],[9.019,46.546],[9.018,46.541],[9.016,46.537],[9.015,46.533],[9.021,46.514],[9.024,46.509],[9.027,46.504],[9.038,46.492],[9.049,46.481],[9.056,46.479],[9.058,46.48],[9.062,46.481],[9.077,46.482],[9.089,46.467],[9.089,46.461],[9.089,46.453],[9.087,46.442],[9.088,46.434],[9.092,46.427],[9.097,46.42],[9.098,46.416],[9.095,46.412],[9.092,46.402],[9.088,46.394],[9.089,46.364],[9.086,46.357],[9.07,46.337],[9.068,46.33],[9.069,46.323],[9.071,46.317],[9.069,46.312],[9.065,46.306],[9.057,46.299],[9.057,46.295],[9.058,46.29],[9.066,46.276],[9.077,46.262],[9.077,46.258],[9.077,46.253],[9.075,46.24],[9.076,46.235],[9.08,46.23],[9.088,46.221],[9.094,46.216],[9.111,46.208],[9.132,46.191],[9.14,46.185],[9.163,46.173],[9.163,46.173],[9.163,46.173],[9.163,46.173],[9.09,46.138],[9.072,46.119],[9.068,46.106],[9.068,46.106],[9.07,46.084],[9.07,46.084],[9.067,46.071],[9.059,46.062],[9.049,46.058],[9.027,46.053],[9.002,46.04],[8.997,46.028],[8.997,46.028],[9.015,45.994],[9.015,45.993],[8.982,45.972],[8.98,45.97],[8.979,45.967],[8.979,45.967],[8.98,45.965],[8.982,45.962],[8.993,45.955],[9.001,45.936],[9.01,45.927],[9.02,45.923],[9.042,45.92],[9.051,45.916],[9.063,45.899],[9.063,45.899],[9.059,45.882],[9.034,45.848],[9.002,45.821],[8.972,45.825],[8.939,45.835],[8.9,45.827],[8.9,45.827],[8.903,45.842],[8.909,45.854],[8.913,45.866],[8.913,45.866],[8.912,45.884],[8.906,45.897],[8.898,45.91],[8.88,45.931],[8.871,45.947],[8.864,45.954],[8.857,45.957],[8.8,45.979],[8.785,45.983],[8.768,45.983],[8.768,45.983],[8.769,45.986],[8.773,45.991],[8.791,46.019],[8.819,46.043],[8.834,46.067],[8.834,46.067],[8.809,46.09],[8.794,46.094],[8.763,46.093],[8.747,46.095],[8.739,46.098],[8.732,46.108],[8.729,46.108],[8.724,46.11],[8.717,46.108],[8.702,46.098],[8.695,46.096],[8.677,46.096],[8.631,46.115],[8.611,46.12],[8.601,46.123],[8.538,46.188],[8.51,46.208],[8.482,46.218],[8.456,46.225],[8.438,46.236],[8.427,46.252],[8.423,46.276],[8.423,46.276],[8.426,46.302],[8.443,46.354],[8.446,46.383],[8.446,46.383],[8.445,46.413],[8.441,46.435],[8.428,46.449],[8.399,46.453],[8.386,46.451],[8.386,46.451],[8.386,46.455],[8.385,46.462],[8.387,46.469],[8.391,46.476],[8.396,46.482],[8.397,46.485],[8.397,46.487],[8.395,46.488],[8.396,46.491],[8.399,46.493],[8.408,46.495],[8.431,46.497],[8.448,46.505],[8.477,46.532],[8.51,46.551],[8.512,46.556],[8.516,46.563],[8.524,46.579],[8.526,46.581],[8.53,46.583],[8.537,46.585],[8.549,46.585],[8.636,46.571],[8.678,46.584],[8.711,46.573],[8.788,46.568],[8.847,46.575],[8.898,46.589],[8.908,46.594],[8.91,46.597],[8.909,46.601],[8.907,46.604],[8.906,46.608],[8.908,46.613],[8.915,46.62],[8.922,46.623],[8.93,46.625],[8.939,46.627],[8.947,46.632],[8.953,46.632],[8.956,46.631],[8.957,46.625],[8.96,46.62],[8.965,46.615],[8.999,46.613],[9.004,46.611],[9.011,46.608],[9.022,46.605],[9.035,46.596],[9.038,46.594],[9.038,46.591],[9.036,46.587],[9.029,46.577],[9.026,46.571]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Tesino'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Tesino?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Tesino is located? </h2>Tesino, is a canton It belongs to the country of Switzerland. Its postal identifier is TI.Tesino has an area of 2919 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

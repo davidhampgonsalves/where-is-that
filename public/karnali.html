@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Karnali?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[81.757,30.363],[81.779,30.358],[81.801,30.362],[81.823,30.368],[81.844,30.371],[81.887,30.355],[81.921,30.358],[81.941,30.354],[81.95,30.349],[81.962,30.334],[81.969,30.329],[81.979,30.327],[81.988,30.33],[81.998,30.334],[82.007,30.337],[82.05,30.34],[82.073,30.338],[82.089,30.33],[82.093,30.315],[82.082,30.258],[82.085,30.231],[82.096,30.214],[82.114,30.203],[82.14,30.194],[82.156,30.182],[82.151,30.163],[82.127,30.125],[82.129,30.111],[82.135,30.09],[82.144,30.07],[82.154,30.058],[82.174,30.056],[82.192,30.062],[82.211,30.065],[82.256,30.04],[82.276,30.037],[82.296,30.037],[82.319,30.032],[82.327,30.026],[82.339,30.01],[82.347,30.004],[82.364,30.001],[82.379,30.003],[82.394,30.003],[82.41,29.995],[82.423,29.98],[82.439,29.966],[82.457,29.954],[82.476,29.946],[82.524,29.933],[82.542,29.924],[82.618,29.84],[82.636,29.829],[82.646,29.83],[82.667,29.835],[82.677,29.835],[82.689,29.828],[82.689,29.82],[82.684,29.81],[82.682,29.798],[82.691,29.781],[82.751,29.74],[82.77,29.714],[82.781,29.705],[82.793,29.7],[82.805,29.696],[82.815,29.69],[82.822,29.678],[82.836,29.66],[82.857,29.667],[82.88,29.681],[82.9,29.689],[82.909,29.685],[82.924,29.67],[82.932,29.664],[82.942,29.663],[82.964,29.666],[82.976,29.664],[83.033,29.621],[83.041,29.611],[83.054,29.586],[83.065,29.579],[83.079,29.58],[83.085,29.591],[83.088,29.605],[83.093,29.615],[83.1,29.618],[83.127,29.624],[83.15,29.626],[83.162,29.625],[83.173,29.622],[83.187,29.612],[83.191,29.607],[83.194,29.594],[83.197,29.589],[83.205,29.585],[83.222,29.58],[83.229,29.576],[83.252,29.556],[83.261,29.542],[83.263,29.527],[83.26,29.519],[83.254,29.514],[83.249,29.507],[83.247,29.495],[83.264,29.473],[83.328,29.485],[83.355,29.461],[83.358,29.443],[83.355,29.428],[83.357,29.416],[83.387,29.394],[83.389,29.383],[83.388,29.371],[83.393,29.357],[83.405,29.347],[83.418,29.341],[83.428,29.334],[83.437,29.305],[83.448,29.297],[83.476,29.287],[83.493,29.276],[83.503,29.261],[83.512,29.224],[83.514,29.202],[83.517,29.192],[83.524,29.184],[83.536,29.18],[83.561,29.177],[83.572,29.169],[83.584,29.162],[83.624,29.156],[83.639,29.155],[83.655,29.161],[83.655,29.161],[83.655,29.16],[83.661,29.126],[83.657,29.118],[83.648,29.107],[83.637,29.099],[83.627,29.087],[83.623,29.075],[83.614,28.998],[83.61,28.983],[83.603,28.974],[83.595,28.967],[83.539,28.904],[83.521,28.876],[83.488,28.793],[83.474,28.777],[83.385,28.747],[83.362,28.736],[83.341,28.729],[83.293,28.72],[83.274,28.72],[83.242,28.724],[83.219,28.724],[83.203,28.725],[83.176,28.733],[83.148,28.737],[83.109,28.745],[82.96,28.811],[82.939,28.818],[82.925,28.82],[82.864,28.816],[82.813,28.82],[82.8,28.819],[82.789,28.816],[82.772,28.813],[82.758,28.818],[82.711,28.846],[82.704,28.855],[82.703,28.865],[82.703,28.878],[82.703,28.894],[82.7,28.907],[82.695,28.915],[82.656,28.95],[82.639,28.963],[82.626,28.97],[82.568,28.985],[82.507,29.007],[82.485,29.009],[82.475,29.003],[82.471,29],[82.471,29],[82.462,28.996],[82.451,28.993],[82.442,28.993],[82.434,28.995],[82.413,29.002],[82.407,29.006],[82.403,29.012],[82.401,29.017],[82.4,29.023],[82.403,29.034],[82.406,29.041],[82.408,29.048],[82.41,29.058],[82.41,29.067],[82.409,29.076],[82.405,29.088],[82.359,29.106],[82.284,29.108],[82.268,29.105],[82.169,29.066],[82.16,29.06],[82.152,29.053],[82.14,29.036],[82.134,29.029],[82.124,29.023],[82.116,29.017],[82.11,29.009],[82.104,28.998],[82.089,28.983],[82.077,28.979],[82.064,28.978],[82.055,28.983],[82.049,28.989],[82.043,29],[82.042,29.001],[82.039,29.002],[82.035,29.005],[82.015,29.011],[81.925,28.975],[81.845,28.981],[81.825,28.987],[81.803,28.996],[81.788,29.004],[81.77,29.008],[81.716,29.016],[81.634,29.041],[81.599,29.047],[81.58,29.052],[81.574,29.057],[81.574,29.064],[81.576,29.074],[81.574,29.099],[81.549,29.126],[81.535,29.138],[81.522,29.147],[81.493,29.164],[81.485,29.169],[81.481,29.182],[81.478,29.198],[81.487,29.259],[81.478,29.275],[81.474,29.285],[81.474,29.295],[81.478,29.305],[81.488,29.315],[81.518,29.343],[81.534,29.353],[81.575,29.365],[81.589,29.367],[81.609,29.367],[81.616,29.365],[81.623,29.362],[81.649,29.342],[81.659,29.338],[81.672,29.337],[81.689,29.34],[81.724,29.349],[81.73,29.367],[81.719,29.383],[81.709,29.402],[81.705,29.425],[81.706,29.448],[81.709,29.468],[81.715,29.484],[81.725,29.498],[81.765,29.521],[81.781,29.535],[81.787,29.556],[81.788,29.571],[81.787,29.593],[81.783,29.602],[81.778,29.608],[81.758,29.613],[81.753,29.614],[81.737,29.62],[81.724,29.628],[81.713,29.638],[81.703,29.65],[81.697,29.667],[81.696,29.679],[81.696,29.687],[81.724,29.765],[81.729,29.79],[81.731,29.822],[81.734,29.834],[81.737,29.842],[81.743,29.848],[81.756,29.857],[81.764,29.863],[81.77,29.87],[81.773,29.877],[81.776,29.885],[81.775,29.896],[81.771,29.906],[81.76,29.913],[81.747,29.917],[81.708,29.924],[81.692,29.929],[81.679,29.938],[81.666,29.943],[81.649,29.945],[81.574,29.944],[81.562,29.942],[81.551,29.94],[81.53,29.929],[81.505,29.896],[81.499,29.893],[81.494,29.893],[81.486,29.894],[81.477,29.899],[81.456,29.912],[81.451,29.921],[81.451,29.929],[81.454,29.948],[81.454,29.959],[81.452,29.969],[81.448,29.978],[81.444,29.984],[81.439,29.991],[81.429,30.009],[81.423,30.025],[81.42,30.027],[81.414,30.029],[81.392,30.029],[81.359,30.025],[81.35,30.027],[81.342,30.031],[81.329,30.04],[81.32,30.046],[81.299,30.053],[81.277,30.067],[81.268,30.072],[81.272,30.08],[81.276,30.096],[81.274,30.103],[81.266,30.118],[81.267,30.125],[81.278,30.132],[81.293,30.133],[81.309,30.132],[81.322,30.134],[81.338,30.144],[81.35,30.158],[81.357,30.174],[81.362,30.205],[81.374,30.223],[81.378,30.233],[81.377,30.241],[81.37,30.258],[81.369,30.266],[81.368,30.301],[81.371,30.317],[81.382,30.332],[81.387,30.345],[81.385,30.361],[81.387,30.374],[81.407,30.38],[81.426,30.373],[81.463,30.342],[81.483,30.332],[81.509,30.329],[81.521,30.332],[81.532,30.371],[81.537,30.379],[81.544,30.383],[81.563,30.386],[81.577,30.391],[81.582,30.4],[81.585,30.408],[81.591,30.415],[81.614,30.417],[81.636,30.411],[81.757,30.363]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Karnali'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Karnali?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Karnali is located? </h2>Karnali, is a administrative zone of the Mid-Western region. It belongs to the country of Nepal. Its postal identifier is MP.Karnali has an area of 21192 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

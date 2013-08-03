@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Lindi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[39.285,-8.319],[39.293,-8.335],[39.301,-8.361],[39.305,-8.389],[39.307,-8.419],[39.3,-8.477],[39.303,-8.506],[39.336,-8.539],[39.349,-8.563],[39.358,-8.588],[39.362,-8.611],[39.36,-8.694],[39.354,-8.714],[39.389,-8.724],[39.395,-8.73],[39.398,-8.738],[39.402,-8.745],[39.413,-8.748],[39.433,-8.75],[39.439,-8.755],[39.44,-8.768],[39.444,-8.789],[39.453,-8.805],[39.464,-8.813],[39.476,-8.818],[39.489,-8.827],[39.497,-8.841],[39.509,-8.876],[39.52,-8.892],[39.548,-8.913],[39.554,-8.922],[39.54,-8.926],[39.528,-8.926],[39.521,-8.923],[39.506,-8.912],[39.504,-8.91],[39.485,-8.892],[39.465,-8.868],[39.449,-8.859],[39.43,-8.861],[39.419,-8.866],[39.413,-8.867],[39.409,-8.87],[39.389,-8.899],[39.404,-8.905],[39.464,-8.899],[39.451,-8.915],[39.448,-8.926],[39.455,-8.931],[39.475,-8.933],[39.492,-8.938],[39.492,-8.952],[39.486,-8.972],[39.485,-8.995],[39.487,-8.998],[39.496,-9.005],[39.498,-9.009],[39.499,-9.028],[39.498,-9.029],[39.493,-9.039],[39.492,-9.043],[39.494,-9.045],[39.499,-9.047],[39.504,-9.05],[39.506,-9.056],[39.503,-9.066],[39.497,-9.072],[39.493,-9.08],[39.495,-9.091],[39.503,-9.107],[39.503,-9.114],[39.498,-9.124],[39.513,-9.121],[39.53,-9.113],[39.546,-9.103],[39.557,-9.094],[39.569,-9.093],[39.584,-9.106],[39.627,-9.16],[39.644,-9.189],[39.649,-9.22],[39.633,-9.251],[39.632,-9.259],[39.638,-9.267],[39.645,-9.275],[39.65,-9.283],[39.65,-9.294],[39.644,-9.314],[39.643,-9.324],[39.646,-9.357],[39.643,-9.369],[39.629,-9.386],[39.616,-9.397],[39.607,-9.399],[39.597,-9.398],[39.582,-9.399],[39.569,-9.405],[39.564,-9.414],[39.564,-9.428],[39.567,-9.448],[39.576,-9.443],[39.588,-9.441],[39.608,-9.44],[39.611,-9.429],[39.616,-9.425],[39.626,-9.43],[39.632,-9.437],[39.636,-9.439],[39.64,-9.44],[39.651,-9.445],[39.652,-9.455],[39.65,-9.467],[39.65,-9.474],[39.657,-9.483],[39.681,-9.505],[39.689,-9.525],[39.701,-9.58],[39.711,-9.595],[39.725,-9.604],[39.722,-9.611],[39.714,-9.617],[39.712,-9.625],[39.717,-9.636],[39.722,-9.643],[39.735,-9.656],[39.741,-9.667],[39.737,-9.687],[39.747,-9.707],[39.738,-9.713],[39.718,-9.721],[39.701,-9.736],[39.697,-9.745],[39.705,-9.749],[39.745,-9.748],[39.752,-9.749],[39.756,-9.756],[39.763,-9.783],[39.77,-9.793],[39.786,-9.805],[39.794,-9.813],[39.801,-9.824],[39.807,-9.852],[39.8,-9.873],[39.781,-9.882],[39.752,-9.879],[39.761,-9.893],[39.789,-9.914],[39.79,-9.923],[39.779,-9.93],[39.745,-9.945],[39.714,-9.952],[39.714,-9.964],[39.726,-9.989],[39.724,-10.008],[39.717,-10.022],[39.705,-10.033],[39.691,-10.043],[39.716,-10.039],[39.763,-9.983],[39.784,-9.985],[39.797,-9.993],[39.827,-9.99],[39.848,-10.011],[39.861,-10.013],[39.876,-10.013],[39.889,-10.015],[39.914,-10.034],[39.975,-10.133],[39.976,-10.178],[39.944,-10.198],[39.909,-10.224],[39.748,-10.315],[39.706,-10.33],[39.68,-10.363],[39.674,-10.406],[39.657,-10.445],[39.657,-10.472],[39.683,-10.494],[39.688,-10.529],[39.665,-10.564],[39.632,-10.595],[39.591,-10.573],[39.562,-10.503],[39.546,-10.493],[39.532,-10.475],[39.498,-10.383],[39.422,-10.335],[39.397,-10.336],[39.372,-10.34],[39.346,-10.368],[39.316,-10.383],[39.283,-10.381],[39.272,-10.404],[39.262,-10.446],[39.218,-10.455],[39.205,-10.428],[39.199,-10.396],[39.166,-10.39],[39.125,-10.406],[39.043,-10.452],[38.996,-10.467],[38.919,-10.502],[38.891,-10.522],[38.873,-10.542],[38.803,-10.548],[38.764,-10.537],[38.735,-10.517],[38.701,-10.516],[38.67,-10.531],[38.58,-10.538],[38.314,-10.646],[38.252,-10.708],[38.203,-10.781],[38.168,-10.805],[37.993,-10.817],[37.943,-10.726],[37.921,-10.701],[37.904,-10.676],[37.89,-10.629],[37.864,-10.585],[37.857,-10.562],[37.846,-10.539],[37.822,-10.498],[37.795,-10.477],[37.764,-10.46],[37.718,-10.427],[37.162,-10.293],[36.921,-10.201],[36.871,-10.159],[36.874,-10.088],[36.87,-10.015],[36.877,-9.954],[36.903,-9.899],[36.985,-9.825],[37.062,-9.741],[37.106,-9.679],[37.129,-9.621],[37.143,-9.561],[37.221,-9.319],[37.237,-9.291],[37.249,-9.261],[37.258,-9.198],[37.304,-9.16],[37.36,-9.142],[37.367,-9.103],[37.337,-9.06],[37.346,-8.998],[37.319,-8.933],[37.32,-8.9],[37.306,-8.809],[37.312,-8.78],[37.355,-8.692],[37.378,-8.615],[37.381,-8.593],[37.382,-8.572],[37.378,-8.559],[37.361,-8.529],[37.369,-8.499],[37.389,-8.474],[37.409,-8.453],[37.426,-8.43],[37.455,-8.379],[37.474,-8.354],[37.48,-8.35],[37.494,-8.345],[37.502,-8.34],[37.507,-8.333],[37.511,-8.319],[37.526,-8.299],[37.538,-8.27],[37.573,-8.215],[37.581,-8.207],[37.595,-8.201],[37.613,-8.196],[37.628,-8.187],[37.635,-8.172],[37.638,-8.156],[37.646,-8.143],[37.671,-8.114],[37.675,-8.107],[37.676,-8.1],[37.676,-8.09],[37.678,-8.081],[37.684,-8.075],[37.691,-8.07],[37.697,-8.063],[37.717,-8.028],[37.728,-8.014],[37.744,-8.001],[37.77,-7.986],[37.779,-7.98],[37.785,-7.971],[37.795,-7.951],[37.801,-7.943],[37.941,-8.049],[37.992,-8.08],[38.11,-8.121],[38.234,-8.148],[38.289,-8.176],[38.381,-8.256],[38.43,-8.289],[38.504,-8.36],[38.52,-8.454],[38.536,-8.495],[38.593,-8.497],[38.64,-8.469],[38.661,-8.414],[38.687,-8.372],[38.757,-8.356],[38.776,-8.362],[38.785,-8.377],[38.802,-8.383],[38.865,-8.369],[38.989,-8.328],[39.183,-8.286],[39.233,-8.284],[39.27,-8.313],[39.285,-8.319]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Lindi'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Lindi?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Lindi is located? </h2>Lindi, is a region It belongs to the country of Tanzania. Its postal identifier is LI.Lindi has an area of 66416 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

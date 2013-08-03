@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Province du Sud?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[29.703,-1.743],[29.721,-1.75],[29.734,-1.747],[29.742,-1.748],[29.745,-1.758],[29.755,-1.774],[29.769,-1.794],[29.781,-1.812],[29.795,-1.825],[29.8,-1.839],[29.818,-1.851],[29.846,-1.861],[29.865,-1.861],[29.885,-1.857],[29.902,-1.857],[29.914,-1.861],[29.921,-1.866],[29.929,-1.87],[29.937,-1.875],[29.943,-1.881],[29.951,-1.889],[29.961,-1.899],[29.971,-1.906],[29.978,-1.908],[29.981,-1.909],[29.981,-1.911],[29.983,-1.914],[29.986,-1.923],[29.988,-1.93],[29.99,-1.933],[29.993,-1.937],[29.996,-1.944],[29.999,-1.951],[30.002,-1.958],[30,-1.963],[30,-1.965],[30,-1.968],[29.999,-1.975],[29.997,-1.981],[29.994,-1.986],[30.003,-2.001],[30.01,-2.017],[30.005,-2.024],[30.002,-2.028],[29.994,-2.031],[29.986,-2.039],[29.984,-2.048],[29.991,-2.061],[29.999,-2.066],[30.003,-2.067],[30.009,-2.068],[30.015,-2.07],[30.018,-2.072],[30.017,-2.082],[30.017,-2.1],[30.017,-2.111],[30.01,-2.124],[29.995,-2.14],[29.984,-2.161],[29.986,-2.194],[29.98,-2.243],[29.968,-2.279],[29.964,-2.3],[29.962,-2.319],[29.959,-2.324],[29.957,-2.327],[29.95,-2.321],[29.942,-2.317],[29.942,-2.317],[29.932,-2.317],[29.929,-2.323],[29.929,-2.332],[29.922,-2.383],[29.93,-2.46],[29.908,-2.535],[29.904,-2.638],[29.903,-2.649],[29.898,-2.671],[29.888,-2.693],[29.876,-2.714],[29.863,-2.732],[29.842,-2.752],[29.824,-2.764],[29.803,-2.767],[29.779,-2.767],[29.778,-2.767],[29.756,-2.76],[29.756,-2.76],[29.745,-2.76],[29.737,-2.769],[29.734,-2.79],[29.73,-2.8],[29.72,-2.805],[29.698,-2.808],[29.679,-2.805],[29.672,-2.803],[29.626,-2.788],[29.626,-2.788],[29.619,-2.788],[29.59,-2.798],[29.582,-2.803],[29.574,-2.806],[29.564,-2.806],[29.542,-2.809],[29.523,-2.82],[29.504,-2.827],[29.504,-2.827],[29.481,-2.814],[29.48,-2.814],[29.445,-2.807],[29.425,-2.803],[29.407,-2.805],[29.364,-2.824],[29.34,-2.826],[29.34,-2.826],[29.331,-2.807],[29.33,-2.795],[29.32,-2.774],[29.318,-2.763],[29.322,-2.752],[29.335,-2.735],[29.338,-2.724],[29.331,-2.711],[29.31,-2.691],[29.309,-2.69],[29.328,-2.68],[29.333,-2.679],[29.343,-2.674],[29.357,-2.649],[29.36,-2.613],[29.348,-2.595],[29.343,-2.588],[29.342,-2.581],[29.343,-2.572],[29.345,-2.562],[29.341,-2.556],[29.336,-2.546],[29.328,-2.536],[29.322,-2.523],[29.32,-2.508],[29.312,-2.497],[29.299,-2.491],[29.28,-2.485],[29.268,-2.479],[29.267,-2.472],[29.271,-2.459],[29.28,-2.446],[29.301,-2.435],[29.322,-2.423],[29.326,-2.414],[29.323,-2.403],[29.32,-2.394],[29.328,-2.38],[29.338,-2.364],[29.339,-2.355],[29.332,-2.341],[29.326,-2.325],[29.328,-2.311],[29.339,-2.299],[29.354,-2.291],[29.368,-2.289],[29.38,-2.293],[29.392,-2.287],[29.411,-2.273],[29.431,-2.269],[29.449,-2.269],[29.46,-2.269],[29.467,-2.269],[29.481,-2.254],[29.506,-2.235],[29.519,-2.227],[29.53,-2.218],[29.543,-2.21],[29.549,-2.204],[29.553,-2.198],[29.558,-2.2],[29.565,-2.202],[29.572,-2.199],[29.58,-2.197],[29.587,-2.193],[29.598,-2.187],[29.606,-2.182],[29.605,-2.169],[29.602,-2.155],[29.599,-2.149],[29.6,-2.138],[29.609,-2.122],[29.615,-2.108],[29.615,-2.1],[29.618,-2.094],[29.621,-2.089],[29.626,-2.082],[29.633,-2.071],[29.634,-2.062],[29.635,-2.053],[29.636,-2.045],[29.633,-2.038],[29.63,-2.027],[29.631,-2.006],[29.627,-1.984],[29.623,-1.974],[29.633,-1.974],[29.648,-1.975],[29.66,-1.971],[29.669,-1.963],[29.671,-1.952],[29.667,-1.944],[29.663,-1.933],[29.662,-1.922],[29.666,-1.914],[29.672,-1.901],[29.669,-1.875],[29.664,-1.85],[29.664,-1.838],[29.668,-1.826],[29.67,-1.799],[29.667,-1.765],[29.663,-1.747],[29.66,-1.737],[29.658,-1.733],[29.664,-1.731],[29.675,-1.73],[29.686,-1.732],[29.703,-1.743]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Province du Sud'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Province du Sud?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Province du Sud is located? </h2>Province du Sud, is a province It belongs to the country of Rwanda. Its abbreviated name is South and its postal identifier is S.Province du Sud has an area of 5819 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

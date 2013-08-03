@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Brod?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[21.184,41.839],[21.193,41.837],[21.205,41.831],[21.217,41.823],[21.227,41.82],[21.234,41.817],[21.244,41.809],[21.256,41.799],[21.271,41.781],[21.289,41.761],[21.305,41.739],[21.324,41.726],[21.34,41.724],[21.346,41.728],[21.354,41.726],[21.365,41.726],[21.374,41.719],[21.374,41.695],[21.374,41.685],[21.385,41.667],[21.394,41.661],[21.395,41.664],[21.397,41.656],[21.39,41.648],[21.381,41.639],[21.376,41.635],[21.372,41.632],[21.372,41.626],[21.376,41.618],[21.376,41.608],[21.375,41.596],[21.374,41.593],[21.372,41.593],[21.367,41.593],[21.365,41.581],[21.364,41.562],[21.358,41.551],[21.35,41.544],[21.341,41.536],[21.336,41.53],[21.33,41.523],[21.327,41.516],[21.328,41.501],[21.328,41.49],[21.323,41.491],[21.315,41.494],[21.31,41.497],[21.3,41.5],[21.288,41.499],[21.284,41.495],[21.28,41.488],[21.274,41.485],[21.268,41.485],[21.26,41.482],[21.259,41.479],[21.259,41.473],[21.26,41.472],[21.256,41.473],[21.247,41.472],[21.244,41.466],[21.244,41.46],[21.244,41.451],[21.241,41.443],[21.227,41.438],[21.209,41.434],[21.195,41.429],[21.195,41.432],[21.192,41.44],[21.182,41.444],[21.172,41.445],[21.16,41.449],[21.155,41.454],[21.151,41.459],[21.15,41.462],[21.15,41.469],[21.15,41.475],[21.149,41.478],[21.144,41.481],[21.132,41.481],[21.124,41.476],[21.118,41.474],[21.11,41.472],[21.101,41.469],[21.091,41.469],[21.086,41.469],[21.076,41.467],[21.076,41.467],[21.076,41.471],[21.076,41.476],[21.078,41.483],[21.085,41.486],[21.095,41.488],[21.101,41.496],[21.116,41.504],[21.127,41.515],[21.138,41.524],[21.148,41.528],[21.148,41.534],[21.138,41.539],[21.126,41.544],[21.114,41.552],[21.108,41.558],[21.106,41.574],[21.102,41.58],[21.101,41.58],[21.103,41.593],[21.103,41.609],[21.103,41.621],[21.098,41.629],[21.083,41.634],[21.073,41.634],[21.062,41.635],[21.056,41.639],[21.053,41.648],[21.058,41.662],[21.056,41.679],[21.053,41.686],[21.048,41.691],[21.045,41.696],[21.045,41.704],[21.044,41.713],[21.035,41.718],[21.03,41.728],[21.031,41.734],[21.037,41.737],[21.045,41.737],[21.047,41.741],[21.047,41.751],[21.047,41.766],[21.053,41.775],[21.073,41.776],[21.079,41.777],[21.093,41.78],[21.107,41.79],[21.124,41.81],[21.147,41.829],[21.166,41.84],[21.18,41.84],[21.184,41.839]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Brod'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Brod?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Brod is located? </h2>Brod, is a statistical region of the Polog region. It belongs to the country of Macedonia. Its postal identifier is MD.Brod has an area of 841 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

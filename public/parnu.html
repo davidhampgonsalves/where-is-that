@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Parnu?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[24.003,58.109],[23.971,58.1],[23.944,58.113],[23.938,58.137],[23.956,58.152],[23.985,58.157],[24.014,58.154],[24.022,58.13],[24.003,58.109]]],[[[24.724,58.75],[24.786,58.741],[24.812,58.743],[24.837,58.749],[24.856,58.75],[24.88,58.747],[24.891,58.742],[24.898,58.736],[24.9,58.72],[24.909,58.696],[24.912,58.682],[24.916,58.672],[24.937,58.677],[24.972,58.701],[24.988,58.709],[25.008,58.717],[25.024,58.72],[25.029,58.72],[25.047,58.718],[25.057,58.718],[25.061,58.72],[25.063,58.728],[25.13,58.72],[25.161,58.721],[25.2,58.726],[25.235,58.72],[25.266,58.718],[25.283,58.714],[25.292,58.708],[25.293,58.702],[25.289,58.697],[25.283,58.69],[25.279,58.684],[25.276,58.671],[25.259,58.633],[25.232,58.626],[25.225,58.62],[25.223,58.612],[25.227,58.605],[25.231,58.598],[25.232,58.588],[25.221,58.583],[25.182,58.576],[25.168,58.568],[25.155,58.557],[25.142,58.549],[25.1,58.532],[25.032,58.516],[24.995,58.494],[24.988,58.486],[24.989,58.483],[25.001,58.47],[25.006,58.459],[25.007,58.435],[24.978,58.423],[24.973,58.411],[24.977,58.389],[24.97,58.367],[24.955,58.336],[24.967,58.324],[24.973,58.321],[24.99,58.318],[25.022,58.335],[25.036,58.334],[25.041,58.331],[25.121,58.323],[25.135,58.319],[25.174,58.3],[25.233,58.28],[25.245,58.274],[25.249,58.264],[25.232,58.253],[25.232,58.248],[25.233,58.24],[25.234,58.205],[25.23,58.2],[25.224,58.2],[25.218,58.204],[25.206,58.209],[25.152,58.202],[25.144,58.196],[25.137,58.189],[25.139,58.181],[25.143,58.173],[25.142,58.164],[25.137,58.161],[25.13,58.162],[25.121,58.165],[25.11,58.166],[25.096,58.158],[25.09,58.152],[25.091,58.147],[25.095,58.144],[25.105,58.14],[25.109,58.137],[25.114,58.133],[25.112,58.126],[25.103,58.124],[25.089,58.125],[25.074,58.127],[25.06,58.125],[25.054,58.121],[25.052,58.116],[25.047,58.108],[25.037,58.103],[25.019,58.097],[25.011,58.091],[25.01,58.085],[25.016,58.08],[25.019,58.076],[25.021,58.071],[25.022,58.065],[25.024,58.06],[25.027,58.056],[25.034,58.049],[25.034,58.049],[24.974,58.016],[24.949,58.007],[24.872,58.001],[24.848,57.993],[24.827,57.982],[24.816,57.977],[24.79,57.979],[24.764,57.988],[24.733,57.993],[24.719,57.982],[24.7,57.955],[24.684,57.948],[24.624,57.944],[24.554,57.948],[24.533,57.945],[24.481,57.92],[24.441,57.908],[24.429,57.901],[24.412,57.877],[24.401,57.867],[24.378,57.86],[24.349,57.859],[24.306,57.868],[24.306,57.868],[24.317,57.877],[24.325,57.887],[24.328,57.898],[24.331,57.91],[24.334,57.921],[24.381,57.984],[24.399,58.023],[24.447,58.055],[24.464,58.072],[24.464,58.121],[24.472,58.143],[24.473,58.155],[24.468,58.165],[24.46,58.175],[24.455,58.185],[24.455,58.196],[24.468,58.218],[24.468,58.229],[24.468,58.24],[24.471,58.251],[24.492,58.266],[24.522,58.276],[24.549,58.289],[24.561,58.312],[24.551,58.334],[24.529,58.351],[24.444,58.386],[24.403,58.395],[24.362,58.397],[24.327,58.388],[24.316,58.38],[24.305,58.368],[24.296,58.355],[24.292,58.343],[24.291,58.328],[24.287,58.319],[24.256,58.29],[24.243,58.28],[24.229,58.274],[24.211,58.271],[24.174,58.277],[24.156,58.277],[24.139,58.268],[24.121,58.245],[24.112,58.241],[24.094,58.245],[24.084,58.251],[24.053,58.278],[24.007,58.301],[23.98,58.319],[23.914,58.333],[23.874,58.335],[23.855,58.34],[23.85,58.343],[23.839,58.352],[23.834,58.354],[23.825,58.355],[23.819,58.352],[23.813,58.348],[23.806,58.347],[23.797,58.349],[23.787,58.353],[23.777,58.355],[23.768,58.35],[23.762,58.344],[23.756,58.34],[23.749,58.339],[23.741,58.343],[23.735,58.351],[23.729,58.363],[23.725,58.375],[23.724,58.385],[23.719,58.4],[23.708,58.407],[23.694,58.413],[23.683,58.422],[23.678,58.435],[23.678,58.446],[23.683,58.47],[23.685,58.5],[23.679,58.524],[23.664,58.536],[23.635,58.528],[23.623,58.529],[23.603,58.536],[23.586,58.544],[23.587,58.545],[23.636,58.556],[23.651,58.556],[23.748,58.549],[23.825,58.559],[23.903,58.556],[23.902,58.563],[23.899,58.566],[23.865,58.586],[23.861,58.602],[23.861,58.607],[23.864,58.613],[23.864,58.617],[23.863,58.621],[23.861,58.625],[23.859,58.63],[23.861,58.634],[23.873,58.633],[23.899,58.625],[23.916,58.625],[23.933,58.631],[23.954,58.646],[23.96,58.658],[23.962,58.667],[23.965,58.673],[23.972,58.675],[24.005,58.67],[24.022,58.671],[24.06,58.684],[24.087,58.689],[24.133,58.701],[24.162,58.689],[24.285,58.676],[24.364,58.67],[24.415,58.677],[24.43,58.682],[24.439,58.686],[24.443,58.69],[24.449,58.703],[24.456,58.71],[24.462,58.714],[24.493,58.729],[24.525,58.736],[24.537,58.736],[24.552,58.734],[24.555,58.73],[24.554,58.724],[24.554,58.718],[24.565,58.711],[24.578,58.712],[24.611,58.719],[24.654,58.724],[24.691,58.751],[24.724,58.75]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Parnu'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Parnu?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where Parnu is located? </h2>Parnu, is a county It belongs to the country of Estonia. Its postal identifier is PR.Parnu has an area of 4862 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

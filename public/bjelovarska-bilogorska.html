@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Bjelovarska-Bilogorska?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[17.14,45.87],[17.277,45.803],[17.279,45.798],[17.279,45.794],[17.278,45.786],[17.279,45.783],[17.283,45.777],[17.29,45.771],[17.306,45.765],[17.315,45.756],[17.321,45.752],[17.322,45.751],[17.324,45.751],[17.353,45.755],[17.358,45.754],[17.362,45.75],[17.366,45.742],[17.367,45.737],[17.366,45.732],[17.361,45.725],[17.36,45.721],[17.362,45.718],[17.366,45.714],[17.385,45.703],[17.397,45.703],[17.402,45.705],[17.411,45.711],[17.416,45.714],[17.423,45.718],[17.426,45.719],[17.432,45.719],[17.441,45.717],[17.449,45.714],[17.49,45.693],[17.493,45.688],[17.492,45.675],[17.424,45.592],[17.431,45.575],[17.439,45.566],[17.441,45.562],[17.442,45.558],[17.441,45.553],[17.429,45.523],[17.424,45.517],[17.418,45.513],[17.411,45.511],[17.399,45.509],[17.384,45.51],[17.35,45.517],[17.335,45.518],[17.234,45.506],[17.223,45.507],[17.213,45.511],[17.199,45.519],[17.19,45.525],[17.185,45.528],[17.18,45.528],[17.174,45.524],[17.169,45.52],[17.16,45.516],[17.147,45.514],[17.123,45.513],[17.109,45.512],[17.083,45.506],[17.071,45.504],[17.058,45.507],[17.044,45.507],[17.037,45.505],[17.032,45.503],[17.026,45.503],[17.016,45.505],[16.969,45.52],[16.965,45.522],[16.962,45.525],[16.962,45.531],[16.962,45.535],[16.961,45.54],[16.959,45.543],[16.944,45.547],[16.93,45.518],[16.928,45.503],[16.928,45.5],[16.927,45.498],[16.927,45.493],[16.926,45.484],[16.929,45.476],[16.912,45.469],[16.907,45.468],[16.904,45.469],[16.899,45.477],[16.895,45.48],[16.888,45.483],[16.868,45.482],[16.859,45.483],[16.851,45.485],[16.843,45.489],[16.836,45.494],[16.83,45.504],[16.829,45.508],[16.831,45.51],[16.834,45.511],[16.837,45.511],[16.84,45.511],[16.843,45.51],[16.846,45.51],[16.851,45.51],[16.869,45.523],[16.867,45.527],[16.862,45.532],[16.848,45.546],[16.838,45.557],[16.836,45.559],[16.832,45.561],[16.823,45.563],[16.817,45.567],[16.809,45.576],[16.805,45.583],[16.791,45.609],[16.787,45.613],[16.781,45.616],[16.756,45.619],[16.747,45.621],[16.74,45.624],[16.729,45.634],[16.724,45.637],[16.656,45.66],[16.635,45.663],[16.617,45.663],[16.612,45.665],[16.602,45.671],[16.587,45.685],[16.565,45.697],[16.552,45.701],[16.541,45.703],[16.532,45.706],[16.521,45.712],[16.512,45.715],[16.505,45.715],[16.502,45.718],[16.501,45.722],[16.504,45.734],[16.508,45.742],[16.511,45.748],[16.511,45.754],[16.497,45.765],[16.513,45.772],[16.524,45.786],[16.532,45.788],[16.56,45.789],[16.593,45.78],[16.599,45.782],[16.602,45.787],[16.599,45.802],[16.598,45.81],[16.601,45.817],[16.622,45.842],[16.629,45.845],[16.634,45.844],[16.637,45.841],[16.637,45.836],[16.635,45.831],[16.634,45.826],[16.637,45.823],[16.645,45.82],[16.658,45.82],[16.666,45.822],[16.674,45.826],[16.688,45.839],[16.694,45.854],[16.696,45.866],[16.696,45.873],[16.692,45.904],[16.692,45.914],[16.693,45.924],[16.693,45.966],[16.697,45.981],[16.711,46.001],[16.719,46.019],[16.731,46.033],[16.741,46.046],[16.758,46.053],[16.776,46.058],[16.784,46.059],[16.79,46.056],[16.794,46.051],[16.801,46.046],[16.805,46.046],[16.809,46.048],[16.811,46.051],[16.821,46.056],[16.825,46.06],[16.827,46.062],[16.831,46.073],[16.835,46.078],[16.839,46.081],[16.845,46.082],[16.852,46.081],[16.859,46.08],[16.866,46.077],[16.869,46.075],[16.872,46.072],[16.874,46.065],[16.875,46.061],[16.877,46.058],[16.88,46.054],[16.885,46.05],[16.891,46.046],[16.908,46.039],[16.913,46.037],[16.916,46.033],[16.915,46.028],[16.905,46.009],[16.911,46.001],[16.925,45.994],[16.966,45.979],[16.984,45.97],[16.994,45.961],[16.994,45.953],[16.992,45.943],[16.992,45.935],[16.996,45.927],[17.001,45.925],[17.006,45.925],[17.023,45.934],[17.03,45.936],[17.037,45.936],[17.051,45.935],[17.059,45.931],[17.067,45.924],[17.08,45.91],[17.086,45.905],[17.092,45.901],[17.106,45.893],[17.14,45.87]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Bjelovarska-Bilogorska'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Bjelovarska-Bilogorska?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Bjelovarska-Bilogorska is located? </h2>Bjelovarska-Bilogorska, is a county It belongs to the country of Croatia. Its postal identifier is BB.Bjelovarska-Bilogorska has an area of 2673 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

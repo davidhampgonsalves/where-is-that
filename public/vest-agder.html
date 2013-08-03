@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Vest-Agder?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[7.111,58.84],[7.158,58.836],[7.17,58.837],[7.18,58.84],[7.182,58.847],[7.199,58.855],[7.348,58.87],[7.423,58.886],[7.541,58.887],[7.581,58.882],[7.594,58.878],[7.602,58.872],[7.622,58.843],[7.678,58.788],[7.678,58.769],[7.669,58.746],[7.657,58.722],[7.644,58.71],[7.635,58.706],[7.628,58.705],[7.615,58.699],[7.609,58.698],[7.603,58.697],[7.591,58.698],[7.586,58.691],[7.583,58.677],[7.586,58.644],[7.598,58.628],[7.617,58.608],[7.619,58.6],[7.616,58.591],[7.604,58.581],[7.595,58.575],[7.559,58.563],[7.551,58.559],[7.546,58.546],[7.558,58.518],[7.566,58.503],[7.58,58.48],[7.595,58.474],[7.616,58.469],[7.684,58.469],[7.713,58.485],[7.724,58.486],[7.765,58.481],[7.791,58.471],[7.805,58.459],[7.811,58.449],[7.812,58.435],[7.814,58.431],[7.828,58.426],[7.902,58.408],[7.931,58.395],[7.947,58.382],[7.956,58.364],[7.963,58.353],[7.975,58.345],[7.988,58.343],[8,58.348],[8.004,58.356],[8.009,58.361],[8.035,58.368],[8.092,58.357],[8.096,58.342],[8.098,58.335],[8.102,58.331],[8.107,58.326],[8.107,58.321],[8.103,58.318],[8.097,58.315],[8.093,58.312],[8.113,58.303],[8.211,58.289],[8.225,58.265],[8.229,58.254],[8.229,58.246],[8.226,58.235],[8.216,58.226],[8.21,58.223],[8.205,58.221],[8.202,58.219],[8.197,58.215],[8.192,58.208],[8.186,58.203],[8.185,58.196],[8.186,58.191],[8.215,58.169],[8.225,58.157],[8.223,58.152],[8.223,58.14],[8.223,58.135],[8.202,58.123],[8.186,58.133],[8.173,58.146],[8.158,58.145],[8.137,58.115],[8.123,58.102],[8.11,58.104],[8.099,58.109],[8.066,58.111],[8.053,58.113],[8.047,58.117],[8.036,58.13],[8.025,58.141],[8.054,58.148],[8.068,58.154],[8.08,58.162],[8.06,58.178],[8.046,58.204],[8.03,58.225],[8.004,58.223],[8.022,58.203],[8.028,58.183],[8.023,58.164],[8.008,58.145],[7.954,58.125],[7.934,58.11],[7.956,58.093],[7.916,58.082],[7.755,58.07],[7.715,58.061],[7.696,58.059],[7.664,58.067],[7.654,58.065],[7.661,58.046],[7.643,58.046],[7.635,58.048],[7.627,58.052],[7.63,58.031],[7.615,58.022],[7.594,58.027],[7.579,58.046],[7.575,58.032],[7.575,58.026],[7.579,58.018],[7.391,58.018],[7.268,58.036],[7.254,58.044],[7.25,58.059],[7.191,58.042],[7.175,58.031],[7.167,58.046],[7.156,58.05],[7.083,58.037],[7.079,58.033],[7.079,58.028],[7.079,58.025],[7.077,58.02],[7.078,58.013],[7.076,58.007],[7.069,58.004],[7.061,58.003],[7.023,57.995],[7.007,57.993],[6.997,57.997],[7.004,58.011],[7,58.031],[7.023,58.043],[7.054,58.053],[7.075,58.062],[7.088,58.071],[7.098,58.068],[7.106,58.062],[7.116,58.059],[7.125,58.064],[7.14,58.086],[7.148,58.093],[7.148,58.1],[7.128,58.098],[7.065,58.078],[7.052,58.069],[7.035,58.063],[6.959,58.045],[6.935,58.046],[6.953,58.058],[6.98,58.089],[6.996,58.1],[6.981,58.106],[6.924,58.065],[6.901,58.052],[6.908,58.064],[6.912,58.075],[6.913,58.087],[6.908,58.1],[6.896,58.096],[6.879,58.084],[6.867,58.08],[6.852,58.08],[6.832,58.084],[6.815,58.091],[6.804,58.1],[6.848,58.115],[6.871,58.119],[6.95,58.121],[6.975,58.127],[6.989,58.141],[6.959,58.14],[6.904,58.131],[6.874,58.135],[6.849,58.148],[6.802,58.179],[6.778,58.182],[6.813,58.128],[6.808,58.121],[6.758,58.117],[6.732,58.12],[6.716,58.135],[6.727,58.145],[6.728,58.158],[6.723,58.172],[6.723,58.19],[6.7,58.137],[6.688,58.121],[6.704,58.121],[6.711,58.116],[6.715,58.108],[6.723,58.1],[6.733,58.094],[6.754,58.087],[6.774,58.074],[6.783,58.07],[6.783,58.065],[6.764,58.059],[6.754,58.058],[6.734,58.064],[6.723,58.066],[6.619,58.068],[6.596,58.076],[6.542,58.108],[6.531,58.121],[6.551,58.123],[6.568,58.132],[6.581,58.146],[6.586,58.165],[6.597,58.177],[6.653,58.178],[6.675,58.182],[6.661,58.188],[6.654,58.19],[6.675,58.207],[6.725,58.222],[6.766,58.246],[6.846,58.272],[6.829,58.275],[6.803,58.271],[6.757,58.254],[6.699,58.225],[6.682,58.223],[6.669,58.232],[6.64,58.264],[6.634,58.275],[6.64,58.294],[6.656,58.303],[6.677,58.302],[6.695,58.292],[6.709,58.313],[6.687,58.327],[6.664,58.324],[6.641,58.316],[6.62,58.319],[6.62,58.265],[6.626,58.245],[6.563,58.243],[6.499,58.263],[6.389,58.267],[6.408,58.28],[6.439,58.293],[6.549,58.317],[6.564,58.321],[6.577,58.327],[6.598,58.339],[6.614,58.352],[6.627,58.367],[6.631,58.384],[6.629,58.401],[6.594,58.503],[6.591,58.52],[6.592,58.531],[6.598,58.549],[6.597,58.559],[6.588,58.588],[6.587,58.6],[6.585,58.611],[6.574,58.62],[6.541,58.628],[6.487,58.624],[6.471,58.632],[6.445,58.658],[6.456,58.667],[6.554,58.687],[6.585,58.7],[6.599,58.708],[6.602,58.722],[6.576,58.745],[6.563,58.76],[6.532,58.774],[6.523,58.78],[6.517,58.786],[6.532,58.809],[6.578,58.865],[6.581,58.876],[6.582,58.893],[6.576,58.904],[6.565,58.915],[6.56,58.923],[6.562,58.931],[6.573,58.941],[6.759,59.052],[6.771,59.063],[6.785,59.08],[6.802,59.093],[6.831,59.109],[6.865,59.124],[6.881,59.135],[6.887,59.149],[6.881,59.161],[6.882,59.169],[6.89,59.178],[6.913,59.187],[6.943,59.209],[7.022,59.206],[7.17,59.18],[7.18,59.178],[7.183,59.174],[7.182,59.169],[7.172,59.163],[7.163,59.156],[7.157,59.146],[7.154,59.126],[7.147,59.098],[7.146,59.081],[7.151,59.063],[7.158,59.052],[7.161,59.041],[7.158,59.033],[7.146,59.026],[7.131,59.025],[7.118,59.019],[7.142,58.993],[7.161,58.97],[7.167,58.961],[7.165,58.949],[7.152,58.933],[7.08,58.882],[7.07,58.87],[7.065,58.861],[7.072,58.847],[7.111,58.84]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Vest-Agder'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Vest-Agder?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Vest-Agder is located? </h2>Vest-Agder, is a county It belongs to the country of Norway. Its postal identifier is VA.Vest-Agder has an area of 7505 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

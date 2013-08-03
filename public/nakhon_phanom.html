@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Nakhon Phanom?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[104.211,18.009],[104.255,17.915],[104.264,17.885],[104.27,17.874],[104.278,17.865],[104.282,17.862],[104.287,17.857],[104.353,17.82],[104.368,17.801],[104.39,17.757],[104.405,17.74],[104.409,17.734],[104.412,17.728],[104.418,17.708],[104.422,17.7],[104.452,17.666],[104.481,17.641],[104.636,17.563],[104.655,17.556],[104.703,17.528],[104.715,17.516],[104.734,17.487],[104.75,17.458],[104.757,17.45],[104.765,17.445],[104.782,17.435],[104.789,17.429],[104.793,17.424],[104.816,17.373],[104.819,17.361],[104.82,17.349],[104.816,17.3],[104.818,17.24],[104.814,17.194],[104.81,17.172],[104.745,17.025],[104.74,17.003],[104.746,16.944],[104.75,16.911],[104.753,16.9],[104.763,16.879],[104.766,16.868],[104.767,16.856],[104.765,16.845],[104.758,16.822],[104.758,16.819],[104.757,16.819],[104.753,16.817],[104.741,16.813],[104.739,16.81],[104.735,16.805],[104.734,16.798],[104.735,16.791],[104.737,16.785],[104.746,16.77],[104.747,16.762],[104.746,16.755],[104.74,16.75],[104.734,16.749],[104.725,16.751],[104.685,16.771],[104.682,16.776],[104.68,16.78],[104.682,16.787],[104.684,16.799],[104.684,16.805],[104.683,16.812],[104.681,16.821],[104.667,16.827],[104.645,16.831],[104.596,16.834],[104.574,16.83],[104.559,16.825],[104.55,16.819],[104.54,16.814],[104.529,16.815],[104.517,16.822],[104.504,16.843],[104.495,16.85],[104.475,16.842],[104.466,16.847],[104.45,16.858],[104.441,16.862],[104.433,16.859],[104.426,16.856],[104.42,16.851],[104.413,16.85],[104.401,16.852],[104.378,16.867],[104.364,16.871],[104.341,16.869],[104.328,16.865],[104.317,16.858],[104.304,16.853],[104.287,16.857],[104.268,16.868],[104.239,16.896],[104.276,16.923],[104.29,16.93],[104.297,16.932],[104.303,16.935],[104.307,16.939],[104.31,16.946],[104.319,16.968],[104.322,16.974],[104.324,16.977],[104.336,16.983],[104.383,17.01],[104.394,17.022],[104.395,17.034],[104.394,17.037],[104.393,17.039],[104.388,17.041],[104.376,17.05],[104.364,17.055],[104.362,17.06],[104.36,17.066],[104.362,17.083],[104.364,17.09],[104.368,17.094],[104.371,17.096],[104.373,17.098],[104.382,17.108],[104.397,17.121],[104.4,17.126],[104.401,17.131],[104.4,17.149],[104.405,17.177],[104.417,17.208],[104.42,17.214],[104.426,17.221],[104.432,17.226],[104.441,17.237],[104.443,17.243],[104.444,17.247],[104.444,17.249],[104.442,17.256],[104.435,17.267],[104.433,17.274],[104.432,17.278],[104.433,17.297],[104.432,17.302],[104.431,17.305],[104.428,17.31],[104.427,17.315],[104.426,17.32],[104.427,17.336],[104.427,17.341],[104.424,17.347],[104.422,17.35],[104.416,17.358],[104.414,17.377],[104.416,17.404],[104.415,17.415],[104.414,17.421],[104.411,17.421],[104.358,17.419],[104.323,17.422],[104.31,17.422],[104.306,17.421],[104.303,17.42],[104.295,17.419],[104.282,17.418],[104.278,17.417],[104.275,17.416],[104.269,17.412],[104.265,17.411],[104.241,17.408],[104.23,17.406],[104.225,17.405],[104.221,17.406],[104.21,17.408],[104.205,17.409],[104.188,17.408],[104.161,17.411],[104.158,17.411],[104.154,17.41],[104.151,17.408],[104.149,17.406],[104.145,17.4],[104.139,17.387],[104.137,17.384],[104.134,17.382],[104.131,17.382],[104.128,17.383],[104.126,17.383],[104.123,17.384],[104.117,17.388],[104.114,17.39],[104.11,17.394],[104.107,17.396],[104.104,17.398],[104.101,17.399],[104.097,17.4],[104.095,17.398],[104.095,17.395],[104.096,17.392],[104.097,17.389],[104.098,17.386],[104.097,17.382],[104.095,17.38],[104.093,17.378],[104.089,17.377],[104.084,17.378],[104.081,17.378],[104.077,17.38],[104.074,17.382],[104.071,17.384],[104.068,17.384],[104.064,17.385],[104.059,17.386],[104.051,17.391],[104.048,17.395],[104.046,17.399],[104.044,17.407],[104.042,17.411],[104.01,17.469],[104.009,17.472],[104.009,17.476],[104.01,17.48],[104.012,17.483],[104.021,17.5],[104.033,17.519],[104.035,17.532],[104.035,17.54],[104.037,17.556],[104.04,17.566],[104.046,17.579],[104.048,17.586],[104.049,17.592],[104.048,17.595],[104.046,17.598],[104.044,17.601],[104.04,17.606],[104.038,17.609],[104.031,17.63],[104.031,17.634],[104.033,17.637],[104.036,17.639],[104.039,17.64],[104.048,17.64],[104.055,17.643],[104.058,17.645],[104.062,17.649],[104.076,17.675],[104.076,17.679],[104.073,17.682],[104.07,17.683],[104.067,17.687],[104.068,17.692],[104.071,17.698],[104.072,17.703],[104.071,17.708],[104.068,17.714],[104.065,17.727],[104.063,17.733],[104.06,17.736],[104.057,17.735],[104.055,17.735],[104.052,17.736],[104.05,17.742],[104.048,17.749],[104.048,17.75],[104.048,17.75],[104.04,17.759],[104.037,17.759],[104.035,17.759],[104.029,17.756],[104.026,17.756],[104.023,17.756],[104.02,17.76],[104.017,17.768],[104.016,17.785],[104.01,17.801],[104.013,17.824],[104.011,17.833],[104.007,17.839],[104.001,17.845],[103.991,17.861],[103.988,17.867],[103.988,17.872],[103.99,17.876],[103.994,17.882],[103.996,17.887],[103.998,17.895],[104,17.911],[104.003,17.919],[104.006,17.923],[104.009,17.925],[104.032,17.934],[104.036,17.935],[104.04,17.935],[104.044,17.934],[104.046,17.932],[104.048,17.929],[104.051,17.918],[104.052,17.915],[104.056,17.91],[104.065,17.899],[104.066,17.897],[104.066,17.893],[104.066,17.89],[104.067,17.886],[104.068,17.883],[104.07,17.88],[104.073,17.878],[104.076,17.876],[104.088,17.87],[104.097,17.864],[104.101,17.863],[104.108,17.864],[104.111,17.866],[104.113,17.869],[104.118,17.883],[104.128,17.896],[104.132,17.904],[104.134,17.91],[104.134,17.914],[104.131,17.928],[104.13,17.936],[104.133,17.952],[104.132,17.956],[104.131,17.959],[104.129,17.961],[104.126,17.963],[104.124,17.965],[104.121,17.967],[104.119,17.97],[104.118,17.975],[104.118,17.981],[104.121,17.993],[104.125,18],[104.125,18],[104.129,18.001],[104.136,18.001],[104.139,18],[104.14,18],[104.168,17.999],[104.171,17.999],[104.173,18],[104.174,18],[104.196,18.015],[104.203,18.019],[104.203,18.019],[104.211,18.009]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Nakhon Phanom'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Nakhon Phanom?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Nakhon Phanom is located? </h2>Nakhon Phanom, is a province It belongs to the country of Thailand. Its postal identifier is NF.Nakhon Phanom has an area of 5722 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

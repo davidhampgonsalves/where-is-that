@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ouadai?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[20.559,14.469],[20.736,14.412],[20.74,14.409],[20.748,14.403],[20.753,14.4],[20.775,14.394],[20.78,14.391],[20.784,14.389],[20.799,14.375],[20.807,14.369],[20.816,14.365],[20.844,14.355],[20.848,14.352],[20.851,14.348],[20.854,14.344],[20.875,14.297],[20.899,14.265],[20.958,14.204],[20.963,14.201],[20.969,14.198],[20.978,14.196],[20.99,14.198],[20.996,14.197],[21,14.197],[21.071,14.149],[21.168,14.101],[21.202,14.093],[21.221,14.092],[21.232,14.093],[21.252,14.099],[21.261,14.103],[21.279,14.114],[21.287,14.12],[21.333,14.143],[21.362,14.148],[21.422,14.152],[21.436,14.151],[21.702,14.111],[22.042,13.999],[22.085,13.973],[22.089,13.969],[22.114,13.931],[22.125,13.92],[22.138,13.917],[22.153,13.917],[22.18,13.92],[22.18,13.92],[22.099,13.82],[22.075,13.781],[22.073,13.772],[22.073,13.772],[22.097,13.75],[22.113,13.73],[22.116,13.715],[22.116,13.715],[22.114,13.7],[22.114,13.678],[22.114,13.678],[22.132,13.639],[22.196,13.581],[22.21,13.542],[22.211,13.484],[22.215,13.465],[22.228,13.441],[22.264,13.399],[22.276,13.377],[22.276,13.377],[22.267,13.335],[22.232,13.289],[22.14,13.194],[22.123,13.182],[22.016,13.14],[21.998,13.131],[21.964,13.099],[21.935,13.059],[21.853,12.906],[21.828,12.831],[21.811,12.8],[21.809,12.794],[21.809,12.794],[21.813,12.783],[21.841,12.749],[21.88,12.677],[21.9,12.657],[21.936,12.64],[21.977,12.632],[22.019,12.632],[22.058,12.637],[22.106,12.651],[22.144,12.671],[22.176,12.702],[22.205,12.744],[22.33,12.662],[22.432,12.624],[22.445,12.611],[22.445,12.611],[22.396,12.496],[22.372,12.463],[22.372,12.463],[22.374,12.451],[22.408,12.4],[22.481,12.177],[22.484,12.165],[22.484,12.153],[22.484,12.153],[22.484,12.141],[22.458,12.031],[22.458,12.031],[22.464,12.033],[22.47,12.036],[22.481,12.045],[22.546,12.065],[22.585,12.072],[22.598,12.064],[22.607,12.078],[22.612,12.073],[22.613,12.058],[22.613,12.057],[22.61,12.04],[22.593,11.989],[22.537,11.681],[22.537,11.681],[22.541,11.633],[22.561,11.586],[22.592,11.544],[22.628,11.51],[22.662,11.493],[22.743,11.466],[22.768,11.443],[22.771,11.434],[22.772,11.403],[22.781,11.399],[22.877,11.409],[22.9,11.409],[22.914,11.396],[22.928,11.325],[22.953,11.251],[22.956,11.209],[22.956,11.209],[22.952,11.191],[22.935,11.156],[22.929,11.138],[22.925,11.118],[22.925,11.098],[22.922,11.087],[22.906,11.07],[22.9,11.06],[22.861,10.919],[22.861,10.919],[22.861,10.919],[22.806,10.925],[22.745,10.944],[22.72,10.965],[22.682,10.974],[22.673,10.975],[22.638,10.974],[22.628,10.976],[22.609,10.985],[22.6,10.988],[22.577,10.985],[22.555,10.979],[22.534,10.981],[22.512,11.001],[22.502,10.992],[22.49,10.993],[22.476,10.998],[22.46,11.001],[22.447,10.999],[22.437,10.992],[22.419,10.971],[22.407,10.963],[22.391,10.959],[22.365,10.954],[22.365,10.954],[22.364,10.955],[22.083,11.595],[22.068,11.61],[22.046,11.625],[21.893,11.67],[21.854,11.693],[21.839,11.698],[21.821,11.698],[21.036,11.555],[21.025,11.556],[21.021,11.562],[21.02,11.573],[21.02,11.637],[21.022,11.64],[21.025,11.642],[21.031,11.644],[21.034,11.645],[21.034,11.647],[21.029,11.65],[20.521,11.899],[20.273,12.065],[20.25,12.072],[20.222,12.078],[19.96,12.07],[19.95,12.068],[19.946,12.063],[19.944,12.056],[19.944,12.043],[19.954,11.987],[19.954,11.981],[19.952,11.977],[19.947,11.975],[19.94,11.974],[19.894,11.975],[19.868,11.974],[19.859,11.975],[19.853,11.977],[19.848,11.984],[19.844,11.994],[19.838,12.048],[19.834,12.062],[19.82,12.087],[19.819,12.143],[19.821,12.163],[19.886,12.343],[19.915,12.408],[19.92,12.415],[19.926,12.423],[19.93,12.427],[19.934,12.43],[19.938,12.432],[19.944,12.437],[19.952,12.446],[19.975,12.48],[20.012,12.515],[20.037,12.551],[20.043,12.559],[20.051,12.566],[20.055,12.569],[20.059,12.571],[20.075,12.578],[20.09,12.589],[20.094,12.595],[20.096,12.599],[20.095,12.603],[20.093,12.607],[20.088,12.615],[20.056,12.646],[20.05,12.655],[20.048,12.66],[20.049,12.668],[20.055,12.68],[20.122,12.768],[20.128,12.772],[20.133,12.773],[20.138,12.773],[20.144,12.771],[20.151,12.772],[20.159,12.776],[20.169,12.788],[20.173,12.797],[20.175,12.804],[20.173,12.826],[20.175,12.841],[20.173,12.849],[20.171,12.854],[20.167,12.858],[20.164,12.861],[20.16,12.863],[20.155,12.862],[20.146,12.859],[20.142,12.858],[20.136,12.86],[19.99,12.971],[19.982,12.978],[19.981,12.983],[19.988,12.986],[20.245,13.038],[20.256,13.041],[20.26,13.044],[20.268,13.051],[20.295,13.092],[20.301,13.107],[20.304,13.118],[20.305,13.223],[20.282,13.403],[20.283,13.563],[20.281,13.572],[20.245,13.627],[20.237,13.647],[20.232,13.67],[20.239,13.886],[20.235,13.892],[20.225,13.899],[20,14.011],[20,14.156],[20.158,14.326],[20.214,14.371],[20.229,14.381],[20.234,14.395],[20.238,14.401],[20.241,14.405],[20.266,14.411],[20.271,14.415],[20.274,14.419],[20.281,14.432],[20.288,14.441],[20.295,14.445],[20.302,14.447],[20.32,14.448],[20.326,14.447],[20.338,14.445],[20.343,14.443],[20.348,14.441],[20.353,14.439],[20.358,14.439],[20.362,14.441],[20.371,14.446],[20.376,14.447],[20.381,14.447],[20.416,14.439],[20.429,14.438],[20.435,14.438],[20.441,14.439],[20.487,14.462],[20.492,14.464],[20.497,14.465],[20.542,14.471],[20.552,14.47],[20.559,14.469]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Ouadai'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Ouadai?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Ouadai is located? </h2>Ouadai, is a prefecture It belongs to the country of Chad. Its postal identifier is OD.Ouadai has an area of 68532 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

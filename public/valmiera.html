@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Valmiera?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[25.324,58.035],[25.333,58.032],[25.34,58.033],[25.346,58.035],[25.356,58.035],[25.396,58.024],[25.457,57.984],[25.496,57.971],[25.532,57.967],[25.541,57.963],[25.55,57.956],[25.552,57.95],[25.552,57.949],[25.553,57.943],[25.558,57.935],[25.579,57.92],[25.601,57.913],[25.625,57.911],[25.65,57.912],[25.704,57.922],[25.704,57.922],[25.703,57.92],[25.685,57.892],[25.683,57.885],[25.683,57.878],[25.676,57.856],[25.594,57.882],[25.583,57.883],[25.574,57.881],[25.566,57.88],[25.557,57.88],[25.547,57.877],[25.535,57.874],[25.522,57.869],[25.501,57.868],[25.496,57.866],[25.495,57.856],[25.511,57.841],[25.526,57.83],[25.542,57.821],[25.555,57.816],[25.56,57.808],[25.555,57.8],[25.553,57.792],[25.565,57.783],[25.545,57.78],[25.535,57.773],[25.529,57.766],[25.542,57.755],[25.554,57.748],[25.565,57.737],[25.562,57.733],[25.557,57.727],[25.553,57.722],[25.547,57.716],[25.529,57.71],[25.514,57.71],[25.498,57.705],[25.494,57.698],[25.501,57.685],[25.518,57.673],[25.53,57.659],[25.51,57.646],[25.533,57.629],[25.591,57.614],[25.59,57.597],[25.599,57.592],[25.603,57.586],[25.631,57.58],[25.641,57.581],[25.649,57.581],[25.655,57.576],[25.66,57.566],[25.657,57.549],[25.653,57.538],[25.641,57.532],[25.623,57.52],[25.624,57.508],[25.634,57.494],[25.677,57.485],[25.68,57.48],[25.676,57.473],[25.658,57.465],[25.602,57.469],[25.561,57.451],[25.548,57.442],[25.527,57.438],[25.519,57.441],[25.509,57.447],[25.5,57.45],[25.474,57.443],[25.421,57.447],[25.399,57.441],[25.405,57.435],[25.403,57.434],[25.392,57.428],[25.399,57.411],[25.397,57.405],[25.393,57.398],[25.393,57.391],[25.387,57.386],[25.357,57.385],[25.349,57.389],[25.335,57.397],[25.329,57.403],[25.323,57.405],[25.301,57.404],[25.273,57.405],[25.238,57.415],[25.211,57.417],[25.197,57.422],[25.185,57.43],[25.16,57.448],[25.141,57.462],[25.141,57.475],[25.123,57.495],[25.098,57.488],[25.08,57.5],[25.088,57.504],[25.087,57.507],[25.081,57.511],[25.067,57.513],[25.054,57.512],[25.048,57.514],[25.047,57.516],[25.051,57.518],[25.051,57.524],[25.046,57.535],[25.022,57.555],[25.004,57.562],[24.984,57.564],[24.933,57.556],[24.916,57.556],[24.895,57.567],[24.912,57.605],[24.935,57.612],[24.966,57.628],[24.991,57.636],[25,57.636],[25.006,57.636],[25.019,57.638],[25.024,57.637],[25.028,57.634],[25.033,57.63],[25.042,57.626],[25.062,57.624],[25.068,57.626],[25.085,57.63],[25.083,57.634],[25.076,57.639],[25.063,57.648],[25.062,57.652],[25.067,57.655],[25.094,57.653],[25.085,57.675],[25.092,57.688],[25.082,57.697],[25.076,57.706],[25.076,57.715],[25.08,57.721],[25.087,57.727],[25.091,57.731],[25.099,57.736],[25.084,57.754],[25.077,57.767],[25.007,57.801],[24.966,57.808],[24.953,57.8],[24.946,57.818],[24.942,57.819],[24.938,57.819],[24.933,57.818],[24.926,57.817],[24.909,57.821],[24.901,57.826],[24.896,57.831],[24.893,57.843],[24.888,57.859],[24.885,57.872],[24.883,57.884],[24.885,57.889],[24.882,57.893],[24.873,57.898],[24.864,57.9],[24.842,57.901],[24.828,57.98],[24.827,57.982],[24.827,57.982],[24.848,57.993],[24.872,58.001],[24.949,58.007],[24.974,58.016],[25.034,58.049],[25.048,58.057],[25.07,58.064],[25.094,58.068],[25.141,58.068],[25.167,58.059],[25.18,58.039],[25.19,58.014],[25.202,57.992],[25.216,57.986],[25.232,57.986],[25.264,57.995],[25.284,58.009],[25.284,58.009],[25.277,58.025],[25.249,58.052],[25.249,58.052],[25.25,58.069],[25.263,58.076],[25.281,58.074],[25.299,58.066],[25.306,58.059],[25.318,58.041],[25.324,58.035]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Valmiera'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Valmiera?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Valmiera is located? </h2>Valmiera, is a district of the Vidzeme region. It belongs to the country of Latvia. Its postal identifier is VM.Valmiera has an area of 2339 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

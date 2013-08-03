@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kraslava?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[27.552,56.245],[27.568,56.242],[27.652,56.25],[27.668,56.24],[27.687,56.225],[27.702,56.219],[27.722,56.207],[27.744,56.2],[27.778,56.196],[27.811,56.196],[27.822,56.186],[27.838,56.182],[27.853,56.182],[27.888,56.187],[27.898,56.183],[27.913,56.184],[28.001,56.203],[28.021,56.21],[28.031,56.214],[28.04,56.216],[28.048,56.214],[28.053,56.211],[28.056,56.207],[28.061,56.204],[28.065,56.203],[28.07,56.209],[28.078,56.197],[28.063,56.182],[28.044,56.158],[28.047,56.151],[28.051,56.141],[28.051,56.141],[28.024,56.13],[27.981,56.118],[27.939,56.114],[27.927,56.11],[27.911,56.101],[27.901,56.09],[27.892,56.078],[27.88,56.064],[27.812,56.035],[27.781,56.017],[27.777,55.993],[27.744,55.96],[27.645,55.923],[27.617,55.879],[27.61,55.831],[27.601,55.81],[27.592,55.795],[27.564,55.793],[27.439,55.799],[27.405,55.805],[27.374,55.815],[27.349,55.832],[27.329,55.818],[27.282,55.792],[27.263,55.788],[27.235,55.796],[27.173,55.826],[27.151,55.833],[27.111,55.837],[26.981,55.827],[26.979,55.827],[26.979,55.827],[26.979,55.827],[26.98,55.839],[26.982,55.845],[26.981,55.855],[26.978,55.864],[26.934,55.874],[26.934,55.893],[26.938,55.904],[26.946,55.911],[26.955,55.928],[26.936,55.932],[26.944,55.942],[26.956,55.95],[26.947,55.96],[26.944,55.967],[26.933,56.003],[26.968,56.008],[26.969,56.014],[26.958,56.027],[26.954,56.034],[26.952,56.041],[26.969,56.06],[27.041,56.079],[27.065,56.09],[27.085,56.092],[27.094,56.099],[27.118,56.095],[27.14,56.1],[27.127,56.118],[27.123,56.134],[27.122,56.144],[27.107,56.164],[27.102,56.171],[27.098,56.18],[27.098,56.182],[27.1,56.186],[27.102,56.189],[27.126,56.196],[27.151,56.208],[27.162,56.211],[27.173,56.208],[27.296,56.203],[27.339,56.21],[27.412,56.207],[27.421,56.211],[27.448,56.209],[27.441,56.224],[27.447,56.23],[27.467,56.233],[27.489,56.235],[27.509,56.241],[27.524,56.248],[27.528,56.257],[27.535,56.261],[27.548,56.248],[27.552,56.245]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Kraslava'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Kraslava?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Kraslava is located? </h2>Kraslava, is a district of the Latgale region. It belongs to the country of Latvia. Its postal identifier is KR.Kraslava has an area of 2229 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

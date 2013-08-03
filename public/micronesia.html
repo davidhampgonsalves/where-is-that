@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Micronesia?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[153.679,5.289],[153.668,5.286],[153.672,5.298],[153.686,5.31],[153.701,5.317],[153.711,5.314],[153.708,5.305],[153.695,5.296],[153.679,5.289]]],[[[163.043,5.311],[163.026,5.28],[163.019,5.273],[163.006,5.27],[162.994,5.273],[162.982,5.277],[162.968,5.28],[162.946,5.28],[162.931,5.282],[162.916,5.287],[162.912,5.304],[162.924,5.321],[162.972,5.362],[162.991,5.375],[163.011,5.38],[163.026,5.369],[163.027,5.363],[163.026,5.347],[163.026,5.341],[163.031,5.336],[163.038,5.334],[163.044,5.331],[163.047,5.323],[163.043,5.311]]],[[[157.163,5.776],[157.162,5.774],[157.161,5.776],[157.159,5.778],[157.159,5.779],[157.161,5.78],[157.164,5.779],[157.164,5.777],[157.163,5.776]]],[[[149.321,6.702],[149.316,6.697],[149.316,6.704],[149.317,6.71],[149.319,6.715],[149.324,6.719],[149.326,6.712],[149.325,6.707],[149.321,6.702]]],[[[157.946,6.722],[157.937,6.717],[157.939,6.727],[157.942,6.73],[157.949,6.732],[157.949,6.726],[157.946,6.722]]],[[[158.202,6.97],[158.208,6.965],[158.218,6.971],[158.225,6.97],[158.233,6.967],[158.243,6.965],[158.267,6.966],[158.277,6.965],[158.278,6.963],[158.294,6.952],[158.297,6.951],[158.304,6.943],[158.301,6.941],[158.291,6.938],[158.297,6.928],[158.305,6.924],[158.315,6.926],[158.325,6.931],[158.339,6.879],[158.339,6.869],[158.331,6.866],[158.309,6.868],[158.305,6.866],[158.307,6.855],[158.316,6.836],[158.318,6.825],[158.314,6.808],[158.305,6.799],[158.293,6.795],[158.245,6.788],[158.226,6.789],[158.215,6.801],[158.194,6.793],[158.18,6.802],[158.171,6.817],[158.161,6.828],[158.165,6.841],[158.166,6.854],[158.163,6.866],[158.153,6.876],[158.156,6.88],[158.161,6.89],[158.133,6.892],[158.126,6.907],[158.133,6.941],[158.142,6.951],[158.161,6.951],[158.178,6.956],[158.181,6.979],[158.202,6.97]]],[[[151.862,7.327],[151.857,7.316],[151.854,7.354],[151.855,7.37],[151.863,7.362],[151.866,7.351],[151.865,7.339],[151.862,7.327]]],[[[149.187,7.376],[149.186,7.371],[149.181,7.381],[149.188,7.381],[149.189,7.38],[149.187,7.376]]],[[[151.637,7.387],[151.65,7.369],[151.651,7.354],[151.645,7.336],[151.634,7.328],[151.623,7.342],[151.616,7.342],[151.608,7.336],[151.596,7.337],[151.583,7.34],[151.568,7.342],[151.571,7.346],[151.574,7.348],[151.582,7.349],[151.591,7.353],[151.618,7.359],[151.623,7.366],[151.619,7.376],[151.597,7.373],[151.589,7.383],[151.623,7.392],[151.637,7.387]]],[[[151.87,7.463],[151.877,7.459],[151.884,7.463],[151.893,7.462],[151.903,7.459],[151.918,7.459],[151.908,7.447],[151.891,7.435],[151.872,7.427],[151.856,7.424],[151.856,7.437],[151.857,7.447],[151.863,7.465],[151.868,7.465],[151.87,7.463]]],[[[154.303,8.112],[154.295,8.106],[154.278,8.126],[154.254,8.136],[154.238,8.143],[154.245,8.156],[154.249,8.173],[154.259,8.18],[154.266,8.183],[154.29,8.185],[154.299,8.175],[154.309,8.167],[154.312,8.137],[154.308,8.119],[154.303,8.112]]],[[[150.409,8.579],[150.408,8.575],[150.405,8.586],[150.41,8.584],[150.41,8.582],[150.409,8.579]]],[[[149.675,8.582],[149.669,8.575],[149.666,8.587],[149.668,8.604],[149.676,8.616],[149.688,8.616],[149.689,8.607],[149.683,8.594],[149.675,8.582]]],[[[150.123,8.978],[150.118,8.976],[150.125,8.985],[150.128,8.987],[150.133,8.986],[150.131,8.981],[150.127,8.979],[150.123,8.978]]],[[[138.185,9.544],[138.198,9.539],[138.219,9.548],[138.214,9.537],[138.203,9.521],[138.189,9.507],[138.178,9.5],[138.164,9.505],[138.157,9.526],[138.144,9.521],[138.135,9.512],[138.08,9.425],[138.069,9.412],[138.064,9.436],[138.073,9.47],[138.089,9.501],[138.106,9.514],[138.113,9.521],[138.121,9.555],[138.126,9.566],[138.141,9.574],[138.147,9.567],[138.15,9.541],[138.152,9.551],[138.155,9.561],[138.159,9.569],[138.165,9.576],[138.173,9.582],[138.185,9.589],[138.194,9.589],[138.193,9.576],[138.182,9.559],[138.185,9.544]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Micronesia'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Micronesia?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Micronesia is located? </h2>Micronesia is a Sovereign country. Its abbreviated name is F.S.M. and its postal identifier is FSM.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

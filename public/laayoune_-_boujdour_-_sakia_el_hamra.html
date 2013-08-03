@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Laayoune - Boujdour - Sakia El Hamra?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-11.662,28.014],[-11.554,27.835],[-11.544,27.79],[-11.671,27.739],[-11.799,27.667],[-11.802,27.662],[-11.813,27.662],[-11.815,27.662],[-11.927,27.575],[-12.034,27.441],[-12.153,27.119],[-12.262,26.911],[-12.313,26.844],[-12.487,26.682],[-12.529,26.617],[-12.561,26.541],[-12.572,26.503],[-12.577,26.46],[-12.573,26.425],[-12.561,26.39],[-12.497,26.232],[-12.445,25.994],[-12.056,25.996],[-12.06,25.99],[-12.08,25.92],[-12.08,25.87],[-12.1,25.83],[-12.13,25.731],[-12.17,25.64],[-12.2,25.52],[-12.23,25.42],[-12.27,25.26],[-12.31,25.11],[-12.36,24.97],[-12.4,24.88],[-12.43,24.83],[-12.5,24.77],[-12.56,24.731],[-12.63,24.68],[-12.71,24.63],[-12.82,24.57],[-12.91,24.52],[-12.947,24.497],[-13.064,24.519],[-13.151,24.524],[-13.234,24.52],[-13.314,24.506],[-13.643,24.402],[-13.685,24.394],[-13.726,24.398],[-13.81,24.428],[-13.949,24.461],[-14.059,24.48],[-14.142,24.484],[-14.307,24.471],[-14.386,24.453],[-14.591,24.408],[-14.633,24.406],[-14.679,24.421],[-14.714,24.453],[-14.743,24.496],[-14.786,24.526],[-14.892,24.561],[-15,24.587],[-15.012,24.592],[-15,24.614],[-14.976,24.641],[-14.952,24.659],[-14.927,24.672],[-14.908,24.685],[-14.896,24.706],[-14.886,24.771],[-14.862,24.83],[-14.853,24.877],[-14.84,24.905],[-14.836,24.919],[-14.838,24.935],[-14.842,24.95],[-14.843,24.965],[-14.836,24.981],[-14.843,24.988],[-14.837,25.002],[-14.833,25.018],[-14.83,25.034],[-14.829,25.05],[-14.832,25.066],[-14.841,25.087],[-14.843,25.1],[-14.842,25.189],[-14.85,25.214],[-14.819,25.33],[-14.812,25.346],[-14.782,25.447],[-14.736,25.505],[-14.723,25.516],[-14.715,25.525],[-14.685,25.591],[-14.678,25.636],[-14.676,25.642],[-14.667,25.66],[-14.661,25.691],[-14.621,25.784],[-14.546,25.879],[-14.52,25.924],[-14.514,25.937],[-14.511,25.957],[-14.495,26.002],[-14.487,26.015],[-14.49,26.031],[-14.48,26.088],[-14.483,26.102],[-14.493,26.133],[-14.49,26.143],[-14.482,26.154],[-14.472,26.183],[-14.466,26.194],[-14.41,26.26],[-14.401,26.266],[-14.353,26.276],[-14.299,26.302],[-14.267,26.331],[-14.216,26.375],[-14.202,26.392],[-14.193,26.409],[-14.18,26.424],[-14.157,26.434],[-14.047,26.444],[-14.028,26.452],[-13.924,26.501],[-13.742,26.618],[-13.62,26.689],[-13.561,26.749],[-13.501,26.858],[-13.48,26.912],[-13.461,26.993],[-13.432,27.051],[-13.402,27.177],[-13.384,27.215],[-13.301,27.324],[-13.301,27.33],[-13.308,27.339],[-13.308,27.345],[-13.294,27.352],[-13.241,27.465],[-13.208,27.567],[-13.205,27.589],[-13.201,27.606],[-13.181,27.645],[-13.178,27.663],[-13.178,27.663],[-13.177,27.667],[-13.171,27.685],[-13.16,27.695],[-13.13,27.708],[-13.098,27.732],[-13.061,27.743],[-13.045,27.76],[-13.003,27.821],[-12.979,27.894],[-12.968,27.915],[-12.952,27.929],[-12.933,27.939],[-12.839,27.971],[-12.658,27.998],[-12.513,27.996],[-12.335,28.047],[-12.061,28.089],[-12.05,28.096],[-12.028,28.117],[-12.023,28.12],[-12.005,28.123],[-11.782,28.21],[-11.78,28.207],[-11.705,28.071],[-11.662,28.014]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Laayoune - Boujdour - Sakia El Hamra'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Laayoune - Boujdour - Sakia El Hamra?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Laayoune - Boujdour - Sakia El Hamra is located? </h2>Laayoune - Boujdour - Sakia El Hamra, is a region It belongs to the country of Morocco. Its postal identifier is LB.Laayoune - Boujdour - Sakia El Hamra has an area of 73551 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

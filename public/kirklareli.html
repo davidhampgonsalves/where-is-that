@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kirklareli?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[27.332,42.058],[27.374,42.009],[27.396,41.99],[27.42,41.974],[27.494,41.943],[27.509,41.933],[27.533,41.908],[27.546,41.901],[27.562,41.907],[27.548,41.911],[27.551,41.913],[27.557,41.916],[27.56,41.918],[27.558,41.919],[27.554,41.921],[27.552,41.922],[27.55,41.924],[27.572,41.93],[27.582,41.935],[27.59,41.943],[27.598,41.939],[27.603,41.939],[27.606,41.944],[27.609,41.954],[27.687,41.969],[27.724,41.968],[27.776,41.946],[27.789,41.943],[27.802,41.943],[27.815,41.947],[27.818,41.953],[27.802,41.96],[27.804,41.97],[27.805,41.984],[27.808,41.994],[27.811,41.995],[27.815,41.995],[27.819,41.995],[27.823,41.994],[27.843,41.996],[27.852,41.996],[27.876,41.991],[27.903,41.981],[27.917,41.978],[27.965,41.982],[27.981,41.979],[28.017,41.972],[28.031,41.925],[28.031,41.914],[28.036,41.911],[28.042,41.905],[28.046,41.897],[28.045,41.89],[28.036,41.886],[28.026,41.887],[28.007,41.893],[27.991,41.893],[27.978,41.887],[27.969,41.874],[27.966,41.849],[27.972,41.822],[27.987,41.804],[28.005,41.789],[28.021,41.77],[28.04,41.725],[28.052,41.712],[28.07,41.699],[28.079,41.692],[28.083,41.681],[28.086,41.68],[28.088,41.677],[28.09,41.671],[28.087,41.667],[28.082,41.667],[28.077,41.667],[28.076,41.66],[28.083,41.645],[28.097,41.627],[28.113,41.612],[28.142,41.599],[28.157,41.584],[28.178,41.558],[28.203,41.54],[28.157,41.492],[28.156,41.492],[27.98,41.478],[27.807,41.461],[27.699,41.442],[27.601,41.42],[27.554,41.367],[27.518,41.311],[27.46,41.278],[27.396,41.265],[27.34,41.292],[27.296,41.337],[27.24,41.365],[27.123,41.365],[26.96,41.355],[26.81,41.33],[26.78,41.376],[26.828,41.452],[26.844,41.524],[26.884,41.571],[26.906,41.667],[26.895,41.764],[26.863,41.859],[26.838,41.974],[26.838,41.976],[26.838,41.976],[26.85,41.983],[26.86,41.988],[26.871,41.988],[26.881,41.986],[26.89,41.986],[26.901,41.994],[26.911,41.997],[26.93,41.995],[26.938,41.996],[26.95,42.006],[26.958,42.018],[26.967,42.029],[26.981,42.033],[27,42.043],[27.022,42.074],[27.046,42.083],[27.048,42.083],[27.065,42.083],[27.083,42.079],[27.1,42.071],[27.116,42.062],[27.127,42.063],[27.149,42.062],[27.173,42.057],[27.178,42.059],[27.179,42.062],[27.181,42.066],[27.203,42.088],[27.216,42.096],[27.238,42.098],[27.273,42.092],[27.305,42.078],[27.332,42.058]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Kirklareli'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Kirklareli?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Kirklareli is located? </h2>Kirklareli, is a province It belongs to the country of Turkey. Its postal identifier is KL.Kirklareli has an area of 6891 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

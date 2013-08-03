@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Cheshire?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-2.663,53.357],[-2.629,53.342],[-2.614,53.341],[-2.606,53.338],[-2.59,53.325],[-2.581,53.316],[-2.569,53.312],[-2.555,53.312],[-2.532,53.32],[-2.509,53.331],[-2.447,53.355],[-2.434,53.373],[-2.429,53.38],[-2.395,53.374],[-2.365,53.362],[-2.317,53.36],[-2.283,53.342],[-2.26,53.345],[-2.238,53.355],[-2.204,53.354],[-2.176,53.346],[-2.172,53.339],[-2.174,53.331],[-2.16,53.321],[-2.14,53.328],[-2.131,53.352],[-2.12,53.359],[-2.081,53.361],[-2.049,53.352],[-2.035,53.368],[-2.017,53.37],[-2.019,53.363],[-2.001,53.347],[-1.998,53.336],[-1.996,53.264],[-1.991,53.242],[-1.971,53.23],[-1.977,53.207],[-2.006,53.186],[-2.031,53.185],[-2.068,53.166],[-2.102,53.166],[-2.125,53.175],[-2.138,53.174],[-2.14,53.17],[-2.131,53.158],[-2.135,53.15],[-2.158,53.147],[-2.205,53.114],[-2.244,53.086],[-2.246,53.084],[-2.272,53.077],[-2.306,53.079],[-2.336,53.056],[-2.366,53.052],[-2.374,53.037],[-2.366,53],[-2.379,52.99],[-2.424,52.979],[-2.431,52.965],[-2.449,52.957],[-2.479,52.954],[-2.513,52.962],[-2.527,52.947],[-2.558,52.956],[-2.578,52.954],[-2.59,52.977],[-2.623,52.986],[-2.728,52.967],[-2.728,52.966],[-2.728,52.967],[-2.769,52.982],[-2.807,52.985],[-2.814,52.987],[-2.819,52.99],[-2.826,53],[-2.851,53.017],[-2.856,53.023],[-2.858,53.028],[-2.858,53.032],[-2.858,53.036],[-2.865,53.053],[-2.872,53.066],[-2.898,53.102],[-2.903,53.107],[-2.952,53.139],[-2.957,53.144],[-2.957,53.145],[-2.958,53.147],[-2.956,53.151],[-2.953,53.153],[-2.916,53.167],[-2.913,53.17],[-2.912,53.175],[-2.914,53.184],[-2.919,53.19],[-2.923,53.194],[-2.956,53.216],[-3.02,53.247],[-3.03,53.249],[-3.067,53.253],[-3.085,53.259],[-3.085,53.275],[-3.096,53.287],[-3.067,53.305],[-3.025,53.294],[-2.975,53.297],[-2.945,53.289],[-2.935,53.293],[-2.928,53.302],[-2.926,53.305],[-2.911,53.296],[-2.882,53.288],[-2.851,53.289],[-2.85,53.291],[-2.848,53.296],[-2.845,53.3],[-2.837,53.303],[-2.829,53.302],[-2.813,53.298],[-2.806,53.297],[-2.79,53.297],[-2.776,53.3],[-2.748,53.31],[-2.754,53.322],[-2.751,53.332],[-2.743,53.338],[-2.734,53.344],[-2.726,53.342],[-2.718,53.343],[-2.709,53.346],[-2.7,53.352],[-2.714,53.352],[-2.764,53.345],[-2.769,53.343],[-2.775,53.341],[-2.776,53.339],[-2.782,53.326],[-2.8,53.321],[-2.81,53.322],[-2.808,53.328],[-2.803,53.344],[-2.787,53.337],[-2.772,53.349],[-2.775,53.361],[-2.772,53.365],[-2.741,53.388],[-2.681,53.379],[-2.663,53.357]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Cheshire'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Cheshire?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Cheshire is located? </h2>Cheshire, is a administrative county of the England region. It belongs to the country of United Kingdom. Its abbreviated name is Ches and its postal identifier is CH.Cheshire has an area of 2155 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

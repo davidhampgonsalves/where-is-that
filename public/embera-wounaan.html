@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Embera-Wounaan?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[-78.112,7.987],[-78.102,7.978],[-78.092,7.973],[-78.083,7.918],[-78.059,7.931],[-78.035,7.951],[-78.016,7.931],[-77.985,7.836],[-77.981,7.804],[-77.971,7.798],[-77.962,7.794],[-77.953,7.779],[-77.948,7.762],[-77.952,7.749],[-77.956,7.739],[-77.945,7.652],[-77.95,7.619],[-77.968,7.602],[-77.991,7.59],[-78.005,7.606],[-78.019,7.618],[-78.038,7.607],[-78.048,7.59],[-78.072,7.602],[-78.081,7.645],[-78.09,7.652],[-78.106,7.657],[-78.121,7.668],[-78.138,7.677],[-78.18,7.665],[-78.197,7.678],[-78.245,7.731],[-78.27,7.772],[-78.285,7.819],[-78.304,7.86],[-78.311,7.862],[-78.321,7.868],[-78.327,7.88],[-78.331,7.893],[-78.332,7.916],[-78.33,7.936],[-78.334,7.945],[-78.329,7.96],[-78.313,7.964],[-78.296,7.966],[-78.278,7.983],[-78.257,7.996],[-78.226,7.984],[-78.202,8.001],[-78.206,8.013],[-78.212,8.025],[-78.21,8.034],[-78.213,8.043],[-78.228,8.05],[-78.225,8.069],[-78.2,8.081],[-78.183,8.094],[-78.167,8.082],[-78.137,8.04],[-78.127,8.029],[-78.118,8.016],[-78.112,7.987]]],[[[-77.723,8.777],[-77.702,8.772],[-77.693,8.772],[-77.693,8.772],[-77.692,8.767],[-77.686,8.758],[-77.679,8.749],[-77.654,8.731],[-77.626,8.707],[-77.61,8.684],[-77.579,8.655],[-77.569,8.64],[-77.559,8.607],[-77.546,8.59],[-77.508,8.574],[-77.496,8.57],[-77.47,8.538],[-77.47,8.538],[-77.474,8.534],[-77.481,8.526],[-77.489,8.497],[-77.489,8.474],[-77.48,8.468],[-77.45,8.471],[-77.434,8.465],[-77.423,8.457],[-77.407,8.429],[-77.392,8.394],[-77.384,8.325],[-77.375,8.289],[-77.364,8.272],[-77.351,8.268],[-77.338,8.267],[-77.325,8.261],[-77.318,8.251],[-77.296,8.206],[-77.27,8.168],[-77.383,8.137],[-77.405,8.133],[-77.425,8.128],[-77.439,8.119],[-77.445,8.11],[-77.453,8.101],[-77.463,8.097],[-77.486,8.093],[-77.493,8.094],[-77.499,8.096],[-77.52,8.093],[-77.539,8.082],[-77.553,8.085],[-77.572,8.111],[-77.581,8.119],[-77.601,8.125],[-77.611,8.141],[-77.607,8.157],[-77.626,8.2],[-77.664,8.231],[-77.692,8.244],[-77.721,8.251],[-77.732,8.258],[-77.736,8.272],[-77.735,8.28],[-77.735,8.288],[-77.74,8.29],[-77.747,8.291],[-77.757,8.296],[-77.763,8.305],[-77.763,8.31],[-77.764,8.314],[-77.772,8.324],[-77.777,8.331],[-77.787,8.34],[-77.793,8.348],[-77.797,8.361],[-77.8,8.375],[-77.817,8.401],[-77.817,8.41],[-77.816,8.417],[-77.812,8.424],[-77.809,8.435],[-77.81,8.446],[-77.815,8.456],[-77.84,8.482],[-77.84,8.487],[-77.837,8.492],[-77.84,8.499],[-77.851,8.502],[-77.861,8.505],[-77.873,8.518],[-77.876,8.522],[-77.876,8.523],[-77.876,8.526],[-77.87,8.537],[-77.872,8.556],[-77.886,8.568],[-77.898,8.584],[-77.905,8.601],[-77.909,8.622],[-77.897,8.642],[-77.877,8.653],[-77.847,8.695],[-77.836,8.716],[-77.822,8.733],[-77.806,8.737],[-77.79,8.74],[-77.778,8.749],[-77.769,8.762],[-77.747,8.773],[-77.723,8.777]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Embera-Wounaan'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Embera-Wounaan?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Embera-Wounaan is located? </h2>Embera-Wounaan, is a indigenous territory It belongs to the country of Panama. Its postal identifier is EM.Embera-Wounaan has an area of 4011 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

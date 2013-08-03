@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Overijssel?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[6.129,52.853],[6.18,52.817],[6.187,52.813],[6.198,52.805],[6.207,52.797],[6.202,52.788],[6.166,52.766],[6.14,52.759],[6.13,52.749],[6.165,52.693],[6.17,52.691],[6.177,52.684],[6.179,52.682],[6.183,52.68],[6.191,52.679],[6.197,52.679],[6.205,52.682],[6.211,52.685],[6.218,52.686],[6.234,52.683],[6.265,52.67],[6.273,52.668],[6.321,52.668],[6.325,52.668],[6.333,52.66],[6.348,52.652],[6.365,52.642],[6.373,52.634],[6.382,52.621],[6.383,52.62],[6.387,52.618],[6.393,52.618],[6.417,52.623],[6.424,52.625],[6.429,52.628],[6.431,52.628],[6.434,52.627],[6.439,52.622],[6.443,52.619],[6.448,52.618],[6.454,52.618],[6.462,52.621],[6.467,52.624],[6.474,52.624],[6.48,52.624],[6.522,52.611],[6.519,52.641],[6.521,52.646],[6.533,52.654],[6.582,52.669],[6.611,52.673],[6.624,52.672],[6.696,52.652],[6.702,52.649],[6.706,52.647],[6.705,52.639],[6.708,52.631],[6.718,52.627],[6.718,52.627],[6.702,52.62],[6.701,52.62],[6.71,52.609],[6.71,52.609],[6.708,52.6],[6.703,52.592],[6.703,52.592],[6.704,52.583],[6.711,52.577],[6.743,52.56],[6.743,52.56],[6.688,52.543],[6.671,52.542],[6.671,52.542],[6.684,52.526],[6.687,52.508],[6.689,52.491],[6.695,52.476],[6.715,52.462],[6.741,52.454],[6.82,52.447],[6.872,52.435],[6.9,52.432],[6.926,52.433],[6.951,52.438],[6.96,52.443],[6.967,52.45],[6.973,52.452],[7.034,52.391],[7.048,52.365],[7.048,52.365],[7.039,52.329],[7.019,52.3],[7.012,52.285],[7.011,52.267],[7.011,52.267],[7.02,52.246],[7.029,52.236],[7.026,52.231],[6.981,52.214],[6.971,52.207],[6.947,52.183],[6.927,52.172],[6.884,52.161],[6.865,52.148],[6.843,52.12],[6.83,52.113],[6.771,52.109],[6.771,52.109],[6.76,52.114],[6.662,52.127],[6.672,52.142],[6.672,52.148],[6.671,52.158],[6.669,52.162],[6.667,52.164],[6.663,52.166],[6.654,52.168],[6.646,52.17],[6.61,52.165],[6.606,52.165],[6.602,52.166],[6.602,52.169],[6.601,52.173],[6.597,52.178],[6.592,52.179],[6.586,52.18],[6.558,52.176],[6.519,52.179],[6.495,52.177],[6.466,52.194],[6.418,52.237],[6.417,52.238],[6.411,52.245],[6.382,52.247],[6.347,52.238],[6.332,52.231],[6.323,52.229],[6.259,52.229],[6.189,52.237],[6.18,52.238],[6.177,52.237],[6.167,52.232],[6.16,52.225],[6.158,52.225],[6.154,52.226],[6.146,52.23],[6.143,52.233],[6.142,52.235],[6.142,52.237],[6.142,52.237],[6.146,52.244],[6.144,52.249],[6.139,52.251],[6.128,52.254],[6.124,52.256],[6.122,52.259],[6.124,52.263],[6.125,52.271],[6.107,52.3],[6.086,52.306],[6.081,52.309],[6.071,52.318],[6.068,52.322],[6.069,52.329],[6.078,52.351],[6.087,52.359],[6.087,52.364],[6.082,52.371],[6.084,52.372],[6.087,52.373],[6.12,52.38],[6.135,52.404],[6.136,52.416],[6.135,52.419],[6.133,52.421],[6.112,52.44],[6.104,52.452],[6.095,52.468],[6.089,52.474],[6.082,52.478],[6.064,52.489],[6.056,52.499],[6.05,52.505],[6.043,52.508],[6.031,52.511],[6.002,52.502],[5.97,52.485],[5.939,52.479],[5.931,52.481],[5.925,52.484],[5.904,52.509],[5.891,52.52],[5.875,52.522],[5.867,52.522],[5.867,52.522],[5.847,52.578],[5.833,52.585],[5.833,52.597],[5.843,52.605],[5.895,52.619],[5.908,52.62],[5.914,52.618],[5.93,52.616],[5.94,52.617],[5.988,52.627],[6.02,52.638],[5.998,52.654],[5.978,52.66],[5.938,52.668],[5.929,52.67],[5.927,52.672],[5.928,52.673],[5.936,52.678],[5.94,52.683],[5.945,52.689],[5.938,52.714],[5.923,52.74],[5.916,52.747],[5.905,52.756],[5.858,52.779],[5.785,52.804],[5.822,52.815],[5.834,52.809],[5.838,52.808],[5.866,52.805],[5.872,52.805],[5.879,52.806],[5.909,52.817],[5.914,52.82],[5.918,52.824],[5.922,52.828],[5.924,52.831],[5.928,52.833],[5.933,52.835],[5.953,52.838],[5.957,52.84],[5.959,52.842],[5.962,52.841],[5.967,52.84],[5.979,52.829],[5.988,52.824],[5.993,52.823],[6.032,52.821],[6.047,52.831],[6.048,52.833],[6.048,52.837],[6.05,52.838],[6.052,52.839],[6.068,52.842],[6.087,52.843],[6.129,52.853]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Overijssel'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Overijssel?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Overijssel is located? </h2>Overijssel, is a province It belongs to the country of Netherlands. Its postal identifier is OV.Overijssel has an area of 3343 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Pashchimanchal?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[84.393,28.825],[84.414,28.809],[84.423,28.799],[84.438,28.754],[84.451,28.734],[84.476,28.728],[84.498,28.728],[84.516,28.722],[84.532,28.713],[84.552,28.707],[84.607,28.699],[84.616,28.694],[84.626,28.676],[84.633,28.669],[84.652,28.663],[84.671,28.659],[84.683,28.651],[84.678,28.605],[84.691,28.596],[84.737,28.594],[84.755,28.586],[84.782,28.559],[84.799,28.547],[84.812,28.542],[84.824,28.541],[84.879,28.544],[84.891,28.542],[84.908,28.537],[84.919,28.536],[84.928,28.539],[84.936,28.545],[84.949,28.569],[84.955,28.575],[84.985,28.589],[84.994,28.591],[85.002,28.595],[85.009,28.603],[85.019,28.62],[85.025,28.629],[85.032,28.634],[85.055,28.639],[85.075,28.632],[85.112,28.609],[85.161,28.595],[85.168,28.583],[85.157,28.533],[85.154,28.525],[85.148,28.516],[85.14,28.511],[85.123,28.505],[85.117,28.498],[85.116,28.492],[85.115,28.473],[85.109,28.46],[85.083,28.446],[85.077,28.436],[85.086,28.381],[85.085,28.362],[85.082,28.332],[85.063,28.323],[85.049,28.309],[85.029,28.274],[85.019,28.264],[84.978,28.236],[84.965,28.221],[84.955,28.205],[84.938,28.149],[84.926,28.128],[84.916,28.117],[84.905,28.112],[84.879,28.107],[84.859,28.1],[84.841,28.09],[84.831,28.082],[84.823,28.073],[84.772,27.985],[84.757,27.97],[84.727,27.943],[84.721,27.934],[84.72,27.923],[84.722,27.916],[84.726,27.907],[84.745,27.877],[84.75,27.863],[84.751,27.848],[84.748,27.828],[84.742,27.818],[84.735,27.811],[84.727,27.809],[84.719,27.808],[84.71,27.808],[84.7,27.809],[84.692,27.812],[84.684,27.816],[84.678,27.822],[84.673,27.828],[84.668,27.833],[84.665,27.836],[84.655,27.842],[84.643,27.858],[84.631,27.87],[84.622,27.876],[84.613,27.88],[84.603,27.883],[84.592,27.885],[84.583,27.883],[84.577,27.881],[84.556,27.865],[84.502,27.833],[84.457,27.816],[84.449,27.808],[84.447,27.792],[84.451,27.782],[84.456,27.776],[84.46,27.772],[84.464,27.768],[84.466,27.762],[84.461,27.759],[84.427,27.763],[84.413,27.758],[84.401,27.775],[84.391,27.784],[84.374,27.782],[84.36,27.773],[84.348,27.761],[84.337,27.757],[84.328,27.757],[84.321,27.759],[84.317,27.764],[84.316,27.773],[84.314,27.782],[84.3,27.79],[84.295,27.798],[84.292,27.814],[84.292,27.827],[84.286,27.837],[84.268,27.846],[84.225,27.853],[84.135,27.854],[84.093,27.863],[84.073,27.874],[84.037,27.901],[84.017,27.908],[83.992,27.906],[83.948,27.884],[83.924,27.878],[83.91,27.879],[83.883,27.885],[83.87,27.887],[83.858,27.885],[83.835,27.877],[83.826,27.876],[83.811,27.884],[83.784,27.909],[83.767,27.918],[83.743,27.92],[83.662,27.92],[83.644,27.91],[83.636,27.909],[83.601,27.921],[83.589,27.92],[83.576,27.927],[83.56,27.929],[83.531,27.928],[83.502,27.933],[83.491,27.931],[83.479,27.92],[83.465,27.931],[83.448,27.939],[83.439,27.948],[83.445,27.961],[83.461,27.969],[83.478,27.968],[83.507,27.961],[83.544,27.967],[83.575,27.982],[83.59,28.004],[83.647,28.019],[83.659,28.029],[83.671,28.046],[83.697,28.103],[83.704,28.126],[83.709,28.134],[83.729,28.157],[83.741,28.176],[83.754,28.189],[83.766,28.197],[83.781,28.228],[83.78,28.253],[83.776,28.262],[83.759,28.277],[83.752,28.286],[83.744,28.304],[83.733,28.317],[83.726,28.328],[83.716,28.361],[83.693,28.396],[83.711,28.405],[83.718,28.411],[83.727,28.421],[83.742,28.463],[83.749,28.477],[83.769,28.501],[83.771,28.502],[83.786,28.518],[83.793,28.53],[83.796,28.545],[83.793,28.569],[83.798,28.584],[83.803,28.593],[83.845,28.627],[83.841,28.641],[83.838,28.649],[83.795,28.692],[83.791,28.702],[83.793,28.707],[83.8,28.714],[83.814,28.721],[83.839,28.732],[83.903,28.781],[83.913,28.791],[83.925,28.81],[83.934,28.818],[83.947,28.822],[83.966,28.823],[83.986,28.82],[84.002,28.822],[84.018,28.827],[84.044,28.842],[84.07,28.861],[84.077,28.867],[84.089,28.875],[84.103,28.88],[84.145,28.885],[84.159,28.889],[84.186,28.904],[84.217,28.911],[84.225,28.914],[84.225,28.914],[84.235,28.9],[84.286,28.874],[84.354,28.862],[84.366,28.857],[84.377,28.849],[84.393,28.825]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Pashchimanchal'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Pashchimanchal?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Pashchimanchal is located? </h2>Pashchimanchal, is a district of the West region. It belongs to the country of Nepal. Its postal identifier is PM.Pashchimanchal has an area of 11965 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

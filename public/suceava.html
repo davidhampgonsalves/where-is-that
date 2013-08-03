@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Suceava?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[26.102,47.979],[26.119,47.917],[26.127,47.906],[26.142,47.896],[26.168,47.885],[26.209,47.862],[26.26,47.842],[26.283,47.826],[26.397,47.728],[26.416,47.706],[26.482,47.651],[26.495,47.636],[26.527,47.614],[26.537,47.602],[26.546,47.581],[26.562,47.528],[26.563,47.516],[26.561,47.501],[26.56,47.489],[26.562,47.478],[26.568,47.468],[26.592,47.445],[26.606,47.436],[26.617,47.431],[26.658,47.427],[26.673,47.413],[26.676,47.404],[26.672,47.393],[26.662,47.375],[26.66,47.362],[26.656,47.353],[26.647,47.348],[26.626,47.345],[26.521,47.353],[26.505,47.35],[26.501,47.341],[26.511,47.324],[26.573,47.286],[26.578,47.279],[26.569,47.271],[26.559,47.266],[26.482,47.254],[26.447,47.281],[26.433,47.289],[26.415,47.294],[26.396,47.297],[26.376,47.297],[26.353,47.293],[26.259,47.26],[26.223,47.254],[26.11,47.254],[26.059,47.245],[26.04,47.245],[26.023,47.249],[26.011,47.255],[25.997,47.258],[25.982,47.257],[25.909,47.234],[25.891,47.232],[25.878,47.233],[25.866,47.239],[25.82,47.269],[25.807,47.275],[25.794,47.278],[25.783,47.278],[25.776,47.274],[25.772,47.269],[25.774,47.262],[25.792,47.245],[25.812,47.232],[25.819,47.225],[25.822,47.216],[25.82,47.207],[25.812,47.197],[25.795,47.187],[25.756,47.169],[25.741,47.16],[25.696,47.123],[25.684,47.106],[25.672,47.08],[25.671,47.058],[25.619,47.053],[25.604,47.049],[25.584,47.047],[25.568,47.049],[25.552,47.056],[25.54,47.065],[25.53,47.074],[25.519,47.082],[25.407,47.135],[25.39,47.14],[25.373,47.14],[25.348,47.137],[25.328,47.131],[25.312,47.123],[25.302,47.112],[25.299,47.102],[25.299,47.093],[25.297,47.085],[25.292,47.077],[25.283,47.07],[25.27,47.066],[25.255,47.066],[25.242,47.066],[25.205,47.076],[25.159,47.091],[25.069,47.103],[25.063,47.173],[25.069,47.202],[25.073,47.213],[25.076,47.228],[25.075,47.234],[25.07,47.237],[25.062,47.235],[25.051,47.235],[25.039,47.237],[25.028,47.247],[25.029,47.258],[25.037,47.271],[25.05,47.286],[25.057,47.304],[25.057,47.315],[25.052,47.325],[25.04,47.343],[25.033,47.351],[25.013,47.369],[25.004,47.379],[25.003,47.387],[25.007,47.393],[25.014,47.396],[25.023,47.397],[25.031,47.397],[25.038,47.396],[25.045,47.396],[25.049,47.4],[25.052,47.409],[25.05,47.415],[25.046,47.421],[25.041,47.426],[25.037,47.43],[25.039,47.435],[25.047,47.44],[25.059,47.443],[25.073,47.449],[25.084,47.458],[25.09,47.471],[25.089,47.483],[25.084,47.494],[25.072,47.509],[25.046,47.53],[24.967,47.574],[24.956,47.582],[25.016,47.596],[25.025,47.603],[25.032,47.612],[25.03,47.623],[25.022,47.632],[24.979,47.663],[24.955,47.688],[24.942,47.716],[24.942,47.716],[25.017,47.725],[25.08,47.743],[25.08,47.743],[25.08,47.744],[25.122,47.771],[25.219,47.879],[25.261,47.899],[25.752,47.935],[25.818,47.953],[25.871,47.957],[25.901,47.966],[25.918,47.969],[25.965,47.965],[26.029,47.978],[26.102,47.979],[26.102,47.979]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Suceava'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Suceava?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Suceava is located? </h2>Suceava, is a county It belongs to the country of Romania. Its postal identifier is SV.Suceava has an area of 8840 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Northumberland?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-1.456,55.07],[-1.468,55.067],[-1.494,55.049],[-1.514,55.048],[-1.56,55.051],[-1.586,55.061],[-1.689,55.072],[-1.697,55.066],[-1.7,55.056],[-1.68,55.049],[-1.68,55.041],[-1.697,55.033],[-1.728,55.028],[-1.749,55.003],[-1.764,54.997],[-1.767,54.984],[-1.793,54.978],[-1.8,54.972],[-1.822,54.929],[-1.851,54.92],[-1.849,54.912],[-1.82,54.905],[-1.822,54.894],[-1.846,54.874],[-1.867,54.848],[-1.904,54.834],[-1.914,54.835],[-1.92,54.845],[-1.993,54.865],[-2.082,54.831],[-2.13,54.837],[-2.128,54.829],[-2.133,54.822],[-2.152,54.814],[-2.16,54.804],[-2.176,54.805],[-2.191,54.8],[-2.203,54.783],[-2.211,54.779],[-2.273,54.792],[-2.305,54.783],[-2.362,54.811],[-2.4,54.847],[-2.412,54.845],[-2.431,54.833],[-2.5,54.805],[-2.534,54.808],[-2.564,54.824],[-2.57,54.836],[-2.563,54.847],[-2.566,54.858],[-2.588,54.873],[-2.594,54.883],[-2.57,54.893],[-2.56,54.916],[-2.542,54.923],[-2.557,54.937],[-2.565,54.958],[-2.592,54.967],[-2.568,54.986],[-2.567,55.006],[-2.56,55.012],[-2.482,55.039],[-2.495,55.058],[-2.491,55.065],[-2.496,55.072],[-2.485,55.079],[-2.505,55.087],[-2.547,55.08],[-2.555,55.089],[-2.588,55.103],[-2.598,55.124],[-2.641,55.132],[-2.654,55.143],[-2.678,55.186],[-2.685,55.191],[-2.662,55.213],[-2.644,55.22],[-2.632,55.224],[-2.626,55.227],[-2.623,55.231],[-2.62,55.24],[-2.619,55.243],[-2.62,55.246],[-2.621,55.248],[-2.624,55.251],[-2.626,55.256],[-2.626,55.263],[-2.624,55.267],[-2.62,55.27],[-2.606,55.276],[-2.552,55.315],[-2.463,55.361],[-2.453,55.364],[-2.427,55.366],[-2.413,55.365],[-2.408,55.363],[-2.398,55.359],[-2.395,55.356],[-2.389,55.355],[-2.38,55.356],[-2.36,55.363],[-2.352,55.368],[-2.347,55.373],[-2.343,55.382],[-2.339,55.387],[-2.332,55.395],[-2.326,55.398],[-2.296,55.406],[-2.286,55.413],[-2.273,55.419],[-2.245,55.422],[-2.233,55.426],[-2.212,55.433],[-2.199,55.441],[-2.189,55.449],[-2.185,55.454],[-2.183,55.459],[-2.183,55.463],[-2.185,55.466],[-2.187,55.469],[-2.191,55.471],[-2.213,55.491],[-2.215,55.494],[-2.216,55.497],[-2.216,55.5],[-2.216,55.501],[-2.216,55.503],[-2.216,55.506],[-2.218,55.509],[-2.228,55.521],[-2.241,55.532],[-2.257,55.55],[-2.274,55.575],[-2.277,55.582],[-2.278,55.586],[-2.279,55.589],[-2.282,55.592],[-2.294,55.599],[-2.297,55.602],[-2.3,55.605],[-2.3,55.609],[-2.302,55.613],[-2.306,55.615],[-2.322,55.62],[-2.325,55.622],[-2.328,55.625],[-2.329,55.629],[-2.33,55.633],[-2.329,55.638],[-2.325,55.641],[-2.32,55.643],[-2.307,55.645],[-2.268,55.645],[-2.253,55.647],[-2.243,55.65],[-2.236,55.655],[-2.182,55.702],[-2.176,55.708],[-2.172,55.716],[-2.168,55.72],[-2.164,55.723],[-2.154,55.727],[-2.144,55.734],[-2.138,55.736],[-2.122,55.74],[-2.117,55.742],[-2.093,55.757],[-2.088,55.763],[-2.085,55.768],[-2.082,55.783],[-2.079,55.791],[-2.074,55.794],[-2.069,55.796],[-2.023,55.806],[-2.01,55.791],[-1.878,55.695],[-1.863,55.672],[-1.853,55.659],[-1.832,55.651],[-1.826,55.644],[-1.822,55.636],[-1.816,55.633],[-1.807,55.634],[-1.801,55.639],[-1.796,55.644],[-1.793,55.646],[-1.781,55.646],[-1.769,55.642],[-1.757,55.634],[-1.748,55.619],[-1.768,55.619],[-1.768,55.613],[-1.756,55.609],[-1.721,55.614],[-1.699,55.613],[-1.631,55.585],[-1.631,55.578],[-1.636,55.572],[-1.635,55.564],[-1.628,55.557],[-1.617,55.55],[-1.631,55.544],[-1.631,55.537],[-1.622,55.534],[-1.603,55.524],[-1.603,55.517],[-1.611,55.508],[-1.606,55.503],[-1.596,55.5],[-1.589,55.496],[-1.585,55.484],[-1.581,55.417],[-1.583,55.407],[-1.588,55.391],[-1.589,55.385],[-1.589,55.376],[-1.583,55.355],[-1.559,55.329],[-1.556,55.311],[-1.557,55.307],[-1.559,55.302],[-1.562,55.298],[-1.566,55.294],[-1.57,55.286],[-1.568,55.28],[-1.564,55.273],[-1.562,55.267],[-1.556,55.255],[-1.544,55.244],[-1.521,55.229],[-1.529,55.216],[-1.524,55.21],[-1.514,55.205],[-1.508,55.195],[-1.511,55.185],[-1.518,55.176],[-1.522,55.167],[-1.518,55.157],[-1.501,55.142],[-1.496,55.135],[-1.493,55.113],[-1.484,55.092],[-1.48,55.085],[-1.476,55.084],[-1.463,55.08],[-1.46,55.079],[-1.458,55.076],[-1.456,55.07]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Northumberland'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Northumberland?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Northumberland is located? </h2>Northumberland, is a administrative county of the England region. It belongs to the country of United Kingdom. Its postal identifier is NB.Northumberland has an area of 5101 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

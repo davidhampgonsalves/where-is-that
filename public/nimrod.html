@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Nimrod?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[63.319,32.238],[63.506,32.199],[63.53,32.2],[63.534,32.165],[63.538,32.151],[63.538,32.142],[63.538,32.137],[63.54,32.133],[63.548,32.123],[63.551,32.117],[63.552,32.112],[63.552,32.107],[63.552,32.102],[63.555,32.098],[63.569,32.086],[63.57,32.08],[63.566,32.072],[63.551,32.056],[63.536,32.043],[63.534,32.039],[63.534,32.03],[63.541,32.007],[63.539,31.996],[63.533,31.982],[63.498,31.919],[63.482,31.899],[63.471,31.888],[63.429,31.86],[63.408,31.805],[63.354,31.48],[63.353,31.375],[63.342,31.357],[63.319,31.333],[63.316,31.317],[63.331,31.279],[63.342,31.264],[63.347,31.257],[63.35,31.25],[63.351,31.238],[63.345,31.15],[63.345,31.141],[63.343,31.125],[63.325,31.106],[63.303,31.099],[63.293,31.093],[63.286,31.084],[63.244,31.015],[63.234,30.995],[63.226,30.986],[63.208,30.972],[63.195,30.964],[63.156,30.949],[63.143,30.936],[63.146,30.9],[63.147,30.831],[63.157,30.783],[63.157,30.774],[63.153,30.767],[63.145,30.761],[63.126,30.752],[63.117,30.746],[63.106,30.737],[63.072,30.698],[63.063,30.69],[63.057,30.682],[63.057,30.674],[63.063,30.663],[63.071,30.658],[63.085,30.65],[63.086,30.645],[63.085,30.64],[63.062,30.609],[63.063,30.592],[63.066,30.585],[63.073,30.576],[63.086,30.562],[63.092,30.555],[63.096,30.547],[63.098,30.539],[63.097,30.529],[63.092,30.519],[63.077,30.505],[63.024,30.471],[63.011,30.457],[63,30.437],[62.987,30.407],[62.962,30.366],[62.92,30.309],[62.89,30.276],[62.849,30.241],[62.815,30.225],[62.807,30.223],[62.796,30.221],[62.787,30.219],[62.78,30.216],[62.773,30.212],[62.768,30.205],[62.764,30.195],[62.766,30.145],[62.759,30.073],[62.755,30.058],[62.748,30.046],[62.722,30.015],[62.718,30.006],[62.717,29.997],[62.723,29.951],[62.721,29.907],[62.603,29.418],[62.603,29.418],[62.477,29.408],[62.374,29.425],[60.876,29.846],[60.844,29.858],[60.844,29.858],[60.844,29.859],[60.844,29.859],[60.978,29.994],[60.978,29.995],[61.461,30.495],[61.461,30.495],[61.785,30.832],[61.802,30.847],[61.8,30.853],[61.798,30.854],[61.8,30.872],[61.802,30.879],[61.802,30.879],[61.808,30.882],[61.808,30.882],[61.804,30.95],[61.8,30.962],[61.819,30.994],[61.826,31.015],[61.826,31.035],[61.821,31.055],[61.809,31.087],[61.792,31.119],[61.789,31.13],[61.787,31.159],[61.779,31.181],[61.752,31.219],[61.742,31.24],[61.742,31.26],[61.749,31.303],[61.742,31.321],[61.706,31.36],[61.687,31.373],[61.661,31.382],[61.606,31.389],[61.61,31.397],[61.619,31.418],[61.627,31.427],[61.628,31.434],[61.625,31.44],[61.623,31.447],[61.624,31.453],[61.628,31.462],[61.63,31.466],[61.63,31.469],[61.629,31.471],[61.628,31.472],[61.625,31.473],[61.62,31.478],[61.613,31.486],[61.606,31.505],[61.605,31.513],[61.605,31.518],[61.608,31.517],[61.61,31.516],[61.612,31.514],[61.615,31.51],[61.618,31.503],[61.62,31.502],[61.624,31.507],[61.626,31.508],[61.628,31.509],[61.63,31.507],[61.631,31.506],[61.632,31.504],[61.635,31.501],[61.637,31.499],[61.644,31.5],[61.653,31.504],[61.668,31.516],[61.674,31.525],[61.675,31.535],[61.673,31.542],[61.671,31.547],[61.665,31.555],[61.663,31.558],[61.659,31.572],[61.659,31.586],[61.661,31.593],[61.665,31.598],[61.67,31.599],[61.676,31.6],[61.703,31.598],[61.715,31.602],[61.724,31.606],[61.756,31.643],[61.802,31.717],[61.826,31.74],[61.842,31.752],[61.873,31.78],[61.886,31.794],[61.893,31.805],[61.894,31.811],[61.895,31.816],[61.895,31.821],[61.891,31.838],[61.883,31.86],[61.883,31.865],[61.884,31.872],[61.888,31.883],[61.895,31.892],[61.904,31.899],[61.967,31.927],[61.98,31.938],[61.985,31.946],[61.985,31.954],[61.979,31.979],[61.977,31.994],[61.973,31.999],[61.972,32.005],[61.972,32.009],[61.973,32.013],[61.975,32.015],[61.979,32.021],[62.395,32.044],[62.506,32.072],[62.519,32.072],[62.539,32.072],[62.572,32.067],[62.584,32.063],[62.594,32.059],[62.601,32.055],[62.645,32.012],[62.719,31.941],[62.73,31.935],[62.743,31.93],[62.764,31.942],[62.771,31.946],[62.862,31.976],[62.871,31.977],[62.927,31.977],[62.981,31.99],[62.997,31.996],[63.034,32.018],[63.052,32.033],[63.066,32.047],[63.076,32.059],[63.082,32.069],[63.086,32.081],[63.088,32.092],[63.09,32.166],[63.093,32.178],[63.102,32.201],[63.109,32.213],[63.118,32.224],[63.139,32.244],[63.149,32.249],[63.157,32.253],[63.164,32.253],[63.17,32.253],[63.218,32.242],[63.319,32.238]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Nimrod'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Nimrod?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Nimrod is located? </h2>Nimrod, is a province It belongs to the country of Afghanistan. Its postal identifier is NM.Nimrod has an area of 42093 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

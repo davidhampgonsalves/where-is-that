@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Mouaskar?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[0.229,35.696],[0.266,35.669],[0.277,35.641],[0.286,35.603],[0.293,35.584],[0.305,35.568],[0.319,35.558],[0.344,35.555],[0.358,35.556],[0.394,35.563],[0.411,35.564],[0.434,35.563],[0.457,35.558],[0.483,35.543],[0.514,35.519],[0.532,35.51],[0.55,35.51],[0.571,35.514],[0.589,35.516],[0.604,35.514],[0.625,35.502],[0.634,35.494],[0.645,35.486],[0.66,35.479],[0.726,35.471],[0.781,35.451],[0.828,35.443],[0.823,35.425],[0.828,35.418],[0.839,35.41],[0.873,35.393],[0.88,35.386],[0.878,35.375],[0.868,35.358],[0.82,35.306],[0.802,35.29],[0.779,35.279],[0.764,35.278],[0.75,35.281],[0.736,35.287],[0.7,35.298],[0.684,35.3],[0.674,35.299],[0.661,35.296],[0.646,35.292],[0.632,35.285],[0.618,35.276],[0.604,35.262],[0.593,35.244],[0.566,35.191],[0.514,35.135],[0.492,35.086],[0.477,35.079],[0.449,35.059],[0.431,35.051],[0.409,35.047],[0.39,35.047],[0.348,35.056],[0.331,35.055],[0.294,35.041],[0.262,35.036],[0.246,35.032],[0.23,35.025],[0.21,35.021],[0.19,35.023],[0.166,35.038],[0.154,35.051],[0.137,35.079],[0.125,35.091],[0.112,35.096],[0.101,35.094],[0.088,35.089],[0.071,35.088],[0.043,35.094],[0.025,35.093],[0.013,35.083],[0.004,35.068],[-0.004,35.064],[-0.014,35.064],[-0.034,35.076],[-0.051,35.089],[-0.059,35.093],[-0.074,35.096],[-0.085,35.102],[-0.091,35.108],[-0.093,35.114],[-0.093,35.12],[-0.092,35.132],[-0.093,35.138],[-0.094,35.143],[-0.098,35.152],[-0.102,35.156],[-0.106,35.16],[-0.112,35.161],[-0.12,35.158],[-0.126,35.149],[-0.129,35.142],[-0.129,35.136],[-0.132,35.131],[-0.136,35.128],[-0.165,35.123],[-0.181,35.153],[-0.195,35.167],[-0.214,35.183],[-0.217,35.191],[-0.216,35.197],[-0.213,35.201],[-0.209,35.204],[-0.207,35.208],[-0.206,35.214],[-0.207,35.228],[-0.205,35.236],[-0.203,35.243],[-0.2,35.247],[-0.198,35.251],[-0.194,35.268],[-0.189,35.287],[-0.189,35.299],[-0.198,35.306],[-0.206,35.31],[-0.362,35.359],[-0.373,35.36],[-0.38,35.356],[-0.396,35.342],[-0.409,35.342],[-0.43,35.347],[-0.464,35.358],[-0.478,35.367],[-0.482,35.374],[-0.466,35.392],[-0.455,35.407],[-0.454,35.421],[-0.459,35.427],[-0.464,35.429],[-0.482,35.426],[-0.502,35.419],[-0.525,35.414],[-0.545,35.412],[-0.542,35.42],[-0.519,35.432],[-0.51,35.44],[-0.501,35.455],[-0.501,35.471],[-0.501,35.477],[-0.501,35.483],[-0.498,35.486],[-0.492,35.49],[-0.48,35.494],[-0.456,35.5],[-0.446,35.508],[-0.438,35.518],[-0.433,35.527],[-0.43,35.533],[-0.424,35.551],[-0.418,35.562],[-0.407,35.574],[-0.35,35.61],[-0.336,35.622],[-0.322,35.637],[-0.312,35.659],[-0.302,35.669],[-0.285,35.677],[-0.27,35.679],[-0.26,35.679],[-0.238,35.678],[-0.221,35.684],[-0.204,35.695],[-0.155,35.748],[-0.114,35.784],[-0.113,35.777],[-0.112,35.773],[-0.109,35.769],[-0.106,35.766],[-0.104,35.763],[-0.101,35.761],[-0.099,35.757],[-0.099,35.753],[-0.1,35.747],[-0.098,35.741],[-0.091,35.735],[-0.053,35.72],[-0.048,35.717],[-0.044,35.714],[-0.039,35.714],[-0.03,35.713],[-0.01,35.715],[0.037,35.726],[0.066,35.737],[0.095,35.753],[0.104,35.757],[0.11,35.755],[0.118,35.751],[0.127,35.738],[0.132,35.729],[0.148,35.687],[0.152,35.683],[0.156,35.682],[0.165,35.686],[0.17,35.69],[0.182,35.694],[0.19,35.695],[0.229,35.696]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Mouaskar'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Mouaskar?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Mouaskar is located? </h2>Mouaskar, is a province It belongs to the country of Algeria. Its postal identifier is MC.Mouaskar has an area of 5774 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

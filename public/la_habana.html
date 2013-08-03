@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is La Habana?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[-82.519,22.566],[-82.523,22.559],[-82.527,22.564],[-82.525,22.626],[-82.528,22.635],[-82.528,22.64],[-82.525,22.641],[-82.52,22.637],[-82.516,22.629],[-82.514,22.625],[-82.511,22.613],[-82.508,22.59],[-82.514,22.572],[-82.519,22.566]]],[[[-81.892,23.158],[-81.862,23.151],[-81.84,23.158],[-81.684,23.157],[-81.685,23.149],[-81.695,23.137],[-81.683,23.084],[-81.681,23.071],[-81.681,23.065],[-81.682,23.064],[-81.685,23.065],[-81.694,23.07],[-81.699,23.07],[-81.705,23.067],[-81.712,23.058],[-81.714,23.053],[-81.713,23.05],[-81.704,23.043],[-81.7,23.038],[-81.7,23.035],[-81.702,23.032],[-81.706,23.03],[-81.715,23.018],[-81.736,23.006],[-81.741,23.001],[-81.742,23],[-81.743,22.998],[-81.745,22.995],[-81.747,22.987],[-81.746,22.984],[-81.742,22.982],[-81.731,22.981],[-81.724,22.978],[-81.716,22.973],[-81.709,22.966],[-81.692,22.946],[-81.681,22.931],[-81.68,22.927],[-81.679,22.921],[-81.68,22.917],[-81.683,22.888],[-81.695,22.851],[-81.679,22.824],[-81.664,22.81],[-81.651,22.802],[-81.647,22.796],[-81.647,22.79],[-81.658,22.765],[-81.658,22.749],[-81.652,22.74],[-81.614,22.718],[-81.598,22.705],[-81.596,22.69],[-81.604,22.64],[-81.606,22.632],[-81.609,22.625],[-81.615,22.616],[-81.623,22.606],[-81.636,22.587],[-81.639,22.584],[-81.644,22.581],[-81.647,22.579],[-81.648,22.579],[-81.653,22.579],[-81.7,22.6],[-81.712,22.616],[-81.752,22.644],[-81.785,22.661],[-81.827,22.673],[-81.912,22.679],[-81.992,22.672],[-82.088,22.665],[-82.131,22.668],[-82.253,22.692],[-82.276,22.691],[-82.317,22.681],[-82.339,22.679],[-82.36,22.681],[-82.403,22.69],[-82.51,22.692],[-82.522,22.69],[-82.541,22.681],[-82.551,22.679],[-82.696,22.695],[-82.738,22.706],[-82.76,22.706],[-82.781,22.696],[-82.791,22.68],[-82.794,22.661],[-82.795,22.641],[-82.801,22.623],[-82.815,22.614],[-82.825,22.611],[-82.825,22.615],[-82.828,22.62],[-82.836,22.631],[-82.869,22.666],[-82.873,22.674],[-82.893,22.716],[-82.901,22.729],[-82.907,22.737],[-82.913,22.741],[-82.922,22.745],[-82.925,22.748],[-82.938,22.763],[-82.954,22.789],[-82.959,22.796],[-82.963,22.799],[-82.974,22.804],[-82.976,22.805],[-82.978,22.807],[-82.977,22.809],[-82.972,22.811],[-82.948,22.813],[-82.94,22.816],[-82.935,22.82],[-82.916,22.841],[-82.915,22.85],[-82.919,22.874],[-82.944,22.919],[-82.941,22.939],[-82.941,22.943],[-82.945,22.98],[-82.944,22.985],[-82.942,22.986],[-82.932,23.011],[-82.918,23.033],[-82.885,23.033],[-82.849,23.028],[-82.825,23.032],[-82.803,23.039],[-82.713,23.035],[-82.62,23.046],[-82.596,23.055],[-82.575,23.054],[-82.539,23.074],[-82.534,23.067],[-82.517,23.06],[-82.505,23.065],[-82.5,23.07],[-82.493,23.072],[-82.485,23.07],[-82.475,23.057],[-82.474,23.048],[-82.482,23.036],[-82.502,23.02],[-82.503,23.018],[-82.5,23.014],[-82.492,23.009],[-82.456,22.994],[-82.453,22.994],[-82.451,22.996],[-82.447,22.993],[-82.445,22.991],[-82.436,22.957],[-82.42,22.963],[-82.412,22.965],[-82.405,22.961],[-82.394,22.949],[-82.389,22.948],[-82.382,22.951],[-82.369,22.961],[-82.365,22.968],[-82.356,22.977],[-82.317,22.973],[-82.291,22.975],[-82.28,22.971],[-82.27,22.969],[-82.259,22.969],[-82.25,22.973],[-82.244,22.98],[-82.236,22.993],[-82.202,23.028],[-82.201,23.032],[-82.203,23.037],[-82.211,23.053],[-82.213,23.061],[-82.212,23.068],[-82.21,23.076],[-82.209,23.081],[-82.209,23.086],[-82.211,23.09],[-82.211,23.093],[-82.21,23.094],[-82.205,23.095],[-82.199,23.089],[-82.192,23.08],[-82.189,23.079],[-82.183,23.083],[-82.176,23.088],[-82.171,23.101],[-82.17,23.106],[-82.168,23.109],[-82.165,23.112],[-82.161,23.114],[-82.152,23.11],[-82.146,23.106],[-82.111,23.068],[-82.101,23.084],[-82.1,23.101],[-82.099,23.105],[-82.096,23.108],[-82.091,23.113],[-82.09,23.117],[-82.093,23.126],[-82.093,23.131],[-82.091,23.135],[-82.081,23.135],[-82.076,23.139],[-82.093,23.159],[-82.099,23.168],[-82.097,23.178],[-82.1,23.188],[-82.088,23.191],[-82.065,23.193],[-82.055,23.195],[-82.044,23.199],[-82.033,23.201],[-82.023,23.196],[-81.986,23.172],[-81.956,23.164],[-81.892,23.158]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'La Habana'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>La Habana?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where La Habana is located? </h2>La Habana, is a province It belongs to the country of Cuba. Its postal identifier is LH.La Habana has an area of 5757 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

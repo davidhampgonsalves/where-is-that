@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Thies?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-16.132,14.969],[-16.136,14.956],[-16.145,14.951],[-16.193,14.926],[-16.204,14.923],[-16.218,14.922],[-16.226,14.924],[-16.233,14.925],[-16.238,14.928],[-16.242,14.931],[-16.245,14.935],[-16.247,14.94],[-16.248,14.945],[-16.248,14.951],[-16.25,14.956],[-16.254,14.961],[-16.26,14.964],[-16.277,14.971],[-16.281,14.973],[-16.315,15],[-16.32,15.001],[-16.323,15.001],[-16.325,15.001],[-16.326,15],[-16.326,15],[-16.327,14.999],[-16.332,14.998],[-16.339,14.996],[-16.354,14.994],[-16.363,14.994],[-16.37,14.995],[-16.379,14.998],[-16.39,15.005],[-16.393,15.008],[-16.396,15.01],[-16.399,15.012],[-16.64,14.944],[-16.659,14.935],[-16.669,14.92],[-16.674,14.904],[-16.679,14.882],[-16.678,14.878],[-16.676,14.875],[-16.671,14.869],[-16.667,14.867],[-16.657,14.864],[-16.652,14.863],[-16.648,14.86],[-16.645,14.856],[-16.644,14.851],[-16.643,14.845],[-16.643,14.819],[-16.645,14.809],[-16.646,14.803],[-16.644,14.792],[-16.643,14.786],[-16.641,14.781],[-16.637,14.778],[-16.627,14.774],[-16.623,14.771],[-16.619,14.768],[-16.616,14.764],[-16.613,14.76],[-16.613,14.756],[-16.613,14.751],[-16.617,14.74],[-16.618,14.732],[-16.618,14.724],[-16.617,14.719],[-16.614,14.716],[-16.609,14.713],[-16.6,14.708],[-16.596,14.706],[-16.592,14.702],[-16.59,14.697],[-16.588,14.692],[-16.587,14.686],[-16.59,14.677],[-16.595,14.667],[-16.61,14.652],[-16.617,14.643],[-16.621,14.636],[-16.621,14.63],[-16.62,14.624],[-16.618,14.62],[-16.615,14.616],[-16.603,14.609],[-16.552,14.587],[-16.531,14.581],[-16.539,14.55],[-16.546,14.53],[-16.551,14.521],[-16.577,14.488],[-16.594,14.471],[-16.603,14.466],[-16.613,14.462],[-16.618,14.46],[-16.626,14.454],[-16.635,14.442],[-16.639,14.439],[-16.643,14.436],[-16.648,14.433],[-16.654,14.432],[-16.687,14.43],[-16.692,14.428],[-16.695,14.427],[-16.745,14.286],[-16.759,14.228],[-16.756,14.224],[-16.753,14.221],[-16.748,14.217],[-16.745,14.213],[-16.746,14.208],[-16.75,14.2],[-16.775,14.178],[-16.778,14.174],[-16.778,14.165],[-16.775,14.161],[-16.772,14.156],[-16.769,14.152],[-16.77,14.147],[-16.775,14.142],[-16.803,14.133],[-16.811,14.125],[-16.821,14.144],[-16.83,14.154],[-16.843,14.16],[-16.869,14.166],[-16.879,14.175],[-16.884,14.189],[-16.892,14.243],[-16.899,14.26],[-16.907,14.273],[-16.926,14.291],[-16.934,14.296],[-16.941,14.297],[-16.945,14.301],[-16.947,14.315],[-16.946,14.325],[-16.941,14.344],[-16.939,14.356],[-16.944,14.372],[-16.956,14.39],[-16.988,14.421],[-17.059,14.454],[-17.07,14.465],[-17.076,14.479],[-17.111,14.53],[-17.138,14.599],[-17.148,14.613],[-17.148,14.614],[-17.129,14.75],[-17.131,14.76],[-17.134,14.769],[-17.15,14.794],[-17.153,14.804],[-17.153,14.827],[-17.154,14.833],[-17.16,14.851],[-17.181,14.896],[-17.182,14.897],[-17.173,14.901],[-17.139,14.928],[-16.98,15.112],[-16.948,15.158],[-16.878,15.233],[-16.739,15.473],[-16.735,15.477],[-16.73,15.475],[-16.7,15.451],[-16.696,15.444],[-16.691,15.432],[-16.69,15.427],[-16.69,15.42],[-16.695,15.401],[-16.713,15.366],[-16.72,15.343],[-16.725,15.301],[-16.723,15.282],[-16.717,15.271],[-16.709,15.269],[-16.697,15.263],[-16.691,15.26],[-16.687,15.256],[-16.684,15.251],[-16.678,15.238],[-16.666,15.223],[-16.662,15.219],[-16.659,15.216],[-16.65,15.211],[-16.634,15.203],[-16.628,15.199],[-16.621,15.191],[-16.618,15.186],[-16.617,15.181],[-16.618,15.177],[-16.619,15.172],[-16.622,15.169],[-16.623,15.165],[-16.624,15.161],[-16.623,15.145],[-16.618,15.136],[-16.614,15.131],[-16.609,15.128],[-16.604,15.127],[-16.599,15.128],[-16.595,15.131],[-16.591,15.134],[-16.578,15.149],[-16.573,15.157],[-16.528,15.203],[-16.522,15.211],[-16.519,15.221],[-16.516,15.232],[-16.51,15.247],[-16.495,15.267],[-16.488,15.274],[-16.477,15.29],[-16.467,15.301],[-16.458,15.314],[-16.455,15.317],[-16.451,15.321],[-16.447,15.323],[-16.441,15.325],[-16.433,15.325],[-16.386,15.313],[-16.374,15.314],[-16.359,15.318],[-16.353,15.319],[-16.344,15.318],[-16.338,15.315],[-16.334,15.311],[-16.332,15.307],[-16.33,15.302],[-16.325,15.254],[-16.322,15.241],[-16.318,15.236],[-16.314,15.233],[-16.309,15.234],[-16.305,15.236],[-16.296,15.242],[-16.29,15.244],[-16.286,15.242],[-16.283,15.239],[-16.275,15.22],[-16.272,15.216],[-16.268,15.209],[-16.264,15.199],[-16.261,15.185],[-16.263,15.16],[-16.264,15.156],[-16.265,15.147],[-16.264,15.139],[-16.262,15.129],[-16.252,15.104],[-16.247,15.096],[-16.217,15.061],[-16.212,15.053],[-16.21,15.048],[-16.208,15.043],[-16.204,15.025],[-16.202,15.018],[-16.199,15.01],[-16.192,15],[-16.187,14.995],[-16.182,14.991],[-16.177,14.989],[-16.154,14.98],[-16.132,14.969]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Thies'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Thies?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Thies is located? </h2>Thies, is a region It belongs to the country of Senegal. Its postal identifier is TH.Thies has an area of 6646 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

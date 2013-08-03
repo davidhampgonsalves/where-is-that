@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Limbazi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[24.79,57.979],[24.816,57.977],[24.827,57.982],[24.827,57.982],[24.828,57.98],[24.842,57.901],[24.864,57.9],[24.873,57.898],[24.882,57.893],[24.885,57.889],[24.883,57.884],[24.885,57.872],[24.888,57.859],[24.893,57.843],[24.896,57.831],[24.901,57.826],[24.909,57.821],[24.926,57.817],[24.933,57.818],[24.938,57.819],[24.942,57.819],[24.946,57.818],[24.953,57.8],[24.966,57.808],[25.007,57.801],[25.077,57.767],[25.084,57.754],[25.099,57.736],[25.091,57.731],[25.087,57.727],[25.08,57.721],[25.076,57.715],[25.076,57.706],[25.082,57.697],[25.092,57.688],[25.085,57.675],[25.094,57.653],[25.067,57.655],[25.062,57.652],[25.063,57.648],[25.076,57.639],[25.083,57.634],[25.085,57.63],[25.068,57.626],[25.062,57.624],[25.042,57.626],[25.033,57.63],[25.028,57.634],[25.024,57.637],[25.019,57.638],[25.006,57.636],[25,57.636],[24.991,57.636],[24.966,57.628],[24.935,57.612],[24.912,57.605],[24.895,57.567],[24.916,57.556],[24.933,57.556],[24.984,57.564],[25.004,57.562],[25.022,57.555],[25.046,57.535],[25.051,57.524],[25.051,57.518],[25.047,57.516],[25.048,57.514],[25.054,57.512],[25.067,57.513],[25.081,57.511],[25.087,57.507],[25.088,57.504],[25.08,57.5],[25.062,57.498],[25.053,57.492],[25.046,57.483],[25.013,57.476],[25.003,57.468],[24.989,57.461],[24.98,57.453],[24.887,57.421],[24.876,57.413],[24.847,57.412],[24.813,57.419],[24.799,57.417],[24.8,57.411],[24.832,57.396],[24.854,57.373],[24.871,57.351],[24.879,57.343],[24.881,57.337],[24.903,57.328],[24.903,57.323],[24.9,57.319],[24.889,57.312],[24.889,57.309],[24.898,57.303],[24.872,57.293],[24.851,57.279],[24.798,57.259],[24.738,57.244],[24.728,57.239],[24.713,57.227],[24.682,57.223],[24.643,57.237],[24.622,57.266],[24.602,57.279],[24.589,57.285],[24.578,57.289],[24.575,57.291],[24.574,57.296],[24.566,57.31],[24.55,57.316],[24.472,57.294],[24.45,57.296],[24.428,57.291],[24.427,57.295],[24.426,57.299],[24.43,57.308],[24.432,57.32],[24.429,57.329],[24.426,57.334],[24.411,57.345],[24.405,57.348],[24.382,57.47],[24.38,57.507],[24.375,57.529],[24.365,57.539],[24.359,57.551],[24.363,57.577],[24.375,57.614],[24.363,57.672],[24.358,57.686],[24.314,57.725],[24.3,57.744],[24.3,57.762],[24.289,57.809],[24.286,57.833],[24.289,57.845],[24.296,57.858],[24.306,57.868],[24.306,57.868],[24.349,57.859],[24.378,57.86],[24.401,57.867],[24.412,57.877],[24.429,57.901],[24.441,57.909],[24.481,57.92],[24.533,57.945],[24.554,57.948],[24.624,57.944],[24.684,57.948],[24.7,57.955],[24.719,57.982],[24.733,57.993],[24.764,57.988],[24.79,57.979]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Limbazi'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Limbazi?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Limbazi is located? </h2>Limbazi, is a district of the Riga region. It belongs to the country of Latvia. Its postal identifier is LM.Limbazi has an area of 2658 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

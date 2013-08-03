@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Lhuentse?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[91.29,28.092],[91.309,28.057],[91.341,28.031],[91.419,27.995],[91.437,27.99],[91.437,27.99],[91.419,27.972],[91.404,27.96],[91.399,27.958],[91.394,27.957],[91.384,27.96],[91.379,27.96],[91.374,27.957],[91.342,27.923],[91.337,27.92],[91.332,27.919],[91.327,27.918],[91.323,27.917],[91.32,27.912],[91.319,27.906],[91.32,27.895],[91.317,27.812],[91.312,27.795],[91.312,27.784],[91.31,27.767],[91.306,27.755],[91.301,27.748],[91.299,27.741],[91.3,27.734],[91.307,27.711],[91.307,27.703],[91.303,27.679],[91.307,27.618],[91.297,27.597],[91.31,27.581],[91.3,27.579],[91.295,27.578],[91.29,27.576],[91.287,27.571],[91.289,27.554],[91.287,27.546],[91.263,27.529],[91.253,27.519],[91.245,27.502],[91.251,27.49],[91.258,27.481],[91.26,27.477],[91.258,27.459],[91.245,27.429],[91.164,27.39],[91.141,27.422],[91.134,27.426],[91.115,27.429],[91.098,27.43],[91.077,27.424],[91.021,27.38],[90.97,27.39],[90.954,27.418],[90.955,27.423],[90.956,27.429],[90.961,27.434],[90.965,27.44],[90.981,27.47],[90.965,27.489],[90.954,27.496],[90.949,27.502],[90.947,27.508],[90.948,27.512],[90.95,27.517],[90.951,27.523],[90.949,27.547],[90.94,27.565],[90.94,27.569],[90.941,27.575],[90.95,27.601],[90.957,27.622],[90.956,27.646],[90.952,27.668],[90.949,27.678],[90.945,27.686],[90.917,27.71],[90.913,27.712],[90.908,27.713],[90.893,27.715],[90.886,27.718],[90.884,27.721],[90.884,27.745],[90.874,27.784],[90.87,27.79],[90.864,27.792],[90.854,27.798],[90.85,27.8],[90.843,27.801],[90.839,27.804],[90.833,27.809],[90.825,27.819],[90.811,27.832],[90.797,27.838],[90.794,27.864],[90.779,27.895],[90.774,27.901],[90.769,27.903],[90.757,27.905],[90.751,27.907],[90.744,27.91],[90.733,27.919],[90.729,27.925],[90.728,27.929],[90.733,27.938],[90.734,27.945],[90.737,27.95],[90.741,27.954],[90.751,27.96],[90.754,27.964],[90.756,27.972],[90.755,27.996],[90.751,28.005],[90.751,28.013],[90.751,28.024],[90.755,28.055],[90.789,28.048],[90.851,28.044],[90.91,28.033],[90.96,27.995],[90.975,27.982],[91.009,27.967],[91.052,27.963],[91.092,27.972],[91.119,27.995],[91.119,27.995],[91.12,27.995],[91.12,27.995],[91.134,28.014],[91.176,28.058],[91.194,28.071],[91.221,28.075],[91.246,28.072],[91.27,28.073],[91.29,28.092]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Lhuentse'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Lhuentse?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Lhuentse is located? </h2>Lhuentse, is a district It belongs to the country of Bhutan. Its postal identifier is LH.Lhuentse has an area of 2940 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

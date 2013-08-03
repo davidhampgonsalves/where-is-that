@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ogun?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[2.909,7.742],[2.937,7.738],[2.947,7.789],[2.962,7.832],[2.999,7.834],[3.006,7.745],[2.969,7.644],[2.97,7.623],[2.99,7.571],[3.031,7.537],[3.064,7.495],[3.109,7.413],[3.179,7.35],[3.234,7.332],[3.29,7.333],[3.33,7.368],[3.371,7.467],[3.412,7.495],[3.449,7.468],[3.466,7.419],[3.495,7.402],[3.524,7.418],[3.554,7.431],[3.654,7.429],[3.688,7.38],[3.688,7.324],[3.691,7.307],[3.72,7.286],[3.749,7.27],[3.755,7.253],[3.755,7.234],[3.758,7.218],[3.764,7.204],[3.776,7.144],[3.739,7.093],[3.712,7.047],[3.772,7.045],[3.896,7.06],[3.957,7.076],[3.985,7.094],[4.017,7.105],[4.047,7.107],[4.077,7.112],[4.148,7.146],[4.169,7.104],[4.177,7.059],[4.217,7.064],[4.255,7.088],[4.302,7.09],[4.335,7.062],[4.347,7.037],[4.356,7.011],[4.359,6.995],[4.364,6.981],[4.393,6.979],[4.428,6.998],[4.449,6.992],[4.47,6.991],[4.487,6.999],[4.505,7.004],[4.545,7.007],[4.561,6.988],[4.538,6.857],[4.519,6.832],[4.429,6.767],[4.38,6.714],[4.355,6.648],[4.355,6.617],[4.37,6.592],[4.383,6.582],[4.415,6.572],[4.431,6.569],[4.483,6.567],[4.526,6.594],[4.542,6.617],[4.567,6.629],[4.586,6.603],[4.586,6.532],[4.595,6.485],[4.592,6.472],[4.581,6.459],[4.565,6.454],[4.515,6.417],[4.482,6.413],[4.466,6.406],[4.483,6.386],[4.513,6.386],[4.569,6.363],[4.57,6.336],[4.554,6.317],[4.494,6.322],[4.493,6.321],[4.406,6.359],[4.342,6.371],[4.342,6.373],[4.346,6.401],[4.345,6.427],[4.317,6.437],[4.26,6.439],[4.237,6.434],[4.22,6.444],[4.206,6.457],[4.178,6.464],[4.155,6.479],[4.153,6.503],[4.211,6.535],[4.22,6.556],[4.21,6.577],[4.181,6.587],[4.148,6.58],[4.118,6.559],[4.088,6.544],[4.059,6.567],[4.058,6.58],[4.048,6.604],[4.057,6.629],[4.081,6.648],[4.092,6.674],[4.032,6.69],[3.448,6.687],[3.439,6.678],[3.436,6.663],[3.424,6.646],[3.404,6.643],[3.369,6.645],[3.346,6.674],[3.3,6.698],[3.277,6.705],[3.245,6.693],[3.239,6.678],[3.225,6.627],[3.209,6.61],[3.194,6.59],[3.184,6.541],[3.169,6.524],[3.11,6.516],[2.892,6.526],[2.881,6.521],[2.882,6.507],[2.862,6.485],[2.836,6.467],[2.811,6.466],[2.785,6.474],[2.751,6.471],[2.718,6.473],[2.712,6.474],[2.711,6.474],[2.715,6.495],[2.718,6.505],[2.737,6.558],[2.739,6.579],[2.73,6.622],[2.731,6.642],[2.742,6.663],[2.742,6.664],[2.76,6.679],[2.772,6.688],[2.772,6.688],[2.778,6.699],[2.775,6.745],[2.773,6.755],[2.767,6.76],[2.754,6.761],[2.744,6.764],[2.736,6.77],[2.728,6.78],[2.723,6.8],[2.726,6.821],[2.736,6.863],[2.731,6.905],[2.718,6.944],[2.715,6.98],[2.741,7.016],[2.741,7.016],[2.752,7.021],[2.765,7.025],[2.775,7.031],[2.775,7.031],[2.779,7.041],[2.773,7.051],[2.747,7.072],[2.738,7.083],[2.735,7.096],[2.736,7.103],[2.74,7.11],[2.749,7.129],[2.757,7.139],[2.76,7.148],[2.762,7.162],[2.741,7.408],[2.743,7.419],[2.743,7.419],[2.751,7.424],[2.761,7.424],[2.783,7.419],[2.786,7.421],[2.786,7.421],[2.787,7.427],[2.789,7.436],[2.792,7.478],[2.77,7.514],[2.74,7.55],[2.72,7.587],[2.715,7.626],[2.717,7.659],[2.727,7.793],[2.724,7.808],[2.715,7.822],[2.691,7.849],[2.68,7.877],[2.672,7.89],[2.671,7.893],[2.671,7.893],[2.678,7.897],[2.765,7.958],[2.862,7.955],[2.887,7.908],[2.892,7.796],[2.909,7.742]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Ogun'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Ogun?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where Ogun is located? </h2>Ogun, is a state It belongs to the country of Nigeria. Its postal identifier is OG.Ogun has an area of 16218 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

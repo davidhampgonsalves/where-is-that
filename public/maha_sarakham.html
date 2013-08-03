@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Maha Sarakham?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[103.526,16.21],[103.476,16.13],[103.469,16.105],[103.468,16.078],[103.468,16.074],[103.47,16.067],[103.471,16.064],[103.48,16.049],[103.481,16.042],[103.482,15.979],[103.494,15.943],[103.496,15.931],[103.496,15.925],[103.495,15.919],[103.493,15.916],[103.481,15.901],[103.479,15.898],[103.469,15.866],[103.439,15.722],[103.436,15.712],[103.433,15.71],[103.43,15.708],[103.427,15.707],[103.423,15.706],[103.414,15.706],[103.394,15.711],[103.386,15.711],[103.377,15.711],[103.37,15.709],[103.367,15.708],[103.355,15.701],[103.345,15.692],[103.339,15.684],[103.315,15.628],[103.312,15.622],[103.308,15.619],[103.299,15.608],[103.297,15.603],[103.297,15.599],[103.299,15.596],[103.301,15.594],[103.305,15.593],[103.308,15.592],[103.312,15.591],[103.314,15.589],[103.317,15.586],[103.318,15.583],[103.318,15.579],[103.318,15.575],[103.319,15.571],[103.32,15.568],[103.321,15.565],[103.324,15.562],[103.328,15.558],[103.34,15.55],[103.346,15.547],[103.353,15.545],[103.357,15.544],[103.364,15.541],[103.367,15.539],[103.379,15.528],[103.381,15.526],[103.385,15.526],[103.388,15.526],[103.397,15.531],[103.4,15.533],[103.404,15.533],[103.412,15.534],[103.421,15.533],[103.425,15.532],[103.428,15.531],[103.434,15.527],[103.437,15.524],[103.439,15.519],[103.441,15.511],[103.441,15.506],[103.441,15.502],[103.441,15.501],[103.436,15.491],[103.417,15.428],[103.36,15.405],[103.343,15.402],[103.328,15.409],[103.291,15.42],[103.284,15.424],[103.281,15.426],[103.279,15.428],[103.275,15.431],[103.268,15.435],[103.243,15.443],[103.237,15.446],[103.235,15.448],[103.231,15.45],[103.116,15.482],[103.087,15.502],[103.083,15.506],[103.08,15.512],[103.079,15.515],[103.08,15.519],[103.081,15.522],[103.083,15.524],[103.085,15.525],[103.088,15.527],[103.09,15.53],[103.091,15.535],[103.09,15.544],[103.088,15.549],[103.086,15.552],[103.069,15.562],[103.055,15.575],[103.052,15.581],[103.05,15.587],[103.05,15.592],[103.049,15.6],[103.047,15.603],[103.044,15.606],[103.039,15.609],[103.036,15.61],[103.031,15.613],[103.025,15.618],[102.983,15.661],[102.979,15.667],[102.977,15.672],[102.978,15.674],[102.98,15.676],[102.984,15.68],[103.005,15.692],[103.009,15.697],[103.011,15.699],[103.012,15.702],[103.012,15.707],[103.011,15.714],[103.009,15.726],[103.005,15.73],[103.002,15.733],[103,15.734],[102.998,15.736],[102.989,15.751],[102.987,15.753],[102.985,15.754],[102.982,15.756],[102.979,15.757],[102.968,15.764],[102.946,15.789],[102.938,15.816],[102.937,15.821],[102.936,15.83],[102.939,15.852],[102.939,15.859],[102.937,15.865],[102.91,15.921],[102.907,15.93],[102.907,15.937],[102.908,15.953],[102.909,15.956],[102.91,15.959],[102.913,15.971],[102.913,15.985],[102.913,15.992],[102.911,15.996],[102.909,16],[102.901,16.021],[102.895,16.033],[102.892,16.035],[102.889,16.037],[102.886,16.038],[102.878,16.041],[102.872,16.046],[102.865,16.057],[102.86,16.073],[102.859,16.081],[102.86,16.087],[102.867,16.104],[102.868,16.109],[102.868,16.117],[102.864,16.152],[102.865,16.167],[102.861,16.184],[102.855,16.2],[102.852,16.208],[102.851,16.215],[102.852,16.236],[102.85,16.258],[102.851,16.269],[102.853,16.274],[102.855,16.278],[102.859,16.283],[102.864,16.288],[102.878,16.298],[102.88,16.299],[102.899,16.314],[102.904,16.323],[102.907,16.333],[102.91,16.338],[102.912,16.342],[102.915,16.344],[102.917,16.347],[102.921,16.358],[102.923,16.36],[102.929,16.368],[102.931,16.37],[102.933,16.373],[102.936,16.375],[102.941,16.381],[102.953,16.403],[102.956,16.415],[102.955,16.422],[102.951,16.432],[102.944,16.443],[102.941,16.446],[102.949,16.449],[103.011,16.465],[103.018,16.468],[103.023,16.471],[103.026,16.473],[103.029,16.476],[103.04,16.492],[103.043,16.494],[103.046,16.496],[103.05,16.496],[103.058,16.496],[103.062,16.496],[103.066,16.497],[103.073,16.5],[103.081,16.505],[103.091,16.513],[103.102,16.526],[103.105,16.532],[103.111,16.545],[103.114,16.547],[103.117,16.552],[103.121,16.559],[103.132,16.587],[103.134,16.589],[103.136,16.591],[103.148,16.599],[103.151,16.601],[103.158,16.608],[103.163,16.616],[103.164,16.623],[103.164,16.628],[103.163,16.643],[103.174,16.64],[103.192,16.639],[103.196,16.637],[103.199,16.634],[103.2,16.626],[103.199,16.621],[103.197,16.618],[103.189,16.612],[103.186,16.61],[103.184,16.608],[103.182,16.605],[103.182,16.601],[103.182,16.598],[103.185,16.583],[103.186,16.575],[103.186,16.567],[103.187,16.563],[103.192,16.555],[103.194,16.55],[103.194,16.546],[103.193,16.542],[103.177,16.499],[103.176,16.494],[103.175,16.49],[103.176,16.486],[103.179,16.471],[103.181,16.466],[103.193,16.448],[103.196,16.441],[103.198,16.435],[103.197,16.431],[103.196,16.428],[103.192,16.422],[103.186,16.409],[103.18,16.401],[103.178,16.398],[103.178,16.395],[103.177,16.391],[103.18,16.381],[103.182,16.373],[103.186,16.37],[103.191,16.366],[103.204,16.363],[103.212,16.363],[103.218,16.363],[103.276,16.378],[103.279,16.38],[103.282,16.382],[103.285,16.384],[103.288,16.389],[103.293,16.399],[103.295,16.402],[103.298,16.402],[103.302,16.4],[103.306,16.392],[103.307,16.387],[103.308,16.381],[103.308,16.377],[103.308,16.374],[103.311,16.37],[103.315,16.367],[103.324,16.365],[103.33,16.364],[103.339,16.364],[103.342,16.363],[103.345,16.36],[103.349,16.355],[103.357,16.343],[103.36,16.336],[103.368,16.314],[103.371,16.309],[103.389,16.293],[103.4,16.288],[103.413,16.284],[103.417,16.28],[103.42,16.273],[103.422,16.267],[103.424,16.256],[103.422,16.244],[103.448,16.209],[103.451,16.204],[103.451,16.197],[103.453,16.192],[103.459,16.189],[103.463,16.192],[103.47,16.205],[103.476,16.209],[103.489,16.21],[103.524,16.209],[103.526,16.21]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Maha Sarakham'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Maha Sarakham?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Maha Sarakham is located? </h2>Maha Sarakham, is a province It belongs to the country of Thailand. Its postal identifier is MS.Maha Sarakham has an area of 5737 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

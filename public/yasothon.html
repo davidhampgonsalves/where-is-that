@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Yasothon?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[104.813,16.191],[104.811,16.17],[104.809,16.164],[104.807,16.161],[104.802,16.157],[104.798,16.155],[104.768,16.148],[104.675,16.135],[104.616,16.121],[104.597,16.111],[104.576,16.096],[104.572,16.091],[104.563,16.078],[104.546,16.041],[104.539,16.019],[104.535,16.013],[104.53,16.005],[104.514,15.991],[104.512,15.989],[104.51,15.984],[104.502,15.955],[104.5,15.953],[104.498,15.95],[104.494,15.946],[104.485,15.938],[104.481,15.933],[104.474,15.921],[104.466,15.913],[104.464,15.909],[104.462,15.905],[104.46,15.897],[104.459,15.885],[104.458,15.882],[104.457,15.878],[104.456,15.875],[104.456,15.87],[104.457,15.849],[104.457,15.843],[104.456,15.839],[104.442,15.823],[104.44,15.821],[104.44,15.817],[104.44,15.803],[104.439,15.799],[104.436,15.789],[104.435,15.782],[104.435,15.767],[104.433,15.764],[104.431,15.762],[104.429,15.759],[104.428,15.755],[104.428,15.74],[104.428,15.735],[104.427,15.731],[104.425,15.725],[104.425,15.721],[104.426,15.717],[104.428,15.713],[104.434,15.707],[104.437,15.702],[104.441,15.688],[104.441,15.677],[104.442,15.674],[104.443,15.671],[104.444,15.668],[104.443,15.665],[104.441,15.659],[104.441,15.656],[104.441,15.653],[104.442,15.649],[104.442,15.638],[104.444,15.635],[104.446,15.633],[104.451,15.633],[104.455,15.634],[104.459,15.633],[104.461,15.63],[104.462,15.625],[104.464,15.621],[104.465,15.618],[104.465,15.614],[104.464,15.608],[104.471,15.599],[104.512,15.583],[104.515,15.574],[104.519,15.566],[104.52,15.564],[104.52,15.562],[104.519,15.558],[104.517,15.554],[104.512,15.55],[104.501,15.546],[104.496,15.541],[104.492,15.535],[104.487,15.533],[104.483,15.533],[104.479,15.533],[104.475,15.534],[104.441,15.532],[104.437,15.531],[104.428,15.527],[104.425,15.526],[104.421,15.526],[104.411,15.529],[104.407,15.529],[104.404,15.528],[104.401,15.521],[104.399,15.51],[104.398,15.483],[104.395,15.463],[104.387,15.447],[104.386,15.442],[104.382,15.434],[104.383,15.42],[104.387,15.401],[104.391,15.397],[104.412,15.384],[104.418,15.378],[104.424,15.375],[104.429,15.377],[104.436,15.387],[104.435,15.372],[104.439,15.35],[104.436,15.34],[104.429,15.325],[104.427,15.317],[104.418,15.285],[104.407,15.288],[104.404,15.289],[104.4,15.292],[104.398,15.296],[104.395,15.303],[104.395,15.308],[104.393,15.313],[104.392,15.315],[104.389,15.318],[104.387,15.319],[104.382,15.319],[104.379,15.318],[104.373,15.319],[104.366,15.323],[104.353,15.332],[104.346,15.335],[104.339,15.337],[104.309,15.338],[104.305,15.338],[104.301,15.339],[104.295,15.343],[104.274,15.358],[104.267,15.362],[104.254,15.368],[104.244,15.379],[104.174,15.477],[104.151,15.501],[104.146,15.529],[104.129,15.565],[104.142,15.578],[104.152,15.583],[104.177,15.594],[104.199,15.6],[104.211,15.607],[104.195,15.629],[104.166,15.687],[104.156,15.702],[104.145,15.708],[104.134,15.702],[104.127,15.702],[104.136,15.746],[104.132,15.788],[104.112,15.823],[104.072,15.847],[104.074,15.82],[104.056,15.81],[104.03,15.805],[104.01,15.798],[104.004,15.81],[104.004,15.821],[104.008,15.829],[104.017,15.833],[104.017,15.839],[104.014,15.847],[104.018,15.855],[104.027,15.863],[104.038,15.867],[104.029,15.879],[104.02,15.888],[104.013,15.899],[104.011,15.912],[104.015,15.918],[104.017,15.92],[104.018,15.926],[104.019,15.936],[104.017,15.96],[104.018,15.97],[104.019,15.976],[104.021,15.978],[104.026,15.981],[104.04,15.983],[104.048,15.984],[104.066,15.984],[104.075,15.982],[104.09,15.979],[104.094,15.978],[104.098,15.979],[104.102,15.979],[104.105,15.981],[104.108,15.983],[104.109,15.985],[104.111,15.988],[104.112,15.993],[104.113,16.01],[104.118,16.033],[104.118,16.039],[104.117,16.044],[104.116,16.047],[104.107,16.06],[104.105,16.065],[104.101,16.075],[104.1,16.081],[104.101,16.085],[104.105,16.091],[104.109,16.096],[104.114,16.1],[104.12,16.104],[104.123,16.106],[104.126,16.107],[104.145,16.111],[104.148,16.113],[104.151,16.114],[104.161,16.123],[104.163,16.126],[104.167,16.131],[104.177,16.14],[104.179,16.142],[104.193,16.147],[104.196,16.148],[104.199,16.151],[104.203,16.155],[104.204,16.156],[104.209,16.159],[104.221,16.161],[104.225,16.162],[104.228,16.163],[104.233,16.168],[104.244,16.184],[104.249,16.193],[104.257,16.214],[104.259,16.217],[104.272,16.236],[104.277,16.241],[104.287,16.25],[104.29,16.252],[104.293,16.253],[104.297,16.253],[104.309,16.252],[104.313,16.252],[104.317,16.253],[104.32,16.254],[104.323,16.256],[104.326,16.258],[104.328,16.261],[104.356,16.323],[104.372,16.336],[104.378,16.339],[104.388,16.343],[104.396,16.345],[104.404,16.345],[104.424,16.344],[104.434,16.344],[104.447,16.342],[104.465,16.338],[104.47,16.338],[104.475,16.338],[104.485,16.341],[104.489,16.342],[104.497,16.342],[104.501,16.341],[104.505,16.338],[104.511,16.332],[104.514,16.327],[104.521,16.315],[104.524,16.313],[104.529,16.312],[104.551,16.311],[104.555,16.31],[104.559,16.308],[104.563,16.303],[104.565,16.299],[104.571,16.285],[104.581,16.267],[104.584,16.258],[104.587,16.252],[104.59,16.248],[104.599,16.242],[104.611,16.235],[104.616,16.231],[104.62,16.228],[104.629,16.218],[104.631,16.215],[104.636,16.214],[104.643,16.214],[104.656,16.217],[104.661,16.22],[104.664,16.224],[104.665,16.227],[104.667,16.234],[104.669,16.237],[104.672,16.239],[104.675,16.241],[104.679,16.241],[104.682,16.24],[104.684,16.236],[104.685,16.232],[104.688,16.228],[104.692,16.225],[104.698,16.22],[104.702,16.217],[104.714,16.213],[104.802,16.198],[104.813,16.191]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Yasothon'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Yasothon?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Yasothon is located? </h2>Yasothon, is a province It belongs to the country of Thailand. Its postal identifier is YS.Yasothon has an area of 4089 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Miranda?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-65.426,10.144],[-65.427,10.14],[-65.439,10.095],[-65.449,10.08],[-65.454,10.077],[-65.459,10.075],[-65.464,10.073],[-65.47,10.069],[-65.475,10.064],[-65.487,10.056],[-65.511,10.048],[-65.521,10.041],[-65.547,10.016],[-65.555,10.01],[-65.562,10.006],[-65.576,10.003],[-65.604,9.995],[-65.613,9.99],[-65.622,9.984],[-65.633,9.972],[-65.638,9.971],[-65.642,9.972],[-65.646,9.976],[-65.651,9.979],[-65.659,9.981],[-65.665,9.979],[-65.669,9.977],[-65.697,9.953],[-65.745,9.939],[-65.766,9.937],[-65.793,9.939],[-65.799,9.94],[-65.804,9.942],[-65.808,9.944],[-65.816,9.948],[-65.827,9.952],[-65.85,9.956],[-65.862,9.957],[-65.871,9.956],[-65.88,9.952],[-65.885,9.949],[-65.888,9.947],[-65.912,9.938],[-65.96,9.929],[-65.971,9.929],[-66.046,9.953],[-66.062,9.956],[-66.071,9.956],[-66.078,9.955],[-66.084,9.953],[-66.104,9.947],[-66.112,9.948],[-66.117,9.95],[-66.12,9.953],[-66.122,9.959],[-66.133,9.967],[-66.137,9.966],[-66.145,9.964],[-66.175,9.951],[-66.184,9.949],[-66.19,9.949],[-66.209,9.957],[-66.234,9.973],[-66.245,9.978],[-66.268,9.979],[-66.288,9.979],[-66.298,9.98],[-66.306,9.982],[-66.334,9.997],[-66.337,9.999],[-66.338,10],[-66.351,10.007],[-66.372,10.016],[-66.383,10.019],[-66.392,10.019],[-66.398,10.019],[-66.418,10.012],[-66.421,10.011],[-66.424,10.009],[-66.427,10.006],[-66.439,9.99],[-66.45,9.982],[-66.486,9.976],[-66.528,9.968],[-66.613,9.966],[-66.666,9.973],[-66.686,9.982],[-66.696,9.989],[-66.703,9.991],[-66.709,9.991],[-66.718,9.99],[-66.748,9.991],[-66.756,9.994],[-66.761,9.998],[-66.763,10.001],[-66.773,10.009],[-66.791,10.013],[-66.821,10.015],[-66.835,10.012],[-66.865,10.001],[-66.879,10],[-66.881,10.001],[-66.885,10.003],[-66.89,10.006],[-66.91,10.011],[-66.924,10.01],[-66.93,10.013],[-66.934,10.019],[-66.938,10.026],[-66.948,10.035],[-66.957,10.047],[-66.958,10.051],[-66.964,10.06],[-66.979,10.072],[-66.984,10.074],[-66.993,10.076],[-66.999,10.076],[-67.003,10.075],[-67.007,10.073],[-67.011,10.071],[-67.019,10.065],[-67.028,10.059],[-67.042,10.053],[-67.088,10.083],[-67.111,10.101],[-67.119,10.111],[-67.133,10.145],[-67.134,10.155],[-67.134,10.162],[-67.133,10.168],[-67.128,10.177],[-67.12,10.19],[-67.118,10.195],[-67.108,10.252],[-67.108,10.26],[-67.109,10.265],[-67.115,10.271],[-67.128,10.28],[-67.136,10.285],[-67.167,10.296],[-67.173,10.3],[-67.179,10.304],[-67.186,10.313],[-67.189,10.32],[-67.19,10.327],[-67.189,10.333],[-67.187,10.338],[-67.185,10.344],[-67.178,10.351],[-67.174,10.355],[-67.176,10.358],[-67.183,10.365],[-67.191,10.37],[-67.22,10.417],[-67.153,10.441],[-67.152,10.431],[-67.151,10.431],[-67.148,10.429],[-67.144,10.428],[-67.12,10.421],[-67.075,10.401],[-67.051,10.395],[-67.03,10.393],[-67.017,10.394],[-67.008,10.395],[-66.983,10.405],[-66.964,10.416],[-66.956,10.418],[-66.944,10.421],[-66.927,10.422],[-66.897,10.416],[-66.888,10.465],[-66.881,10.481],[-66.869,10.492],[-66.856,10.506],[-66.854,10.512],[-66.854,10.515],[-66.861,10.527],[-66.874,10.547],[-66.863,10.553],[-66.859,10.553],[-66.855,10.551],[-66.843,10.545],[-66.839,10.544],[-66.796,10.551],[-66.723,10.552],[-66.721,10.552],[-66.717,10.55],[-66.706,10.546],[-66.609,10.546],[-66.603,10.544],[-66.595,10.549],[-66.586,10.557],[-66.581,10.559],[-66.578,10.56],[-66.576,10.56],[-66.526,10.558],[-66.521,10.557],[-66.514,10.556],[-66.512,10.556],[-66.511,10.555],[-66.51,10.555],[-66.508,10.554],[-66.504,10.553],[-66.498,10.551],[-66.496,10.55],[-66.496,10.549],[-66.495,10.548],[-66.492,10.547],[-66.488,10.545],[-66.471,10.54],[-66.467,10.539],[-66.462,10.542],[-66.455,10.545],[-66.452,10.545],[-66.45,10.545],[-66.443,10.538],[-66.441,10.537],[-66.44,10.537],[-66.437,10.539],[-66.367,10.544],[-66.354,10.545],[-66.325,10.531],[-66.314,10.538],[-66.312,10.54],[-66.312,10.541],[-66.312,10.542],[-66.313,10.544],[-66.313,10.545],[-66.314,10.547],[-66.308,10.591],[-66.308,10.593],[-66.308,10.594],[-66.308,10.594],[-66.309,10.594],[-66.309,10.595],[-66.309,10.595],[-66.31,10.597],[-66.31,10.6],[-66.312,10.624],[-66.314,10.629],[-66.309,10.634],[-66.295,10.647],[-66.276,10.652],[-66.252,10.649],[-66.19,10.617],[-66.124,10.602],[-66.104,10.584],[-66.058,10.579],[-66.046,10.577],[-66.054,10.562],[-66.076,10.549],[-66.102,10.541],[-66.122,10.543],[-66.121,10.531],[-66.122,10.507],[-66.118,10.498],[-66.087,10.467],[-66.012,10.409],[-66.004,10.399],[-65.971,10.379],[-65.953,10.352],[-65.882,10.31],[-65.896,10.309],[-65.91,10.312],[-65.922,10.317],[-65.93,10.323],[-65.937,10.317],[-65.944,10.31],[-65.923,10.282],[-65.897,10.288],[-65.871,10.273],[-65.827,10.235],[-65.802,10.226],[-65.775,10.222],[-65.717,10.22],[-65.747,10.239],[-65.847,10.281],[-65.868,10.31],[-65.58,10.185],[-65.459,10.149],[-65.426,10.144]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Miranda'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Miranda?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Miranda is located? </h2>Miranda, is a state It belongs to the country of Venezuela. Its postal identifier is MI.Miranda has an area of 9065 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

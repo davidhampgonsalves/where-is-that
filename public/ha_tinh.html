@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ha Tinh?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[105.802,18.666],[105.826,18.594],[105.88,18.511],[105.915,18.473],[105.95,18.471],[105.952,18.452],[105.959,18.433],[105.968,18.415],[105.978,18.402],[106.001,18.385],[106.008,18.379],[106.046,18.332],[106.098,18.29],[106.11,18.276],[106.112,18.263],[106.094,18.259],[106.104,18.252],[106.12,18.255],[106.142,18.262],[106.166,18.266],[106.181,18.26],[106.234,18.221],[106.241,18.217],[106.262,18.21],[106.271,18.204],[106.299,18.169],[106.332,18.145],[106.346,18.133],[106.354,18.115],[106.347,18.115],[106.337,18.121],[106.324,18.118],[106.313,18.11],[106.307,18.1],[106.32,18.094],[106.324,18.097],[106.328,18.099],[106.341,18.1],[106.335,18.089],[106.337,18.079],[106.347,18.06],[106.347,18.072],[106.35,18.084],[106.355,18.094],[106.361,18.1],[106.371,18.106],[106.378,18.104],[106.384,18.1],[106.395,18.1],[106.404,18.106],[106.423,18.128],[106.435,18.124],[106.434,18.113],[106.423,18.094],[106.428,18.073],[106.439,18.052],[106.519,17.957],[106.51,17.956],[106.467,17.966],[106.386,17.973],[106.35,17.967],[106.332,17.955],[106.321,17.94],[106.311,17.923],[106.301,17.913],[106.278,17.908],[106.247,17.91],[106.139,17.929],[106.077,17.947],[106.063,17.956],[106.058,17.963],[106.058,17.972],[106.06,17.982],[106.059,17.995],[106.054,18.008],[106.043,18.024],[106.028,18.039],[106.01,18.051],[105.987,18.061],[105.927,18.071],[105.892,18.07],[105.86,18.064],[105.821,18.048],[105.756,18.03],[105.737,18.023],[105.711,18],[105.682,17.981],[105.633,17.974],[105.603,17.969],[105.59,17.996],[105.59,17.996],[105.566,18.009],[105.559,18.016],[105.556,18.025],[105.552,18.048],[105.546,18.059],[105.538,18.067],[105.521,18.076],[105.512,18.083],[105.496,18.118],[105.492,18.121],[105.48,18.124],[105.476,18.128],[105.477,18.13],[105.479,18.134],[105.481,18.139],[105.481,18.145],[105.473,18.172],[105.467,18.181],[105.451,18.193],[105.431,18.201],[105.41,18.202],[105.41,18.202],[105.392,18.194],[105.386,18.185],[105.381,18.163],[105.377,18.156],[105.377,18.156],[105.368,18.15],[105.365,18.151],[105.363,18.155],[105.356,18.159],[105.34,18.163],[105.322,18.17],[105.306,18.181],[105.295,18.196],[105.294,18.207],[105.301,18.231],[105.299,18.242],[105.293,18.253],[105.288,18.254],[105.288,18.254],[105.284,18.251],[105.283,18.25],[105.246,18.247],[105.236,18.25],[105.229,18.256],[105.22,18.271],[105.215,18.278],[105.166,18.307],[105.157,18.32],[105.156,18.341],[105.162,18.354],[105.163,18.366],[105.145,18.383],[105.114,18.405],[105.091,18.427],[105.08,18.455],[105.085,18.496],[105.1,18.551],[105.114,18.581],[105.128,18.599],[105.128,18.599],[105.14,18.601],[105.152,18.597],[105.162,18.598],[105.162,18.598],[105.169,18.615],[105.169,18.618],[105.196,18.619],[105.274,18.626],[105.385,18.592],[105.412,18.588],[105.437,18.589],[105.46,18.594],[105.503,18.597],[105.615,18.583],[105.62,18.583],[105.632,18.582],[105.639,18.577],[105.662,18.57],[105.681,18.577],[105.696,18.601],[105.693,18.601],[105.691,18.607],[105.689,18.615],[105.689,18.622],[105.693,18.626],[105.7,18.627],[105.707,18.631],[105.709,18.639],[105.715,18.648],[105.727,18.655],[105.751,18.663],[105.77,18.672],[105.77,18.695],[105.767,18.756],[105.765,18.759],[105.784,18.747],[105.79,18.719],[105.791,18.69],[105.795,18.677],[105.802,18.666]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Ha Tinh'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Ha Tinh?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where Ha Tinh is located? </h2>Ha Tinh, is a region of the B?c Trung B? region. It belongs to the country of Vietnam.Ha Tinh has an area of 6292 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

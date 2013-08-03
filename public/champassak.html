@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Champassak?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[106.073,15.46],[106.092,15.437],[106.102,15.413],[106.081,15.391],[106.075,15.362],[106.134,15.299],[106.161,15.288],[106.21,15.318],[106.254,15.36],[106.279,15.376],[106.307,15.386],[106.342,15.391],[106.373,15.4],[106.425,15.381],[106.471,15.325],[106.505,15.311],[106.54,15.31],[106.562,15.303],[106.666,15.222],[106.672,15.137],[106.677,15.137],[106.684,15.138],[106.683,15.134],[106.681,15.131],[106.698,15.119],[106.72,15.115],[106.761,15.124],[106.776,15.111],[106.786,15.093],[106.8,15.082],[106.812,15.066],[106.822,15.016],[106.822,14.965],[106.804,14.935],[106.819,14.895],[106.797,14.897],[106.756,14.886],[106.745,14.873],[106.727,14.859],[106.708,14.838],[106.706,14.81],[106.691,14.786],[106.661,14.781],[106.631,14.782],[106.611,14.768],[106.56,14.785],[106.532,14.786],[106.505,14.802],[106.485,14.827],[106.484,14.853],[106.489,14.879],[106.486,14.892],[106.487,14.906],[106.499,14.931],[106.502,14.962],[106.482,14.982],[106.455,14.972],[106.432,14.954],[106.408,14.966],[106.396,14.993],[106.371,15.006],[106.342,15.006],[106.318,14.992],[106.304,14.967],[106.261,14.934],[106.215,14.889],[106.173,14.827],[106.176,14.753],[106.191,14.726],[106.21,14.704],[106.239,14.688],[106.263,14.669],[106.284,14.589],[106.302,14.57],[106.323,14.553],[106.341,14.528],[106.345,14.5],[106.345,14.487],[106.352,14.475],[106.34,14.449],[106.34,14.449],[106.333,14.448],[106.32,14.445],[106.306,14.446],[106.296,14.448],[106.236,14.484],[106.23,14.49],[106.23,14.491],[106.22,14.474],[106.21,14.422],[106.204,14.4],[106.189,14.379],[106.175,14.371],[106.173,14.37],[106.154,14.368],[106.119,14.37],[106.095,14.374],[106.079,14.373],[106.068,14.374],[106.063,14.373],[106.063,14.373],[106.06,14.369],[106.058,14.353],[106.055,14.349],[106.055,14.349],[106.038,14.348],[105.994,14.363],[105.974,14.366],[105.974,14.366],[105.969,14.355],[105.968,14.344],[105.969,14.332],[105.974,14.321],[105.993,14.306],[106.004,14.29],[106.008,14.271],[106.004,14.246],[106.012,14.226],[106.026,14.213],[106.06,14.192],[106.076,14.175],[106.101,14.115],[106.115,14.1],[106.131,14.087],[106.144,14.073],[106.149,14.054],[106.142,14.035],[106.126,14.022],[106.126,14.022],[106.124,14.02],[106.108,14.011],[106.094,13.996],[106.082,13.981],[106.084,13.934],[106.069,13.917],[106.069,13.917],[106.049,13.916],[105.997,13.928],[105.974,13.929],[105.949,13.92],[105.924,13.917],[105.899,13.923],[105.896,13.925],[105.873,13.937],[105.787,14.01],[105.77,14.035],[105.759,14.063],[105.744,14.087],[105.716,14.102],[105.705,14.102],[105.683,14.099],[105.669,14.101],[105.653,14.107],[105.643,14.114],[105.633,14.114],[105.633,14.114],[105.617,14.103],[105.617,14.103],[105.61,14.121],[105.594,14.137],[105.576,14.144],[105.561,14.138],[105.555,14.146],[105.548,14.153],[105.541,14.159],[105.533,14.164],[105.533,14.165],[105.505,14.145],[105.49,14.137],[105.49,14.137],[105.474,14.133],[105.473,14.133],[105.45,14.117],[105.45,14.117],[105.422,14.108],[105.392,14.104],[105.364,14.104],[105.348,14.106],[105.337,14.11],[105.329,14.118],[105.304,14.153],[105.296,14.157],[105.282,14.161],[105.275,14.165],[105.257,14.183],[105.197,14.27],[105.188,14.291],[105.184,14.314],[105.184,14.346],[105.184,14.346],[105.184,14.346],[105.184,14.346],[105.198,14.345],[105.25,14.357],[105.266,14.363],[105.268,14.364],[105.275,14.372],[105.287,14.393],[105.294,14.399],[105.295,14.399],[105.304,14.398],[105.322,14.387],[105.335,14.386],[105.335,14.386],[105.341,14.39],[105.359,14.408],[105.367,14.415],[105.368,14.415],[105.379,14.418],[105.405,14.423],[105.406,14.423],[105.416,14.428],[105.42,14.435],[105.428,14.458],[105.433,14.468],[105.44,14.475],[105.463,14.496],[105.495,14.537],[105.507,14.564],[105.51,14.594],[105.495,14.66],[105.497,14.691],[105.505,14.736],[105.501,14.746],[105.49,14.764],[105.489,14.786],[105.493,14.809],[105.501,14.827],[105.506,14.831],[105.506,14.831],[105.52,14.834],[105.52,14.834],[105.524,14.837],[105.524,14.843],[105.517,14.857],[105.516,14.872],[105.517,14.878],[105.518,14.878],[105.522,14.879],[105.537,14.878],[105.543,14.88],[105.543,14.88],[105.55,14.902],[105.534,14.934],[105.543,14.953],[105.583,14.978],[105.593,14.991],[105.566,14.996],[105.566,14.996],[105.566,14.996],[105.566,14.996],[105.553,15.005],[105.524,15.046],[105.523,15.05],[105.523,15.061],[105.521,15.066],[105.516,15.067],[105.503,15.065],[105.498,15.066],[105.473,15.091],[105.452,15.095],[105.443,15.112],[105.443,15.134],[105.447,15.155],[105.454,15.176],[105.463,15.19],[105.504,15.231],[105.531,15.253],[105.56,15.271],[105.564,15.273],[105.564,15.3],[105.561,15.321],[105.558,15.325],[105.538,15.322],[105.519,15.321],[105.499,15.325],[105.483,15.335],[105.477,15.353],[105.486,15.375],[105.506,15.388],[105.506,15.388],[105.552,15.402],[105.553,15.402],[105.588,15.424],[105.592,15.428],[105.592,15.428],[105.596,15.427],[105.619,15.437],[105.634,15.454],[105.661,15.457],[105.685,15.447],[105.709,15.442],[105.732,15.447],[105.741,15.456],[105.754,15.459],[105.762,15.451],[105.771,15.443],[105.783,15.436],[105.794,15.432],[105.805,15.436],[105.815,15.443],[105.825,15.443],[105.834,15.441],[105.897,15.442],[105.931,15.45],[105.957,15.458],[105.981,15.445],[106.004,15.454],[106.028,15.455],[106.051,15.46],[106.073,15.46]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Champassak'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Champassak?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Champassak is located? </h2>Champassak, is a province It belongs to the country of Laos. Its postal identifier is CH.Champassak has an area of 15118 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

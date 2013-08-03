@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Shizuoka?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[138.9,35.381],[138.965,35.388],[138.975,35.387],[138.987,35.381],[138.988,35.374],[138.987,35.356],[138.988,35.348],[138.99,35.342],[138.994,35.334],[138.999,35.313],[139,35.301],[139,35.291],[138.998,35.285],[138.993,35.277],[138.977,35.262],[138.971,35.25],[138.969,35.23],[138.974,35.205],[138.984,35.183],[139.003,35.158],[139.012,35.147],[139.019,35.141],[139.029,35.136],[139.052,35.129],[139.073,35.125],[139.113,35.111],[139.111,35.109],[139.089,35.055],[139.106,35.049],[139.11,35.038],[139.104,35.014],[139.103,34.994],[139.106,34.984],[139.131,34.965],[139.143,34.942],[139.149,34.905],[139.141,34.871],[139.114,34.855],[139.098,34.852],[139.089,34.842],[139.084,34.828],[139.083,34.812],[139.08,34.795],[139.073,34.781],[139.052,34.757],[139.046,34.753],[139.028,34.749],[139.021,34.746],[139.014,34.739],[139.003,34.722],[138.997,34.715],[138.989,34.701],[138.986,34.683],[138.988,34.665],[138.994,34.65],[138.983,34.645],[138.973,34.646],[138.965,34.653],[138.96,34.664],[138.903,34.616],[138.87,34.599],[138.836,34.596],[138.82,34.602],[138.806,34.614],[138.795,34.626],[138.788,34.637],[138.778,34.663],[138.774,34.671],[138.767,34.676],[138.759,34.679],[138.752,34.682],[138.747,34.692],[138.746,34.709],[138.755,34.72],[138.766,34.728],[138.774,34.74],[138.775,34.751],[138.769,34.782],[138.767,34.801],[138.773,34.827],[138.774,34.828],[138.772,34.836],[138.767,34.842],[138.763,34.847],[138.761,34.849],[138.761,34.869],[138.766,34.882],[138.777,34.89],[138.795,34.897],[138.79,34.907],[138.779,34.922],[138.774,34.932],[138.771,34.944],[138.774,34.976],[138.781,34.999],[138.799,35.008],[138.836,35.007],[138.859,35.009],[138.878,35.013],[138.894,35.02],[138.908,35.031],[138.843,35.089],[138.803,35.109],[138.759,35.122],[138.715,35.126],[138.671,35.116],[138.651,35.109],[138.63,35.105],[138.585,35.102],[138.571,35.095],[138.535,35.048],[138.506,35.021],[138.498,35.006],[138.494,34.986],[138.513,34.995],[138.533,35],[138.542,34.995],[138.528,34.973],[138.469,34.948],[138.459,34.941],[138.401,34.92],[138.388,34.914],[138.372,34.901],[138.353,34.888],[138.337,34.874],[138.329,34.855],[138.33,34.845],[138.341,34.827],[138.343,34.815],[138.34,34.806],[138.336,34.797],[138.322,34.781],[138.258,34.738],[138.247,34.729],[138.202,34.66],[138.194,34.642],[138.201,34.622],[138.217,34.605],[138.233,34.596],[138.233,34.589],[138.19,34.592],[138.023,34.647],[137.984,34.653],[137.945,34.654],[137.792,34.64],[137.628,34.66],[137.595,34.677],[137.565,34.663],[137.467,34.659],[137.469,34.687],[137.468,34.693],[137.465,34.707],[137.463,34.725],[137.467,34.752],[137.472,34.771],[137.488,34.81],[137.498,34.82],[137.512,34.826],[137.564,34.838],[137.572,34.841],[137.579,34.845],[137.609,34.869],[137.618,34.879],[137.625,34.897],[137.633,34.912],[137.67,34.947],[137.676,34.961],[137.685,35.003],[137.698,35.018],[137.753,35.063],[137.77,35.081],[137.787,35.113],[137.796,35.136],[137.798,35.162],[137.806,35.195],[137.838,35.205],[137.875,35.236],[137.896,35.243],[137.94,35.273],[137.959,35.282],[137.985,35.287],[137.996,35.291],[138.005,35.297],[138.015,35.308],[138.028,35.319],[138.039,35.324],[138.068,35.33],[138.086,35.337],[138.113,35.357],[138.123,35.371],[138.127,35.385],[138.124,35.394],[138.118,35.404],[138.111,35.414],[138.109,35.424],[138.113,35.434],[138.131,35.448],[138.139,35.46],[138.14,35.47],[138.137,35.48],[138.134,35.492],[138.138,35.51],[138.14,35.523],[138.139,35.535],[138.136,35.547],[138.143,35.561],[138.154,35.567],[138.169,35.571],[138.177,35.579],[138.182,35.587],[138.187,35.607],[138.196,35.628],[138.214,35.612],[138.217,35.602],[138.222,35.573],[138.237,35.535],[138.241,35.518],[138.243,35.475],[138.241,35.464],[138.235,35.444],[138.234,35.434],[138.238,35.408],[138.235,35.393],[138.227,35.368],[138.226,35.356],[138.23,35.344],[138.232,35.334],[138.231,35.324],[138.232,35.314],[138.236,35.304],[138.247,35.297],[138.262,35.294],[138.284,35.299],[138.305,35.302],[138.328,35.3],[138.343,35.292],[138.353,35.278],[138.367,35.219],[138.375,35.204],[138.383,35.19],[138.398,35.181],[138.419,35.165],[138.43,35.159],[138.443,35.157],[138.458,35.157],[138.472,35.162],[138.487,35.172],[138.498,35.182],[138.503,35.188],[138.507,35.194],[138.509,35.199],[138.511,35.207],[138.51,35.219],[138.507,35.231],[138.504,35.257],[138.506,35.294],[138.516,35.33],[138.523,35.381],[138.528,35.397],[138.534,35.41],[138.543,35.417],[138.556,35.417],[138.593,35.392],[138.613,35.384],[138.635,35.381],[138.648,35.374],[138.657,35.365],[138.672,35.356],[138.697,35.351],[138.83,35.365],[138.9,35.381]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Shizuoka'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Shizuoka?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Shizuoka is located? </h2>Shizuoka, is a prefecture of the Chubu region. It belongs to the country of Japan. Its postal identifier is SZ.Shizuoka has an area of 7852 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

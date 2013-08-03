@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Gobi Altay?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[94.51,47.687],[94.641,47.678],[94.758,47.681],[94.775,47.683],[94.813,47.693],[94.821,47.694],[94.853,47.693],[94.883,47.694],[94.968,47.676],[94.998,47.666],[95.017,47.652],[95.039,47.631],[95.056,47.612],[95.069,47.593],[95.081,47.581],[95.092,47.572],[95.11,47.562],[95.146,47.559],[95.187,47.576],[95.216,47.584],[95.47,47.574],[95.511,47.552],[95.547,47.54],[95.579,47.533],[95.589,47.529],[95.652,47.489],[95.718,47.455],[96.083,47.297],[96.11,47.288],[96.125,47.285],[96.158,47.273],[96.18,47.257],[96.194,47.243],[96.216,47.192],[96.24,47.156],[96.299,47.105],[96.32,47.08],[96.34,47.01],[96.362,46.968],[96.377,46.946],[96.385,46.887],[96.42,46.886],[96.68,46.941],[96.715,46.938],[96.749,46.921],[96.835,46.893],[96.844,46.829],[96.853,46.803],[96.871,46.771],[96.9,46.739],[96.971,46.684],[96.98,46.668],[96.975,46.634],[96.982,46.619],[96.987,46.61],[97.036,46.605],[97.144,46.603],[97.152,46.602],[97.167,46.598],[97.191,46.588],[97.201,46.586],[97.214,46.586],[97.239,46.588],[97.255,46.591],[97.29,46.605],[97.342,46.638],[97.351,46.646],[97.365,46.663],[97.369,46.667],[97.377,46.67],[97.394,46.673],[97.438,46.673],[97.486,46.651],[97.558,46.619],[97.639,46.605],[97.65,46.536],[97.642,46.455],[97.644,46.431],[97.65,46.407],[97.659,46.384],[97.683,46.338],[97.692,46.327],[97.707,46.315],[97.752,46.297],[97.772,46.286],[97.789,46.266],[97.81,46.221],[97.829,46.202],[97.916,46.159],[97.944,46.138],[97.982,46.101],[98.003,46.088],[98.025,46.081],[98.075,46.069],[98.106,46.066],[98.133,46.059],[98.15,46.053],[98.186,46.024],[98.377,45.836],[98.405,45.793],[98.423,45.733],[98.479,45.451],[98.475,45.411],[98.462,45.359],[98.348,45.079],[98.316,45.034],[98.302,45.024],[98.263,45],[98.249,44.988],[98.234,44.969],[98.225,44.947],[98.222,44.911],[98.223,44.879],[98.242,44.748],[98.239,44.644],[98.234,44.615],[98.217,44.569],[98.202,44.539],[98.178,44.511],[98.163,44.498],[98.141,44.482],[98.092,44.456],[97.964,44.407],[97.95,44.393],[97.943,44.372],[97.942,44.282],[97.978,44.027],[97.978,43.996],[97.932,43.721],[97.942,43.631],[97.941,43.6],[97.932,43.569],[97.856,43.384],[97.806,43.306],[97.798,43.279],[97.798,43.248],[97.85,42.723],[97.85,42.723],[97.193,42.787],[97.191,42.787],[96.474,42.732],[96.379,42.721],[96.367,42.723],[96.357,42.725],[96.35,42.741],[96.337,42.867],[96.33,42.89],[96.318,42.91],[96.294,42.933],[95.908,43.215],[95.874,43.247],[95.855,43.285],[95.845,43.327],[95.841,43.373],[95.833,43.409],[95.692,43.631],[95.589,43.87],[95.535,43.958],[95.51,43.979],[95.475,43.987],[95.422,43.989],[95.327,44.007],[95.319,44.017],[95.318,44.041],[95.328,44.098],[95.321,44.149],[95.322,44.158],[95.327,44.169],[95.34,44.188],[95.347,44.215],[95.359,44.232],[95.389,44.261],[95.397,44.281],[95.379,44.287],[95.036,44.255],[94.994,44.26],[94.905,44.294],[94.721,44.336],[94.698,44.344],[94.684,44.357],[94.672,44.374],[94.657,44.389],[94.588,44.436],[94.46,44.493],[94.43,44.505],[94.366,44.505],[94.338,44.512],[94.322,44.528],[94.295,44.572],[94.277,44.59],[94.195,44.655],[94.182,44.661],[94.165,44.666],[94.149,44.667],[94.103,44.652],[94.058,44.652],[93.975,44.66],[93.927,44.673],[93.874,44.714],[93.714,44.875],[93.688,44.891],[93.525,44.951],[93.42,44.955],[93.4,44.961],[93.361,44.979],[93.341,44.985],[93.317,44.986],[93.269,44.98],[93.244,44.982],[93.166,45.008],[93.139,45.01],[93.076,45.005],[93.076,45.006],[93.077,45.01],[93.129,45.328],[93.136,45.448],[93.11,45.668],[93.118,45.702],[93.137,45.726],[93.162,45.744],[93.277,45.792],[93.3,45.807],[93.321,45.826],[93.358,45.882],[93.37,45.896],[93.396,45.907],[93.409,45.924],[93.41,45.943],[93.4,45.993],[93.404,46.011],[93.5,46.179],[93.614,46.322],[93.63,46.35],[93.634,46.382],[93.627,46.414],[93.611,46.446],[93.547,46.532],[93.537,46.55],[93.534,46.571],[93.548,46.58],[93.57,46.581],[93.593,46.577],[93.698,46.569],[93.727,46.573],[93.783,46.586],[93.893,46.658],[93.982,46.697],[94.187,46.76],[94.228,46.783],[94.255,46.81],[94.264,46.828],[94.266,46.865],[94.23,46.915],[94.14,47.006],[94.083,47.078],[94.063,47.115],[94.052,47.151],[94.052,47.18],[94.054,47.206],[94.048,47.226],[94.034,47.243],[93.965,47.265],[93.826,47.326],[93.615,47.457],[93.54,47.505],[93.5,47.543],[93.494,47.562],[93.491,47.578],[93.488,47.631],[93.732,47.65],[93.857,47.683],[93.989,47.73],[94.082,47.774],[94.111,47.779],[94.146,47.778],[94.199,47.771],[94.241,47.759],[94.267,47.748],[94.299,47.729],[94.312,47.724],[94.323,47.722],[94.392,47.715],[94.51,47.687]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Gobi Altay'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Gobi Altay?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Gobi Altay is located? </h2>Gobi Altay, is a province It belongs to the country of Mongolia. Its postal identifier is GA.Gobi Altay has an area of 142829 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

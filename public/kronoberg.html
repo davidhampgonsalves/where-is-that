@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kronoberg?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[15.551,57.211],[15.576,57.199],[15.584,57.193],[15.586,57.184],[15.585,57.169],[15.591,57.157],[15.606,57.149],[15.662,57.135],[15.673,57.13],[15.675,57.126],[15.677,57.12],[15.681,57.114],[15.688,57.107],[15.731,57.082],[15.741,57.075],[15.75,57.064],[15.806,57.02],[15.813,57.011],[15.817,57.004],[15.819,56.999],[15.822,56.994],[15.839,56.972],[15.846,56.958],[15.846,56.943],[15.836,56.927],[15.811,56.913],[15.783,56.908],[15.691,56.908],[15.674,56.903],[15.665,56.902],[15.655,56.903],[15.593,56.922],[15.575,56.924],[15.56,56.922],[15.547,56.918],[15.535,56.911],[15.528,56.903],[15.529,56.892],[15.545,56.867],[15.553,56.852],[15.558,56.837],[15.559,56.824],[15.556,56.815],[15.548,56.808],[15.535,56.802],[15.522,56.799],[15.474,56.798],[15.46,56.797],[15.448,56.793],[15.435,56.785],[15.426,56.781],[15.401,56.774],[15.394,56.768],[15.392,56.757],[15.4,56.736],[15.413,56.711],[15.417,56.698],[15.419,56.678],[15.409,56.587],[15.409,56.57],[15.405,56.559],[15.397,56.552],[15.385,56.548],[15.376,56.541],[15.369,56.532],[15.355,56.5],[15.355,56.497],[15.355,56.492],[15.363,56.482],[15.343,56.469],[15.331,56.467],[15.317,56.467],[15.289,56.471],[15.268,56.471],[15.247,56.467],[15.237,56.462],[15.231,56.455],[15.227,56.449],[15.223,56.446],[15.216,56.443],[15.205,56.442],[15.188,56.444],[15.165,56.449],[15.135,56.46],[15.121,56.463],[15.104,56.463],[15.057,56.454],[15.014,56.453],[15.003,56.451],[14.996,56.447],[14.993,56.441],[14.99,56.434],[14.983,56.426],[14.948,56.399],[14.915,56.382],[14.894,56.378],[14.87,56.379],[14.725,56.402],[14.7,56.41],[14.664,56.427],[14.627,56.45],[14.596,56.464],[14.541,56.477],[14.359,56.507],[14.308,56.52],[14.278,56.524],[14.162,56.523],[14.146,56.526],[14.123,56.539],[14.109,56.542],[14.095,56.541],[14.077,56.534],[14.063,56.526],[14.056,56.518],[14.052,56.512],[14.047,56.499],[14.042,56.493],[14.024,56.486],[13.993,56.479],[13.577,56.424],[13.501,56.424],[13.472,56.448],[13.456,56.474],[13.453,56.484],[13.452,56.492],[13.452,56.5],[13.455,56.505],[13.456,56.514],[13.456,56.528],[13.449,56.559],[13.438,56.579],[13.419,56.603],[13.352,56.671],[13.334,56.685],[13.311,56.698],[13.308,56.702],[13.314,56.71],[13.316,56.716],[13.316,56.725],[13.315,56.74],[13.32,56.789],[13.318,56.818],[13.321,56.832],[13.328,56.844],[13.341,56.86],[13.346,56.865],[13.352,56.868],[13.369,56.869],[13.403,56.877],[13.419,56.879],[13.486,56.879],[13.5,56.881],[13.539,56.894],[13.622,56.907],[13.641,56.913],[13.657,56.921],[13.677,56.934],[13.693,56.953],[13.698,56.965],[13.694,56.983],[13.751,57.03],[13.762,57.033],[13.78,57.036],[13.809,57.025],[13.85,57.004],[13.862,57.002],[13.872,57.004],[13.951,57.039],[13.984,57.043],[14.01,57.044],[14.034,57.05],[14.052,57.051],[14.065,57.05],[14.088,57.043],[14.114,57.031],[14.141,57.022],[14.159,57.014],[14.172,57.006],[14.177,57.002],[14.194,56.983],[14.234,56.917],[14.244,56.908],[14.259,56.9],[14.291,56.891],[14.321,56.888],[14.328,56.89],[14.331,56.891],[14.335,56.893],[14.371,56.927],[14.393,56.955],[14.396,56.966],[14.396,56.974],[14.391,56.99],[14.39,56.999],[14.389,57],[14.373,57.007],[14.364,57.013],[14.356,57.022],[14.354,57.032],[14.356,57.043],[14.367,57.07],[14.373,57.124],[14.382,57.142],[14.404,57.156],[14.432,57.163],[14.547,57.176],[14.718,57.22],[14.769,57.228],[14.809,57.228],[14.893,57.201],[14.904,57.193],[14.908,57.181],[14.914,57.171],[14.93,57.16],[14.951,57.152],[14.984,57.15],[15.001,57.151],[15.022,57.159],[15.075,57.187],[15.105,57.198],[15.128,57.201],[15.168,57.196],[15.175,57.197],[15.175,57.205],[15.172,57.215],[15.159,57.239],[15.165,57.242],[15.221,57.237],[15.233,57.234],[15.37,57.239],[15.416,57.236],[15.551,57.211]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Kronoberg'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Kronoberg?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Kronoberg is located? </h2>Kronoberg, is a county It belongs to the country of Sweden. Its postal identifier is KR.Kronoberg has an area of 9380 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

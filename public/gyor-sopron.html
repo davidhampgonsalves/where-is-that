@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Gyor-Sopron?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[17.56,47.838],[17.572,47.83],[17.582,47.83],[17.593,47.833],[17.604,47.834],[17.619,47.829],[17.639,47.819],[17.658,47.808],[17.666,47.797],[17.676,47.789],[17.741,47.766],[17.825,47.75],[17.883,47.753],[17.886,47.739],[17.895,47.718],[17.896,47.696],[17.892,47.678],[17.899,47.661],[17.898,47.63],[17.927,47.613],[17.906,47.573],[17.929,47.55],[17.918,47.533],[17.896,47.538],[17.887,47.532],[17.898,47.504],[17.882,47.475],[17.882,47.455],[17.851,47.478],[17.816,47.493],[17.815,47.474],[17.797,47.48],[17.779,47.482],[17.761,47.471],[17.726,47.482],[17.68,47.472],[17.637,47.449],[17.597,47.462],[17.569,47.449],[17.517,47.455],[17.497,47.434],[17.474,47.429],[17.452,47.429],[17.438,47.42],[17.42,47.42],[17.403,47.424],[17.369,47.441],[17.332,47.439],[17.295,47.431],[17.277,47.433],[17.268,47.423],[17.241,47.408],[17.202,47.398],[17.179,47.424],[17.153,47.437],[17.058,47.403],[17.066,47.429],[17.076,47.449],[17.051,47.454],[16.944,47.412],[16.863,47.421],[16.838,47.435],[16.763,47.403],[16.734,47.4],[16.707,47.418],[16.655,47.426],[16.642,47.433],[16.629,47.444],[16.627,47.446],[16.64,47.453],[16.64,47.453],[16.636,47.493],[16.637,47.494],[16.648,47.502],[16.677,47.51],[16.677,47.51],[16.687,47.523],[16.689,47.538],[16.681,47.551],[16.667,47.56],[16.65,47.567],[16.656,47.586],[16.647,47.606],[16.63,47.622],[16.608,47.629],[16.575,47.625],[16.509,47.643],[16.482,47.639],[16.425,47.654],[16.407,47.662],[16.408,47.662],[16.416,47.669],[16.426,47.68],[16.431,47.686],[16.431,47.686],[16.439,47.691],[16.444,47.686],[16.449,47.683],[16.454,47.682],[16.461,47.685],[16.473,47.692],[16.512,47.706],[16.521,47.712],[16.521,47.712],[16.526,47.72],[16.525,47.734],[16.531,47.743],[16.531,47.743],[16.567,47.754],[16.609,47.751],[16.689,47.73],[16.702,47.724],[16.707,47.715],[16.711,47.704],[16.719,47.694],[16.73,47.686],[16.741,47.682],[16.797,47.676],[16.806,47.677],[16.817,47.684],[16.817,47.685],[16.836,47.706],[16.836,47.706],[16.85,47.713],[16.864,47.687],[16.902,47.682],[16.981,47.696],[17.054,47.702],[17.075,47.709],[17.075,47.709],[17.063,47.713],[17.055,47.721],[17.05,47.731],[17.048,47.764],[17.041,47.784],[17.04,47.801],[17.04,47.801],[17.055,47.813],[17.055,47.813],[17.048,47.819],[17.039,47.838],[17.031,47.842],[17.01,47.848],[17.004,47.853],[17.004,47.864],[17.004,47.864],[17.016,47.868],[17.051,47.873],[17.067,47.882],[17.075,47.89],[17.077,47.892],[17.083,47.905],[17.087,47.923],[17.085,47.925],[17.08,47.926],[17.075,47.928],[17.074,47.932],[17.076,47.935],[17.076,47.935],[17.086,47.939],[17.088,47.941],[17.088,47.941],[17.09,47.95],[17.095,47.955],[17.095,47.956],[17.095,47.956],[17.096,47.962],[17.085,47.97],[17.085,47.971],[17.148,48.006],[17.184,48.021],[17.22,48.015],[17.272,48.006],[17.337,47.999],[17.369,47.981],[17.471,47.889],[17.481,47.883],[17.492,47.88],[17.517,47.876],[17.526,47.872],[17.56,47.838]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Gyor-Sopron'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Gyor-Sopron?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Gyor-Sopron is located? </h2>Gyor-Sopron, is a county It belongs to the country of Hungary. Its postal identifier is GS.Gyor-Sopron has an area of 4236 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

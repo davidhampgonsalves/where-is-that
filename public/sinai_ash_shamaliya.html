@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Sinai ash Shamaliya?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[34.248,31.212],[34.329,30.995],[34.48,30.652],[34.502,30.572],[34.504,30.531],[34.51,30.514],[34.526,30.495],[34.526,30.495],[34.536,30.483],[34.536,30.469],[34.526,30.439],[34.524,30.422],[34.527,30.41],[34.534,30.401],[34.588,30.359],[34.599,30.345],[34.73,30.019],[34.733,30.013],[34.735,30.007],[34.735,30.001],[34.735,29.995],[34.741,29.941],[34.824,29.742],[34.85,29.639],[34.848,29.57],[34.855,29.546],[34.878,29.505],[34.887,29.49],[34.887,29.49],[34.885,29.49],[34.468,29.546],[34.343,29.586],[34.227,29.64],[34.024,29.707],[33.768,29.827],[33.13,29.925],[32.855,29.914],[32.847,29.923],[32.839,29.937],[32.83,29.958],[32.818,30.161],[32.799,30.254],[32.746,30.373],[32.654,30.5],[32.654,30.5],[32.652,30.504],[32.648,30.517],[32.645,30.538],[32.643,30.627],[32.602,30.974],[32.6,31.06],[32.6,31.062],[32.602,31.061],[32.646,31.06],[32.688,31.065],[32.762,31.081],[32.851,31.119],[32.868,31.13],[32.909,31.148],[32.921,31.156],[32.927,31.156],[32.927,31.148],[32.896,31.138],[32.84,31.101],[32.807,31.093],[32.753,31.072],[32.667,31.052],[32.715,31.052],[32.715,31.046],[32.701,31.039],[32.732,31.039],[32.743,31.043],[32.749,31.052],[32.755,31.052],[32.757,31.047],[32.76,31.046],[32.764,31.046],[32.77,31.046],[32.831,31.08],[32.883,31.094],[32.893,31.101],[32.9,31.101],[32.904,31.096],[32.918,31.092],[32.915,31.087],[32.907,31.087],[32.907,31.08],[32.917,31.083],[32.941,31.093],[32.941,31.101],[32.914,31.101],[32.914,31.107],[32.927,31.112],[32.944,31.108],[32.96,31.099],[32.969,31.087],[32.971,31.081],[32.974,31.071],[32.975,31.066],[32.962,31.066],[32.995,31.056],[33.01,31.056],[33.024,31.066],[33.024,31.074],[33.014,31.078],[33.009,31.08],[33.009,31.087],[33.048,31.095],[33.058,31.101],[33.053,31.108],[33.055,31.116],[33.06,31.124],[33.065,31.135],[33.058,31.135],[33.051,31.128],[33.03,31.115],[33.027,31.111],[33.024,31.108],[33.024,31.105],[33.03,31.101],[33.017,31.098],[32.994,31.099],[32.971,31.102],[32.955,31.107],[32.985,31.11],[33.002,31.125],[33.015,31.145],[33.03,31.162],[33.043,31.167],[33.067,31.171],[33.079,31.176],[33.098,31.192],[33.11,31.197],[33.127,31.196],[33.127,31.19],[33.099,31.19],[33.099,31.183],[33.111,31.175],[33.147,31.135],[33.158,31.118],[33.154,31.112],[33.141,31.11],[33.127,31.101],[33.125,31.103],[33.125,31.106],[33.124,31.108],[33.119,31.107],[33.119,31.101],[33.136,31.091],[33.145,31.078],[33.145,31.063],[33.134,31.046],[33.169,31.058],[33.188,31.062],[33.201,31.06],[33.208,31.061],[33.213,31.061],[33.222,31.06],[33.222,31.066],[33.208,31.074],[33.201,31.074],[33.201,31.066],[33.195,31.066],[33.195,31.074],[33.248,31.091],[33.263,31.101],[33.27,31.101],[33.263,31.093],[33.27,31.087],[33.277,31.092],[33.286,31.093],[33.293,31.089],[33.297,31.08],[33.304,31.08],[33.305,31.088],[33.305,31.098],[33.303,31.1],[33.318,31.101],[33.308,31.105],[33.298,31.104],[33.289,31.105],[33.277,31.107],[33.387,31.115],[33.378,31.133],[33.391,31.136],[33.407,31.137],[33.407,31.156],[33.417,31.151],[33.421,31.148],[33.428,31.148],[33.441,31.151],[33.481,31.133],[33.5,31.128],[33.573,31.122],[33.592,31.115],[33.592,31.121],[33.615,31.116],[33.648,31.117],[33.855,31.164],[34.047,31.229],[34.199,31.313],[34.2,31.314],[34.224,31.276],[34.23,31.26],[34.248,31.212],[34.248,31.212]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Sinai ash Shamaliya'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Sinai ash Shamaliya?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Sinai ash Shamaliya is located? </h2>Sinai ash Shamaliya, is a governorate It belongs to the country of Egypt. Its postal identifier is SS.Sinai ash Shamaliya has an area of 27232 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

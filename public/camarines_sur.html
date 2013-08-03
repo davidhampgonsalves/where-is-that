@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Camarines Sur?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[123.594,13.529],[123.585,13.53],[123.566,13.527],[123.551,13.52],[123.545,13.505],[123.55,13.493],[123.561,13.485],[123.574,13.478],[123.584,13.468],[123.592,13.445],[123.595,13.422],[123.59,13.398],[123.579,13.378],[123.565,13.366],[123.553,13.365],[123.541,13.37],[123.499,13.38],[123.495,13.378],[123.492,13.373],[123.489,13.367],[123.483,13.365],[123.464,13.37],[123.456,13.378],[123.447,13.378],[123.3,13.25],[123.292,13.245],[123.284,13.254],[123.247,13.279],[123.232,13.297],[123.228,13.306],[123.223,13.322],[123.218,13.331],[123.191,13.359],[123.197,13.386],[123.188,13.42],[123.169,13.449],[123.146,13.461],[123.118,13.469],[123.065,13.502],[123.037,13.509],[123.02,13.511],[122.997,13.521],[122.982,13.523],[122.972,13.527],[122.948,13.55],[122.886,13.593],[122.873,13.598],[122.859,13.606],[122.829,13.642],[122.815,13.654],[122.863,13.695],[122.814,13.748],[122.789,13.769],[122.759,13.783],[122.759,13.777],[122.753,13.783],[122.759,13.79],[122.772,13.791],[122.767,13.799],[122.753,13.81],[122.739,13.818],[122.7,13.826],[122.691,13.832],[122.679,13.821],[122.666,13.819],[122.653,13.826],[122.643,13.839],[122.645,13.843],[122.652,13.848],[122.657,13.854],[122.653,13.862],[122.623,13.892],[122.61,13.899],[122.597,13.904],[122.584,13.906],[122.58,13.913],[122.578,13.926],[122.572,13.935],[122.56,13.928],[122.558,13.933],[122.561,13.937],[122.615,13.964],[122.755,13.979],[122.816,13.994],[122.909,13.97],[122.924,13.965],[122.931,13.959],[122.937,13.95],[122.947,13.939],[122.997,13.895],[123.012,13.877],[123.031,13.843],[123.042,13.828],[123.049,13.822],[123.047,13.811],[123.05,13.776],[123.067,13.756],[123.089,13.742],[123.108,13.722],[123.116,13.722],[123.137,13.733],[123.161,13.734],[123.215,13.729],[123.225,13.731],[123.256,13.743],[123.267,13.749],[123.302,13.789],[123.308,13.801],[123.31,13.808],[123.313,13.814],[123.315,13.821],[123.308,13.833],[123.297,13.87],[123.281,13.892],[123.28,13.906],[123.314,13.93],[123.318,13.934],[123.326,13.94],[123.332,13.953],[123.335,13.969],[123.336,13.982],[123.325,13.971],[123.313,13.941],[123.304,13.934],[123.29,13.934],[123.281,13.936],[123.235,13.964],[123.223,13.976],[123.218,13.993],[123.228,14],[123.245,14.007],[123.254,14.014],[123.239,14.023],[123.259,14.031],[123.262,14.042],[123.252,14.068],[123.262,14.073],[123.282,14.066],[123.314,14.051],[123.314,14.057],[123.31,14.06],[123.301,14.071],[123.33,14.07],[123.336,14.071],[123.335,14.079],[123.327,14.096],[123.332,14.099],[123.345,14.094],[123.353,14.079],[123.362,14.044],[123.345,14.039],[123.342,14.028],[123.347,14.016],[123.352,14.013],[123.37,14.03],[123.379,14.035],[123.39,14.037],[123.385,14.031],[123.376,14.01],[123.386,14.014],[123.39,14.016],[123.396,14.01],[123.392,13.992],[123.412,13.964],[123.404,13.949],[123.411,13.939],[123.415,13.929],[123.418,13.918],[123.418,13.906],[123.424,13.906],[123.429,13.919],[123.437,13.929],[123.444,13.941],[123.445,13.962],[123.465,13.956],[123.478,13.95],[123.486,13.94],[123.493,13.921],[123.539,13.925],[123.613,13.897],[123.681,13.885],[123.712,13.934],[123.734,13.897],[123.765,13.864],[123.804,13.838],[123.877,13.807],[123.879,13.804],[123.88,13.801],[123.883,13.798],[123.895,13.794],[123.919,13.794],[123.931,13.79],[123.938,13.784],[123.952,13.756],[123.969,13.74],[123.973,13.729],[123.966,13.715],[123.949,13.728],[123.943,13.735],[123.938,13.742],[123.931,13.742],[123.93,13.738],[123.925,13.729],[123.91,13.736],[123.893,13.74],[123.859,13.742],[123.85,13.734],[123.836,13.715],[123.818,13.696],[123.797,13.688],[123.779,13.692],[123.743,13.71],[123.688,13.719],[123.667,13.718],[123.657,13.711],[123.648,13.704],[123.627,13.711],[123.604,13.723],[123.588,13.729],[123.571,13.723],[123.56,13.709],[123.529,13.627],[123.527,13.606],[123.535,13.604],[123.539,13.601],[123.537,13.595],[123.534,13.591],[123.533,13.585],[123.534,13.575],[123.536,13.563],[123.543,13.56],[123.552,13.564],[123.561,13.571],[123.594,13.529]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Camarines Sur'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Camarines Sur?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Camarines Sur is located? </h2>Camarines Sur, is a province of the Bicol region. It belongs to the country of Philippines. Its postal identifier is CS.Camarines Sur has an area of 5206 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

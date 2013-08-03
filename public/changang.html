@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Changang?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[126.94,41.772],[126.946,41.766],[126.958,41.767],[126.981,41.764],[127,41.752],[126.996,41.746],[126.978,41.721],[126.963,41.694],[126.956,41.663],[126.957,41.64],[126.961,41.618],[126.967,41.603],[126.969,41.596],[126.968,41.588],[126.96,41.573],[126.944,41.564],[126.927,41.558],[126.911,41.548],[126.901,41.535],[126.895,41.523],[126.886,41.515],[126.868,41.512],[126.839,41.515],[126.826,41.513],[126.815,41.502],[126.812,41.489],[126.815,41.473],[126.821,41.458],[126.828,41.447],[126.846,41.436],[126.864,41.436],[126.9,41.449],[126.909,41.45],[126.92,41.451],[126.929,41.448],[126.934,41.44],[126.932,41.432],[126.919,41.421],[126.916,41.414],[126.919,41.408],[126.937,41.385],[126.944,41.369],[126.949,41.352],[126.956,41.317],[126.966,41.298],[127,41.277],[127.007,41.261],[127.004,41.251],[127,41.245],[127.001,41.238],[127.013,41.228],[127.023,41.217],[127.028,41.205],[127.033,41.177],[127.046,41.158],[127.065,41.145],[127.122,41.116],[127.135,41.113],[127.166,41.11],[127.205,41.102],[127.218,41.103],[127.239,41.113],[127.251,41.126],[127.261,41.141],[127.275,41.156],[127.298,41.168],[127.327,41.176],[127.356,41.176],[127.377,41.164],[127.386,41.145],[127.391,41.119],[127.393,41.093],[127.392,41.071],[127.387,41.034],[127.373,41.01],[127.323,40.968],[127.306,40.942],[127.299,40.905],[127.304,40.871],[127.326,40.849],[127.364,40.835],[127.376,40.823],[127.377,40.802],[127.372,40.789],[127.364,40.778],[127.354,40.77],[127.342,40.764],[127.298,40.753],[127.22,40.718],[127.199,40.695],[127.184,40.636],[127.166,40.614],[127.154,40.609],[127.109,40.604],[127.091,40.6],[127.076,40.594],[127.062,40.586],[127.047,40.575],[127.017,40.558],[126.992,40.548],[126.98,40.531],[126.986,40.494],[126.985,40.466],[126.967,40.445],[126.943,40.425],[126.924,40.401],[126.918,40.385],[126.914,40.367],[126.912,40.348],[126.912,40.335],[126.911,40.335],[126.887,40.295],[126.872,40.28],[126.835,40.256],[126.827,40.249],[126.822,40.243],[126.814,40.22],[126.807,40.207],[126.8,40.201],[126.793,40.197],[126.776,40.196],[126.762,40.194],[126.754,40.191],[126.745,40.188],[126.732,40.18],[126.722,40.172],[126.71,40.159],[126.701,40.152],[126.694,40.148],[126.671,40.145],[126.663,40.143],[126.653,40.139],[126.59,40.104],[126.578,40.096],[126.57,40.089],[126.568,40.084],[126.565,40.078],[126.562,40.059],[126.56,40.051],[126.554,40.041],[126.546,40.036],[126.539,40.033],[126.509,40.031],[126.498,40.027],[126.439,39.995],[126.426,39.991],[126.418,39.991],[126.411,39.993],[126.404,39.994],[126.36,40.017],[126.322,40.032],[126.302,40.036],[126.21,40.045],[126.189,40.051],[126.144,40.074],[126.13,40.085],[126.087,40.127],[126.021,40.174],[125.995,40.202],[125.977,40.216],[125.969,40.22],[125.962,40.22],[125.949,40.22],[125.936,40.222],[125.926,40.227],[125.914,40.235],[125.905,40.237],[125.896,40.238],[125.882,40.238],[125.867,40.236],[125.853,40.231],[125.839,40.224],[125.831,40.222],[125.822,40.222],[125.807,40.224],[125.797,40.227],[125.79,40.231],[125.774,40.242],[125.657,40.302],[125.625,40.325],[125.618,40.332],[125.614,40.338],[125.615,40.344],[125.619,40.349],[125.624,40.354],[125.629,40.359],[125.63,40.364],[125.629,40.37],[125.624,40.375],[125.583,40.408],[125.579,40.413],[125.577,40.418],[125.576,40.424],[125.576,40.43],[125.578,40.435],[125.585,40.446],[125.588,40.452],[125.592,40.48],[125.593,40.481],[125.594,40.484],[125.605,40.498],[125.608,40.503],[125.611,40.509],[125.612,40.514],[125.612,40.52],[125.61,40.525],[125.603,40.538],[125.601,40.541],[125.595,40.564],[125.591,40.571],[125.585,40.574],[125.577,40.574],[125.561,40.571],[125.552,40.571],[125.542,40.574],[125.535,40.579],[125.504,40.609],[125.494,40.617],[125.486,40.622],[125.415,40.653],[125.415,40.653],[125.419,40.667],[125.426,40.671],[125.426,40.671],[125.443,40.669],[125.444,40.669],[125.453,40.674],[125.456,40.68],[125.457,40.694],[125.459,40.702],[125.469,40.713],[125.478,40.719],[125.479,40.719],[125.491,40.721],[125.533,40.722],[125.546,40.726],[125.546,40.726],[125.553,40.737],[125.555,40.759],[125.56,40.779],[125.571,40.785],[125.572,40.785],[125.586,40.782],[125.6,40.773],[125.608,40.764],[125.61,40.761],[125.668,40.762],[125.669,40.762],[125.682,40.769],[125.673,40.784],[125.644,40.811],[125.683,40.848],[125.704,40.859],[125.706,40.861],[125.706,40.861],[125.737,40.865],[125.745,40.868],[125.745,40.868],[125.75,40.875],[125.755,40.882],[125.761,40.886],[125.761,40.886],[125.771,40.886],[125.779,40.885],[125.822,40.87],[125.831,40.871],[125.832,40.871],[125.872,40.893],[125.873,40.893],[125.885,40.898],[125.901,40.9],[125.912,40.894],[125.924,40.884],[125.936,40.878],[125.949,40.883],[125.949,40.883],[125.964,40.891],[125.964,40.891],[125.995,40.894],[126.008,40.9],[126.008,40.9],[126.015,40.909],[126.01,40.914],[125.996,40.915],[125.98,40.914],[125.992,40.929],[125.992,40.929],[126.009,40.933],[126.028,40.935],[126.028,40.936],[126.045,40.945],[126.066,40.969],[126.072,40.981],[126.069,40.99],[126.075,40.997],[126.083,41.003],[126.084,41.003],[126.093,41.006],[126.104,41.009],[126.104,41.009],[126.101,41.022],[126.111,41.033],[126.126,41.043],[126.138,41.057],[126.123,41.076],[126.147,41.092],[126.196,41.114],[126.26,41.143],[126.26,41.143],[126.274,41.153],[126.284,41.164],[126.309,41.208],[126.321,41.219],[126.346,41.238],[126.357,41.25],[126.38,41.291],[126.391,41.304],[126.441,41.349],[126.472,41.367],[126.472,41.367],[126.501,41.366],[126.498,41.362],[126.496,41.358],[126.494,41.355],[126.493,41.355],[126.493,41.355],[126.487,41.352],[126.487,41.345],[126.522,41.352],[126.522,41.352],[126.522,41.378],[126.508,41.409],[126.501,41.435],[126.507,41.447],[126.542,41.489],[126.558,41.534],[126.577,41.562],[126.58,41.575],[126.577,41.588],[126.566,41.602],[126.567,41.614],[126.602,41.642],[126.618,41.666],[126.618,41.666],[126.634,41.669],[126.669,41.667],[126.669,41.667],[126.68,41.672],[126.712,41.694],[126.712,41.694],[126.728,41.701],[126.728,41.701],[126.714,41.71],[126.699,41.717],[126.687,41.724],[126.679,41.736],[126.679,41.736],[126.696,41.741],[126.712,41.741],[126.727,41.737],[126.741,41.729],[126.771,41.705],[126.788,41.696],[126.788,41.696],[126.796,41.705],[126.809,41.73],[126.809,41.73],[126.864,41.747],[126.864,41.748],[126.877,41.774],[126.887,41.785],[126.908,41.796],[126.908,41.796],[126.93,41.801],[126.939,41.794],[126.94,41.772]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Changang'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Changang?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Changang is located? </h2>Changang, is a province It belongs to the country of Korea, North. Its postal identifier is CH.Changang has an area of 15828 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

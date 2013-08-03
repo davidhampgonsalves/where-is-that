@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Tlaxcala?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-98.641,19.462],[-98.642,19.475],[-98.643,19.488],[-98.645,19.501],[-98.647,19.513],[-98.678,19.521],[-98.694,19.532],[-98.702,19.551],[-98.709,19.583],[-98.697,19.584],[-98.684,19.584],[-98.672,19.585],[-98.659,19.586],[-98.649,19.587],[-98.642,19.592],[-98.637,19.601],[-98.632,19.611],[-98.621,19.608],[-98.609,19.613],[-98.597,19.622],[-98.586,19.631],[-98.573,19.634],[-98.56,19.626],[-98.546,19.616],[-98.53,19.614],[-98.516,19.624],[-98.502,19.638],[-98.487,19.644],[-98.472,19.631],[-98.47,19.628],[-98.467,19.626],[-98.465,19.624],[-98.462,19.623],[-98.443,19.618],[-98.422,19.617],[-98.401,19.616],[-98.38,19.612],[-98.377,19.611],[-98.373,19.609],[-98.37,19.607],[-98.367,19.605],[-98.346,19.595],[-98.331,19.607],[-98.319,19.631],[-98.308,19.654],[-98.301,19.666],[-98.293,19.676],[-98.284,19.686],[-98.276,19.696],[-98.271,19.705],[-98.271,19.71],[-98.267,19.715],[-98.252,19.72],[-98.247,19.719],[-98.244,19.714],[-98.241,19.709],[-98.237,19.704],[-98.215,19.691],[-98.193,19.679],[-98.169,19.672],[-98.143,19.673],[-98.129,19.672],[-98.116,19.671],[-98.102,19.671],[-98.089,19.672],[-98.073,19.677],[-98.069,19.686],[-98.071,19.699],[-98.073,19.716],[-98.063,19.731],[-98.044,19.719],[-98.028,19.692],[-98.029,19.662],[-98.041,19.645],[-98.035,19.636],[-98.018,19.632],[-98,19.629],[-97.982,19.621],[-97.968,19.607],[-97.956,19.593],[-97.941,19.58],[-97.913,19.569],[-97.872,19.559],[-97.843,19.543],[-97.851,19.517],[-97.861,19.513],[-97.871,19.513],[-97.879,19.512],[-97.882,19.501],[-97.881,19.492],[-97.878,19.485],[-97.872,19.481],[-97.863,19.479],[-97.857,19.467],[-97.852,19.449],[-97.844,19.436],[-97.829,19.44],[-97.812,19.451],[-97.795,19.457],[-97.777,19.457],[-97.759,19.448],[-97.747,19.437],[-97.736,19.424],[-97.726,19.412],[-97.714,19.4],[-97.704,19.39],[-97.693,19.381],[-97.681,19.374],[-97.669,19.37],[-97.641,19.373],[-97.621,19.365],[-97.613,19.346],[-97.62,19.319],[-97.64,19.297],[-97.668,19.284],[-97.698,19.283],[-97.724,19.298],[-97.726,19.299],[-97.727,19.301],[-97.728,19.303],[-97.729,19.305],[-97.748,19.295],[-97.775,19.296],[-97.805,19.304],[-97.828,19.311],[-97.833,19.308],[-97.837,19.304],[-97.841,19.298],[-97.844,19.292],[-97.856,19.289],[-97.868,19.285],[-97.878,19.278],[-97.883,19.267],[-97.884,19.266],[-97.884,19.265],[-97.884,19.264],[-97.884,19.263],[-97.875,19.245],[-97.859,19.228],[-97.847,19.212],[-97.852,19.195],[-97.86,19.187],[-97.868,19.18],[-97.876,19.173],[-97.884,19.166],[-97.906,19.156],[-97.929,19.158],[-97.952,19.168],[-97.974,19.179],[-97.98,19.181],[-97.986,19.184],[-97.992,19.186],[-97.998,19.189],[-98.002,19.19],[-98.006,19.192],[-98.01,19.194],[-98.014,19.195],[-98.014,19.196],[-98.014,19.196],[-98.015,19.196],[-98.015,19.196],[-98.024,19.2],[-98.033,19.204],[-98.042,19.207],[-98.05,19.209],[-98.068,19.185],[-98.087,19.157],[-98.108,19.135],[-98.132,19.127],[-98.153,19.123],[-98.173,19.113],[-98.193,19.106],[-98.216,19.112],[-98.224,19.123],[-98.232,19.134],[-98.24,19.145],[-98.248,19.156],[-98.249,19.158],[-98.251,19.16],[-98.252,19.162],[-98.254,19.163],[-98.255,19.164],[-98.257,19.165],[-98.258,19.166],[-98.259,19.167],[-98.262,19.17],[-98.266,19.173],[-98.27,19.177],[-98.274,19.18],[-98.277,19.182],[-98.28,19.185],[-98.283,19.187],[-98.286,19.189],[-98.29,19.192],[-98.293,19.195],[-98.297,19.198],[-98.301,19.2],[-98.303,19.201],[-98.304,19.202],[-98.306,19.203],[-98.307,19.204],[-98.316,19.208],[-98.323,19.212],[-98.331,19.218],[-98.338,19.224],[-98.343,19.229],[-98.348,19.235],[-98.352,19.241],[-98.355,19.248],[-98.358,19.255],[-98.361,19.263],[-98.364,19.27],[-98.367,19.277],[-98.375,19.294],[-98.386,19.308],[-98.398,19.32],[-98.413,19.331],[-98.416,19.333],[-98.419,19.334],[-98.422,19.336],[-98.425,19.337],[-98.433,19.344],[-98.435,19.354],[-98.437,19.366],[-98.443,19.378],[-98.451,19.388],[-98.457,19.399],[-98.461,19.411],[-98.463,19.424],[-98.463,19.428],[-98.463,19.432],[-98.464,19.435],[-98.466,19.438],[-98.482,19.451],[-98.493,19.454],[-98.504,19.45],[-98.522,19.44],[-98.548,19.438],[-98.581,19.445],[-98.613,19.455],[-98.641,19.462]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Tlaxcala'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Tlaxcala?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where Tlaxcala is located? </h2>Tlaxcala, is a state It belongs to the country of Mexico. Its postal identifier is TL.Tlaxcala has an area of 3873 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

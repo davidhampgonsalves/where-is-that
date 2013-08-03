@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Bokeo?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[100.609,20.838],[100.635,20.803],[100.681,20.79],[100.718,20.761],[100.734,20.716],[100.752,20.698],[100.774,20.682],[100.789,20.662],[100.799,20.639],[100.824,20.594],[100.824,20.552],[100.832,20.5],[100.864,20.488],[100.938,20.496],[100.966,20.476],[100.988,20.445],[101.004,20.409],[101.004,20.377],[101.007,20.351],[101.044,20.322],[101.066,20.314],[101.127,20.299],[101.197,20.316],[101.229,20.308],[101.235,20.285],[101.244,20.263],[101.247,20.247],[101.244,20.136],[101.229,20.111],[101.207,20.089],[101.175,20.074],[101.141,20.078],[101.082,20.118],[101.043,20.112],[101.012,20.092],[101.002,20.057],[100.982,20.032],[100.958,20.009],[100.937,19.997],[100.914,19.988],[100.823,19.985],[100.742,19.957],[100.743,19.916],[100.763,19.871],[100.749,19.858],[100.678,19.819],[100.669,19.815],[100.655,19.813],[100.642,19.816],[100.632,19.816],[100.622,19.81],[100.602,19.803],[100.58,19.804],[100.55,19.786],[100.517,19.78],[100.483,19.779],[100.44,19.789],[100.407,19.794],[100.407,19.794],[100.42,19.811],[100.431,19.838],[100.438,19.847],[100.446,19.852],[100.446,19.852],[100.465,19.86],[100.466,19.86],[100.474,19.866],[100.484,19.881],[100.488,19.897],[100.492,19.932],[100.518,19.996],[100.518,19.996],[100.543,20.067],[100.55,20.107],[100.548,20.158],[100.546,20.168],[100.542,20.167],[100.542,20.167],[100.536,20.154],[100.529,20.15],[100.529,20.15],[100.512,20.155],[100.496,20.165],[100.489,20.173],[100.485,20.179],[100.468,20.186],[100.461,20.191],[100.457,20.197],[100.452,20.21],[100.447,20.218],[100.421,20.25],[100.364,20.369],[100.344,20.39],[100.306,20.4],[100.27,20.392],[100.27,20.392],[100.24,20.373],[100.22,20.349],[100.209,20.313],[100.207,20.311],[100.207,20.311],[100.201,20.31],[100.179,20.303],[100.179,20.303],[100.176,20.301],[100.167,20.293],[100.167,20.254],[100.152,20.239],[100.152,20.239],[100.134,20.239],[100.116,20.248],[100.103,20.264],[100.097,20.283],[100.099,20.318],[100.099,20.318],[100.099,20.318],[100.097,20.335],[100.097,20.349],[100.099,20.362],[100.111,20.375],[100.121,20.389],[100.125,20.407],[100.127,20.428],[100.136,20.459],[100.149,20.548],[100.16,20.583],[100.173,20.609],[100.173,20.609],[100.173,20.622],[100.18,20.638],[100.202,20.668],[100.207,20.681],[100.211,20.697],[100.221,20.71],[100.248,20.732],[100.274,20.762],[100.29,20.775],[100.329,20.786],[100.342,20.8],[100.351,20.815],[100.364,20.828],[100.383,20.832],[100.383,20.832],[100.404,20.829],[100.47,20.818],[100.513,20.807],[100.536,20.808],[100.569,20.818],[100.599,20.834],[100.608,20.84],[100.609,20.838]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Bokeo'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Bokeo?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Bokeo is located? </h2>Bokeo, is a province It belongs to the country of Laos. Its postal identifier is BK.Bokeo has an area of 6955 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

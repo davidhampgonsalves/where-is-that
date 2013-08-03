@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Escuintla?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-90.651,14.469],[-90.638,14.432],[-90.623,14.419],[-90.615,14.416],[-90.602,14.417],[-90.599,14.416],[-90.596,14.415],[-90.592,14.402],[-90.586,14.35],[-90.586,14.317],[-90.583,14.305],[-90.571,14.278],[-90.565,14.256],[-90.58,14.242],[-90.586,14.231],[-90.589,14.22],[-90.589,14.216],[-90.587,14.212],[-90.585,14.211],[-90.581,14.21],[-90.567,14.208],[-90.561,14.207],[-90.554,14.207],[-90.551,14.208],[-90.536,14.213],[-90.532,14.214],[-90.527,14.213],[-90.519,14.209],[-90.516,14.205],[-90.516,14.203],[-90.528,14.187],[-90.544,14.172],[-90.551,14.168],[-90.553,14.167],[-90.572,14.164],[-90.579,14.161],[-90.578,14.147],[-90.575,14.141],[-90.573,14.139],[-90.558,14.126],[-90.557,14.121],[-90.556,14.118],[-90.557,14.116],[-90.56,14.112],[-90.564,14.109],[-90.577,14.101],[-90.582,14.096],[-90.59,14.082],[-90.593,14.073],[-90.595,14.071],[-90.598,14.07],[-90.61,14.068],[-90.621,14.065],[-90.625,14.061],[-90.627,14.056],[-90.627,13.932],[-90.641,13.934],[-90.829,13.933],[-91.087,13.918],[-91.166,13.927],[-91.319,13.967],[-91.529,14.048],[-91.53,14.057],[-91.533,14.072],[-91.532,14.077],[-91.53,14.082],[-91.481,14.152],[-91.473,14.169],[-91.468,14.177],[-91.463,14.182],[-91.457,14.19],[-91.456,14.206],[-91.458,14.246],[-91.462,14.27],[-91.462,14.278],[-91.462,14.29],[-91.46,14.297],[-91.458,14.3],[-91.448,14.307],[-91.44,14.301],[-91.437,14.296],[-91.434,14.289],[-91.433,14.287],[-91.43,14.286],[-91.426,14.287],[-91.419,14.291],[-91.415,14.294],[-91.413,14.297],[-91.414,14.299],[-91.415,14.302],[-91.419,14.31],[-91.421,14.315],[-91.423,14.324],[-91.424,14.33],[-91.423,14.337],[-91.421,14.345],[-91.419,14.35],[-91.418,14.352],[-91.414,14.355],[-91.386,14.376],[-91.381,14.378],[-91.373,14.381],[-91.369,14.379],[-91.365,14.376],[-91.358,14.366],[-91.356,14.361],[-91.356,14.357],[-91.364,14.347],[-91.365,14.345],[-91.365,14.342],[-91.365,14.339],[-91.364,14.337],[-91.363,14.334],[-91.358,14.328],[-91.357,14.325],[-91.357,14.321],[-91.359,14.313],[-91.359,14.31],[-91.359,14.307],[-91.358,14.304],[-91.356,14.301],[-91.352,14.297],[-91.347,14.294],[-91.343,14.293],[-91.336,14.292],[-91.326,14.292],[-91.318,14.297],[-91.3,14.316],[-91.289,14.306],[-91.294,14.282],[-91.288,14.28],[-91.171,14.272],[-91.165,14.276],[-91.156,14.293],[-91.151,14.299],[-91.15,14.303],[-91.149,14.309],[-91.146,14.357],[-91.14,14.374],[-91.111,14.43],[-91.097,14.42],[-91.095,14.418],[-91.09,14.416],[-91.086,14.415],[-91.077,14.416],[-91.072,14.417],[-91.069,14.419],[-91.055,14.426],[-91.053,14.427],[-91.05,14.428],[-91.047,14.428],[-91.042,14.427],[-91.037,14.424],[-91.027,14.415],[-91.021,14.411],[-91.016,14.409],[-91.009,14.409],[-91.005,14.411],[-91.002,14.412],[-90.997,14.418],[-90.993,14.421],[-90.991,14.422],[-90.988,14.42],[-90.986,14.416],[-90.984,14.4],[-90.983,14.392],[-90.983,14.388],[-90.981,14.386],[-90.978,14.383],[-90.971,14.386],[-90.952,14.424],[-90.946,14.438],[-90.945,14.441],[-90.938,14.449],[-90.917,14.469],[-90.891,14.489],[-90.861,14.464],[-90.853,14.456],[-90.852,14.454],[-90.851,14.451],[-90.844,14.435],[-90.831,14.415],[-90.825,14.408],[-90.82,14.405],[-90.794,14.427],[-90.787,14.434],[-90.785,14.436],[-90.781,14.445],[-90.776,14.451],[-90.774,14.453],[-90.772,14.455],[-90.763,14.459],[-90.749,14.459],[-90.743,14.463],[-90.738,14.47],[-90.731,14.472],[-90.727,14.469],[-90.726,14.467],[-90.715,14.444],[-90.651,14.469]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Escuintla'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Escuintla?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Escuintla is located? </h2>Escuintla, is a department It belongs to the country of Guatemala. Its postal identifier is ES.Escuintla has an area of 4713 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

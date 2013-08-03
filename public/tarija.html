@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Tarija?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-64.156,-20.908],[-64.143,-20.916],[-64.131,-20.915],[-64.116,-20.91],[-64.094,-20.91],[-64.074,-20.914],[-64.066,-20.921],[-64.062,-20.939],[-64.054,-20.945],[-64.025,-20.946],[-64.019,-20.944],[-64.008,-20.942],[-64,-20.944],[-64.008,-20.956],[-64.01,-20.966],[-64.003,-20.976],[-63.983,-20.994],[-63.983,-20.997],[-63.962,-20.997],[-63.869,-20.999],[-62.272,-21],[-62.272,-21],[-62.272,-21.001],[-62.272,-21.001],[-62.276,-21.066],[-62.413,-21.501],[-62.573,-22.001],[-62.628,-22.184],[-62.651,-22.234],[-62.66,-22.231],[-62.662,-22.224],[-62.664,-22.215],[-62.668,-22.206],[-62.68,-22.195],[-62.723,-22.166],[-62.77,-22.145],[-62.784,-22.131],[-62.792,-22.113],[-62.792,-22.081],[-62.798,-22.069],[-62.796,-22.061],[-62.796,-22.051],[-62.802,-22.013],[-62.805,-22.004],[-62.819,-22.001],[-62.863,-21.993],[-63.011,-22],[-63.011,-22.001],[-63.64,-21.997],[-63.678,-22.003],[-63.695,-22.012],[-63.741,-22.05],[-63.752,-22.046],[-63.794,-22.011],[-63.814,-22.003],[-63.907,-21.997],[-63.934,-22.002],[-63.948,-22.007],[-63.952,-22.011],[-63.952,-22.017],[-63.962,-22.039],[-63.965,-22.058],[-63.969,-22.066],[-63.976,-22.074],[-63.984,-22.077],[-63.991,-22.079],[-63.996,-22.083],[-64.005,-22.099],[-64.02,-22.155],[-64.052,-22.229],[-64.059,-22.24],[-64.079,-22.25],[-64.087,-22.258],[-64.161,-22.438],[-64.185,-22.471],[-64.237,-22.516],[-64.251,-22.541],[-64.295,-22.691],[-64.295,-22.763],[-64.304,-22.782],[-64.328,-22.859],[-64.326,-22.872],[-64.345,-22.863],[-64.348,-22.817],[-64.361,-22.803],[-64.353,-22.779],[-64.356,-22.752],[-64.37,-22.73],[-64.391,-22.72],[-64.402,-22.712],[-64.429,-22.659],[-64.439,-22.652],[-64.448,-22.649],[-64.454,-22.643],[-64.457,-22.628],[-64.456,-22.617],[-64.451,-22.597],[-64.45,-22.587],[-64.446,-22.576],[-64.438,-22.567],[-64.43,-22.557],[-64.429,-22.542],[-64.484,-22.491],[-64.499,-22.473],[-64.505,-22.45],[-64.508,-22.444],[-64.526,-22.433],[-64.532,-22.425],[-64.532,-22.415],[-64.524,-22.396],[-64.525,-22.385],[-64.539,-22.374],[-64.559,-22.36],[-64.573,-22.343],[-64.563,-22.32],[-64.55,-22.305],[-64.543,-22.291],[-64.543,-22.275],[-64.552,-22.255],[-64.561,-22.243],[-64.587,-22.212],[-64.597,-22.206],[-64.617,-22.202],[-64.639,-22.191],[-64.658,-22.178],[-64.68,-22.175],[-64.688,-22.173],[-64.696,-22.174],[-64.714,-22.182],[-64.723,-22.183],[-64.763,-22.174],[-64.833,-22.137],[-65.021,-22.096],[-65.173,-22.098],[-65.173,-22.098],[-65.174,-22.095],[-65.201,-21.977],[-65.211,-21.946],[-65.215,-21.943],[-65.223,-21.936],[-65.235,-21.92],[-65.26,-21.874],[-65.276,-21.851],[-65.283,-21.843],[-65.294,-21.834],[-65.3,-21.827],[-65.305,-21.819],[-65.31,-21.815],[-65.315,-21.811],[-65.319,-21.808],[-65.329,-21.803],[-65.32,-21.757],[-65.313,-21.742],[-65.304,-21.733],[-65.298,-21.726],[-65.295,-21.717],[-65.292,-21.688],[-65.289,-21.678],[-65.286,-21.672],[-65.282,-21.669],[-65.269,-21.654],[-65.255,-21.632],[-65.238,-21.589],[-65.236,-21.577],[-65.234,-21.568],[-65.235,-21.535],[-65.231,-21.478],[-65.203,-21.277],[-65.205,-21.257],[-65.205,-21.217],[-65.204,-21.207],[-65.187,-21.151],[-65.174,-20.968],[-65.172,-20.962],[-65.168,-20.956],[-65.162,-20.948],[-65.157,-20.946],[-65.151,-20.946],[-65.146,-20.948],[-65.138,-20.954],[-65.133,-20.957],[-65.116,-20.962],[-65.11,-20.962],[-65.104,-20.962],[-65.09,-20.957],[-65.084,-20.955],[-65.078,-20.955],[-65.074,-20.957],[-65.066,-20.964],[-65.035,-21],[-65.035,-21],[-65.034,-21],[-65.031,-21.001],[-65.027,-21.001],[-65.02,-20.999],[-65.013,-21],[-65.012,-21],[-65.006,-21.007],[-65.003,-21.01],[-64.999,-21.011],[-64.994,-21.01],[-64.985,-21.007],[-64.978,-21.005],[-64.973,-21.006],[-64.969,-21.009],[-64.961,-21.015],[-64.957,-21.018],[-64.952,-21.02],[-64.946,-21.02],[-64.933,-21.019],[-64.927,-21.02],[-64.922,-21.022],[-64.918,-21.025],[-64.915,-21.029],[-64.913,-21.034],[-64.912,-21.039],[-64.91,-21.044],[-64.906,-21.047],[-64.894,-21.051],[-64.889,-21.053],[-64.885,-21.056],[-64.881,-21.059],[-64.878,-21.063],[-64.876,-21.067],[-64.873,-21.071],[-64.869,-21.074],[-64.865,-21.077],[-64.85,-21.084],[-64.846,-21.087],[-64.842,-21.091],[-64.839,-21.094],[-64.835,-21.097],[-64.83,-21.098],[-64.817,-21.092],[-64.799,-21.087],[-64.782,-21.08],[-64.775,-21.074],[-64.771,-21.067],[-64.769,-21.055],[-64.767,-21.05],[-64.759,-21.036],[-64.758,-21.031],[-64.758,-21.025],[-64.758,-21.013],[-64.756,-21],[-64.756,-21],[-64.75,-20.986],[-64.736,-20.964],[-64.727,-20.949],[-64.717,-20.936],[-64.71,-20.931],[-64.703,-20.929],[-64.697,-20.93],[-64.692,-20.932],[-64.679,-20.939],[-64.673,-20.94],[-64.667,-20.942],[-64.655,-20.942],[-64.649,-20.942],[-64.644,-20.944],[-64.641,-20.947],[-64.638,-20.952],[-64.633,-20.967],[-64.63,-20.971],[-64.626,-20.974],[-64.607,-20.984],[-64.603,-20.987],[-64.596,-20.994],[-64.592,-21],[-64.573,-21.021],[-64.57,-21.025],[-64.546,-21.076],[-64.543,-21.081],[-64.54,-21.084],[-64.536,-21.087],[-64.531,-21.09],[-64.524,-21.091],[-64.515,-21.091],[-64.484,-21.083],[-64.465,-21.081],[-64.458,-21.081],[-64.446,-21.083],[-64.441,-21.085],[-64.432,-21.091],[-64.396,-21.12],[-64.359,-21.135],[-64.341,-21.138],[-64.28,-21.132],[-64.268,-21.133],[-64.241,-21.141],[-64.232,-21.142],[-64.226,-21.141],[-64.221,-21.138],[-64.216,-21.135],[-64.21,-21.129],[-64.206,-21.125],[-64.203,-21.12],[-64.201,-21.116],[-64.199,-21.11],[-64.198,-21.104],[-64.197,-21.084],[-64.197,-21.079],[-64.202,-21.064],[-64.202,-21.059],[-64.197,-21.05],[-64.196,-21.046],[-64.195,-21.041],[-64.193,-21.034],[-64.186,-21.026],[-64.183,-21.019],[-64.181,-21.013],[-64.181,-21.008],[-64.187,-20.948],[-64.186,-20.924],[-64.184,-20.914],[-64.183,-20.909],[-64.175,-20.891],[-64.169,-20.895],[-64.156,-20.908]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Tarija'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Tarija?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Tarija is located? </h2>Tarija, is a department It belongs to the country of Bolivia. Its postal identifier is TR.Tarija has an area of 36659 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

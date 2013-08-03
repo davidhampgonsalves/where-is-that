@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Yamanasi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[138.716,35.896],[138.798,35.856],[138.831,35.845],[138.869,35.838],[138.923,35.835],[138.947,35.817],[138.971,35.762],[138.981,35.747],[138.993,35.733],[139.036,35.696],[139.122,35.654],[139.114,35.631],[139.118,35.598],[139.117,35.585],[139.106,35.539],[139.099,35.526],[139.091,35.514],[139.08,35.505],[138.991,35.465],[138.97,35.458],[138.952,35.45],[138.933,35.437],[138.906,35.401],[138.9,35.381],[138.83,35.365],[138.697,35.351],[138.672,35.356],[138.657,35.365],[138.648,35.374],[138.635,35.381],[138.613,35.384],[138.593,35.392],[138.556,35.417],[138.543,35.417],[138.534,35.41],[138.528,35.397],[138.523,35.381],[138.516,35.33],[138.506,35.294],[138.504,35.257],[138.507,35.231],[138.51,35.219],[138.511,35.207],[138.509,35.199],[138.507,35.194],[138.503,35.188],[138.498,35.182],[138.487,35.172],[138.472,35.162],[138.458,35.157],[138.443,35.157],[138.43,35.159],[138.419,35.165],[138.398,35.181],[138.383,35.19],[138.375,35.204],[138.367,35.219],[138.353,35.278],[138.343,35.292],[138.328,35.3],[138.305,35.302],[138.284,35.299],[138.262,35.294],[138.247,35.297],[138.236,35.304],[138.232,35.314],[138.231,35.324],[138.232,35.334],[138.23,35.344],[138.226,35.356],[138.227,35.368],[138.235,35.393],[138.238,35.408],[138.234,35.434],[138.235,35.444],[138.241,35.464],[138.243,35.475],[138.241,35.518],[138.237,35.535],[138.222,35.573],[138.217,35.602],[138.214,35.612],[138.196,35.628],[138.182,35.648],[138.172,35.675],[138.169,35.699],[138.174,35.713],[138.198,35.737],[138.203,35.747],[138.198,35.757],[138.186,35.766],[138.18,35.778],[138.18,35.787],[138.217,35.85],[138.225,35.858],[138.235,35.859],[138.257,35.848],[138.27,35.849],[138.279,35.855],[138.287,35.863],[138.338,35.939],[138.35,35.951],[138.36,35.958],[138.372,35.957],[138.399,35.951],[138.428,35.939],[138.437,35.933],[138.441,35.925],[138.442,35.918],[138.442,35.908],[138.444,35.898],[138.453,35.89],[138.466,35.888],[138.519,35.9],[138.532,35.9],[138.557,35.896],[138.573,35.895],[138.585,35.892],[138.595,35.886],[138.6,35.878],[138.604,35.867],[138.613,35.858],[138.623,35.854],[138.634,35.853],[138.646,35.854],[138.663,35.859],[138.716,35.896]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Yamanasi'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Yamanasi?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where Yamanasi is located? </h2>Yamanasi, is a prefecture of the Kanto region. It belongs to the country of Japan. Its postal identifier is YN.Yamanasi has an area of 4510 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

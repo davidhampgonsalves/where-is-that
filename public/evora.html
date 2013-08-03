@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Evora?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-8.105,38.984],[-8.098,38.978],[-8.092,38.979],[-8.09,38.985],[-8.09,38.992],[-8.088,38.997],[-8.087,38.999],[-8.086,39],[-8.085,39.001],[-8.074,39.004],[-8.058,39.006],[-8.049,39.004],[-8.044,39.002],[-8.043,39.001],[-8.021,38.982],[-8.019,38.974],[-8.018,38.959],[-8.019,38.948],[-8.015,38.946],[-7.991,38.943],[-7.982,38.944],[-7.974,38.948],[-7.967,38.952],[-7.961,38.958],[-7.945,38.967],[-7.923,38.97],[-7.912,38.963],[-7.867,38.915],[-7.838,38.9],[-7.828,38.899],[-7.817,38.899],[-7.808,38.9],[-7.787,38.899],[-7.755,38.908],[-7.745,38.916],[-7.729,38.932],[-7.721,38.931],[-7.706,38.924],[-7.698,38.922],[-7.688,38.926],[-7.678,38.926],[-7.668,38.925],[-7.646,38.918],[-7.638,38.919],[-7.633,38.921],[-7.629,38.925],[-7.624,38.932],[-7.617,38.94],[-7.602,38.949],[-7.588,38.953],[-7.567,38.956],[-7.552,38.961],[-7.543,38.966],[-7.539,38.973],[-7.539,38.98],[-7.542,38.985],[-7.549,38.993],[-7.536,39],[-7.531,39],[-7.528,39],[-7.527,39],[-7.522,38.991],[-7.482,38.978],[-7.466,38.966],[-7.46,38.956],[-7.457,38.938],[-7.455,38.932],[-7.454,38.922],[-7.432,38.906],[-7.424,38.886],[-7.422,38.873],[-7.408,38.857],[-7.413,38.842],[-7.406,38.834],[-7.393,38.815],[-7.384,38.808],[-7.369,38.801],[-7.351,38.802],[-7.347,38.8],[-7.332,38.804],[-7.312,38.821],[-7.29,38.835],[-7.261,38.843],[-7.243,38.843],[-7.23,38.839],[-7.218,38.833],[-7.215,38.826],[-7.214,38.812],[-7.216,38.805],[-7.231,38.788],[-7.233,38.782],[-7.234,38.773],[-7.226,38.766],[-7.226,38.766],[-7.271,38.738],[-7.273,38.734],[-7.281,38.721],[-7.285,38.714],[-7.291,38.679],[-7.293,38.657],[-7.293,38.646],[-7.291,38.638],[-7.286,38.632],[-7.28,38.629],[-7.274,38.626],[-7.271,38.618],[-7.276,38.604],[-7.318,38.557],[-7.336,38.506],[-7.346,38.494],[-7.335,38.481],[-7.336,38.47],[-7.345,38.459],[-7.36,38.447],[-7.346,38.441],[-7.318,38.425],[-7.212,38.318],[-7.208,38.312],[-7.201,38.299],[-7.197,38.292],[-7.19,38.287],[-7.173,38.277],[-7.168,38.272],[-7.127,38.191],[-7.117,38.184],[-7.122,38.182],[-7.128,38.178],[-7.137,38.176],[-7.152,38.176],[-7.164,38.183],[-7.173,38.19],[-7.182,38.205],[-7.185,38.212],[-7.196,38.232],[-7.197,38.24],[-7.2,38.246],[-7.206,38.251],[-7.232,38.261],[-7.252,38.277],[-7.257,38.284],[-7.258,38.291],[-7.261,38.299],[-7.265,38.306],[-7.27,38.311],[-7.274,38.315],[-7.276,38.319],[-7.277,38.324],[-7.278,38.327],[-7.281,38.331],[-7.288,38.332],[-7.296,38.331],[-7.322,38.323],[-7.328,38.323],[-7.336,38.321],[-7.369,38.307],[-7.4,38.3],[-7.402,38.293],[-7.403,38.287],[-7.407,38.277],[-7.414,38.268],[-7.424,38.262],[-7.428,38.257],[-7.444,38.251],[-7.446,38.247],[-7.475,38.236],[-7.491,38.222],[-7.504,38.205],[-7.506,38.198],[-7.517,38.196],[-7.562,38.197],[-7.584,38.203],[-7.604,38.206],[-7.669,38.207],[-7.684,38.211],[-7.747,38.239],[-7.773,38.247],[-7.824,38.251],[-7.909,38.281],[-7.931,38.303],[-7.96,38.312],[-7.969,38.314],[-7.98,38.314],[-8.003,38.305],[-8.011,38.305],[-8.02,38.308],[-8.03,38.314],[-8.043,38.324],[-8.048,38.326],[-8.062,38.328],[-8.084,38.326],[-8.158,38.327],[-8.162,38.318],[-8.2,38.341],[-8.219,38.346],[-8.227,38.346],[-8.237,38.347],[-8.246,38.349],[-8.267,38.359],[-8.28,38.368],[-8.302,38.374],[-8.308,38.377],[-8.308,38.385],[-8.292,38.407],[-8.289,38.425],[-8.294,38.433],[-8.301,38.437],[-8.315,38.442],[-8.32,38.448],[-8.32,38.453],[-8.316,38.457],[-8.316,38.462],[-8.329,38.49],[-8.33,38.496],[-8.331,38.499],[-8.331,38.5],[-8.331,38.501],[-8.336,38.506],[-8.349,38.517],[-8.369,38.536],[-8.377,38.539],[-8.396,38.536],[-8.419,38.524],[-8.433,38.52],[-8.462,38.519],[-8.474,38.523],[-8.483,38.528],[-8.489,38.533],[-8.492,38.538],[-8.499,38.542],[-8.509,38.543],[-8.513,38.539],[-8.511,38.534],[-8.509,38.527],[-8.51,38.522],[-8.517,38.519],[-8.541,38.526],[-8.57,38.529],[-8.609,38.547],[-8.638,38.55],[-8.644,38.574],[-8.647,38.582],[-8.651,38.589],[-8.652,38.598],[-8.652,38.606],[-8.615,38.642],[-8.532,38.688],[-8.516,38.704],[-8.508,38.713],[-8.506,38.725],[-8.507,38.732],[-8.496,38.748],[-8.499,38.758],[-8.505,38.761],[-8.547,38.767],[-8.499,38.799],[-8.454,38.806],[-8.444,38.811],[-8.423,38.828],[-8.413,38.83],[-8.402,38.829],[-8.394,38.831],[-8.388,38.833],[-8.384,38.837],[-8.379,38.842],[-8.377,38.848],[-8.375,38.853],[-8.368,38.853],[-8.351,38.848],[-8.338,38.847],[-8.326,38.851],[-8.317,38.851],[-8.311,38.85],[-8.305,38.852],[-8.303,38.857],[-8.299,38.861],[-8.293,38.861],[-8.286,38.857],[-8.259,38.835],[-8.25,38.83],[-8.219,38.825],[-8.208,38.822],[-8.202,38.817],[-8.198,38.811],[-8.197,38.805],[-8.193,38.801],[-8.188,38.8],[-8.183,38.801],[-8.178,38.799],[-8.172,38.786],[-8.168,38.781],[-8.152,38.774],[-8.134,38.787],[-8.129,38.801],[-8.131,38.81],[-8.137,38.816],[-8.145,38.818],[-8.153,38.819],[-8.169,38.833],[-8.176,38.842],[-8.175,38.85],[-8.17,38.867],[-8.175,38.874],[-8.179,38.877],[-8.191,38.879],[-8.243,38.897],[-8.25,38.901],[-8.258,38.906],[-8.26,38.914],[-8.257,38.92],[-8.251,38.926],[-8.245,38.932],[-8.241,38.941],[-8.239,38.951],[-8.238,38.968],[-8.235,38.977],[-8.23,38.983],[-8.225,38.984],[-8.212,38.985],[-8.206,38.988],[-8.197,39.001],[-8.177,39.015],[-8.161,39.02],[-8.153,39.024],[-8.146,39.025],[-8.118,39.027],[-8.103,39.022],[-8.103,39.017],[-8.106,39.011],[-8.109,38.997],[-8.105,38.984]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Evora'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Evora?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Evora is located? </h2>Evora, is a district It belongs to the country of Portugal. Its postal identifier is EV.Evora has an area of 7228 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

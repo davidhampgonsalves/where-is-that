@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kgalagadi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[23.043,-23.397],[23.023,-23.414],[22.977,-23.413],[22.967,-23.417],[22.959,-23.425],[22.955,-23.463],[22.957,-23.559],[22.959,-23.566],[22.966,-23.569],[22.976,-23.57],[23.032,-23.57],[23.05,-23.643],[23.053,-23.999],[23.049,-24.823],[23.051,-24.836],[23.056,-24.846],[23.07,-24.849],[23.085,-24.851],[24.044,-24.845],[24.06,-24.847],[24.075,-24.851],[24.091,-24.862],[24.206,-24.972],[24.219,-24.987],[24.23,-25.004],[24.234,-25.026],[24.25,-25.501],[24.283,-25.54],[24.399,-25.646],[24.414,-25.651],[24.46,-25.654],[24.487,-25.673],[24.501,-25.758],[24.501,-25.758],[24.456,-25.743],[24.436,-25.745],[24.416,-25.753],[24.389,-25.759],[24.339,-25.752],[24.296,-25.723],[24.227,-25.649],[24.183,-25.626],[24.131,-25.626],[24.027,-25.652],[24.005,-25.655],[24.004,-25.65],[24.004,-25.65],[24.009,-25.641],[24.009,-25.641],[24.008,-25.633],[23.998,-25.625],[23.988,-25.619],[23.976,-25.617],[23.924,-25.629],[23.905,-25.618],[23.89,-25.599],[23.845,-25.569],[23.807,-25.524],[23.798,-25.518],[23.778,-25.512],[23.769,-25.507],[23.762,-25.498],[23.752,-25.478],[23.742,-25.47],[23.686,-25.454],[23.674,-25.443],[23.666,-25.433],[23.561,-25.357],[23.535,-25.343],[23.506,-25.331],[23.496,-25.324],[23.483,-25.311],[23.468,-25.29],[23.459,-25.282],[23.445,-25.278],[23.432,-25.28],[23.399,-25.291],[23.381,-25.292],[23.366,-25.289],[23.32,-25.273],[23.265,-25.264],[23.216,-25.267],[23.168,-25.28],[23.093,-25.312],[23.084,-25.32],[23.071,-25.326],[23.065,-25.321],[23.061,-25.311],[23.054,-25.302],[23.03,-25.299],[23.007,-25.311],[22.968,-25.347],[22.962,-25.356],[22.96,-25.364],[22.956,-25.372],[22.944,-25.379],[22.931,-25.384],[22.92,-25.39],[22.912,-25.399],[22.903,-25.411],[22.887,-25.45],[22.876,-25.462],[22.851,-25.471],[22.844,-25.481],[22.824,-25.543],[22.817,-25.558],[22.814,-25.566],[22.813,-25.575],[22.813,-25.575],[22.819,-25.585],[22.828,-25.595],[22.833,-25.606],[22.833,-25.606],[22.824,-25.616],[22.81,-25.625],[22.809,-25.633],[22.809,-25.633],[22.813,-25.642],[22.815,-25.653],[22.815,-25.653],[22.813,-25.667],[22.81,-25.677],[22.804,-25.687],[22.759,-25.735],[22.746,-25.755],[22.74,-25.777],[22.74,-25.777],[22.741,-25.791],[22.745,-25.794],[22.751,-25.796],[22.758,-25.806],[22.764,-25.82],[22.765,-25.826],[22.765,-25.826],[22.754,-25.843],[22.739,-25.858],[22.719,-25.874],[22.709,-25.891],[22.709,-25.891],[22.721,-25.909],[22.726,-25.922],[22.727,-25.944],[22.727,-25.944],[22.724,-25.967],[22.719,-25.984],[22.71,-25.997],[22.7,-26.003],[22.672,-26.013],[22.661,-26.021],[22.661,-26.021],[22.662,-26.03],[22.666,-26.04],[22.666,-26.04],[22.665,-26.051],[22.623,-26.109],[22.62,-26.112],[22.611,-26.12],[22.591,-26.133],[22.58,-26.146],[22.564,-26.181],[22.545,-26.207],[22.528,-26.214],[22.482,-26.205],[22.451,-26.21],[22.428,-26.226],[22.395,-26.272],[22.343,-26.317],[22.318,-26.329],[22.303,-26.333],[22.257,-26.341],[22.248,-26.347],[22.237,-26.367],[22.197,-26.404],[22.178,-26.44],[22.146,-26.519],[22.108,-26.572],[22.057,-26.617],[21.999,-26.65],[21.935,-26.664],[21.838,-26.664],[21.807,-26.669],[21.78,-26.678],[21.768,-26.689],[21.767,-26.704],[21.767,-26.704],[21.776,-26.749],[21.777,-26.768],[21.777,-26.768],[21.773,-26.787],[21.762,-26.804],[21.743,-26.82],[21.687,-26.855],[21.664,-26.863],[21.643,-26.863],[21.584,-26.848],[21.498,-26.846],[21.449,-26.826],[21.426,-26.822],[21.381,-26.824],[21.297,-26.844],[21.282,-26.845],[21.255,-26.842],[21.24,-26.842],[21.153,-26.864],[21.122,-26.865],[20.99,-26.838],[20.95,-26.816],[20.907,-26.8],[20.852,-26.806],[20.826,-26.819],[20.779,-26.848],[20.715,-26.875],[20.693,-26.889],[20.69,-26.892],[20.685,-26.882],[20.675,-26.85],[20.665,-26.839],[20.65,-26.83],[20.644,-26.824],[20.638,-26.817],[20.625,-26.789],[20.614,-26.753],[20.609,-26.716],[20.609,-26.686],[20.609,-26.686],[20.63,-26.618],[20.632,-26.595],[20.632,-26.595],[20.627,-26.581],[20.611,-26.56],[20.605,-26.548],[20.602,-26.522],[20.602,-26.522],[20.605,-26.493],[20.618,-26.44],[20.622,-26.427],[20.652,-26.408],[20.666,-26.392],[20.695,-26.342],[20.753,-26.276],[20.776,-26.24],[20.794,-26.202],[20.838,-26.147],[20.841,-26.131],[20.841,-26.131],[20.804,-26.071],[20.8,-26.052],[20.8,-26.052],[20.802,-25.98],[20.802,-25.98],[20.794,-25.894],[20.767,-25.834],[20.767,-25.831],[20.755,-25.819],[20.75,-25.818],[20.74,-25.823],[20.726,-25.827],[20.726,-25.827],[20.727,-25.818],[20.737,-25.799],[20.737,-25.799],[20.716,-25.732],[20.707,-25.715],[20.696,-25.707],[20.671,-25.695],[20.662,-25.685],[20.662,-25.675],[20.662,-25.675],[20.671,-25.653],[20.671,-25.653],[20.671,-25.642],[20.663,-25.636],[20.651,-25.635],[20.641,-25.631],[20.638,-25.62],[20.638,-25.62],[20.643,-25.613],[20.665,-25.601],[20.671,-25.591],[20.671,-25.591],[20.663,-25.565],[20.618,-25.528],[20.618,-25.528],[20.62,-25.5],[20.627,-25.485],[20.656,-25.468],[20.656,-25.468],[20.643,-25.457],[20.634,-25.458],[20.625,-25.463],[20.616,-25.466],[20.606,-25.462],[20.605,-25.452],[20.605,-25.452],[20.611,-25.439],[20.612,-25.431],[20.612,-25.431],[20.597,-25.433],[20.593,-25.413],[20.588,-25.404],[20.558,-25.392],[20.542,-25.382],[20.536,-25.371],[20.529,-25.34],[20.525,-25.332],[20.514,-25.319],[20.51,-25.312],[20.51,-25.305],[20.51,-25.305],[20.514,-25.299],[20.518,-25.293],[20.518,-25.293],[20.516,-25.284],[20.51,-25.277],[20.491,-25.269],[20.485,-25.263],[20.483,-25.256],[20.481,-25.23],[20.462,-25.224],[20.444,-25.213],[20.434,-25.2],[20.434,-25.2],[20.443,-25.183],[20.444,-25.168],[20.444,-25.168],[20.434,-25.147],[20.407,-25.108],[20.375,-25.046],[20.365,-25.033],[20.235,-24.936],[20.159,-24.894],[20.149,-24.891],[20.128,-24.89],[20.119,-24.887],[20.107,-24.88],[20.081,-24.852],[20.029,-24.815],[20.01,-24.788],[19.993,-24.776],[19.986,-24.769],[19.981,-24.752],[19.981,-24.752],[19.979,-23.309],[19.999,-23.309],[23.058,-23.311],[23.043,-23.397]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Kgalagadi'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Kgalagadi?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where Kgalagadi is located? </h2>Kgalagadi, is a district It belongs to the country of Botswana. Its postal identifier is KG.Kgalagadi has an area of 105607 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

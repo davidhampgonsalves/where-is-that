@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Cill Chainnigh?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-7.047,52.793],[-7.068,52.78],[-7.078,52.767],[-7.084,52.754],[-7.086,52.746],[-7.086,52.734],[-7.089,52.73],[-7.093,52.725],[-7.09,52.723],[-7.079,52.721],[-7.075,52.718],[-7.071,52.715],[-7.066,52.708],[-7.062,52.705],[-7.056,52.705],[-7.052,52.706],[-7.038,52.711],[-7.033,52.712],[-7.027,52.711],[-7.022,52.71],[-7.017,52.706],[-7.012,52.701],[-6.999,52.685],[-6.998,52.684],[-6.991,52.679],[-6.983,52.674],[-6.978,52.673],[-6.977,52.671],[-6.978,52.668],[-6.981,52.664],[-6.983,52.66],[-6.984,52.653],[-6.983,52.644],[-6.979,52.625],[-6.976,52.616],[-6.973,52.61],[-6.968,52.605],[-6.962,52.599],[-6.934,52.584],[-6.926,52.579],[-6.923,52.574],[-6.923,52.57],[-6.926,52.557],[-6.927,52.553],[-6.929,52.549],[-6.939,52.541],[-6.939,52.525],[-6.923,52.466],[-6.92,52.449],[-6.924,52.433],[-6.928,52.425],[-6.933,52.421],[-6.944,52.423],[-6.949,52.423],[-6.955,52.421],[-6.956,52.418],[-6.954,52.407],[-6.955,52.395],[-6.957,52.389],[-6.96,52.383],[-6.969,52.372],[-6.972,52.369],[-6.993,52.354],[-6.997,52.349],[-6.998,52.344],[-6.998,52.339],[-6.998,52.334],[-6.999,52.325],[-7,52.32],[-7.003,52.316],[-7.015,52.3],[-7.018,52.294],[-7.019,52.289],[-7.017,52.286],[-7.014,52.283],[-7.011,52.281],[-7.004,52.279],[-6.998,52.278],[-6.994,52.277],[-6.992,52.267],[-6.996,52.271],[-7.011,52.267],[-7.034,52.257],[-7.043,52.254],[-7.055,52.252],[-7.074,52.251],[-7.08,52.25],[-7.089,52.251],[-7.102,52.254],[-7.129,52.264],[-7.153,52.271],[-7.166,52.271],[-7.173,52.27],[-7.18,52.268],[-7.183,52.265],[-7.199,52.252],[-7.202,52.249],[-7.207,52.247],[-7.216,52.249],[-7.231,52.255],[-7.26,52.27],[-7.293,52.294],[-7.313,52.312],[-7.326,52.319],[-7.365,52.336],[-7.386,52.369],[-7.39,52.382],[-7.389,52.391],[-7.387,52.401],[-7.386,52.42],[-7.389,52.427],[-7.392,52.431],[-7.421,52.45],[-7.427,52.456],[-7.434,52.46],[-7.453,52.469],[-7.458,52.472],[-7.458,52.475],[-7.457,52.478],[-7.454,52.48],[-7.447,52.484],[-7.432,52.49],[-7.424,52.494],[-7.421,52.497],[-7.42,52.499],[-7.419,52.501],[-7.419,52.505],[-7.419,52.512],[-7.421,52.515],[-7.425,52.518],[-7.44,52.516],[-7.447,52.518],[-7.45,52.521],[-7.452,52.525],[-7.453,52.541],[-7.449,52.566],[-7.448,52.576],[-7.449,52.581],[-7.452,52.585],[-7.463,52.589],[-7.468,52.592],[-7.471,52.597],[-7.471,52.611],[-7.473,52.616],[-7.475,52.62],[-7.503,52.64],[-7.551,52.699],[-7.557,52.706],[-7.561,52.708],[-7.564,52.71],[-7.584,52.717],[-7.602,52.725],[-7.607,52.726],[-7.63,52.731],[-7.653,52.754],[-7.658,52.76],[-7.668,52.78],[-7.619,52.786],[-7.613,52.788],[-7.609,52.791],[-7.606,52.797],[-7.6,52.803],[-7.58,52.815],[-7.57,52.818],[-7.562,52.819],[-7.559,52.816],[-7.554,52.814],[-7.546,52.811],[-7.53,52.808],[-7.51,52.802],[-7.497,52.799],[-7.492,52.798],[-7.479,52.791],[-7.473,52.788],[-7.461,52.786],[-7.453,52.786],[-7.403,52.798],[-7.392,52.802],[-7.385,52.807],[-7.383,52.81],[-7.379,52.814],[-7.374,52.818],[-7.362,52.824],[-7.355,52.824],[-7.349,52.822],[-7.344,52.82],[-7.34,52.821],[-7.338,52.824],[-7.332,52.834],[-7.327,52.84],[-7.322,52.844],[-7.317,52.848],[-7.305,52.854],[-7.297,52.857],[-7.289,52.858],[-7.283,52.857],[-7.266,52.852],[-7.255,52.85],[-7.248,52.851],[-7.243,52.853],[-7.24,52.856],[-7.238,52.864],[-7.236,52.867],[-7.193,52.887],[-7.183,52.888],[-7.176,52.888],[-7.172,52.886],[-7.138,52.869],[-7.135,52.867],[-7.133,52.863],[-7.132,52.86],[-7.133,52.851],[-7.133,52.847],[-7.131,52.844],[-7.125,52.838],[-7.12,52.832],[-7.116,52.829],[-7.11,52.827],[-7.08,52.823],[-7.075,52.821],[-7.072,52.818],[-7.068,52.815],[-7.064,52.81],[-7.062,52.806],[-7.057,52.8],[-7.047,52.793]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Cill Chainnigh'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Cill Chainnigh?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Cill Chainnigh is located? </h2>Cill Chainnigh, is a county It belongs to the country of Ireland. Its postal identifier is KK.Cill Chainnigh has an area of 2055 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

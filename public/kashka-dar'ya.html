@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kashka-Dar'ya?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[65.849,39.493],[65.859,39.481],[65.912,39.442],[65.941,39.426],[65.967,39.411],[65.97,39.406],[65.973,39.4],[65.973,39.385],[65.972,39.369],[65.972,39.362],[65.973,39.355],[65.975,39.343],[65.979,39.337],[65.986,39.333],[66.053,39.32],[66.089,39.32],[66.104,39.324],[66.125,39.334],[66.221,39.371],[66.226,39.371],[66.37,39.397],[66.389,39.398],[66.414,39.385],[66.473,39.349],[66.49,39.342],[66.503,39.34],[66.511,39.34],[66.585,39.364],[66.595,39.371],[66.627,39.409],[66.634,39.414],[66.642,39.42],[66.657,39.426],[66.675,39.43],[66.689,39.431],[66.767,39.421],[66.852,39.408],[66.874,39.405],[66.894,39.375],[66.897,39.362],[66.891,39.334],[66.889,39.318],[66.891,39.31],[66.895,39.304],[66.9,39.301],[66.907,39.298],[66.914,39.296],[66.928,39.294],[67.039,39.297],[67.051,39.299],[67.056,39.301],[67.061,39.305],[67.065,39.309],[67.067,39.314],[67.068,39.319],[67.068,39.324],[67.066,39.334],[67.066,39.339],[67.12,39.337],[67.358,39.291],[67.358,39.291],[67.351,39.286],[67.346,39.281],[67.344,39.274],[67.342,39.26],[67.342,39.26],[67.35,39.22],[67.378,39.2],[67.499,39.166],[67.58,39.164],[67.62,39.152],[67.624,39.148],[67.632,39.137],[67.637,39.132],[67.644,39.131],[67.661,39.134],[67.667,39.132],[67.677,39.12],[67.678,39.106],[67.678,39.106],[67.667,39.029],[67.667,39.029],[67.672,39.004],[67.673,39.003],[67.658,38.994],[67.64,38.988],[67.568,38.986],[67.555,38.983],[67.543,38.98],[67.538,38.977],[67.531,38.973],[67.524,38.967],[67.518,38.96],[67.516,38.952],[67.516,38.944],[67.523,38.921],[67.529,38.885],[67.553,38.851],[67.555,38.846],[67.557,38.841],[67.556,38.835],[67.555,38.829],[67.553,38.823],[67.552,38.817],[67.552,38.812],[67.552,38.807],[67.552,38.802],[67.554,38.797],[67.556,38.792],[67.559,38.782],[67.559,38.776],[67.559,38.77],[67.557,38.763],[67.552,38.755],[67.541,38.742],[67.536,38.734],[67.534,38.727],[67.534,38.709],[67.532,38.705],[67.529,38.701],[67.522,38.702],[67.516,38.704],[67.498,38.72],[67.494,38.722],[67.489,38.725],[67.482,38.727],[67.467,38.73],[67.452,38.732],[67.437,38.731],[67.425,38.729],[67.41,38.724],[67.401,38.718],[67.394,38.713],[67.389,38.708],[67.329,38.617],[67.319,38.606],[67.301,38.592],[67.292,38.586],[67.277,38.58],[67.237,38.572],[67.229,38.558],[67.218,38.543],[67.2,38.528],[67.163,38.504],[67.157,38.497],[67.151,38.485],[67.145,38.468],[67.134,38.416],[67.126,38.393],[67.124,38.387],[67.111,38.376],[67,38.306],[66.943,38.281],[66.931,38.279],[66.895,38.274],[66.887,38.269],[66.878,38.261],[66.863,38.24],[66.852,38.22],[66.848,38.209],[66.843,38.197],[66.836,38.185],[66.829,38.174],[66.707,38.084],[66.698,38.075],[66.692,38.059],[66.687,38.02],[66.682,38.006],[66.666,37.982],[66.637,37.967],[66.624,37.994],[66.624,37.994],[66.624,37.994],[66.59,38.013],[66.554,38.027],[66.516,38.035],[66.439,38.036],[66.408,38.043],[66.307,38.081],[66.26,38.127],[66.231,38.149],[66.198,38.161],[66.133,38.176],[66.071,38.215],[66.043,38.227],[65.977,38.235],[65.876,38.273],[65.843,38.276],[65.814,38.267],[65.766,38.236],[65.74,38.224],[65.671,38.22],[65.604,38.238],[65.205,38.45],[64.978,38.613],[64.91,38.646],[64.763,38.686],[64.635,38.744],[64.424,38.883],[64.368,38.94],[64.383,38.953],[64.474,39.031],[64.521,39.056],[64.659,39.099],[64.713,39.114],[64.879,39.161],[64.885,39.164],[64.889,39.168],[64.892,39.176],[64.891,39.182],[64.888,39.187],[64.885,39.191],[64.853,39.222],[64.846,39.229],[64.841,39.238],[64.839,39.243],[64.838,39.247],[64.838,39.253],[64.839,39.258],[64.845,39.267],[64.855,39.277],[64.931,39.341],[64.937,39.345],[64.945,39.348],[64.957,39.349],[64.966,39.348],[64.978,39.351],[64.99,39.359],[65.091,39.437],[65.138,39.464],[65.237,39.482],[65.256,39.492],[65.683,39.483],[65.694,39.486],[65.716,39.495],[65.737,39.507],[65.741,39.511],[65.745,39.515],[65.746,39.52],[65.746,39.525],[65.746,39.541],[65.747,39.546],[65.749,39.551],[65.757,39.555],[65.768,39.557],[65.799,39.556],[65.809,39.555],[65.815,39.553],[65.82,39.55],[65.825,39.547],[65.828,39.543],[65.831,39.539],[65.84,39.506],[65.843,39.501],[65.843,39.5],[65.843,39.5],[65.849,39.493]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Kashka-Dar'ya'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Kashka-Dar'ya?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Kashka-Dar'ya is located? </h2>Kashka-Dar'ya, is a region It belongs to the country of Uzbekistan. Its postal identifier is QA.Kashka-Dar'ya has an area of 29151 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ilam?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[47.389,33.854],[47.333,33.823],[47.314,33.8],[46.964,33.717],[46.902,33.668],[46.88,33.623],[46.862,33.621],[46.845,33.615],[46.842,33.6],[46.827,33.561],[46.828,33.554],[46.843,33.546],[46.866,33.513],[46.897,33.499],[46.924,33.471],[46.945,33.465],[46.999,33.437],[47.009,33.433],[47.013,33.425],[47.012,33.415],[47,33.397],[47.003,33.389],[47.016,33.376],[47.029,33.366],[47.047,33.359],[47.085,33.349],[47.087,33.346],[47.088,33.341],[47.092,33.337],[47.099,33.335],[47.104,33.336],[47.109,33.34],[47.116,33.341],[47.124,33.34],[47.129,33.336],[47.134,33.332],[47.184,33.3],[47.201,33.293],[47.201,33.28],[47.219,33.264],[47.245,33.251],[47.287,33.242],[47.41,33.191],[47.421,33.18],[47.426,33.168],[47.44,33.164],[47.454,33.164],[47.465,33.16],[47.489,33.136],[47.509,33.105],[47.522,33.092],[47.541,33.088],[47.555,33.081],[47.588,33.051],[47.706,32.921],[47.867,32.635],[47.887,32.611],[47.899,32.601],[47.807,32.421],[47.734,32.335],[47.735,32.284],[47.747,32.22],[47.712,32.171],[47.607,32.113],[47.58,32.103],[47.578,32.106],[47.558,32.113],[47.543,32.115],[47.534,32.123],[47.526,32.134],[47.514,32.14],[47.498,32.144],[47.491,32.149],[47.49,32.157],[47.492,32.171],[47.496,32.182],[47.502,32.19],[47.507,32.2],[47.509,32.214],[47.504,32.227],[47.484,32.24],[47.479,32.252],[47.469,32.256],[47.463,32.262],[47.445,32.283],[47.441,32.288],[47.436,32.294],[47.407,32.318],[47.402,32.324],[47.395,32.337],[47.395,32.342],[47.399,32.346],[47.408,32.365],[47.414,32.37],[47.417,32.377],[47.416,32.388],[47.41,32.395],[47.384,32.413],[47.367,32.431],[47.356,32.446],[47.343,32.459],[47.321,32.468],[47.265,32.485],[47.251,32.486],[47.205,32.464],[47.187,32.459],[47.152,32.455],[47.121,32.461],[47.09,32.475],[47.058,32.495],[47.058,32.495],[47.058,32.495],[46.757,32.716],[46.715,32.756],[46.65,32.79],[46.604,32.821],[46.601,32.822],[46.507,32.868],[46.479,32.892],[46.379,32.932],[46.273,32.96],[46.155,32.949],[46.096,32.954],[46.075,32.994],[46.075,32.995],[46.084,33.004],[46.088,33.007],[46.092,33.01],[46.104,33.018],[46.119,33.031],[46.126,33.048],[46.12,33.062],[46.106,33.073],[46.087,33.079],[46.043,33.084],[46.029,33.094],[46.03,33.106],[46.05,33.115],[46.072,33.117],[46.089,33.116],[46.089,33.116],[46.095,33.117],[46.105,33.119],[46.111,33.122],[46.126,33.132],[46.153,33.154],[46.167,33.169],[46.174,33.181],[46.173,33.19],[46.162,33.197],[46.157,33.206],[46.158,33.214],[46.164,33.233],[46.164,33.244],[46.155,33.26],[46.141,33.272],[46.109,33.294],[46.069,33.341],[46.036,33.368],[46.031,33.383],[46.03,33.399],[46.027,33.42],[46.019,33.439],[46.008,33.456],[45.974,33.491],[45.971,33.493],[45.968,33.494],[45.965,33.496],[45.963,33.497],[45.958,33.498],[45.953,33.497],[45.948,33.494],[45.929,33.48],[45.899,33.476],[45.869,33.482],[45.852,33.495],[45.868,33.512],[45.915,33.536],[45.927,33.551],[45.921,33.572],[45.92,33.573],[45.899,33.585],[45.882,33.6],[45.882,33.6],[45.885,33.631],[45.864,33.627],[45.815,33.626],[45.805,33.622],[45.797,33.619],[45.783,33.608],[45.768,33.596],[45.752,33.587],[45.752,33.587],[45.749,33.586],[45.734,33.583],[45.734,33.583],[45.727,33.59],[45.727,33.59],[45.728,33.626],[45.724,33.633],[45.747,33.649],[45.769,33.794],[45.807,33.893],[45.817,33.958],[45.804,33.996],[45.822,34.014],[45.881,34.012],[46.036,34.029],[46.186,33.978],[46.266,33.973],[46.347,33.957],[46.414,33.923],[46.488,33.87],[46.739,33.803],[46.856,33.795],[47.026,33.831],[47.182,33.825],[47.203,33.859],[47.217,33.924],[47.203,33.949],[47.175,33.983],[47.175,34.014],[47.336,34.044],[47.37,34.042],[47.386,34.038],[47.4,34.022],[47.423,33.978],[47.432,33.929],[47.426,33.897],[47.413,33.875],[47.389,33.854]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Ilam'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Ilam?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Ilam is located? </h2>Ilam, is a province It belongs to the country of Iran. Its postal identifier is IL.Ilam has an area of 18807 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

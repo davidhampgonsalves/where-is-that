@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Guaira?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-55.625,-25.65],[-55.631,-25.661],[-55.633,-25.666],[-55.641,-25.679],[-55.654,-25.712],[-55.66,-25.722],[-55.669,-25.73],[-55.682,-25.733],[-55.691,-25.732],[-55.7,-25.73],[-55.709,-25.729],[-55.719,-25.732],[-55.734,-25.743],[-55.741,-25.752],[-55.752,-25.772],[-55.757,-25.777],[-55.77,-25.784],[-55.86,-25.817],[-55.873,-25.825],[-55.898,-25.842],[-55.909,-25.847],[-55.945,-25.854],[-55.957,-25.858],[-55.975,-25.873],[-55.988,-25.88],[-56.021,-25.889],[-56.033,-25.894],[-56.042,-25.904],[-56.047,-25.914],[-56.068,-25.991],[-56.071,-25.999],[-56.072,-26.001],[-56.074,-26.003],[-56.099,-26.019],[-56.155,-26.044],[-56.174,-26.042],[-56.213,-26.019],[-56.241,-25.998],[-56.246,-25.996],[-56.254,-25.992],[-56.266,-25.992],[-56.28,-25.996],[-56.329,-26.015],[-56.339,-26.016],[-56.346,-26.014],[-56.352,-26.01],[-56.359,-26.01],[-56.367,-26.014],[-56.375,-26.026],[-56.379,-26.038],[-56.38,-26.05],[-56.384,-26.061],[-56.392,-26.069],[-56.409,-26.074],[-56.458,-26.076],[-56.472,-26.08],[-56.483,-26.088],[-56.493,-26.104],[-56.5,-26.121],[-56.507,-26.165],[-56.515,-26.174],[-56.529,-26.179],[-56.554,-26.176],[-56.587,-26.176],[-56.653,-26.065],[-56.659,-26.052],[-56.663,-26.037],[-56.669,-25.999],[-56.67,-25.997],[-56.67,-25.992],[-56.669,-25.985],[-56.663,-25.979],[-56.657,-25.975],[-56.614,-25.966],[-56.604,-25.961],[-56.599,-25.951],[-56.599,-25.936],[-56.609,-25.908],[-56.617,-25.893],[-56.641,-25.865],[-56.648,-25.854],[-56.655,-25.838],[-56.665,-25.807],[-56.671,-25.777],[-56.672,-25.759],[-56.671,-25.743],[-56.664,-25.725],[-56.647,-25.71],[-56.625,-25.698],[-56.57,-25.674],[-56.56,-25.669],[-56.512,-25.628],[-56.499,-25.62],[-56.482,-25.615],[-56.451,-25.61],[-56.438,-25.606],[-56.426,-25.602],[-56.396,-25.584],[-56.379,-25.579],[-56.359,-25.578],[-56.246,-25.583],[-56.218,-25.58],[-56.203,-25.581],[-56.174,-25.586],[-56.093,-25.588],[-56.082,-25.594],[-56.074,-25.602],[-56.062,-25.607],[-56.046,-25.61],[-55.939,-25.607],[-55.92,-25.61],[-55.9,-25.618],[-55.886,-25.626],[-55.875,-25.637],[-55.854,-25.66],[-55.842,-25.67],[-55.828,-25.677],[-55.803,-25.678],[-55.771,-25.675],[-55.711,-25.658],[-55.65,-25.635],[-55.642,-25.635],[-55.636,-25.637],[-55.625,-25.65]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Guaira'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Guaira?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Guaira is located? </h2>Guaira, is a department It belongs to the country of Paraguay. Its postal identifier is GU.Guaira has an area of 3771 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

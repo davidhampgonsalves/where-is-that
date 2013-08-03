@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Southern Leyte?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[125.291,9.922],[125.285,9.917],[125.274,9.919],[125.268,9.924],[125.265,9.931],[125.264,9.938],[125.26,9.946],[125.236,9.974],[125.199,10.036],[125.165,10.056],[125.146,10.071],[125.137,10.087],[125.126,10.13],[125.124,10.152],[125.137,10.165],[125.149,10.166],[125.158,10.161],[125.176,10.145],[125.217,10.13],[125.229,10.121],[125.239,10.104],[125.253,10.036],[125.263,10.023],[125.277,10.009],[125.29,9.992],[125.295,9.971],[125.306,9.937],[125.305,9.933],[125.297,9.929],[125.291,9.922]]],[[[125.219,10.398],[125.232,10.387],[125.24,10.398],[125.247,10.398],[125.259,10.383],[125.267,10.368],[125.271,10.35],[125.274,10.323],[125.276,10.3],[125.273,10.278],[125.26,10.261],[125.229,10.254],[125.159,10.282],[125.141,10.279],[125.134,10.258],[125.137,10.228],[125.144,10.201],[125.151,10.185],[125.117,10.197],[125.089,10.229],[125.069,10.267],[125.062,10.299],[125.047,10.319],[125.045,10.323],[125.041,10.329],[125.042,10.364],[125.03,10.375],[125.01,10.383],[124.991,10.381],[124.98,10.364],[124.993,10.335],[125,10.2],[125.024,10.136],[125.031,10.094],[125.042,10.049],[125.042,10.029],[125.032,10.02],[125.015,10.026],[124.962,10.067],[124.959,10.073],[124.954,10.086],[124.942,10.092],[124.928,10.094],[124.918,10.097],[124.902,10.113],[124.894,10.126],[124.883,10.135],[124.86,10.138],[124.815,10.139],[124.795,10.143],[124.781,10.152],[124.766,10.185],[124.794,10.205],[124.837,10.227],[124.846,10.235],[124.855,10.254],[124.862,10.262],[124.872,10.266],[124.894,10.27],[124.904,10.276],[124.906,10.302],[124.884,10.435],[124.886,10.452],[124.897,10.473],[124.91,10.492],[124.923,10.506],[124.942,10.516],[124.964,10.52],[125.037,10.527],[125.061,10.532],[125.08,10.543],[125.097,10.566],[125.108,10.585],[125.12,10.599],[125.136,10.608],[125.158,10.615],[125.168,10.622],[125.17,10.62],[125.175,10.611],[125.194,10.603],[125.196,10.582],[125.185,10.532],[125.187,10.52],[125.197,10.497],[125.199,10.484],[125.197,10.447],[125.199,10.433],[125.206,10.418],[125.219,10.398]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Southern Leyte'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Southern Leyte?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Southern Leyte is located? </h2>Southern Leyte, is a province of the Eastern Visayas region. It belongs to the country of Philippines. Its postal identifier is SL.Southern Leyte has an area of 1734 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

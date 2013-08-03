@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Purwanchal?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[87.156,27.826],[87.182,27.825],[87.233,27.83],[87.29,27.816],[87.314,27.829],[87.336,27.847],[87.364,27.856],[87.385,27.85],[87.381,27.836],[87.369,27.819],[87.369,27.804],[87.387,27.805],[87.475,27.827],[87.514,27.836],[87.531,27.837],[87.551,27.832],[87.556,27.827],[87.56,27.819],[87.565,27.811],[87.573,27.805],[87.59,27.805],[87.621,27.82],[87.636,27.824],[87.66,27.82],[87.679,27.814],[87.655,27.753],[87.633,27.713],[87.617,27.691],[87.606,27.68],[87.596,27.675],[87.589,27.675],[87.581,27.678],[87.575,27.682],[87.568,27.686],[87.56,27.687],[87.552,27.685],[87.548,27.677],[87.54,27.641],[87.528,27.614],[87.517,27.596],[87.498,27.574],[87.487,27.557],[87.479,27.541],[87.468,27.501],[87.458,27.441],[87.45,27.416],[87.447,27.398],[87.446,27.383],[87.45,27.372],[87.456,27.362],[87.516,27.304],[87.523,27.299],[87.534,27.295],[87.579,27.287],[87.676,27.251],[87.718,27.237],[87.734,27.227],[87.738,27.22],[87.74,27.214],[87.74,27.207],[87.738,27.202],[87.732,27.195],[87.716,27.183],[87.712,27.175],[87.71,27.165],[87.707,27.157],[87.702,27.149],[87.694,27.144],[87.685,27.139],[87.641,27.125],[87.629,27.12],[87.603,27.102],[87.547,27.05],[87.5,26.998],[87.481,26.981],[87.502,26.953],[87.525,26.895],[87.533,26.883],[87.542,26.875],[87.559,26.866],[87.598,26.852],[87.6,26.851],[87.65,26.791],[87.664,26.764],[87.666,26.756],[87.666,26.741],[87.645,26.657],[87.642,26.439],[87.644,26.424],[87.649,26.41],[87.649,26.41],[87.624,26.393],[87.623,26.393],[87.587,26.378],[87.552,26.387],[87.48,26.424],[87.45,26.429],[87.416,26.427],[87.384,26.419],[87.384,26.419],[87.356,26.404],[87.345,26.39],[87.326,26.354],[87.314,26.344],[87.314,26.344],[87.3,26.346],[87.258,26.363],[87.245,26.37],[87.236,26.384],[87.229,26.399],[87.219,26.408],[87.188,26.4],[87.135,26.395],[87.106,26.405],[87.083,26.432],[87.067,26.466],[87.057,26.495],[87.056,26.495],[87.056,26.495],[87.045,26.545],[87.044,26.561],[87.041,26.58],[87.03,26.58],[87.03,26.58],[87.015,26.569],[86.985,26.541],[86.985,26.541],[86.978,26.536],[86.972,26.532],[86.972,26.532],[86.935,26.521],[86.938,26.528],[86.96,26.546],[86.968,26.557],[86.97,26.565],[86.97,26.577],[86.968,26.588],[86.965,26.595],[86.962,26.605],[86.967,26.617],[86.981,26.639],[87.004,26.723],[87.02,26.736],[87.043,26.745],[87.112,26.811],[87.14,26.826],[87.154,26.837],[87.16,26.848],[87.161,26.855],[87.166,26.876],[87.17,26.883],[87.175,26.903],[87.171,26.921],[87.155,26.927],[87.119,26.926],[87.001,26.901],[86.967,26.906],[86.958,27.058],[86.954,27.07],[86.944,27.082],[86.924,27.101],[86.919,27.113],[86.916,27.128],[86.925,27.189],[86.925,27.207],[86.919,27.251],[86.923,27.267],[86.928,27.273],[86.936,27.277],[86.944,27.28],[86.952,27.284],[86.957,27.29],[86.96,27.296],[86.961,27.31],[86.958,27.327],[86.918,27.388],[86.906,27.424],[86.91,27.438],[86.913,27.444],[86.931,27.463],[86.943,27.475],[86.947,27.485],[86.956,27.525],[86.961,27.539],[86.98,27.64],[86.998,27.698],[87,27.708],[87,27.722],[86.992,27.763],[86.994,27.787],[86.999,27.806],[86.999,27.812],[86.998,27.821],[86.991,27.841],[86.98,27.886],[86.982,27.949],[86.982,27.951],[86.982,27.951],[86.989,27.953],[87.006,27.952],[87.03,27.938],[87.062,27.909],[87.116,27.845],[87.156,27.826]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Purwanchal'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Purwanchal?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Purwanchal is located? </h2>Purwanchal, is a district of the East region. It belongs to the country of Nepal. Its postal identifier is PW.Purwanchal has an area of 9493 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

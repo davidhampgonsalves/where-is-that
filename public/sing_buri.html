@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Sing Buri?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[100.443,15.06],[100.437,15.053],[100.436,15.05],[100.437,15.045],[100.447,15.034],[100.448,15.032],[100.457,14.987],[100.46,14.98],[100.46,14.976],[100.46,14.969],[100.457,14.959],[100.452,14.95],[100.439,14.935],[100.435,14.93],[100.434,14.927],[100.435,14.918],[100.447,14.878],[100.452,14.867],[100.456,14.86],[100.461,14.858],[100.464,14.855],[100.47,14.849],[100.472,14.846],[100.474,14.843],[100.475,14.84],[100.477,14.836],[100.484,14.778],[100.489,14.759],[100.491,14.756],[100.493,14.751],[100.491,14.745],[100.477,14.725],[100.432,14.73],[100.428,14.732],[100.424,14.737],[100.421,14.745],[100.419,14.748],[100.417,14.75],[100.417,14.75],[100.416,14.751],[100.413,14.751],[100.41,14.751],[100.402,14.749],[100.395,14.749],[100.389,14.75],[100.381,14.756],[100.373,14.763],[100.368,14.766],[100.359,14.769],[100.355,14.772],[100.352,14.775],[100.347,14.785],[100.344,14.79],[100.342,14.793],[100.338,14.794],[100.332,14.794],[100.308,14.787],[100.304,14.786],[100.296,14.787],[100.288,14.79],[100.284,14.793],[100.28,14.795],[100.268,14.797],[100.232,14.79],[100.214,14.815],[100.213,14.82],[100.212,14.825],[100.213,14.828],[100.222,14.839],[100.223,14.848],[100.226,14.892],[100.225,14.903],[100.223,14.91],[100.209,14.906],[100.205,14.907],[100.2,14.91],[100.195,14.917],[100.194,14.922],[100.194,14.926],[100.196,14.929],[100.202,14.936],[100.205,14.94],[100.206,14.943],[100.212,14.955],[100.254,14.952],[100.267,14.954],[100.273,14.957],[100.283,14.966],[100.303,14.994],[100.306,15],[100.306,15],[100.306,15.004],[100.305,15.006],[100.303,15.009],[100.301,15.012],[100.296,15.016],[100.293,15.018],[100.29,15.02],[100.283,15.022],[100.271,15.024],[100.268,15.027],[100.267,15.033],[100.271,15.045],[100.274,15.051],[100.278,15.054],[100.291,15.058],[100.297,15.06],[100.303,15.079],[100.3,15.077],[100.292,15.074],[100.289,15.072],[100.272,15.112],[100.287,15.121],[100.29,15.124],[100.293,15.129],[100.295,15.133],[100.296,15.137],[100.295,15.158],[100.297,15.162],[100.3,15.164],[100.309,15.168],[100.326,15.162],[100.34,15.16],[100.344,15.158],[100.348,15.155],[100.353,15.143],[100.354,15.138],[100.354,15.135],[100.352,15.132],[100.351,15.129],[100.35,15.126],[100.351,15.122],[100.352,15.119],[100.365,15.095],[100.382,15.085],[100.443,15.06]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Sing Buri'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Sing Buri?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Sing Buri is located? </h2>Sing Buri, is a province It belongs to the country of Thailand. Its postal identifier is SB.Sing Buri has an area of 851 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

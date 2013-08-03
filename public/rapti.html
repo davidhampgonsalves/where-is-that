@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Rapti?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[83.148,28.737],[83.143,28.709],[83.132,28.689],[83.099,28.648],[83.046,28.627],[82.993,28.614],[82.969,28.604],[82.958,28.596],[82.961,28.589],[82.972,28.577],[82.975,28.57],[82.976,28.562],[82.971,28.552],[82.963,28.548],[82.952,28.549],[82.94,28.548],[82.924,28.542],[82.907,28.527],[82.901,28.517],[82.901,28.509],[82.913,28.5],[82.889,28.468],[82.895,28.458],[82.905,28.45],[82.917,28.426],[82.925,28.417],[82.938,28.406],[82.945,28.398],[82.956,28.371],[83.049,28.307],[83.071,28.289],[83.084,28.273],[83.089,28.246],[83.077,28.232],[83.031,28.213],[83.018,28.203],[83.011,28.193],[83.01,28.183],[83.014,28.173],[83.033,28.151],[83.037,28.142],[83.039,28.129],[83.034,28.121],[83.026,28.114],[82.999,28.093],[82.987,28.058],[82.982,28.032],[82.972,28],[82.975,27.984],[82.982,27.975],[82.991,27.969],[82.997,27.963],[83.001,27.957],[83.003,27.946],[82.999,27.94],[82.993,27.936],[82.961,27.926],[82.931,27.91],[82.919,27.906],[82.906,27.904],[82.894,27.905],[82.87,27.909],[82.846,27.902],[82.801,27.868],[82.767,27.834],[82.764,27.83],[82.762,27.825],[82.775,27.816],[82.821,27.797],[82.844,27.776],[82.8,27.763],[82.751,27.768],[82.735,27.766],[82.716,27.76],[82.706,27.756],[82.699,27.751],[82.694,27.745],[82.689,27.739],[82.683,27.728],[82.676,27.705],[82.674,27.697],[82.652,27.704],[82.526,27.676],[82.441,27.667],[82.402,27.677],[82.348,27.726],[82.27,27.761],[82.151,27.849],[82.107,27.864],[82.09,27.873],[82.072,27.89],[82.051,27.906],[82.05,27.906],[82.055,27.917],[82.086,27.944],[82.091,27.946],[82.097,27.948],[82.102,27.948],[82.12,27.946],[82.129,27.947],[82.15,27.95],[82.16,27.954],[82.166,27.958],[82.173,27.963],[82.176,27.967],[82.178,27.972],[82.179,27.978],[82.181,27.999],[82.181,28.015],[82.176,28.028],[82.168,28.041],[82.122,28.078],[82.114,28.082],[82.105,28.084],[82.097,28.084],[82.088,28.086],[82.081,28.092],[82.065,28.111],[82.056,28.119],[82.025,28.14],[82.017,28.149],[82.013,28.16],[82.015,28.169],[82.028,28.188],[82.042,28.224],[82.095,28.248],[82.073,28.28],[82.062,28.302],[82.042,28.323],[81.981,28.345],[81.974,28.354],[81.974,28.391],[81.971,28.403],[81.965,28.412],[81.959,28.418],[81.956,28.427],[81.957,28.434],[81.964,28.442],[81.973,28.446],[81.998,28.455],[82.003,28.458],[82.009,28.464],[82.015,28.475],[82.019,28.488],[82.018,28.509],[82.014,28.525],[81.998,28.555],[81.997,28.563],[82.001,28.579],[82.008,28.594],[82.044,28.632],[82.089,28.616],[82.102,28.613],[82.117,28.611],[82.16,28.613],[82.186,28.625],[82.206,28.661],[82.213,28.669],[82.219,28.675],[82.237,28.684],[82.249,28.694],[82.269,28.712],[82.306,28.76],[82.317,28.77],[82.375,28.801],[82.484,28.877],[82.497,28.89],[82.505,28.908],[82.509,28.922],[82.522,28.948],[82.568,28.985],[82.626,28.97],[82.639,28.963],[82.656,28.95],[82.695,28.915],[82.7,28.907],[82.703,28.894],[82.703,28.878],[82.703,28.865],[82.704,28.855],[82.711,28.846],[82.758,28.818],[82.772,28.813],[82.789,28.816],[82.8,28.819],[82.813,28.82],[82.864,28.816],[82.925,28.82],[82.939,28.818],[82.96,28.811],[83.109,28.745],[83.148,28.737]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Rapti'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Rapti?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Rapti is located? </h2>Rapti, is a administrative zone of the Mid-Western region. It belongs to the country of Nepal. Its postal identifier is MP.Rapti has an area of 10638 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

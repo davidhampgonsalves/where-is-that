@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Gorontalo?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[123.097,0.929],[123.099,0.922],[123.122,0.882],[123.147,0.867],[123.158,0.862],[123.205,0.837],[123.217,0.827],[123.223,0.818],[123.225,0.811],[123.225,0.783],[123.247,0.733],[123.257,0.723],[123.271,0.712],[123.303,0.693],[123.325,0.664],[123.439,0.611],[123.461,0.586],[123.481,0.557],[123.496,0.493],[123.501,0.46],[123.5,0.43],[123.492,0.398],[123.469,0.335],[123.458,0.312],[123.445,0.311],[123.408,0.301],[123.39,0.298],[123.292,0.308],[123.259,0.321],[123.246,0.322],[123.239,0.325],[123.235,0.329],[123.227,0.343],[123.222,0.346],[123.216,0.353],[123.191,0.39],[123.187,0.394],[123.168,0.393],[123.164,0.397],[123.162,0.401],[123.133,0.448],[123.09,0.494],[123.075,0.516],[123.068,0.516],[123.054,0.501],[123.033,0.491],[122.978,0.483],[122.831,0.492],[122.738,0.482],[122.694,0.483],[122.683,0.489],[122.663,0.516],[122.65,0.524],[122.656,0.493],[122.653,0.481],[122.64,0.475],[122.623,0.477],[122.608,0.481],[122.597,0.49],[122.583,0.494],[122.566,0.497],[122.325,0.497],[122.313,0.495],[122.293,0.485],[122.284,0.483],[122.208,0.484],[122.197,0.483],[122.189,0.48],[122.173,0.471],[122.167,0.469],[122.145,0.471],[122.105,0.481],[122.038,0.482],[122.02,0.477],[122.005,0.455],[121.985,0.449],[121.893,0.436],[121.841,0.434],[121.801,0.427],[121.787,0.428],[121.78,0.433],[121.733,0.5],[121.716,0.515],[121.69,0.524],[121.677,0.523],[121.645,0.517],[121.636,0.516],[121.624,0.523],[121.618,0.531],[121.612,0.542],[121.602,0.552],[121.597,0.539],[121.588,0.533],[121.575,0.531],[121.557,0.531],[121.545,0.534],[121.536,0.538],[121.529,0.538],[121.519,0.524],[121.515,0.51],[121.513,0.497],[121.508,0.487],[121.496,0.483],[121.479,0.482],[121.466,0.48],[121.454,0.475],[121.444,0.469],[121.427,0.482],[121.414,0.483],[121.397,0.479],[121.362,0.473],[121.342,0.464],[121.333,0.462],[121.343,0.486],[121.344,0.497],[121.341,0.554],[121.338,0.567],[121.334,0.576],[121.329,0.578],[121.324,0.578],[121.32,0.577],[121.315,0.576],[121.309,0.575],[121.303,0.575],[121.296,0.576],[121.28,0.582],[121.257,0.587],[121.245,0.594],[121.228,0.609],[121.216,0.628],[121.16,0.686],[121.215,0.709],[121.224,0.715],[121.235,0.725],[121.241,0.735],[121.253,0.763],[121.261,0.779],[121.279,0.803],[121.291,0.816],[121.303,0.826],[121.343,0.85],[121.358,0.856],[121.378,0.861],[121.395,0.862],[121.423,0.86],[121.465,0.851],[121.475,0.847],[121.484,0.845],[121.494,0.844],[121.508,0.847],[121.552,0.863],[121.612,0.878],[121.63,0.885],[121.657,0.899],[121.721,0.919],[121.84,0.97],[121.856,0.975],[121.865,0.975],[121.875,0.974],[121.89,0.971],[121.993,0.935],[122.046,0.944],[122.141,0.987],[122.194,1.023],[122.197,1.028],[122.223,1.012],[122.236,1.01],[122.246,1.011],[122.265,1.016],[122.277,1.017],[122.282,1.016],[122.291,1.011],[122.297,1.01],[122.3,1.012],[122.309,1.021],[122.314,1.024],[122.329,1.024],[122.376,1.01],[122.396,1.011],[122.442,1.022],[122.454,1.021],[122.486,0.996],[122.524,0.98],[122.566,0.971],[122.624,0.967],[122.646,0.959],[122.663,0.947],[122.67,0.931],[122.68,0.919],[122.701,0.908],[122.739,0.894],[122.747,0.887],[122.751,0.88],[122.757,0.875],[122.77,0.873],[122.779,0.87],[122.781,0.856],[122.806,0.848],[122.831,0.825],[122.849,0.818],[122.89,0.848],[122.907,0.853],[122.919,0.86],[122.939,0.907],[122.943,0.913],[122.954,0.922],[122.958,0.928],[122.958,0.946],[122.961,0.957],[122.968,0.963],[122.991,0.962],[123.005,0.96],[123.072,0.935],[123.096,0.929],[123.097,0.929]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Gorontalo'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Gorontalo?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Gorontalo is located? </h2>Gorontalo, is a province It belongs to the country of Indonesia. Its postal identifier is GO.Gorontalo has an area of 11905 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

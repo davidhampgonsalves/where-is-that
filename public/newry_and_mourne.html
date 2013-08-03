@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Newry and Mourne?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-6.36,54.277],[-6.344,54.265],[-6.322,54.267],[-6.304,54.262],[-6.282,54.265],[-6.192,54.246],[-6.169,54.251],[-6.154,54.244],[-6.115,54.242],[-6.074,54.252],[-6.045,54.247],[-6.078,54.234],[-6.063,54.231],[-6.055,54.202],[-6.032,54.171],[-6.027,54.17],[-6.004,54.186],[-5.983,54.186],[-5.966,54.194],[-5.925,54.179],[-5.891,54.185],[-5.875,54.184],[-5.866,54.184],[-5.866,54.18],[-5.869,54.161],[-5.875,54.14],[-5.883,54.121],[-5.894,54.105],[-5.912,54.091],[-5.954,54.079],[-5.985,54.059],[-6.027,54.04],[-6.041,54.036],[-6.08,54.034],[-6.095,54.036],[-6.113,54.044],[-6.113,54.05],[-6.093,54.056],[-6.085,54.057],[-6.162,54.074],[-6.174,54.074],[-6.186,54.093],[-6.213,54.098],[-6.242,54.1],[-6.264,54.105],[-6.27,54.098],[-6.27,54.098],[-6.285,54.105],[-6.3,54.104],[-6.314,54.1],[-6.328,54.098],[-6.34,54.103],[-6.347,54.11],[-6.355,54.111],[-6.355,54.111],[-6.369,54.098],[-6.37,54.091],[-6.368,54.084],[-6.368,54.075],[-6.372,54.067],[-6.372,54.067],[-6.378,54.063],[-6.402,54.061],[-6.427,54.056],[-6.435,54.056],[-6.441,54.058],[-6.447,54.063],[-6.451,54.067],[-6.452,54.069],[-6.479,54.068],[-6.565,54.049],[-6.572,54.05],[-6.588,54.054],[-6.596,54.053],[-6.601,54.049],[-6.601,54.049],[-6.612,54.039],[-6.617,54.038],[-6.617,54.038],[-6.622,54.039],[-6.631,54.042],[-6.632,54.042],[-6.658,54.061],[-6.665,54.065],[-6.673,54.068],[-6.673,54.069],[-6.658,54.092],[-6.656,54.104],[-6.667,54.115],[-6.645,54.132],[-6.635,54.15],[-6.641,54.168],[-6.649,54.174],[-6.648,54.174],[-6.644,54.177],[-6.647,54.188],[-6.638,54.199],[-6.605,54.218],[-6.577,54.217],[-6.566,54.227],[-6.538,54.235],[-6.512,54.226],[-6.505,54.233],[-6.494,54.235],[-6.486,54.254],[-6.463,54.256],[-6.445,54.268],[-6.416,54.269],[-6.401,54.276],[-6.374,54.267],[-6.36,54.277]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Newry and Mourne'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Newry and Mourne?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Newry and Mourne is located? </h2>Newry and Mourne, is a district of the Northern Ireland region. It belongs to the country of United Kingdom. Its postal identifier is NM.Newry and Mourne has an area of 917 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

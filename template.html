@@ -5,7 +5,6 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
-    <script src="http://openlayers.org/api/OpenLayers.js"></script>
    <script>
     // 4326 rather then googles one 3857
       var rawData = <% json %>;
@@ -55,19 +54,12 @@
           map.fitBounds(bounds);
       }
 
-      var _pointSourceFormat = new OpenLayers.Projection("EPSG:4326");
-      var _pointGoogleFormat = new OpenLayers.Projection("EPSG:3857");
       function addPolygonToMap(map, data) {
 
         var regionCoords = [];
         var regionBounds = new google.maps.LatLngBounds();
         for(var i=0 ; i < data.length ; i++) {
-          var realPoint = new OpenLayers.LonLat(data[i][0], data[i][1]);
-            
-            //this is wasteful but I only use open layers to convert from EPSG:4326 to EPSG:3857
-            OpenLayers.Projection.transform(realPoint, _pointSourceFormat, _pointGoogleFormat);
-          
-          var point = new google.maps.LatLng(realPoint.lat, realPoint.lon);
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
           regionCoords.push(point);
           regionBounds.extend(point);
         }
@@ -76,7 +68,7 @@
           paths: regionCoords,
           strokeColor: "#FF0000",
           strokeOpacity: 0.5,
-          strokeWeight: 20,
+          strokeWeight: 6,
           fillColor: '#FFFFFF', 
           fillOpacity: 0,
           clickable: false,
@@ -87,7 +79,7 @@
 
         overlayOptions.strokeColor = "#FFFFFF";
         overlayOptions.strokeWeight = 8;
-        overlayOptions.strokeOpacity = 0.5;
+        overlayOptions.strokeOpacity = 0.7;
         overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
         var regionOverlay2 = new google.maps.Polygon(overlayOptions);
 

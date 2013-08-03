@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Braila?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[28.03,45.395],[28.026,45.386],[28.024,45.378],[28.022,45.348],[28.021,45.344],[28.019,45.341],[28.011,45.33],[28.009,45.328],[28.004,45.313],[28,45.307],[27.987,45.292],[28.041,45.258],[28.076,45.248],[28.11,45.258],[28.117,45.254],[28.122,45.25],[28.127,45.245],[28.131,45.238],[28.118,45.224],[28.103,45.204],[28.098,45.184],[28.114,45.176],[28.132,45.172],[28.153,45.161],[28.17,45.148],[28.178,45.135],[28.174,45.122],[28.163,45.108],[28.148,45.098],[28.134,45.094],[28.131,45.089],[28.138,45.056],[28.139,45.054],[28.141,45.052],[28.143,45.049],[28.144,45.043],[28.142,45.036],[28.133,45.026],[28.131,45.019],[28.141,44.982],[28.141,44.96],[28.127,44.95],[28.124,44.945],[28.125,44.901],[28.127,44.896],[28.125,44.892],[28.117,44.881],[28.09,44.856],[28.08,44.841],[28.076,44.817],[28.07,44.796],[28.055,44.777],[28.035,44.763],[28.014,44.758],[27.995,44.761],[27.965,44.775],[27.946,44.778],[27.927,44.778],[27.911,44.775],[27.88,44.796],[27.872,44.803],[27.855,44.812],[27.833,44.814],[27.787,44.811],[27.765,44.805],[27.747,44.798],[27.725,44.793],[27.686,44.787],[27.413,44.793],[27.385,44.801],[27.373,44.805],[27.359,44.807],[27.342,44.803],[27.319,44.794],[27.299,44.794],[27.283,44.795],[27.201,44.819],[27.197,44.826],[27.203,44.873],[27.197,44.885],[27.187,44.894],[27.177,44.9],[27.175,44.909],[27.178,44.918],[27.191,44.928],[27.202,44.932],[27.238,44.938],[27.246,44.948],[27.254,44.965],[27.265,45.002],[27.269,45.023],[27.27,45.039],[27.268,45.048],[27.263,45.055],[27.254,45.057],[27.23,45.057],[27.217,45.058],[27.21,45.062],[27.206,45.069],[27.205,45.077],[27.207,45.097],[27.205,45.107],[27.199,45.115],[27.191,45.119],[27.179,45.122],[27.169,45.126],[27.164,45.132],[27.163,45.143],[27.164,45.163],[27.163,45.171],[27.159,45.179],[27.152,45.184],[27.144,45.188],[27.134,45.188],[27.126,45.186],[27.119,45.181],[27.119,45.174],[27.118,45.168],[27.115,45.162],[27.106,45.155],[27.095,45.154],[27.085,45.155],[27.079,45.16],[27.064,45.187],[27.063,45.194],[27.064,45.201],[27.072,45.21],[27.087,45.218],[27.167,45.238],[27.214,45.233],[27.227,45.233],[27.266,45.242],[27.279,45.242],[27.29,45.24],[27.297,45.236],[27.305,45.234],[27.311,45.238],[27.315,45.253],[27.309,45.276],[27.31,45.286],[27.316,45.294],[27.335,45.3],[27.351,45.3],[27.366,45.298],[27.378,45.3],[27.387,45.308],[27.395,45.331],[27.402,45.345],[27.42,45.367],[27.423,45.387],[27.433,45.407],[27.458,45.434],[27.483,45.457],[27.501,45.469],[27.521,45.478],[27.58,45.493],[27.637,45.476],[27.672,45.477],[27.691,45.479],[27.703,45.477],[27.711,45.472],[27.731,45.454],[27.765,45.433],[27.82,45.412],[27.855,45.407],[27.921,45.409],[27.945,45.407],[27.97,45.401],[28.03,45.395]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Braila'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Braila?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Braila is located? </h2>Braila, is a county It belongs to the country of Romania. Its postal identifier is BR.Braila has an area of 4774 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

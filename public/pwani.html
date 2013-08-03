@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Pwani?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[39.893,-7.754],[39.865,-7.819],[39.852,-7.837],[39.85,-7.845],[39.85,-7.851],[39.849,-7.857],[39.842,-7.878],[39.839,-7.883],[39.83,-7.895],[39.828,-7.902],[39.823,-7.914],[39.811,-7.914],[39.784,-7.906],[39.755,-7.915],[39.742,-7.937],[39.736,-7.96],[39.726,-7.974],[39.687,-7.989],[39.666,-7.994],[39.65,-7.994],[39.63,-7.986],[39.603,-7.958],[39.587,-7.946],[39.597,-7.943],[39.613,-7.943],[39.622,-7.939],[39.622,-7.937],[39.625,-7.929],[39.628,-7.923],[39.629,-7.923],[39.632,-7.915],[39.637,-7.913],[39.644,-7.914],[39.65,-7.912],[39.693,-7.87],[39.708,-7.847],[39.698,-7.836],[39.704,-7.819],[39.715,-7.812],[39.731,-7.81],[39.749,-7.81],[39.766,-7.806],[39.797,-7.792],[39.814,-7.789],[39.809,-7.78],[39.799,-7.779],[39.773,-7.782],[39.773,-7.775],[39.786,-7.773],[39.796,-7.767],[39.814,-7.754],[39.836,-7.746],[39.845,-7.738],[39.852,-7.712],[39.86,-7.697],[39.87,-7.684],[39.879,-7.679],[39.883,-7.673],[39.894,-7.648],[39.896,-7.638],[39.911,-7.655],[39.909,-7.687],[39.893,-7.754]]],[[[38.147,-5.858],[38.21,-5.889],[38.238,-5.92],[38.275,-5.934],[38.318,-5.945],[38.344,-5.981],[38.371,-5.993],[38.403,-5.991],[38.418,-6.006],[38.435,-6.016],[38.469,-6.023],[38.479,-6.015],[38.49,-6.008],[38.508,-6.015],[38.528,-6.015],[38.542,-6.011],[38.556,-6.018],[38.613,-5.993],[38.635,-5.987],[38.653,-5.968],[38.667,-5.966],[38.68,-5.969],[38.7,-5.962],[38.717,-5.949],[38.8,-5.963],[38.795,-5.989],[38.785,-6.009],[38.778,-6.031],[38.779,-6.055],[38.783,-6.061],[38.795,-6.076],[38.8,-6.082],[38.809,-6.121],[38.813,-6.131],[38.819,-6.136],[38.841,-6.151],[38.857,-6.164],[38.859,-6.17],[38.862,-6.208],[38.86,-6.232],[38.853,-6.253],[38.841,-6.268],[38.849,-6.293],[38.852,-6.349],[38.865,-6.374],[38.876,-6.382],[38.888,-6.388],[38.898,-6.395],[38.903,-6.404],[38.904,-6.415],[38.909,-6.426],[38.915,-6.437],[38.923,-6.445],[38.929,-6.449],[38.934,-6.451],[38.947,-6.452],[38.954,-6.455],[38.957,-6.462],[38.96,-6.469],[38.965,-6.473],[38.977,-6.476],[39.005,-6.477],[39.016,-6.483],[39.026,-6.487],[39.037,-6.483],[39.036,-6.475],[39.027,-6.471],[39.011,-6.465],[38.991,-6.452],[39.02,-6.461],[39.041,-6.47],[39.096,-6.522],[39.127,-6.559],[39.12,-6.566],[39.103,-6.585],[39.084,-6.601],[39.066,-6.645],[39.061,-6.693],[39.048,-6.737],[39.02,-6.773],[39.018,-6.787],[39.042,-6.789],[39.054,-6.8],[39.055,-6.819],[39.062,-6.853],[39.091,-6.871],[39.096,-6.891],[39.105,-6.912],[39.094,-6.931],[39.074,-6.943],[39.062,-6.964],[39.057,-6.988],[39.039,-7.009],[39.027,-7.033],[39.039,-7.043],[39.058,-7.037],[39.079,-7.056],[39.102,-7.041],[39.115,-7.019],[39.136,-7.003],[39.151,-7.01],[39.169,-7.016],[39.184,-7.003],[39.193,-6.986],[39.208,-6.988],[39.223,-6.987],[39.246,-6.954],[39.28,-6.95],[39.293,-6.951],[39.307,-6.949],[39.332,-6.953],[39.358,-6.96],[39.386,-6.992],[39.408,-7.028],[39.409,-7.17],[39.423,-7.166],[39.434,-7.181],[39.435,-7.182],[39.427,-7.192],[39.421,-7.21],[39.419,-7.226],[39.414,-7.241],[39.403,-7.255],[39.39,-7.265],[39.384,-7.267],[39.375,-7.268],[39.367,-7.271],[39.368,-7.279],[39.373,-7.288],[39.376,-7.296],[39.37,-7.307],[39.356,-7.31],[39.34,-7.309],[39.328,-7.309],[39.338,-7.325],[39.348,-7.337],[39.354,-7.349],[39.354,-7.371],[39.35,-7.386],[39.341,-7.406],[39.33,-7.424],[39.304,-7.449],[39.292,-7.486],[39.275,-7.597],[39.276,-7.617],[39.28,-7.638],[39.293,-7.67],[39.296,-7.689],[39.29,-7.704],[39.287,-7.718],[39.302,-7.754],[39.297,-7.772],[39.253,-7.823],[39.283,-7.817],[39.305,-7.792],[39.319,-7.759],[39.328,-7.726],[39.343,-7.739],[39.355,-7.753],[39.357,-7.767],[39.341,-7.782],[39.378,-7.778],[39.396,-7.78],[39.413,-7.792],[39.44,-7.819],[39.444,-7.833],[39.437,-7.857],[39.422,-7.89],[39.421,-7.902],[39.432,-7.937],[39.433,-7.976],[39.437,-7.994],[39.452,-7.985],[39.457,-7.98],[39.454,-8.011],[39.442,-8.039],[39.41,-8.09],[39.376,-8.18],[39.362,-8.207],[39.355,-8.204],[39.352,-8.204],[39.349,-8.205],[39.341,-8.207],[39.348,-8.222],[39.346,-8.257],[39.348,-8.275],[39.334,-8.269],[39.334,-8.277],[39.328,-8.296],[39.312,-8.278],[39.303,-8.272],[39.294,-8.269],[39.302,-8.283],[39.302,-8.295],[39.295,-8.304],[39.28,-8.309],[39.285,-8.319],[39.27,-8.313],[39.233,-8.284],[39.183,-8.286],[38.989,-8.328],[38.865,-8.369],[38.802,-8.383],[38.785,-8.377],[38.776,-8.362],[38.757,-8.356],[38.687,-8.372],[38.661,-8.414],[38.64,-8.469],[38.593,-8.497],[38.536,-8.495],[38.52,-8.454],[38.504,-8.36],[38.43,-8.289],[38.381,-8.256],[38.289,-8.176],[38.234,-8.148],[38.11,-8.121],[37.992,-8.08],[37.941,-8.049],[37.801,-7.943],[37.809,-7.934],[37.812,-7.922],[37.815,-7.899],[37.826,-7.857],[37.829,-7.852],[37.834,-7.844],[37.838,-7.841],[37.842,-7.839],[37.845,-7.831],[37.851,-7.822],[37.855,-7.818],[37.853,-7.769],[37.864,-7.722],[37.864,-7.67],[37.872,-7.62],[37.901,-7.593],[37.94,-7.58],[38.029,-7.563],[38.066,-7.567],[38.1,-7.576],[38.151,-7.566],[38.199,-7.549],[38.36,-7.522],[38.366,-7.486],[38.346,-7.443],[38.303,-7.319],[38.327,-7.245],[38.355,-7.208],[38.393,-7.186],[38.432,-7.181],[38.454,-7.139],[38.491,-7.094],[38.516,-7.043],[38.51,-7.03],[38.5,-7.019],[38.497,-6.983],[38.478,-6.968],[38.453,-6.97],[38.437,-6.96],[38.417,-6.956],[38.402,-6.962],[38.386,-6.966],[38.374,-6.96],[38.365,-6.951],[38.347,-6.94],[38.325,-6.941],[38.286,-6.885],[38.295,-6.827],[38.321,-6.767],[38.304,-6.692],[38.286,-6.688],[38.267,-6.69],[38.256,-6.695],[38.247,-6.703],[38.223,-6.708],[38.2,-6.705],[38.1,-6.668],[38.07,-6.653],[38.042,-6.649],[38.023,-6.641],[38.014,-6.618],[38.001,-6.602],[37.991,-6.585],[37.995,-6.586],[37.996,-6.564],[38.014,-6.544],[38.039,-6.485],[38.06,-6.332],[38.057,-6.252],[38.039,-6.23],[38.013,-6.218],[38.02,-6.209],[38.034,-6.206],[38.011,-6.202],[37.984,-6.194],[37.969,-6.172],[37.958,-6.148],[37.932,-6.115],[37.905,-6.057],[37.887,-6.038],[37.881,-6.01],[37.879,-5.982],[37.849,-5.931],[37.802,-5.895],[37.953,-5.854],[38.021,-5.87],[38.05,-5.865],[38.076,-5.852],[38.147,-5.858]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Pwani'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Pwani?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Pwani is located? </h2>Pwani, is a region It belongs to the country of Tanzania. Its postal identifier is PW.Pwani has an area of 31566 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

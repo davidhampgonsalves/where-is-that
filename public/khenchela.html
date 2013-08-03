@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Khenchela?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[7.545,35.448],[7.521,35.428],[7.426,35.397],[7.413,35.387],[7.413,35.376],[7.419,35.364],[7.419,35.35],[7.413,35.316],[7.414,35.301],[7.417,35.286],[7.416,35.269],[7.405,35.25],[7.403,35.234],[7.407,35.218],[7.413,35.201],[7.416,35.183],[7.412,35.156],[7.402,35.136],[7.388,35.117],[7.328,35.063],[7.292,35.023],[7.262,34.999],[7.229,34.958],[7.222,34.946],[7.22,34.938],[7.221,34.933],[7.223,34.928],[7.224,34.923],[7.225,34.917],[7.224,34.906],[7.225,34.901],[7.227,34.896],[7.233,34.888],[7.238,34.878],[7.24,34.874],[7.242,34.863],[7.246,34.854],[7.256,34.836],[7.26,34.833],[7.266,34.832],[7.273,34.836],[7.276,34.841],[7.276,34.846],[7.272,34.855],[7.27,34.86],[7.269,34.876],[7.268,34.881],[7.266,34.886],[7.264,34.891],[7.261,34.895],[7.257,34.898],[7.254,34.902],[7.254,34.909],[7.258,34.928],[7.261,34.935],[7.264,34.941],[7.268,34.944],[7.274,34.946],[7.28,34.948],[7.286,34.951],[7.292,34.956],[7.299,34.968],[7.303,34.974],[7.308,34.977],[7.313,34.978],[7.329,34.972],[7.335,34.971],[7.349,34.97],[7.356,34.969],[7.361,34.966],[7.366,34.962],[7.369,34.959],[7.371,34.954],[7.372,34.949],[7.371,34.925],[7.372,34.92],[7.372,34.914],[7.374,34.909],[7.376,34.905],[7.381,34.896],[7.384,34.892],[7.386,34.886],[7.388,34.878],[7.384,34.824],[7.384,34.819],[7.385,34.814],[7.401,34.776],[7.402,34.769],[7.403,34.76],[7.403,34.746],[7.4,34.735],[7.398,34.726],[7.375,34.682],[7.356,34.652],[7.319,34.609],[7.3,34.571],[7.296,34.566],[7.284,34.555],[7.28,34.551],[7.274,34.541],[7.255,34.494],[7.245,34.462],[7.227,34.369],[7.205,34.297],[7.136,34.161],[7.017,34.179],[6.961,34.194],[6.745,34.299],[6.715,34.327],[6.696,34.376],[6.706,34.412],[6.697,34.464],[6.697,34.476],[6.7,34.489],[6.705,34.497],[6.72,34.539],[6.735,34.602],[6.74,34.638],[6.741,34.671],[6.75,34.712],[6.748,34.726],[6.743,34.743],[6.728,34.775],[6.72,34.785],[6.714,34.789],[6.707,34.791],[6.698,34.792],[6.685,34.792],[6.668,34.791],[6.618,34.779],[6.606,34.777],[6.588,34.779],[6.582,34.789],[6.574,34.812],[6.57,34.825],[6.57,34.839],[6.575,34.856],[6.596,34.892],[6.599,34.9],[6.59,34.917],[6.585,34.932],[6.547,34.999],[6.519,35.038],[6.512,35.052],[6.511,35.069],[6.513,35.108],[6.515,35.12],[6.52,35.132],[6.557,35.187],[6.57,35.253],[6.582,35.27],[6.62,35.303],[6.628,35.317],[6.628,35.328],[6.623,35.332],[6.613,35.332],[6.6,35.328],[6.588,35.334],[6.584,35.343],[6.585,35.359],[6.59,35.392],[6.587,35.422],[6.593,35.437],[6.611,35.458],[6.629,35.471],[6.648,35.483],[6.668,35.491],[6.721,35.505],[6.742,35.515],[6.757,35.525],[6.767,35.537],[6.782,35.563],[6.786,35.576],[6.787,35.591],[6.774,35.635],[6.769,35.684],[6.788,35.661],[6.8,35.64],[6.811,35.631],[6.825,35.624],[6.851,35.619],[6.871,35.618],[6.993,35.632],[7.003,35.63],[7.016,35.623],[7.036,35.589],[7.051,35.577],[7.083,35.577],[7.102,35.585],[7.118,35.598],[7.13,35.611],[7.141,35.617],[7.151,35.619],[7.207,35.613],[7.214,35.614],[7.217,35.617],[7.219,35.62],[7.22,35.622],[7.223,35.626],[7.227,35.626],[7.249,35.625],[7.268,35.621],[7.288,35.613],[7.303,35.601],[7.31,35.581],[7.31,35.545],[7.315,35.535],[7.332,35.537],[7.343,35.546],[7.352,35.561],[7.361,35.57],[7.372,35.575],[7.385,35.572],[7.4,35.563],[7.425,35.533],[7.437,35.53],[7.445,35.534],[7.454,35.54],[7.462,35.539],[7.471,35.532],[7.48,35.504],[7.485,35.496],[7.493,35.487],[7.522,35.471],[7.545,35.448]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Khenchela'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Khenchela?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Khenchela is located? </h2>Khenchela, is a province It belongs to the country of Algeria. Its postal identifier is KH.Khenchela has an area of 9856 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

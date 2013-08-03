@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Bistrisa-Nasaud?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[24.956,47.582],[24.967,47.574],[25.046,47.53],[25.072,47.509],[25.084,47.494],[25.089,47.483],[25.09,47.471],[25.084,47.458],[25.073,47.449],[25.059,47.443],[25.047,47.44],[25.039,47.435],[25.037,47.43],[25.041,47.426],[25.046,47.421],[25.05,47.415],[25.052,47.409],[25.049,47.4],[25.045,47.396],[25.038,47.396],[25.031,47.397],[25.023,47.397],[25.014,47.396],[25.007,47.393],[25.003,47.387],[25.004,47.379],[25.013,47.369],[25.033,47.351],[25.04,47.343],[25.052,47.325],[25.057,47.315],[25.057,47.304],[25.05,47.286],[25.037,47.271],[25.029,47.258],[25.028,47.247],[25.039,47.237],[25.051,47.235],[25.062,47.235],[25.07,47.237],[25.075,47.234],[25.076,47.228],[25.073,47.213],[25.069,47.202],[25.063,47.173],[25.069,47.103],[24.991,47.082],[24.926,47.073],[24.899,47.067],[24.867,47.052],[24.816,47.022],[24.808,47.015],[24.795,46.99],[24.789,46.983],[24.764,46.957],[24.756,46.944],[24.751,46.93],[24.743,46.902],[24.736,46.894],[24.724,46.89],[24.706,46.892],[24.69,46.897],[24.66,46.91],[24.648,46.913],[24.637,46.915],[24.624,46.914],[24.606,46.908],[24.582,46.895],[24.561,46.876],[24.552,46.864],[24.542,46.845],[24.536,46.838],[24.517,46.822],[24.511,46.813],[24.508,46.802],[24.506,46.792],[24.503,46.782],[24.498,46.774],[24.484,46.767],[24.464,46.763],[24.429,46.759],[24.384,46.747],[24.368,46.745],[24.346,46.745],[24.279,46.757],[24.197,46.785],[24.219,46.816],[24.225,46.828],[24.231,46.869],[24.237,46.883],[24.239,46.899],[24.234,46.913],[24.215,46.927],[24.18,46.94],[24.168,46.947],[24.161,46.955],[24.159,46.967],[24.161,46.974],[24.163,46.982],[24.161,46.988],[24.144,46.996],[24.136,47.003],[24.136,47.018],[24.139,47.031],[24.144,47.043],[24.145,47.056],[24.141,47.068],[24.127,47.082],[24.112,47.09],[24.089,47.097],[24.079,47.102],[24.058,47.115],[24.043,47.122],[23.986,47.132],[23.973,47.137],[23.962,47.146],[23.955,47.156],[23.951,47.168],[23.94,47.223],[23.936,47.234],[23.936,47.246],[23.942,47.256],[23.975,47.274],[23.988,47.284],[23.998,47.296],[24.008,47.325],[24.046,47.35],[24.107,47.411],[24.114,47.421],[24.117,47.43],[24.119,47.446],[24.121,47.452],[24.126,47.457],[24.14,47.461],[24.225,47.473],[24.245,47.482],[24.255,47.49],[24.274,47.521],[24.282,47.53],[24.296,47.538],[24.366,47.559],[24.383,47.562],[24.571,47.532],[24.759,47.537],[24.78,47.541],[24.796,47.548],[24.837,47.575],[24.871,47.583],[24.956,47.582]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Bistrisa-Nasaud'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Bistrisa-Nasaud?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Bistrisa-Nasaud is located? </h2>Bistrisa-Nasaud, is a county It belongs to the country of Romania. Its postal identifier is BN.Bistrisa-Nasaud has an area of 5258 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

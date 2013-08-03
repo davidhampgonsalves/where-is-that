@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Adamawa?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[13.744,10.931],[13.566,10.679],[13.538,10.622],[13.501,10.496],[13.467,10.308],[13.444,10.246],[13.444,10.233],[13.451,10.212],[13.453,10.201],[13.45,10.187],[13.434,10.154],[13.423,10.139],[13.401,10.122],[13.397,10.12],[13.393,10.117],[13.378,10.109],[13.359,10.101],[13.281,10.092],[13.248,10.08],[13.247,10.08],[13.23,10.045],[13.23,10.025],[13.242,9.993],[13.246,9.974],[13.242,9.95],[13.218,9.913],[13.21,9.893],[13.212,9.87],[13.222,9.854],[13.251,9.824],[13.262,9.802],[13.26,9.786],[13.25,9.769],[13.241,9.745],[13.228,9.678],[13.223,9.613],[13.195,9.542],[13.195,9.542],[13.13,9.517],[13.051,9.505],[12.982,9.475],[12.982,9.475],[12.968,9.464],[12.939,9.427],[12.928,9.416],[12.92,9.411],[12.92,9.411],[12.862,9.383],[12.861,9.383],[12.855,9.378],[12.848,9.36],[12.853,9.357],[12.881,9.352],[12.891,9.332],[12.899,9.302],[12.898,9.263],[12.894,9.244],[12.888,9.227],[12.842,9.145],[12.822,9.097],[12.821,9.057],[12.828,9.02],[12.805,8.832],[12.794,8.789],[12.772,8.759],[12.772,8.759],[12.759,8.754],[12.747,8.754],[12.734,8.756],[12.72,8.757],[12.709,8.751],[12.708,8.751],[12.701,8.739],[12.692,8.711],[12.678,8.679],[12.66,8.659],[12.66,8.659],[12.558,8.606],[12.542,8.602],[12.527,8.605],[12.495,8.62],[12.482,8.623],[12.464,8.621],[12.451,8.615],[12.451,8.615],[12.44,8.607],[12.44,8.607],[12.424,8.6],[12.41,8.599],[12.396,8.601],[12.369,8.61],[12.368,8.61],[12.376,8.595],[12.4,8.539],[12.403,8.524],[12.403,8.497],[12.395,8.487],[12.395,8.487],[12.391,8.485],[12.365,8.467],[12.357,8.456],[12.351,8.444],[12.343,8.433],[12.331,8.424],[12.331,8.424],[12.31,8.422],[12.271,8.428],[12.25,8.419],[12.249,8.419],[12.226,8.386],[12.219,8.343],[12.221,8.298],[12.237,8.217],[12.236,8.197],[12.229,8.176],[12.188,8.118],[12.182,8.094],[12.182,8.055],[12.188,8.016],[12.195,7.992],[12.197,7.975],[12.192,7.961],[12.154,7.921],[12.054,7.784],[12.018,7.719],[12.012,7.698],[12.008,7.676],[12.01,7.655],[12.024,7.597],[12.02,7.576],[12.008,7.565],[12.008,7.565],[11.997,7.557],[11.992,7.554],[11.966,7.514],[11.966,7.514],[11.962,7.511],[11.903,7.454],[11.903,7.454],[11.89,7.505],[11.866,7.558],[11.853,7.625],[11.853,7.692],[11.805,7.806],[11.708,7.898],[11.683,7.928],[11.648,7.944],[11.616,7.929],[11.596,7.899],[11.574,7.872],[11.548,7.849],[11.515,7.852],[11.488,7.88],[11.448,7.952],[11.404,8.058],[11.413,8.09],[11.468,8.154],[11.534,8.211],[11.792,8.519],[11.859,8.574],[11.869,8.607],[11.863,8.643],[11.871,8.713],[11.971,8.919],[11.965,8.988],[11.924,9.039],[11.861,9.07],[11.826,9.128],[11.825,9.163],[11.83,9.198],[11.82,9.229],[11.802,9.258],[11.767,9.33],[11.709,9.381],[11.677,9.391],[11.643,9.397],[11.618,9.42],[11.526,9.592],[11.618,9.607],[11.703,9.644],[11.888,9.754],[11.925,9.784],[11.94,9.826],[11.935,9.958],[11.946,10.045],[12.107,10.036],[12.234,10.124],[12.337,10.257],[12.395,10.305],[12.468,10.321],[12.548,10.329],[12.62,10.361],[12.648,10.392],[12.666,10.428],[12.691,10.446],[12.728,10.448],[12.787,10.501],[12.841,10.563],[12.923,10.581],[13.009,10.57],[13.077,10.541],[13.133,10.492],[13.191,10.455],[13.259,10.44],[13.31,10.468],[13.345,10.601],[13.4,10.736],[13.414,10.805],[13.413,10.873],[13.422,10.93],[13.456,10.935],[13.47,10.932],[13.481,10.923],[13.513,10.912],[13.546,10.907],[13.692,10.939],[13.749,10.942],[13.744,10.931]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Adamawa'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Adamawa?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Adamawa is located? </h2>Adamawa, is a state It belongs to the country of Nigeria. Its postal identifier is AD.Adamawa has an area of 33589 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

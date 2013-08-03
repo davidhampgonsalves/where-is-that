@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is T¢quio?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[141.468,24.214],[141.463,24.212],[141.456,24.216],[141.453,24.222],[141.46,24.227],[141.47,24.226],[141.471,24.219],[141.468,24.214]]],[[[153.966,24.309],[153.953,24.293],[153.941,24.312],[153.954,24.316],[153.966,24.309]]],[[[141.303,24.734],[141.29,24.727],[141.29,24.76],[141.293,24.774],[141.3,24.786],[141.312,24.792],[141.33,24.794],[141.348,24.793],[141.358,24.79],[141.366,24.778],[141.358,24.774],[141.343,24.772],[141.331,24.769],[141.321,24.759],[141.303,24.734]]],[[[141.296,25.425],[141.288,25.418],[141.275,25.427],[141.271,25.44],[141.275,25.451],[141.289,25.453],[141.298,25.445],[141.3,25.435],[141.296,25.425]]],[[[142.143,26.702],[142.154,26.701],[142.166,26.701],[142.166,26.695],[142.155,26.687],[142.156,26.679],[142.166,26.674],[142.181,26.674],[142.181,26.667],[142.176,26.663],[142.175,26.662],[142.175,26.659],[142.173,26.654],[142.182,26.657],[142.186,26.658],[142.189,26.655],[142.194,26.646],[142.182,26.644],[142.176,26.639],[142.175,26.63],[142.181,26.619],[142.16,26.632],[142.139,26.663],[142.112,26.721],[142.118,26.722],[142.123,26.721],[142.132,26.715],[142.136,26.707],[142.143,26.702]]],[[[142.241,27.084],[142.235,27.05],[142.219,27.04],[142.199,27.051],[142.181,27.078],[142.215,27.064],[142.211,27.073],[142.206,27.081],[142.2,27.088],[142.194,27.092],[142.207,27.097],[142.221,27.098],[142.234,27.094],[142.241,27.084]]],[[[142.196,27.152],[142.189,27.146],[142.185,27.158],[142.186,27.174],[142.191,27.185],[142.201,27.183],[142.204,27.174],[142.202,27.163],[142.196,27.152]]],[[[140.878,27.233],[140.87,27.218],[140.868,27.234],[140.874,27.238],[140.878,27.233]]],[[[142.193,27.616],[142.196,27.599],[142.18,27.613],[142.183,27.62],[142.193,27.616]]],[[[142.085,27.726],[142.081,27.717],[142.079,27.727],[142.083,27.73],[142.085,27.726]]],[[[140.319,30.476],[140.307,30.474],[140.302,30.481],[140.301,30.486],[140.308,30.491],[140.317,30.491],[140.326,30.485],[140.319,30.476]]],[[[140.046,31.443],[140.043,31.443],[140.045,31.445],[140.046,31.443]]],[[[140.043,31.445],[140.042,31.443],[140.041,31.444],[140.041,31.447],[140.043,31.445]]],[[[139.757,32.47],[139.774,32.441],[139.756,32.452],[139.757,32.47]]],[[[139.846,33.047],[139.836,33.04],[139.821,33.04],[139.803,33.048],[139.788,33.059],[139.777,33.08],[139.744,33.119],[139.74,33.133],[139.751,33.145],[139.768,33.15],[139.791,33.135],[139.813,33.124],[139.839,33.117],[139.863,33.107],[139.878,33.088],[139.87,33.076],[139.846,33.047]]],[[[139.299,33.651],[139.299,33.65],[139.296,33.651],[139.299,33.651]]],[[[139.623,33.857],[139.61,33.853],[139.594,33.855],[139.581,33.863],[139.58,33.88],[139.592,33.896],[139.61,33.896],[139.619,33.89],[139.623,33.886],[139.63,33.872],[139.629,33.866],[139.623,33.857]]],[[[139.535,34.038],[139.506,34.036],[139.487,34.061],[139.495,34.093],[139.524,34.112],[139.557,34.114],[139.575,34.09],[139.562,34.058],[139.535,34.038]]],[[[139.302,34.398],[139.303,34.4],[139.302,34.396],[139.302,34.398]]],[[[139.303,34.4],[139.303,34.402],[139.303,34.407],[139.303,34.406],[139.303,34.4]]],[[[139.303,34.407],[139.302,34.41],[139.303,34.408],[139.303,34.407]]],[[[139.303,34.402],[139.302,34.398],[139.297,34.368],[139.284,34.337],[139.268,34.323],[139.254,34.341],[139.255,34.354],[139.266,34.389],[139.271,34.396],[139.28,34.403],[139.292,34.415],[139.301,34.418],[139.303,34.402]]],[[[139.454,34.679],[139.443,34.677],[139.422,34.677],[139.383,34.693],[139.362,34.729],[139.363,34.768],[139.391,34.795],[139.401,34.789],[139.418,34.781],[139.438,34.772],[139.45,34.757],[139.457,34.737],[139.459,34.715],[139.458,34.69],[139.454,34.679]]],[[[139.384,35.755],[139.411,35.752],[139.434,35.752],[139.453,35.756],[139.467,35.761],[139.493,35.774],[139.507,35.778],[139.517,35.778],[139.523,35.775],[139.526,35.767],[139.529,35.759],[139.536,35.752],[139.604,35.759],[139.615,35.767],[139.626,35.773],[139.641,35.777],[139.706,35.776],[139.715,35.776],[139.721,35.778],[139.731,35.787],[139.74,35.791],[139.758,35.795],[139.805,35.79],[139.864,35.778],[139.886,35.698],[139.881,35.673],[139.877,35.661],[139.867,35.638],[139.857,35.651],[139.85,35.638],[139.844,35.629],[139.834,35.624],[139.819,35.623],[139.801,35.619],[139.792,35.622],[139.788,35.637],[139.769,35.624],[139.769,35.601],[139.772,35.578],[139.76,35.562],[139.779,35.54],[139.787,35.527],[139.788,35.513],[139.787,35.512],[139.785,35.512],[139.698,35.538],[139.668,35.555],[139.663,35.559],[139.655,35.564],[139.539,35.613],[139.527,35.614],[139.514,35.611],[139.503,35.608],[139.496,35.603],[139.492,35.597],[139.488,35.592],[139.48,35.591],[139.462,35.599],[139.454,35.597],[139.453,35.592],[139.46,35.586],[139.485,35.566],[139.49,35.559],[139.489,35.555],[139.485,35.55],[139.476,35.55],[139.472,35.542],[139.475,35.508],[139.474,35.499],[139.473,35.494],[139.471,35.49],[139.467,35.489],[139.463,35.49],[139.458,35.493],[139.426,35.528],[139.417,35.54],[139.399,35.556],[139.377,35.567],[139.342,35.573],[139.298,35.575],[139.266,35.582],[139.245,35.592],[139.204,35.624],[139.183,35.631],[139.147,35.65],[139.122,35.654],[139.036,35.696],[138.993,35.733],[138.981,35.747],[138.971,35.762],[138.947,35.817],[138.923,35.835],[138.953,35.858],[138.994,35.877],[139.004,35.879],[139.014,35.877],[139.046,35.859],[139.06,35.853],[139.272,35.809],[139.29,35.802],[139.384,35.755]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'T¢quio'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>T¢quio?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where T¢quio is located? </h2>T¢quio, is a metropolis of the Kanto region. It belongs to the country of Japan. Its postal identifier is TK.T¢quio has an area of 2156 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

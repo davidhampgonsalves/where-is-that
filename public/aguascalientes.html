@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Aguascalientes?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-101.845,22.017],[-101.848,22.014],[-101.85,22.011],[-101.853,22.008],[-101.855,22.004],[-101.874,21.976],[-101.892,21.956],[-101.914,21.941],[-101.946,21.932],[-101.968,21.921],[-101.982,21.904],[-101.998,21.888],[-102.025,21.88],[-102.049,21.866],[-102.059,21.843],[-102.062,21.816],[-102.067,21.79],[-102.08,21.768],[-102.099,21.759],[-102.122,21.754],[-102.146,21.744],[-102.167,21.728],[-102.187,21.709],[-102.207,21.691],[-102.231,21.678],[-102.259,21.671],[-102.286,21.67],[-102.314,21.673],[-102.343,21.677],[-102.374,21.681],[-102.406,21.686],[-102.437,21.691],[-102.468,21.695],[-102.514,21.706],[-102.552,21.728],[-102.589,21.753],[-102.63,21.773],[-102.661,21.778],[-102.696,21.771],[-102.73,21.759],[-102.76,21.749],[-102.795,21.768],[-102.825,21.787],[-102.847,21.812],[-102.856,21.85],[-102.856,21.872],[-102.854,21.893],[-102.85,21.913],[-102.842,21.933],[-102.83,21.952],[-102.817,21.969],[-102.803,21.986],[-102.79,22.004],[-102.775,22.028],[-102.76,22.054],[-102.744,22.078],[-102.726,22.1],[-102.705,22.119],[-102.684,22.14],[-102.666,22.162],[-102.652,22.187],[-102.648,22.213],[-102.659,22.23],[-102.673,22.244],[-102.676,22.261],[-102.654,22.292],[-102.621,22.307],[-102.583,22.31],[-102.547,22.308],[-102.53,22.306],[-102.511,22.306],[-102.493,22.308],[-102.478,22.315],[-102.471,22.326],[-102.468,22.338],[-102.464,22.35],[-102.456,22.36],[-102.453,22.361],[-102.45,22.362],[-102.446,22.363],[-102.443,22.364],[-102.433,22.363],[-102.423,22.362],[-102.414,22.361],[-102.404,22.364],[-102.394,22.372],[-102.386,22.382],[-102.377,22.392],[-102.364,22.397],[-102.345,22.397],[-102.33,22.41],[-102.319,22.428],[-102.31,22.446],[-102.292,22.465],[-102.275,22.456],[-102.261,22.434],[-102.253,22.411],[-102.243,22.392],[-102.229,22.369],[-102.211,22.355],[-102.191,22.36],[-102.186,22.366],[-102.18,22.37],[-102.173,22.372],[-102.166,22.374],[-102.154,22.363],[-102.149,22.348],[-102.144,22.333],[-102.132,22.322],[-102.113,22.323],[-102.101,22.316],[-102.092,22.305],[-102.079,22.292],[-102.059,22.284],[-102.038,22.284],[-102.017,22.284],[-101.999,22.275],[-101.988,22.25],[-101.987,22.215],[-101.99,22.179],[-101.991,22.148],[-101.98,22.123],[-101.956,22.11],[-101.928,22.1],[-101.903,22.085],[-101.886,22.07],[-101.872,22.053],[-101.858,22.036],[-101.845,22.017]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Aguascalientes'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Aguascalientes?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Aguascalientes is located? </h2>Aguascalientes, is a state It belongs to the country of Mexico. Its postal identifier is AG.Aguascalientes has an area of 5548 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

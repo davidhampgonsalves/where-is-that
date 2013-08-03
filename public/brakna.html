@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Brakna?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-12.506,17.998],[-12.52,17.83],[-12.517,17.83],[-12.545,17.492],[-12.41,17.356],[-12.31,17.275],[-12.326,17.267],[-12.337,17.256],[-12.339,17.238],[-12.348,17.227],[-12.387,17.22],[-12.42,17.208],[-12.438,17.19],[-12.469,17.186],[-12.491,17.168],[-12.518,17.121],[-12.544,17.11],[-12.565,17.105],[-12.584,17.095],[-12.595,17.088],[-12.607,17.082],[-12.62,17.085],[-12.633,17.085],[-12.678,17.072],[-12.687,17.063],[-12.698,17.054],[-12.728,17.047],[-12.8,16.967],[-12.81,16.949],[-12.818,16.929],[-12.817,16.893],[-12.823,16.858],[-12.825,16.821],[-12.873,16.755],[-12.892,16.716],[-12.907,16.664],[-12.932,16.616],[-13.016,16.585],[-13.11,16.576],[-13.158,16.52],[-13.164,16.44],[-13.182,16.414],[-13.59,16.308],[-13.632,16.29],[-13.644,16.249],[-13.649,16.206],[-13.669,16.182],[-13.698,16.167],[-13.719,16.159],[-13.719,16.159],[-13.713,16.176],[-13.711,16.189],[-13.721,16.19],[-13.73,16.19],[-13.739,16.187],[-13.747,16.182],[-13.755,16.176],[-13.755,16.175],[-13.773,16.151],[-13.779,16.143],[-13.795,16.131],[-13.796,16.131],[-13.805,16.126],[-13.812,16.122],[-13.812,16.122],[-13.82,16.119],[-13.828,16.119],[-13.836,16.121],[-13.846,16.126],[-13.853,16.134],[-13.86,16.142],[-13.864,16.152],[-13.873,16.179],[-13.878,16.187],[-13.884,16.194],[-13.9,16.205],[-13.908,16.21],[-13.948,16.221],[-13.965,16.23],[-13.968,16.246],[-13.963,16.264],[-13.964,16.273],[-13.968,16.281],[-13.978,16.294],[-13.98,16.301],[-13.978,16.309],[-13.972,16.324],[-13.972,16.331],[-13.978,16.338],[-13.988,16.343],[-14.007,16.35],[-14.016,16.356],[-14.034,16.376],[-14.04,16.382],[-14.074,16.401],[-14.133,16.453],[-14.167,16.491],[-14.191,16.507],[-14.198,16.514],[-14.215,16.535],[-14.223,16.54],[-14.234,16.542],[-14.258,16.543],[-14.269,16.548],[-14.274,16.556],[-14.275,16.574],[-14.279,16.581],[-14.288,16.586],[-14.327,16.583],[-14.336,16.587],[-14.338,16.594],[-14.332,16.613],[-14.332,16.624],[-14.336,16.632],[-14.344,16.637],[-14.407,16.661],[-14.427,16.66],[-14.436,16.656],[-14.463,16.641],[-14.473,16.637],[-14.483,16.634],[-14.494,16.633],[-14.505,16.633],[-14.545,16.641],[-14.556,16.641],[-14.598,16.629],[-14.609,16.629],[-14.62,16.631],[-14.648,16.644],[-14.657,16.646],[-14.667,16.646],[-14.7,16.637],[-14.712,16.636],[-14.883,16.648],[-14.913,16.641],[-14.932,16.644],[-14.942,16.656],[-14.949,16.67],[-14.949,16.67],[-14.933,16.691],[-14.835,16.752],[-14.698,16.824],[-14.62,16.856],[-14.59,16.882],[-14.569,16.909],[-14.563,16.914],[-14.32,17.088],[-13.959,17.604],[-13.734,17.8],[-13.453,18],[-12.669,18.557],[-12.479,18.274],[-12.506,17.998]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Brakna'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Brakna?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Brakna is located? </h2>Brakna, is a region It belongs to the country of Mauritania. Its postal identifier is BR.Brakna has an area of 33125 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Katsina?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[8.297,13.165],[8.397,13.076],[8.405,13.071],[8.415,13.067],[8.418,13.067],[8.419,13.067],[8.423,13.07],[8.423,13.07],[8.434,13.075],[8.445,13.079],[8.47,13.082],[8.482,13.082],[8.509,13.076],[8.533,13.065],[8.577,13.033],[8.596,13.012],[8.625,12.965],[8.642,12.944],[8.679,12.924],[8.942,12.847],[8.978,12.843],[8.977,12.834],[8.972,12.819],[8.954,12.811],[8.942,12.8],[8.933,12.787],[8.925,12.767],[8.914,12.75],[8.87,12.716],[8.822,12.69],[8.768,12.678],[8.728,12.682],[8.714,12.694],[8.702,12.71],[8.67,12.692],[8.647,12.691],[8.622,12.701],[8.599,12.715],[8.572,12.761],[8.554,12.812],[8.535,12.83],[8.382,12.823],[8.316,12.831],[8.244,12.83],[8.137,12.814],[8.123,12.788],[8.115,12.72],[8.117,12.656],[8.17,12.624],[8.249,12.622],[8.271,12.599],[8.283,12.57],[8.233,12.569],[8.187,12.556],[8.164,12.513],[8.13,12.417],[8.094,12.383],[7.918,12.318],[7.841,12.266],[7.83,12.221],[7.839,12.123],[7.833,11.914],[7.854,11.85],[7.859,11.818],[7.858,11.799],[7.852,11.781],[7.856,11.765],[7.866,11.752],[7.89,11.69],[7.894,11.651],[7.849,11.64],[7.793,11.612],[7.747,11.601],[7.715,11.564],[7.699,11.516],[7.692,11.467],[7.707,11.417],[7.776,11.359],[7.742,11.307],[7.661,11.275],[7.632,11.287],[7.612,11.313],[7.578,11.338],[7.54,11.355],[7.467,11.369],[7.404,11.333],[7.387,11.3],[7.382,11.265],[7.354,11.25],[7.319,11.262],[7.242,11.263],[7.225,11.21],[7.243,11.184],[7.244,11.156],[7.219,11.129],[7.186,11.112],[7.153,11.116],[7.101,11.17],[7.066,11.19],[6.993,11.21],[6.992,11.238],[7.019,11.267],[7.035,11.279],[7.038,11.297],[7.026,11.321],[7.005,11.337],[6.952,11.338],[6.927,11.344],[6.882,11.366],[6.897,11.411],[6.907,11.457],[6.903,11.492],[6.91,11.526],[6.875,11.587],[6.913,11.766],[6.971,11.793],[7.046,11.793],[7.052,11.791],[7.061,11.782],[7.066,11.779],[7.082,11.787],[7.125,11.82],[7.149,11.842],[7.154,11.875],[7.172,11.892],[7.203,11.884],[7.233,11.895],[7.222,11.954],[7.167,11.998],[7.133,12.014],[7.113,12.038],[7.129,12.07],[7.151,12.128],[7.158,12.154],[7.152,12.184],[7.142,12.213],[7.136,12.265],[7.122,12.315],[7.094,12.368],[7.099,12.428],[7.078,12.478],[7.046,12.89],[7.063,12.995],[7.068,12.996],[7.09,13.007],[7.09,13.007],[7.137,13.047],[7.198,13.118],[7.198,13.118],[7.22,13.122],[7.324,13.103],[7.36,13.103],[7.392,13.113],[7.533,13.196],[7.755,13.327],[7.755,13.327],[7.789,13.342],[7.824,13.345],[8.077,13.31],[8.105,13.3],[8.116,13.291],[8.139,13.269],[8.167,13.253],[8.201,13.226],[8.216,13.22],[8.245,13.212],[8.259,13.205],[8.273,13.194],[8.297,13.165]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Katsina'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Katsina?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where Katsina is located? </h2>Katsina, is a state It belongs to the country of Nigeria. Its postal identifier is KT.Katsina has an area of 23941 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

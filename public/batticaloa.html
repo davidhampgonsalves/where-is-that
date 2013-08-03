@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Batticaloa?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[81.823,7.491],[81.808,7.479],[81.794,7.49],[81.787,7.497],[81.786,7.507],[81.79,7.572],[81.787,7.593],[81.776,7.603],[81.772,7.612],[81.739,7.66],[81.737,7.671],[81.728,7.689],[81.725,7.699],[81.726,7.709],[81.729,7.718],[81.73,7.728],[81.725,7.74],[81.738,7.727],[81.75,7.699],[81.759,7.685],[81.771,7.655],[81.806,7.599],[81.823,7.511],[81.823,7.491]]],[[[81.417,8.254],[81.441,8.173],[81.448,8.128],[81.43,8.103],[81.419,8.15],[81.404,8.192],[81.396,8.192],[81.395,8.16],[81.396,8.15],[81.395,8.15],[81.395,8.148],[81.395,8.143],[81.396,8.136],[81.4,8.133],[81.408,8.13],[81.41,8.127],[81.418,8.106],[81.436,8.093],[81.452,8.094],[81.458,8.116],[81.464,8.116],[81.472,8.101],[81.481,8.065],[81.489,8.051],[81.5,8.039],[81.507,8.028],[81.52,7.999],[81.525,8.004],[81.531,8.009],[81.534,8.014],[81.538,8.004],[81.534,7.999],[81.536,7.996],[81.538,7.993],[81.54,7.991],[81.54,7.986],[81.545,7.99],[81.556,7.995],[81.561,7.999],[81.566,7.987],[81.564,7.979],[81.56,7.971],[81.561,7.958],[81.568,7.945],[81.588,7.929],[81.595,7.917],[81.591,7.917],[81.585,7.914],[81.582,7.911],[81.576,7.889],[81.588,7.855],[81.608,7.832],[81.63,7.835],[81.636,7.835],[81.643,7.815],[81.654,7.798],[81.697,7.753],[81.711,7.731],[81.713,7.712],[81.691,7.705],[81.681,7.712],[81.656,7.743],[81.643,7.754],[81.627,7.76],[81.613,7.759],[81.602,7.748],[81.595,7.726],[81.607,7.721],[81.619,7.719],[81.629,7.723],[81.636,7.733],[81.648,7.729],[81.659,7.723],[81.665,7.716],[81.664,7.705],[81.69,7.68],[81.701,7.669],[81.712,7.65],[81.706,7.645],[81.705,7.639],[81.707,7.632],[81.712,7.623],[81.718,7.63],[81.714,7.644],[81.726,7.64],[81.749,7.623],[81.755,7.615],[81.773,7.568],[81.772,7.566],[81.766,7.541],[81.767,7.537],[81.772,7.528],[81.773,7.524],[81.769,7.517],[81.762,7.511],[81.758,7.505],[81.763,7.497],[81.768,7.49],[81.77,7.484],[81.772,7.479],[81.78,7.472],[81.769,7.465],[81.77,7.461],[81.751,7.458],[81.724,7.453],[81.703,7.437],[81.668,7.403],[81.661,7.419],[81.658,7.476],[81.65,7.5],[81.65,7.525],[81.626,7.512],[81.56,7.505],[81.494,7.516],[81.477,7.533],[81.445,7.551],[81.436,7.566],[81.434,7.583],[81.444,7.612],[81.446,7.642],[81.414,7.648],[81.383,7.657],[81.361,7.678],[81.327,7.727],[81.3,7.735],[81.268,7.734],[81.241,7.739],[81.227,7.816],[81.236,7.893],[81.243,7.923],[81.266,7.938],[81.294,7.941],[81.331,7.937],[81.34,7.937],[81.332,7.975],[81.315,8.011],[81.308,8.048],[81.316,8.205],[81.31,8.257],[81.327,8.263],[81.417,8.254]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Batticaloa'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Batticaloa?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Batticaloa is located? </h2>Batticaloa, is a district It belongs to the country of Sri Lanka. Its postal identifier is BC.Batticaloa has an area of 2613 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

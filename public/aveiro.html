@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Aveiro?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-8.35,40.372],[-8.359,40.365],[-8.358,40.356],[-8.37,40.344],[-8.392,40.345],[-8.399,40.344],[-8.408,40.336],[-8.413,40.328],[-8.436,40.306],[-8.441,40.297],[-8.45,40.29],[-8.457,40.286],[-8.515,40.29],[-8.522,40.297],[-8.524,40.303],[-8.524,40.312],[-8.521,40.322],[-8.513,40.338],[-8.507,40.344],[-8.502,40.348],[-8.499,40.35],[-8.495,40.353],[-8.493,40.355],[-8.488,40.37],[-8.486,40.376],[-8.488,40.384],[-8.5,40.4],[-8.505,40.42],[-8.517,40.419],[-8.532,40.414],[-8.548,40.406],[-8.557,40.403],[-8.566,40.404],[-8.573,40.411],[-8.576,40.429],[-8.577,40.439],[-8.57,40.464],[-8.609,40.484],[-8.631,40.458],[-8.634,40.442],[-8.642,40.432],[-8.675,40.435],[-8.786,40.521],[-8.792,40.526],[-8.788,40.558],[-8.778,40.598],[-8.753,40.641],[-8.75,40.644],[-8.744,40.647],[-8.744,40.626],[-8.744,40.619],[-8.724,40.645],[-8.71,40.654],[-8.696,40.647],[-8.69,40.647],[-8.69,40.653],[-8.692,40.656],[-8.696,40.661],[-8.699,40.668],[-8.696,40.674],[-8.686,40.678],[-8.681,40.675],[-8.677,40.67],[-8.672,40.667],[-8.662,40.67],[-8.653,40.677],[-8.641,40.694],[-8.657,40.702],[-8.666,40.713],[-8.663,40.724],[-8.645,40.729],[-8.622,40.731],[-8.604,40.736],[-8.588,40.744],[-8.572,40.756],[-8.589,40.755],[-8.615,40.745],[-8.636,40.742],[-8.64,40.74],[-8.645,40.74],[-8.668,40.748],[-8.676,40.756],[-8.684,40.783],[-8.645,40.824],[-8.655,40.845],[-8.657,40.829],[-8.663,40.815],[-8.67,40.811],[-8.676,40.825],[-8.69,40.804],[-8.7,40.778],[-8.707,40.75],[-8.71,40.725],[-8.714,40.709],[-8.725,40.686],[-8.738,40.665],[-8.751,40.653],[-8.655,40.994],[-8.655,41.017],[-8.646,41.019],[-8.602,41.023],[-8.585,41.015],[-8.554,41.024],[-8.538,41.032],[-8.526,41.032],[-8.517,41.028],[-8.509,41.022],[-8.495,41.017],[-8.484,41.017],[-8.477,41.021],[-8.47,41.035],[-8.466,41.04],[-8.448,41.055],[-8.428,41.039],[-8.423,41.034],[-8.416,41.023],[-8.398,41.012],[-8.39,41.012],[-8.386,41.016],[-8.388,41.023],[-8.392,41.028],[-8.393,41.034],[-8.392,41.04],[-8.366,41.049],[-8.346,41.044],[-8.298,41.07],[-8.294,41.072],[-8.29,41.083],[-8.23,41.054],[-8.226,41.048],[-8.223,41.038],[-8.224,41.031],[-8.224,41.009],[-8.149,40.982],[-8.137,40.982],[-8.124,40.984],[-8.117,40.996],[-8.114,40.999],[-8.111,41.002],[-8.098,41.011],[-8.091,41.01],[-8.088,41.007],[-8.087,41.002],[-8.087,41],[-8.088,40.999],[-8.089,40.993],[-8.121,40.959],[-8.126,40.948],[-8.129,40.936],[-8.128,40.929],[-8.123,40.916],[-8.118,40.89],[-8.11,40.872],[-8.11,40.86],[-8.115,40.853],[-8.124,40.852],[-8.133,40.852],[-8.141,40.855],[-8.149,40.859],[-8.158,40.862],[-8.169,40.862],[-8.187,40.855],[-8.199,40.854],[-8.211,40.855],[-8.219,40.858],[-8.25,40.855],[-8.238,40.825],[-8.24,40.819],[-8.249,40.807],[-8.269,40.774],[-8.292,40.754],[-8.316,40.74],[-8.325,40.727],[-8.326,40.723],[-8.325,40.718],[-8.324,40.712],[-8.319,40.706],[-8.305,40.694],[-8.299,40.686],[-8.296,40.679],[-8.295,40.651],[-8.288,40.638],[-8.283,40.635],[-8.265,40.629],[-8.249,40.619],[-8.289,40.607],[-8.296,40.601],[-8.302,40.594],[-8.301,40.587],[-8.29,40.565],[-8.284,40.547],[-8.278,40.541],[-8.271,40.536],[-8.265,40.53],[-8.253,40.515],[-8.308,40.498],[-8.331,40.484],[-8.333,40.479],[-8.331,40.472],[-8.321,40.458],[-8.322,40.445],[-8.326,40.437],[-8.354,40.403],[-8.35,40.372]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Aveiro'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Aveiro?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Aveiro is located? </h2>Aveiro, is a district It belongs to the country of Portugal. Its postal identifier is AV.Aveiro has an area of 2777 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

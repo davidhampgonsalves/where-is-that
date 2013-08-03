@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Barima-Waini?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-59.61,8.242],[-59.606,8.24],[-59.6,8.241],[-59.543,8.23],[-59.536,8.223],[-59.523,8.207],[-59.434,8.13],[-59.457,8.167],[-59.492,8.201],[-59.533,8.229],[-59.609,8.259],[-59.701,8.323],[-59.761,8.356],[-59.769,8.367],[-59.782,8.394],[-59.779,8.407],[-59.756,8.411],[-59.739,8.404],[-59.704,8.376],[-59.663,8.364],[-59.643,8.35],[-59.611,8.323],[-59.545,8.284],[-59.454,8.243],[-59.348,8.167],[-59.165,8.059],[-59.136,8.05],[-59.124,8.039],[-59.105,8.014],[-59.098,7.99],[-59.094,7.986],[-59.087,7.984],[-58.992,7.897],[-58.878,7.802],[-58.789,7.712],[-58.769,7.679],[-58.829,7.605],[-58.868,7.569],[-58.889,7.556],[-59.011,7.506],[-59.025,7.498],[-59.085,7.436],[-59.096,7.421],[-59.102,7.41],[-59.102,7.402],[-59.1,7.394],[-59.097,7.387],[-59.078,7.358],[-59.074,7.351],[-59.071,7.343],[-59.071,7.335],[-59.072,7.325],[-59.079,7.317],[-59.105,7.297],[-59.113,7.288],[-59.119,7.28],[-59.175,7.111],[-59.177,7.097],[-59.177,7.083],[-59.176,7.069],[-59.155,6.995],[-59.154,6.984],[-59.208,7.008],[-59.253,7.019],[-59.261,7.019],[-59.269,7.018],[-59.28,7.014],[-59.285,7.009],[-59.289,7.005],[-59.291,7],[-59.294,6.981],[-59.298,6.977],[-59.31,6.968],[-59.331,6.951],[-59.342,6.951],[-59.356,6.953],[-59.416,6.973],[-59.431,6.985],[-59.437,6.988],[-59.444,6.99],[-59.473,6.988],[-59.481,6.991],[-59.487,6.995],[-59.569,7.081],[-59.576,7.086],[-59.583,7.089],[-59.687,7.114],[-59.832,7.192],[-59.842,7.193],[-59.856,7.192],[-59.886,7.184],[-59.898,7.178],[-59.905,7.172],[-59.906,7.166],[-59.911,7.154],[-59.916,7.146],[-59.929,7.134],[-59.935,7.127],[-59.944,7.113],[-59.951,7.107],[-59.958,7.102],[-59.966,7.1],[-59.976,7.101],[-60.016,7.115],[-60.031,7.113],[-60.04,7.108],[-60.045,7.103],[-60.049,7.097],[-60.054,7.09],[-60.06,7.083],[-60.067,7.077],[-60.075,7.072],[-60.08,7.07],[-60.088,7.068],[-60.123,7.077],[-60.154,7.092],[-60.172,7.095],[-60.183,7.096],[-60.197,7.091],[-60.205,7.093],[-60.213,7.098],[-60.236,7.12],[-60.267,7.138],[-60.303,7.152],[-60.319,7.156],[-60.337,7.155],[-60.349,7.153],[-60.361,7.166],[-60.373,7.173],[-60.386,7.174],[-60.402,7.171],[-60.416,7.172],[-60.427,7.177],[-60.438,7.184],[-60.45,7.189],[-60.476,7.189],[-60.497,7.181],[-60.514,7.165],[-60.535,7.126],[-60.549,7.126],[-60.618,7.181],[-60.629,7.191],[-60.644,7.221],[-60.644,7.251],[-60.632,7.278],[-60.607,7.3],[-60.603,7.307],[-60.601,7.314],[-60.6,7.322],[-60.602,7.33],[-60.611,7.344],[-60.623,7.372],[-60.63,7.385],[-60.637,7.39],[-60.646,7.394],[-60.654,7.399],[-60.658,7.408],[-60.658,7.417],[-60.656,7.423],[-60.657,7.429],[-60.661,7.436],[-60.675,7.446],[-60.689,7.449],[-60.701,7.454],[-60.724,7.496],[-60.73,7.511],[-60.731,7.526],[-60.717,7.552],[-60.672,7.566],[-60.656,7.585],[-60.642,7.611],[-60.632,7.625],[-60.626,7.63],[-60.611,7.627],[-60.602,7.634],[-60.598,7.647],[-60.6,7.662],[-60.585,7.689],[-60.585,7.7],[-60.588,7.719],[-60.588,7.727],[-60.583,7.737],[-60.56,7.763],[-60.54,7.8],[-60.526,7.814],[-60.504,7.821],[-60.419,7.82],[-60.375,7.824],[-60.351,7.842],[-60.343,7.865],[-60.321,7.885],[-60.272,7.918],[-60.269,7.921],[-60.254,7.935],[-60.244,7.951],[-60.232,7.964],[-60.184,7.983],[-60.166,7.997],[-60.15,8.014],[-60.13,8.029],[-60.109,8.036],[-60.069,8.032],[-60.047,8.033],[-60.03,8.043],[-60.02,8.061],[-60.012,8.101],[-60,8.116],[-59.999,8.127],[-60.001,8.139],[-60.001,8.153],[-59.994,8.169],[-59.968,8.189],[-59.958,8.2],[-59.94,8.209],[-59.89,8.22],[-59.87,8.221],[-59.849,8.228],[-59.83,8.245],[-59.817,8.267],[-59.816,8.288],[-59.856,8.352],[-59.96,8.468],[-60.021,8.558],[-60.001,8.549],[-59.968,8.528],[-59.932,8.492],[-59.875,8.405],[-59.838,8.369],[-59.809,8.355],[-59.76,8.342],[-59.735,8.329],[-59.68,8.289],[-59.652,8.274],[-59.622,8.268],[-59.613,8.252],[-59.611,8.25],[-59.61,8.242]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Barima-Waini'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Barima-Waini?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Barima-Waini is located? </h2>Barima-Waini, is a region It belongs to the country of Guyana. Its postal identifier is BA.Barima-Waini has an area of 19862 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

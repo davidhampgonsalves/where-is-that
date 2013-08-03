@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Fermanagh?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-7.693,54.601],[-7.67,54.579],[-7.639,54.58],[-7.598,54.561],[-7.549,54.565],[-7.534,54.553],[-7.534,54.546],[-7.561,54.543],[-7.579,54.506],[-7.569,54.496],[-7.576,54.484],[-7.56,54.456],[-7.559,54.429],[-7.548,54.428],[-7.535,54.415],[-7.508,54.405],[-7.466,54.422],[-7.44,54.425],[-7.421,54.436],[-7.364,54.43],[-7.359,54.417],[-7.33,54.403],[-7.339,54.384],[-7.332,54.371],[-7.316,54.366],[-7.288,54.368],[-7.278,54.363],[-7.253,54.328],[-7.232,54.322],[-7.19,54.337],[-7.19,54.336],[-7.193,54.335],[-7.195,54.33],[-7.192,54.324],[-7.188,54.319],[-7.186,54.317],[-7.185,54.317],[-7.193,54.308],[-7.194,54.308],[-7.2,54.304],[-7.2,54.304],[-7.201,54.304],[-7.207,54.305],[-7.212,54.304],[-7.21,54.294],[-7.194,54.289],[-7.176,54.284],[-7.176,54.284],[-7.182,54.27],[-7.182,54.27],[-7.179,54.268],[-7.147,54.252],[-7.16,54.241],[-7.154,54.224],[-7.175,54.216],[-7.23,54.208],[-7.241,54.203],[-7.25,54.198],[-7.256,54.191],[-7.262,54.181],[-7.257,54.177],[-7.257,54.177],[-7.253,54.175],[-7.248,54.173],[-7.246,54.167],[-7.266,54.161],[-7.261,54.151],[-7.264,54.141],[-7.271,54.132],[-7.281,54.126],[-7.294,54.122],[-7.294,54.122],[-7.298,54.126],[-7.297,54.135],[-7.297,54.147],[-7.296,54.156],[-7.293,54.163],[-7.293,54.163],[-7.294,54.164],[-7.296,54.165],[-7.296,54.165],[-7.327,54.155],[-7.334,54.15],[-7.334,54.143],[-7.311,54.115],[-7.317,54.115],[-7.328,54.114],[-7.376,54.124],[-7.391,54.121],[-7.395,54.122],[-7.397,54.127],[-7.405,54.135],[-7.413,54.137],[-7.423,54.136],[-7.426,54.137],[-7.426,54.137],[-7.415,54.146],[-7.415,54.146],[-7.44,54.147],[-7.481,54.128],[-7.503,54.125],[-7.61,54.14],[-7.621,54.145],[-7.625,54.154],[-7.626,54.162],[-7.633,54.169],[-7.705,54.201],[-7.723,54.203],[-7.783,54.2],[-7.838,54.205],[-7.857,54.212],[-7.87,54.227],[-7.874,54.271],[-7.881,54.287],[-7.896,54.294],[-7.935,54.297],[-7.942,54.299],[-7.951,54.301],[-7.969,54.312],[-7.982,54.327],[-8.003,54.358],[-8.032,54.358],[-8.057,54.366],[-8.081,54.38],[-8.123,54.415],[-8.147,54.431],[-8.157,54.439],[-8.159,54.447],[-8.162,54.455],[-8.174,54.462],[-8.174,54.462],[-8.151,54.47],[-8.098,54.479],[-8.073,54.487],[-8.062,54.494],[-8.056,54.498],[-8.056,54.498],[-8.044,54.512],[-8.044,54.513],[-8.024,54.53],[-8.024,54.53],[-8.024,54.53],[-8.003,54.544],[-7.927,54.533],[-7.888,54.532],[-7.849,54.541],[-7.75,54.596],[-7.709,54.604],[-7.709,54.605],[-7.709,54.605],[-7.708,54.605],[-7.693,54.601]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Fermanagh'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Fermanagh?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Fermanagh is located? </h2>Fermanagh, is a district of the Northern Ireland region. It belongs to the country of United Kingdom. Its postal identifier is FE.Fermanagh has an area of 1886 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

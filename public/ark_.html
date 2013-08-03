@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Ark.?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-89.724,36],[-89.726,35.993],[-89.707,35.968],[-89.681,35.946],[-89.667,35.915],[-89.674,35.896],[-89.689,35.9],[-89.719,35.919],[-89.741,35.916],[-89.76,35.909],[-89.774,35.896],[-89.784,35.878],[-89.758,35.867],[-89.731,35.852],[-89.722,35.833],[-89.785,35.791],[-89.938,35.736],[-89.952,35.723],[-89.953,35.705],[-89.938,35.682],[-89.91,35.652],[-89.91,35.639],[-89.928,35.623],[-89.945,35.612],[-89.951,35.603],[-89.947,35.591],[-89.931,35.572],[-89.918,35.548],[-89.928,35.535],[-89.951,35.53],[-89.976,35.528],[-90,35.522],[-90.012,35.512],[-90.017,35.495],[-90.017,35.469],[-90.022,35.453],[-90.034,35.436],[-90.05,35.422],[-90.103,35.386],[-90.115,35.37],[-90.12,35.346],[-90.118,35.301],[-90.114,35.281],[-90.095,35.231],[-90.085,35.189],[-90.085,35.148],[-90.106,35.124],[-90.126,35.125],[-90.154,35.13],[-90.178,35.13],[-90.188,35.113],[-90.19,35.093],[-90.197,35.076],[-90.207,35.061],[-90.222,35.048],[-90.259,35.031],[-90.283,35.023],[-90.302,35.02],[-90.313,35.012],[-90.304,35],[-90.301,34.996],[-90.271,34.965],[-90.272,34.923],[-90.305,34.889],[-90.352,34.864],[-90.464,34.828],[-90.475,34.815],[-90.471,34.798],[-90.46,34.778],[-90.455,34.759],[-90.469,34.746],[-90.478,34.738],[-90.5,34.732],[-90.522,34.733],[-90.541,34.743],[-90.554,34.74],[-90.568,34.72],[-90.585,34.685],[-90.594,34.642],[-90.576,34.574],[-90.586,34.489],[-90.586,34.454],[-90.594,34.425],[-90.626,34.396],[-90.663,34.379],[-90.686,34.372],[-90.728,34.368],[-90.739,34.369],[-90.747,34.373],[-90.759,34.381],[-90.764,34.375],[-90.764,34.366],[-90.761,34.352],[-90.752,34.333],[-90.75,34.321],[-90.754,34.313],[-90.768,34.294],[-90.771,34.284],[-90.775,34.28],[-90.785,34.281],[-90.801,34.287],[-90.815,34.287],[-90.821,34.286],[-90.826,34.28],[-90.864,34.206],[-90.877,34.198],[-90.893,34.193],[-90.942,34.168],[-90.956,34.157],[-90.955,34.129],[-90.882,34.099],[-90.88,34.061],[-90.893,34.043],[-90.909,34.035],[-90.929,34.033],[-90.952,34.034],[-90.975,34.03],[-91.031,34.006],[-91.085,33.997],[-91.093,33.99],[-91.089,33.976],[-91.079,33.969],[-91.066,33.964],[-91.052,33.958],[-91.036,33.93],[-91.05,33.906],[-91.069,33.884],[-91.063,33.849],[-91.052,33.833],[-91.045,33.814],[-91.058,33.793],[-91.068,33.79],[-91.095,33.789],[-91.107,33.787],[-91.116,33.78],[-91.138,33.763],[-91.144,33.759],[-91.153,33.752],[-91.192,33.708],[-91.211,33.697],[-91.226,33.69],[-91.229,33.681],[-91.209,33.664],[-91.168,33.647],[-91.152,33.633],[-91.148,33.608],[-91.156,33.588],[-91.174,33.578],[-91.196,33.574],[-91.22,33.574],[-91.235,33.567],[-91.231,33.55],[-91.216,33.534],[-91.199,33.526],[-91.181,33.521],[-91.161,33.507],[-91.127,33.478],[-91.126,33.46],[-91.125,33.431],[-91.129,33.402],[-91.134,33.383],[-91.171,33.341],[-91.182,33.32],[-91.168,33.301],[-91.157,33.299],[-91.126,33.289],[-91.113,33.28],[-91.108,33.268],[-91.107,33.218],[-91.095,33.185],[-91.093,33.167],[-91.099,33.15],[-91.112,33.143],[-91.133,33.138],[-91.153,33.131],[-91.161,33.119],[-91.166,33.014],[-91.18,33.014],[-91.359,33.013],[-91.538,33.013],[-91.717,33.013],[-91.896,33.013],[-92.075,33.013],[-92.253,33.013],[-92.432,33.012],[-92.611,33.012],[-92.79,33.012],[-92.968,33.012],[-93.147,33.012],[-93.326,33.012],[-93.505,33.011],[-93.684,33.011],[-93.862,33.011],[-94.041,33.011],[-94.043,33.13],[-94.044,33.25],[-94.045,33.369],[-94.047,33.488],[-94.047,33.553],[-94.047,33.554],[-94.057,33.557],[-94.072,33.564],[-94.101,33.582],[-94.119,33.574],[-94.14,33.573],[-94.159,33.577],[-94.193,33.594],[-94.208,33.589],[-94.221,33.58],[-94.235,33.574],[-94.283,33.595],[-94.3,33.595],[-94.31,33.583],[-94.317,33.567],[-94.328,33.558],[-94.348,33.567],[-94.369,33.559],[-94.387,33.562],[-94.395,33.571],[-94.382,33.582],[-94.382,33.588],[-94.407,33.585],[-94.431,33.591],[-94.45,33.605],[-94.457,33.626],[-94.467,33.644],[-94.484,33.647],[-94.478,33.865],[-94.473,34.082],[-94.467,34.299],[-94.462,34.517],[-94.456,34.734],[-94.45,34.952],[-94.445,35.169],[-94.439,35.386],[-94.461,35.525],[-94.484,35.665],[-94.506,35.804],[-94.529,35.943],[-94.551,36.082],[-94.573,36.221],[-94.596,36.361],[-94.618,36.5],[-94.344,36.5],[-94.07,36.5],[-93.796,36.5],[-93.522,36.5],[-93.247,36.5],[-92.973,36.5],[-92.699,36.5],[-92.425,36.5],[-92.151,36.5],[-91.876,36.5],[-91.602,36.5],[-91.328,36.5],[-91.054,36.5],[-90.78,36.5],[-90.505,36.5],[-90.231,36.5],[-90.162,36.5],[-90.161,36.498],[-90.159,36.495],[-90.154,36.487],[-90.144,36.465],[-90.141,36.461],[-90.137,36.459],[-90.132,36.456],[-90.128,36.453],[-90.127,36.45],[-90.126,36.445],[-90.125,36.429],[-90.124,36.424],[-90.122,36.418],[-90.12,36.414],[-90.116,36.41],[-90.083,36.394],[-90.078,36.391],[-90.073,36.387],[-90.07,36.383],[-90.067,36.379],[-90.064,36.374],[-90.063,36.369],[-90.063,36.363],[-90.064,36.357],[-90.07,36.333],[-90.071,36.327],[-90.066,36.298],[-90.066,36.292],[-90.067,36.287],[-90.07,36.282],[-90.072,36.278],[-90.076,36.274],[-90.08,36.27],[-90.085,36.267],[-90.09,36.265],[-90.116,36.259],[-90.12,36.256],[-90.124,36.253],[-90.126,36.248],[-90.13,36.228],[-90.132,36.223],[-90.135,36.218],[-90.139,36.215],[-90.143,36.211],[-90.175,36.197],[-90.197,36.19],[-90.21,36.187],[-90.215,36.184],[-90.225,36.179],[-90.229,36.175],[-90.233,36.171],[-90.235,36.166],[-90.237,36.161],[-90.238,36.152],[-90.24,36.147],[-90.242,36.142],[-90.245,36.137],[-90.249,36.133],[-90.253,36.13],[-90.258,36.128],[-90.264,36.126],[-90.284,36.122],[-90.289,36.12],[-90.294,36.117],[-90.298,36.113],[-90.305,36.105],[-90.317,36.094],[-90.333,36.072],[-90.343,36.061],[-90.378,36.006],[-90.381,35.996],[-90.381,35.992],[-90.379,35.988],[-90.373,35.986],[-90.301,35.988],[-90.158,35.991],[-90.016,35.994],[-89.874,35.997],[-89.731,36.001],[-89.729,36.001],[-89.727,36.001],[-89.726,36.001],[-89.724,36]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Ark.'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Ark.?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where Ark. is located? </h2>Ark., is a state It belongs to the country of United States of America. Its abbreviated name is Ark. and its postal identifier is AR.Ark. has an area of 137541 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

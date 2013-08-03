@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Zaire?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[13.982,-5.853],[14.006,-5.867],[14.021,-5.872],[14.14,-5.863],[14.163,-5.866],[14.222,-5.887],[14.242,-5.889],[14.436,-5.893],[14.436,-5.893],[14.482,-5.885],[14.545,-5.901],[14.576,-5.904],[14.703,-5.881],[14.76,-5.88],[14.777,-5.923],[14.85,-6.032],[14.864,-6.065],[14.888,-6.162],[14.9,-6.196],[14.948,-6.246],[14.968,-6.263],[14.961,-6.294],[14.925,-6.344],[14.919,-6.349],[14.895,-6.367],[14.891,-6.371],[14.847,-6.437],[14.845,-6.442],[14.805,-6.497],[14.794,-6.519],[14.788,-6.537],[14.774,-6.548],[14.711,-6.578],[14.672,-6.592],[14.612,-6.603],[14.534,-6.603],[14.519,-6.62],[14.498,-6.651],[14.494,-6.654],[14.488,-6.657],[14.424,-6.682],[14.416,-6.682],[14.409,-6.682],[14.392,-6.679],[14.386,-6.678],[14.374,-6.679],[14.368,-6.679],[14.357,-6.677],[14.351,-6.677],[14.346,-6.679],[14.341,-6.68],[14.331,-6.685],[14.291,-6.715],[14.279,-6.73],[14.273,-6.74],[14.271,-6.746],[14.268,-6.75],[14.259,-6.76],[14.255,-6.766],[14.251,-6.775],[14.241,-6.806],[14.232,-6.814],[14.143,-6.857],[14.087,-6.872],[14.045,-6.883],[14.012,-6.899],[13.998,-6.908],[13.995,-6.911],[13.988,-6.922],[13.984,-6.926],[13.968,-6.933],[13.962,-6.937],[13.958,-6.942],[13.953,-6.95],[13.942,-6.96],[13.934,-6.963],[13.921,-6.965],[13.867,-6.965],[13.857,-6.964],[13.851,-6.964],[13.843,-6.964],[13.816,-6.969],[13.797,-6.979],[13.826,-7.034],[13.853,-7.109],[13.87,-7.138],[13.892,-7.162],[13.911,-7.178],[13.924,-7.196],[13.923,-7.217],[13.875,-7.288],[13.865,-7.315],[13.865,-7.349],[13.893,-7.411],[13.909,-7.434],[13.944,-7.469],[13.955,-7.485],[13.957,-7.496],[13.957,-7.5],[13.953,-7.507],[13.941,-7.51],[13.935,-7.519],[13.919,-7.536],[13.913,-7.54],[13.907,-7.543],[13.894,-7.546],[13.873,-7.545],[13.868,-7.546],[13.847,-7.553],[13.836,-7.567],[13.817,-7.62],[13.809,-7.627],[13.801,-7.631],[13.777,-7.641],[13.772,-7.644],[13.768,-7.647],[13.76,-7.653],[13.746,-7.659],[13.741,-7.662],[13.737,-7.664],[13.734,-7.668],[13.727,-7.671],[13.717,-7.673],[13.683,-7.673],[13.669,-7.674],[13.649,-7.681],[13.64,-7.687],[13.633,-7.691],[13.626,-7.698],[13.619,-7.701],[13.504,-7.735],[13.492,-7.736],[13.468,-7.735],[13.457,-7.733],[13.449,-7.73],[13.445,-7.726],[13.432,-7.719],[13.428,-7.716],[13.41,-7.7],[13.4,-7.695],[13.393,-7.694],[13.382,-7.694],[13.344,-7.702],[13.32,-7.71],[13.309,-7.715],[13.297,-7.724],[13.293,-7.73],[13.291,-7.734],[13.289,-7.738],[13.288,-7.742],[13.284,-7.745],[13.278,-7.747],[13.268,-7.745],[13.262,-7.743],[13.257,-7.741],[13.252,-7.737],[13.248,-7.736],[13.243,-7.737],[13.217,-7.756],[13.211,-7.761],[13.203,-7.767],[13.194,-7.772],[13.175,-7.779],[13.15,-7.786],[13.101,-7.792],[13.096,-7.793],[12.994,-7.553],[12.908,-7.316],[12.898,-7.301],[12.876,-7.276],[12.866,-7.261],[12.854,-7.234],[12.847,-7.205],[12.833,-7.006],[12.824,-6.975],[12.821,-6.959],[12.82,-6.954],[12.817,-6.95],[12.815,-6.947],[12.818,-6.942],[12.825,-6.934],[12.828,-6.929],[12.83,-6.919],[12.833,-6.916],[12.834,-6.912],[12.829,-6.905],[12.8,-6.923],[12.78,-6.915],[12.707,-6.814],[12.622,-6.703],[12.543,-6.633],[12.458,-6.466],[12.404,-6.382],[12.393,-6.335],[12.369,-6.288],[12.356,-6.241],[12.349,-6.226],[12.27,-6.134],[12.251,-6.103],[12.255,-6.076],[12.277,-6.058],[12.314,-6.055],[12.303,-6.064],[12.292,-6.069],[12.28,-6.073],[12.267,-6.076],[12.29,-6.097],[12.292,-6.105],[12.273,-6.11],[12.273,-6.116],[12.29,-6.112],[12.314,-6.094],[12.328,-6.09],[12.344,-6.087],[12.373,-6.078],[12.426,-6.074],[12.52,-6.048],[12.529,-6.048],[12.546,-6.052],[12.551,-6.051],[12.561,-6.04],[12.567,-6.036],[12.575,-6.034],[12.633,-6.034],[12.646,-6.029],[12.669,-6.006],[12.681,-6],[12.695,-6.004],[12.711,-6.012],[12.728,-6.017],[12.743,-6.01],[12.808,-6.006],[12.825,-6.002],[12.908,-5.96],[12.921,-5.948],[12.932,-5.934],[12.946,-5.906],[12.955,-5.893],[12.971,-5.884],[12.986,-5.883],[13.002,-5.884],[13.02,-5.883],[13.048,-5.879],[13.058,-5.879],[13.101,-5.891],[13.112,-5.89],[13.129,-5.883],[13.17,-5.862],[13.185,-5.856],[13.269,-5.863],[13.311,-5.874],[13.342,-5.89],[13.353,-5.882],[13.373,-5.861],[13.38,-5.856],[13.38,-5.856],[13.413,-5.857],[13.493,-5.858],[13.522,-5.867],[13.522,-5.867],[13.534,-5.867],[13.553,-5.859],[13.562,-5.857],[13.641,-5.866],[13.943,-5.841],[13.982,-5.853]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Zaire'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Zaire?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Zaire is located? </h2>Zaire, is a province It belongs to the country of Angola. Its postal identifier is ZA.Zaire has an area of 36537 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

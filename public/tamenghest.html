@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Tamenghest?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[3.816,28.546],[4.75,28.462],[5.953,28.491],[6.45,28.142],[6.511,28.09],[6.544,28.009],[6.567,27.888],[6.527,27.858],[6.258,27.766],[6.01,27.554],[5.935,27.506],[5.872,27.457],[5.837,27.406],[5.816,27.321],[5.84,27.203],[5.95,26.862],[5.953,26.855],[5.958,26.846],[5.968,26.834],[6.01,26.795],[6.206,26.66],[6.243,26.628],[6.262,26.599],[6.271,26.57],[6.275,26.551],[6.275,26.538],[6.274,26.529],[6.27,26.513],[6.187,26.335],[6.179,26.312],[6.175,26.291],[6.173,26.259],[6.175,26.243],[6.179,26.232],[6.183,26.226],[6.189,26.221],[6.195,26.217],[6.3,26.171],[6.307,26.165],[6.518,25.911],[6.531,25.9],[6.538,25.895],[6.547,25.89],[6.654,25.849],[6.68,25.835],[6.712,25.822],[6.959,25.76],[6.973,25.734],[6.984,25.69],[6.996,25.502],[7.109,25.373],[7.138,25.347],[7.154,25.326],[7.164,25.309],[7.168,25.298],[7.171,25.286],[7.171,25.275],[7.17,25.266],[7.168,25.258],[7.164,25.248],[7.159,25.24],[7.115,25.182],[7.109,25.174],[7.09,25.127],[7.088,25.12],[7.086,25.109],[7.086,25.002],[7.107,24.923],[7.114,24.909],[7.125,24.895],[7.144,24.881],[7.208,24.841],[7.224,24.826],[7.238,24.81],[7.266,24.765],[7.296,24.731],[7.307,24.715],[7.314,24.708],[7.32,24.703],[7.338,24.692],[7.356,24.677],[7.362,24.673],[7.368,24.67],[7.413,24.655],[7.452,24.65],[7.493,24.653],[7.5,24.652],[7.506,24.651],[7.511,24.649],[7.52,24.644],[7.538,24.629],[7.544,24.625],[7.55,24.623],[7.562,24.62],[7.567,24.618],[7.573,24.615],[7.587,24.604],[7.593,24.6],[7.599,24.598],[7.606,24.598],[7.619,24.599],[7.625,24.599],[7.631,24.597],[7.649,24.587],[7.656,24.582],[7.682,24.558],[7.691,24.547],[7.703,24.536],[7.745,24.513],[7.75,24.511],[7.773,24.504],[7.78,24.501],[7.781,24.5],[7.843,24.443],[7.855,24.434],[7.875,24.424],[7.884,24.419],[7.907,24.397],[7.918,24.388],[7.949,24.37],[7.954,24.368],[7.957,24.367],[8.022,24.356],[8.071,24.354],[8.098,24.35],[8.173,24.329],[8.209,24.307],[8.225,24.301],[8.231,24.3],[8.252,24.298],[8.258,24.297],[8.263,24.294],[8.294,24.269],[8.3,24.265],[8.392,24.24],[8.474,24.231],[8.499,24.232],[8.509,24.231],[8.521,24.229],[8.528,24.225],[8.536,24.218],[8.548,24.205],[8.56,24.189],[8.603,24.103],[8.627,24.07],[8.653,24.04],[8.682,24.013],[8.692,24.006],[8.699,24.003],[8.712,24.001],[11.71,24],[11.71,24],[11.968,23.518],[11.968,23.518],[7.482,20.873],[7.02,20.496],[6.982,20.464],[5.837,19.479],[5.794,19.45],[5.749,19.434],[4.983,19.287],[4.228,19.143],[3.79,19.061],[3.79,19.063],[3.782,20.549],[3.751,20.778],[3.678,20.878],[3.573,20.969],[1.369,22.178],[1.319,22.237],[1.3,22.27],[1.307,25.541],[1.305,25.556],[1.299,25.565],[1.286,25.576],[1.117,25.693],[1.105,25.714],[1.097,25.742],[1.112,25.84],[1.109,25.898],[1.105,25.919],[1.099,25.939],[1.091,25.958],[1.081,25.975],[0.924,26.169],[0.839,26.241],[0.827,26.256],[0.825,26.269],[0.836,26.29],[0.855,26.313],[0.864,26.319],[0.91,26.339],[0.983,26.364],[1.051,26.409],[1.059,26.413],[1.068,26.416],[1.141,26.42],[1.196,26.413],[1.211,26.415],[1.247,26.426],[1.256,26.427],[1.394,26.426],[1.405,26.427],[1.486,26.449],[1.514,26.462],[1.531,26.473],[1.558,26.499],[1.621,26.578],[1.629,26.584],[1.636,26.587],[1.647,26.59],[1.752,26.604],[1.759,26.607],[1.764,26.609],[1.827,26.669],[1.859,26.694],[1.902,26.736],[1.921,26.76],[1.932,26.784],[1.939,26.808],[2.066,28.073],[2.121,28.29],[2.134,28.492],[2.079,29.036],[2.986,29.124],[3.816,28.546]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Tamenghest'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Tamenghest?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Tamenghest is located? </h2>Tamenghest, is a province It belongs to the country of Algeria. Its postal identifier is TM.Tamenghest has an area of 609452 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

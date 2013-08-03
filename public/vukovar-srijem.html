@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Vukovar-Srijem?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[18.944,45.431],[18.953,45.43],[18.987,45.435],[19.002,45.444],[19.012,45.448],[19.012,45.448],[19.031,45.434],[19.037,45.423],[19.028,45.413],[19.028,45.412],[18.976,45.395],[18.976,45.395],[18.988,45.38],[19.003,45.366],[19.021,45.358],[19.04,45.354],[19.082,45.354],[19.092,45.35],[19.095,45.341],[19.096,45.33],[19.099,45.32],[19.124,45.299],[19.162,45.285],[19.363,45.249],[19.378,45.23],[19.397,45.224],[19.407,45.203],[19.405,45.18],[19.394,45.172],[19.39,45.17],[19.39,45.17],[19.304,45.167],[19.299,45.169],[19.291,45.178],[19.286,45.18],[19.279,45.178],[19.279,45.178],[19.275,45.173],[19.272,45.169],[19.272,45.169],[19.268,45.166],[19.267,45.166],[19.267,45.166],[19.226,45.162],[19.204,45.163],[19.185,45.168],[19.174,45.176],[19.155,45.195],[19.143,45.2],[19.122,45.196],[19.122,45.196],[19.128,45.181],[19.141,45.163],[19.137,45.146],[19.137,45.146],[19.116,45.143],[19.06,45.147],[19.045,45.138],[19.045,45.138],[19.046,45.129],[19.054,45.121],[19.064,45.114],[19.071,45.107],[19.079,45.095],[19.082,45.085],[19.086,45.061],[19.094,45.032],[19.095,45.021],[19.093,45.012],[19.088,45],[19.085,44.988],[19.087,44.977],[19.098,44.97],[19.118,44.976],[19.127,44.969],[19.131,44.953],[19.124,44.946],[19.124,44.946],[19.113,44.943],[19.106,44.94],[19.103,44.939],[19.087,44.92],[19.078,44.911],[19.078,44.911],[19.066,44.906],[19.052,44.907],[19.032,44.923],[19.018,44.926],[18.991,44.915],[18.991,44.915],[18.994,44.895],[19.015,44.866],[19.015,44.866],[19.005,44.864],[18.889,44.862],[18.858,44.869],[18.817,44.888],[18.783,44.914],[18.772,44.943],[18.779,44.953],[18.779,44.953],[18.801,44.964],[18.801,44.964],[18.804,44.974],[18.803,44.978],[18.798,44.983],[18.796,44.985],[18.795,44.988],[18.795,44.994],[18.794,44.996],[18.791,45.002],[18.789,45.006],[18.785,45.009],[18.778,45.011],[18.75,45.013],[18.738,45.016],[18.726,45.027],[18.689,45.081],[18.684,45.085],[18.678,45.088],[18.671,45.087],[18.671,45.087],[18.666,45.083],[18.663,45.078],[18.661,45.071],[18.658,45.067],[18.658,45.067],[18.65,45.064],[18.648,45.063],[18.648,45.063],[18.64,45.066],[18.633,45.072],[18.628,45.08],[18.621,45.093],[18.616,45.098],[18.609,45.1],[18.602,45.1],[18.588,45.094],[18.582,45.092],[18.573,45.092],[18.557,45.095],[18.549,45.095],[18.535,45.091],[18.535,45.091],[18.534,45.089],[18.534,45.089],[18.534,45.089],[18.512,45.114],[18.504,45.129],[18.502,45.139],[18.502,45.147],[18.503,45.155],[18.505,45.162],[18.508,45.167],[18.512,45.173],[18.537,45.194],[18.544,45.191],[18.548,45.191],[18.554,45.192],[18.558,45.195],[18.563,45.202],[18.566,45.208],[18.567,45.214],[18.568,45.227],[18.567,45.233],[18.564,45.237],[18.559,45.24],[18.553,45.241],[18.52,45.245],[18.514,45.246],[18.51,45.248],[18.507,45.25],[18.507,45.251],[18.507,45.255],[18.509,45.284],[18.51,45.288],[18.512,45.293],[18.519,45.297],[18.53,45.301],[18.573,45.305],[18.577,45.309],[18.58,45.313],[18.584,45.317],[18.59,45.319],[18.625,45.318],[18.629,45.319],[18.632,45.321],[18.634,45.328],[18.634,45.333],[18.634,45.338],[18.634,45.342],[18.635,45.345],[18.637,45.347],[18.64,45.349],[18.646,45.353],[18.649,45.356],[18.65,45.361],[18.653,45.385],[18.654,45.388],[18.655,45.392],[18.661,45.396],[18.671,45.4],[18.695,45.408],[18.714,45.416],[18.787,45.414],[18.796,45.418],[18.802,45.423],[18.803,45.429],[18.803,45.435],[18.802,45.442],[18.801,45.444],[18.799,45.446],[18.791,45.453],[18.789,45.455],[18.788,45.458],[18.788,45.46],[18.791,45.462],[18.796,45.464],[18.824,45.467],[18.834,45.47],[18.84,45.472],[18.845,45.477],[18.849,45.479],[18.855,45.48],[18.861,45.481],[18.873,45.481],[18.882,45.478],[18.896,45.471],[18.901,45.467],[18.905,45.464],[18.906,45.461],[18.908,45.457],[18.909,45.454],[18.912,45.452],[18.915,45.45],[18.926,45.445],[18.929,45.443],[18.934,45.439],[18.936,45.437],[18.937,45.435],[18.939,45.432],[18.944,45.431]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Vukovar-Srijem'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Vukovar-Srijem?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Vukovar-Srijem is located? </h2>Vukovar-Srijem, is a county It belongs to the country of Croatia. Its postal identifier is VS.Vukovar-Srijem has an area of 2400 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

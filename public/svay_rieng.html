@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Svay Rieng?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[105.793,11.583],[105.803,11.566],[105.815,11.56],[105.842,11.555],[105.853,11.547],[105.858,11.536],[105.859,11.523],[105.857,11.497],[105.872,11.444],[105.874,11.429],[105.871,11.414],[105.86,11.38],[105.843,11.304],[105.844,11.29],[105.857,11.28],[105.874,11.276],[105.887,11.268],[105.889,11.247],[105.889,11.246],[105.9,11.219],[105.92,11.204],[105.974,11.191],[105.989,11.177],[106.013,11.14],[106.028,11.123],[106.063,11.094],[106.076,11.077],[106.086,11.057],[106.098,11.078],[106.113,11.087],[106.131,11.084],[106.149,11.071],[106.16,11.054],[106.176,10.996],[106.188,10.977],[106.181,10.97],[106.17,10.971],[106.149,10.972],[106.131,10.969],[106.128,10.966],[106.122,10.956],[106.125,10.953],[106.123,10.928],[106.122,10.925],[106.127,10.909],[106.152,10.863],[106.177,10.767],[106.155,10.785],[106.129,10.792],[106.072,10.797],[106.046,10.806],[106.018,10.82],[105.992,10.838],[105.974,10.859],[105.965,10.87],[105.931,10.897],[105.93,10.88],[105.92,10.858],[105.909,10.839],[105.899,10.829],[105.879,10.828],[105.861,10.84],[105.847,10.856],[105.84,10.87],[105.829,10.905],[105.821,10.92],[105.787,10.966],[105.77,10.997],[105.753,11.016],[105.726,11.019],[105.697,11.01],[105.674,10.997],[105.674,10.996],[105.655,10.984],[105.632,10.974],[105.617,10.971],[105.617,10.971],[105.61,10.988],[105.6,10.999],[105.592,11.005],[105.589,11.009],[105.589,11.012],[105.593,11.02],[105.596,11.026],[105.6,11.059],[105.602,11.066],[105.605,11.073],[105.607,11.076],[105.618,11.088],[105.62,11.091],[105.623,11.095],[105.626,11.103],[105.627,11.108],[105.626,11.111],[105.624,11.114],[105.621,11.116],[105.618,11.124],[105.61,11.166],[105.61,11.179],[105.61,11.187],[105.614,11.197],[105.617,11.205],[105.622,11.231],[105.624,11.234],[105.626,11.236],[105.633,11.243],[105.638,11.251],[105.64,11.254],[105.646,11.258],[105.662,11.256],[105.664,11.26],[105.661,11.267],[105.66,11.27],[105.658,11.277],[105.651,11.328],[105.651,11.408],[105.652,11.414],[105.653,11.418],[105.658,11.431],[105.665,11.453],[105.678,11.515],[105.691,11.548],[105.696,11.554],[105.7,11.558],[105.706,11.561],[105.732,11.566],[105.743,11.572],[105.747,11.574],[105.751,11.574],[105.768,11.574],[105.776,11.575],[105.78,11.576],[105.783,11.577],[105.787,11.579],[105.793,11.583],[105.793,11.583]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Svay Rieng'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Svay Rieng?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Svay Rieng is located? </h2>Svay Rieng, is a province It belongs to the country of Cambodia. Its postal identifier is SR.Svay Rieng has an area of 2744 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

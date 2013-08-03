@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Bechar?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-0.039,32.327],[-0.401,31.429],[-0.401,31.391],[-0.37,31.337],[-0.154,31.124],[0.399,30.709],[-0.199,29.745],[-0.826,29.008],[-0.958,28.923],[-1.876,28.779],[-1.99,28.74],[-2.114,28.676],[-2.429,28.458],[-2.57,28.381],[-2.813,28.294],[-3.023,28.331],[-3.269,28.439],[-3.374,28.502],[-3.553,28.582],[-3.751,28.567],[-5.267,28.207],[-6.036,29.826],[-6.036,29.826],[-6.019,29.824],[-5.768,29.876],[-5.574,29.894],[-5.516,29.919],[-5.487,29.941],[-5.383,29.985],[-5.32,30.029],[-5.15,30.191],[-5.099,30.252],[-5.066,30.314],[-5.028,30.386],[-5.028,30.387],[-4.969,30.474],[-4.949,30.495],[-4.926,30.507],[-4.577,30.621],[-4.516,30.625],[-4.446,30.639],[-4.324,30.702],[-4.222,30.741],[-4.191,30.762],[-4.049,30.897],[-4.016,30.91],[-3.857,30.936],[-3.759,30.934],[-3.7,30.941],[-3.647,30.96],[-3.618,30.995],[-3.611,31.012],[-3.609,31.031],[-3.609,31.031],[-3.609,31.032],[-3.61,31.051],[-3.614,31.064],[-3.615,31.068],[-3.625,31.087],[-3.636,31.096],[-3.672,31.111],[-3.69,31.126],[-3.718,31.164],[-3.732,31.177],[-3.749,31.181],[-3.764,31.174],[-3.793,31.15],[-3.811,31.143],[-3.828,31.144],[-3.84,31.153],[-3.843,31.171],[-3.843,31.171],[-3.839,31.184],[-3.837,31.19],[-3.837,31.19],[-3.815,31.221],[-3.815,31.221],[-3.815,31.23],[-3.813,31.244],[-3.82,31.319],[-3.817,31.332],[-3.816,31.337],[-3.816,31.337],[-3.803,31.351],[-3.748,31.386],[-3.745,31.392],[-3.745,31.392],[-3.751,31.405],[-3.759,31.413],[-3.769,31.418],[-3.818,31.433],[-3.841,31.446],[-3.857,31.466],[-3.86,31.495],[-3.854,31.534],[-3.85,31.646],[-3.85,31.655],[-3.833,31.687],[-3.798,31.704],[-3.756,31.71],[-3.717,31.711],[-3.674,31.705],[-3.592,31.679],[-3.549,31.67],[-3.512,31.673],[-3.413,31.717],[-3.16,31.788],[-3.017,31.828],[-2.981,31.858],[-2.971,31.887],[-2.966,31.9],[-2.962,31.985],[-2.961,31.995],[-2.939,32.049],[-2.882,32.077],[-2.696,32.09],[-2.517,32.133],[-1.25,32.082],[-1.211,32.09],[-1.191,32.126],[-1.194,32.136],[-1.196,32.146],[-1.212,32.159],[-1.233,32.164],[-1.252,32.164],[-1.289,32.151],[-1.306,32.152],[-1.31,32.168],[-1.31,32.168],[-1.306,32.174],[-1.29,32.185],[-1.283,32.191],[-1.277,32.201],[-1.276,32.209],[-1.276,32.209],[-1.276,32.21],[-1.276,32.218],[-1.275,32.226],[-1.274,32.229],[-1.258,32.229],[-1.116,32.243],[-1.05,32.242],[-1.028,32.238],[-1.01,32.232],[-1.001,32.228],[-0.994,32.223],[-0.983,32.215],[-0.973,32.205],[-0.961,32.191],[-0.949,32.172],[-0.918,32.108],[-0.896,32.105],[-0.845,32.11],[-0.039,32.327]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Bechar'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Bechar?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Bechar is located? </h2>Bechar, is a province It belongs to the country of Algeria. Its postal identifier is BC.Bechar has an area of 172634 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

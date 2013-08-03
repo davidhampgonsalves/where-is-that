@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Namp'o-si?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[125.585,38.984],[125.592,38.976],[125.597,38.966],[125.604,38.949],[125.604,38.945],[125.604,38.938],[125.588,38.893],[125.583,38.884],[125.578,38.878],[125.568,38.873],[125.537,38.864],[125.532,38.861],[125.527,38.857],[125.524,38.853],[125.522,38.846],[125.522,38.839],[125.525,38.829],[125.528,38.822],[125.533,38.817],[125.54,38.812],[125.552,38.807],[125.562,38.803],[125.568,38.798],[125.575,38.781],[125.574,38.767],[125.576,38.761],[125.581,38.753],[125.592,38.742],[125.61,38.727],[125.614,38.722],[125.616,38.714],[125.618,38.688],[125.63,38.659],[125.62,38.661],[125.6,38.662],[125.589,38.666],[125.544,38.711],[125.528,38.721],[125.515,38.723],[125.491,38.723],[125.479,38.728],[125.473,38.734],[125.447,38.772],[125.448,38.776],[125.448,38.777],[125.439,38.776],[125.436,38.771],[125.432,38.763],[125.425,38.756],[125.411,38.755],[125.42,38.75],[125.428,38.744],[125.434,38.737],[125.439,38.728],[125.39,38.71],[125.368,38.712],[125.363,38.735],[125.356,38.735],[125.351,38.721],[125.341,38.717],[125.315,38.721],[125.313,38.724],[125.311,38.73],[125.307,38.735],[125.301,38.735],[125.296,38.728],[125.298,38.722],[125.304,38.717],[125.309,38.713],[125.309,38.707],[125.294,38.703],[125.278,38.703],[125.263,38.708],[125.25,38.717],[125.244,38.728],[125.247,38.737],[125.267,38.755],[125.26,38.758],[125.253,38.763],[125.256,38.767],[125.26,38.767],[125.307,38.782],[125.309,38.787],[125.31,38.793],[125.297,38.817],[125.293,38.831],[125.293,38.853],[125.296,38.861],[125.301,38.867],[125.306,38.872],[125.328,38.886],[125.344,38.902],[125.358,38.913],[125.36,38.917],[125.361,38.92],[125.357,38.935],[125.348,38.959],[125.348,38.973],[125.343,38.996],[125.344,39.005],[125.348,39.01],[125.354,39.013],[125.367,39.014],[125.374,39.014],[125.394,39.008],[125.407,39.006],[125.42,39.006],[125.427,39.007],[125.443,39.012],[125.456,39.019],[125.464,39.023],[125.472,39.023],[125.477,39.02],[125.485,39.012],[125.49,39.008],[125.495,39.006],[125.515,39],[125.523,38.999],[125.528,38.999],[125.534,39],[125.542,39.001],[125.546,39],[125.549,39],[125.555,38.995],[125.559,38.991],[125.566,38.987],[125.571,38.984],[125.585,38.984]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Namp'o-si'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Namp'o-si?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Namp'o-si is located? </h2>Namp'o-si, is a special city of the P'yongyang region. It belongs to the country of Korea, North. Its postal identifier is PY.Namp'o-si has an area of 744 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

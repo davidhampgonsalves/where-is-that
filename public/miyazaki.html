@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Miyazaki?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[131.873,32.732],[131.871,32.727],[131.867,32.723],[131.862,32.72],[131.86,32.718],[131.854,32.7],[131.852,32.684],[131.848,32.682],[131.844,32.683],[131.839,32.684],[131.814,32.68],[131.798,32.675],[131.789,32.663],[131.776,32.654],[131.771,32.649],[131.768,32.644],[131.768,32.642],[131.77,32.64],[131.771,32.632],[131.767,32.621],[131.749,32.594],[131.744,32.588],[131.73,32.584],[131.707,32.585],[131.695,32.581],[131.699,32.565],[131.682,32.535],[131.685,32.523],[131.696,32.512],[131.713,32.512],[131.719,32.509],[131.737,32.492],[131.718,32.473],[131.696,32.468],[131.674,32.467],[131.655,32.457],[131.667,32.429],[131.669,32.42],[131.664,32.407],[131.653,32.401],[131.642,32.399],[131.634,32.396],[131.63,32.387],[131.622,32.36],[131.62,32.337],[131.617,32.332],[131.611,32.33],[131.603,32.324],[131.593,32.304],[131.581,32.254],[131.558,32.216],[131.546,32.17],[131.531,32.155],[131.531,32.149],[131.538,32.106],[131.511,32.008],[131.449,31.896],[131.448,31.877],[131.45,31.859],[131.456,31.843],[131.466,31.83],[131.493,31.805],[131.497,31.796],[131.493,31.787],[131.479,31.77],[131.476,31.762],[131.451,31.651],[131.456,31.621],[131.424,31.598],[131.412,31.586],[131.407,31.57],[131.404,31.568],[131.391,31.549],[131.387,31.539],[131.386,31.527],[131.388,31.521],[131.392,31.517],[131.394,31.512],[131.394,31.491],[131.389,31.486],[131.377,31.474],[131.374,31.467],[131.364,31.42],[131.359,31.411],[131.346,31.395],[131.342,31.386],[131.341,31.379],[131.339,31.373],[131.331,31.368],[131.328,31.371],[131.325,31.373],[131.318,31.375],[131.323,31.381],[131.324,31.384],[131.325,31.388],[131.285,31.382],[131.266,31.381],[131.25,31.388],[131.245,31.396],[131.246,31.412],[131.243,31.422],[131.239,31.428],[131.219,31.447],[131.213,31.455],[131.211,31.46],[131.206,31.463],[131.18,31.465],[131.161,31.47],[131.152,31.471],[131.153,31.474],[131.155,31.478],[131.181,31.512],[131.187,31.525],[131.187,31.541],[131.192,31.564],[131.192,31.575],[131.186,31.587],[131.175,31.6],[131.156,31.613],[131.126,31.617],[131.116,31.617],[131.107,31.618],[131.101,31.619],[131.071,31.634],[131.047,31.637],[131.036,31.645],[131.017,31.676],[131.013,31.686],[131.011,31.696],[131.01,31.706],[131.008,31.714],[131.002,31.724],[130.976,31.747],[130.965,31.761],[130.897,31.784],[130.889,31.79],[130.881,31.801],[130.876,31.824],[130.881,31.87],[130.873,31.888],[130.847,31.91],[130.824,31.92],[130.803,31.935],[130.784,31.955],[130.721,32.041],[130.711,32.05],[130.7,32.067],[130.712,32.091],[130.742,32.094],[130.811,32.091],[130.823,32.092],[130.837,32.096],[130.852,32.102],[130.884,32.119],[130.897,32.122],[130.909,32.122],[130.937,32.115],[130.952,32.12],[130.967,32.132],[130.986,32.154],[130.997,32.163],[131.006,32.166],[131.053,32.153],[131.065,32.152],[131.076,32.156],[131.082,32.164],[131.078,32.184],[131.072,32.198],[131.055,32.223],[131.05,32.234],[131.05,32.246],[131.062,32.264],[131.081,32.287],[131.087,32.3],[131.088,32.314],[131.084,32.325],[131.069,32.348],[131.063,32.364],[131.054,32.381],[131.044,32.392],[131.022,32.411],[131.013,32.422],[131.006,32.439],[131.002,32.451],[131,32.46],[131,32.471],[131.004,32.487],[131.023,32.534],[131.035,32.553],[131.047,32.564],[131.059,32.569],[131.073,32.569],[131.086,32.571],[131.095,32.576],[131.1,32.586],[131.105,32.614],[131.113,32.631],[131.125,32.646],[131.147,32.663],[131.16,32.676],[131.175,32.701],[131.181,32.709],[131.21,32.735],[131.225,32.757],[131.236,32.784],[131.242,32.793],[131.258,32.804],[131.271,32.811],[131.324,32.822],[131.343,32.811],[131.357,32.805],[131.382,32.802],[131.402,32.802],[131.421,32.805],[131.45,32.816],[131.464,32.818],[131.478,32.815],[131.49,32.808],[131.498,32.8],[131.503,32.793],[131.503,32.783],[131.501,32.775],[131.5,32.767],[131.502,32.759],[131.508,32.752],[131.516,32.746],[131.527,32.743],[131.54,32.743],[131.559,32.748],[131.571,32.754],[131.59,32.76],[131.683,32.763],[131.696,32.766],[131.7,32.771],[131.707,32.78],[131.721,32.806],[131.727,32.814],[131.735,32.82],[131.747,32.823],[131.761,32.822],[131.78,32.816],[131.795,32.814],[131.809,32.809],[131.819,32.798],[131.828,32.768],[131.83,32.752],[131.835,32.74],[131.839,32.734],[131.873,32.732]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Miyazaki'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Miyazaki?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where Miyazaki is located? </h2>Miyazaki, is a prefecture of the Kyushu region. It belongs to the country of Japan. Its postal identifier is MZ.Miyazaki has an area of 7874 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

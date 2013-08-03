@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Quachas Nek?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[29.078,-29.754],[29.098,-29.756],[29.113,-29.753],[29.112,-29.775],[29.106,-29.801],[29.105,-29.825],[29.12,-29.843],[29.132,-29.852],[29.135,-29.859],[29.135,-29.868],[29.137,-29.882],[29.148,-29.901],[29.15,-29.911],[29.144,-29.92],[29.144,-29.92],[29.132,-29.925],[29.106,-29.931],[29.094,-29.936],[29.094,-29.936],[29.045,-29.963],[29.016,-29.978],[29.001,-29.986],[28.976,-30],[28.86,-30.066],[28.795,-30.089],[28.795,-30.089],[28.729,-30.102],[28.661,-30.124],[28.639,-30.131],[28.639,-30.131],[28.605,-30.131],[28.557,-30.115],[28.54,-30.113],[28.524,-30.117],[28.488,-30.135],[28.481,-30.139],[28.48,-30.139],[28.456,-30.147],[28.407,-30.141],[28.384,-30.144],[28.383,-30.144],[28.364,-30.159],[28.355,-30.173],[28.338,-30.152],[28.333,-30.149],[28.327,-30.147],[28.321,-30.148],[28.314,-30.148],[28.227,-30.139],[28.216,-30.135],[28.208,-30.128],[28.205,-30.122],[28.203,-30.115],[28.203,-30.108],[28.205,-30.1],[28.209,-30.082],[28.214,-30.075],[28.222,-30.068],[28.252,-30.054],[28.271,-30.053],[28.276,-30.049],[28.279,-30.041],[28.272,-30.024],[28.265,-30.001],[28.27,-29.998],[28.301,-29.985],[28.337,-29.992],[28.348,-30.001],[28.364,-30.026],[28.368,-30.03],[28.371,-30.029],[28.375,-30.028],[28.41,-30.007],[28.432,-29.991],[28.437,-29.988],[28.442,-29.986],[28.447,-29.984],[28.454,-29.98],[28.462,-29.973],[28.474,-29.957],[28.484,-29.949],[28.495,-29.943],[28.529,-29.931],[28.541,-29.925],[28.548,-29.919],[28.552,-29.907],[28.552,-29.895],[28.546,-29.865],[28.548,-29.846],[28.554,-29.821],[28.555,-29.8],[28.54,-29.776],[28.557,-29.771],[28.567,-29.77],[28.58,-29.771],[28.6,-29.775],[28.628,-29.784],[28.647,-29.794],[28.666,-29.806],[28.673,-29.812],[28.678,-29.819],[28.681,-29.826],[28.682,-29.835],[28.68,-29.854],[28.681,-29.862],[28.683,-29.868],[28.687,-29.874],[28.693,-29.878],[28.697,-29.879],[28.71,-29.874],[28.717,-29.868],[28.724,-29.861],[28.731,-29.854],[28.74,-29.85],[28.75,-29.851],[28.759,-29.854],[28.769,-29.855],[28.779,-29.85],[28.787,-29.837],[28.784,-29.825],[28.778,-29.813],[28.779,-29.812],[28.789,-29.81],[28.809,-29.81],[28.824,-29.813],[28.837,-29.818],[28.891,-29.856],[28.906,-29.862],[28.922,-29.863],[28.943,-29.861],[28.959,-29.857],[28.973,-29.85],[28.989,-29.835],[28.996,-29.824],[29,-29.813],[29.008,-29.751],[29.014,-29.743],[29.023,-29.739],[29.044,-29.743],[29.078,-29.754]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Quachas Nek'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Quachas Nek?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Quachas Nek is located? </h2>Quachas Nek, is a district It belongs to the country of Lesotho. Its postal identifier is QN.Quachas Nek has an area of 2020 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

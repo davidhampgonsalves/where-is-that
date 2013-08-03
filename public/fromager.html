@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Fromager?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-5.215,6.367],[-5.214,6.332],[-5.213,6.326],[-5.215,6.299],[-5.244,6.218],[-5.291,6.231],[-5.313,6.234],[-5.505,6.167],[-5.729,6.196],[-5.757,6.14],[-5.763,6.118],[-5.759,6.082],[-5.754,6.061],[-5.754,6.051],[-5.781,6],[-5.78,5.982],[-5.781,5.964],[-5.785,5.957],[-5.79,5.95],[-5.804,5.941],[-5.813,5.938],[-5.821,5.937],[-5.867,5.895],[-6.052,5.678],[-6.055,5.689],[-6.057,5.692],[-6.062,5.695],[-6.066,5.698],[-6.068,5.705],[-6.068,5.71],[-6.066,5.721],[-6.067,5.727],[-6.069,5.731],[-6.072,5.735],[-6.094,5.753],[-6.102,5.771],[-6.106,5.777],[-6.13,5.792],[-6.138,5.795],[-6.161,5.794],[-6.219,5.778],[-6.249,5.844],[-6.254,5.853],[-6.259,5.859],[-6.263,5.862],[-6.271,5.868],[-6.274,5.874],[-6.277,5.884],[-6.282,5.94],[-6.284,5.948],[-6.287,5.957],[-6.295,5.972],[-6.3,5.979],[-6.308,5.988],[-6.321,6],[-6.321,6],[-6.321,6],[-6.323,6.002],[-6.329,6.008],[-6.335,6.015],[-6.355,6.05],[-6.375,6.103],[-6.387,6.151],[-6.4,6.305],[-6.37,6.309],[-6.334,6.318],[-6.303,6.331],[-6.286,6.335],[-6.272,6.337],[-6.222,6.333],[-6.211,6.336],[-6.202,6.34],[-6.144,6.389],[-6.139,6.391],[-6.135,6.392],[-6.13,6.391],[-6.125,6.389],[-6.106,6.379],[-6.099,6.374],[-6.092,6.378],[-6.084,6.389],[-6.06,6.435],[-6.051,6.459],[-6.041,6.52],[-5.74,6.489],[-5.71,6.495],[-5.512,6.629],[-5.482,6.641],[-5.413,6.641],[-5.414,6.633],[-5.409,6.614],[-5.398,6.607],[-5.344,6.608],[-5.321,6.602],[-5.309,6.589],[-5.318,6.567],[-5.314,6.552],[-5.324,6.537],[-5.337,6.519],[-5.321,6.513],[-5.308,6.511],[-5.306,6.507],[-5.311,6.492],[-5.313,6.48],[-5.315,6.475],[-5.321,6.469],[-5.324,6.461],[-5.32,6.455],[-5.314,6.45],[-5.311,6.445],[-5.312,6.418],[-5.311,6.399],[-5.303,6.383],[-5.287,6.366],[-5.27,6.361],[-5.235,6.373],[-5.215,6.367]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Fromager'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Fromager?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Fromager is located? </h2>Fromager, is a region It belongs to the country of Ivory Coast. Its postal identifier is FR.Fromager has an area of 6674 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

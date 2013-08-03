@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Chungcheongbuk-do?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[128.65,37.022],[128.638,37.011],[128.625,37.005],[128.613,37.009],[128.603,37.004],[128.58,36.984],[128.554,36.967],[128.538,36.954],[128.517,36.949],[128.505,36.941],[128.496,36.928],[128.465,36.91],[128.443,36.885],[128.433,36.866],[128.42,36.848],[128.427,36.838],[128.44,36.828],[128.425,36.789],[128.342,36.761],[128.306,36.77],[128.291,36.794],[128.268,36.811],[128.251,36.82],[128.238,36.832],[128.225,36.822],[128.214,36.808],[128.209,36.793],[128.202,36.776],[128.174,36.778],[128.143,36.787],[128.127,36.795],[128.11,36.786],[128.093,36.769],[128.073,36.767],[128.057,36.776],[128.045,36.759],[128.033,36.737],[128.026,36.717],[128.045,36.697],[128.06,36.675],[127.989,36.684],[127.95,36.697],[127.929,36.671],[127.894,36.658],[127.863,36.641],[127.86,36.629],[127.861,36.619],[127.855,36.609],[127.833,36.585],[127.818,36.573],[127.803,36.57],[127.789,36.565],[127.8,36.542],[127.839,36.537],[127.888,36.479],[127.87,36.465],[127.86,36.442],[127.856,36.388],[127.85,36.364],[127.856,36.346],[127.867,36.331],[127.853,36.308],[127.831,36.292],[127.837,36.245],[127.877,36.252],[127.901,36.246],[127.93,36.227],[127.949,36.219],[128,36.229],[128.023,36.216],[128.034,36.164],[128.013,36.165],[127.989,36.168],[127.965,36.152],[127.97,36.125],[127.97,36.111],[127.968,36.095],[127.959,36.085],[127.951,36.074],[127.943,36.048],[127.927,36.024],[127.902,36.017],[127.878,36.007],[127.865,35.996],[127.852,35.987],[127.837,35.993],[127.823,36.005],[127.786,35.991],[127.754,35.975],[127.738,35.979],[127.728,35.988],[127.684,36],[127.669,36.015],[127.652,36.023],[127.645,36.016],[127.637,36.014],[127.628,36.021],[127.619,36.03],[127.596,36.058],[127.576,36.087],[127.567,36.122],[127.569,36.156],[127.558,36.186],[127.528,36.201],[127.498,36.209],[127.466,36.204],[127.463,36.232],[127.465,36.26],[127.477,36.298],[127.499,36.331],[127.509,36.348],[127.519,36.363],[127.535,36.373],[127.539,36.39],[127.526,36.394],[127.512,36.399],[127.495,36.389],[127.482,36.374],[127.472,36.401],[127.47,36.419],[127.458,36.424],[127.46,36.435],[127.446,36.438],[127.434,36.425],[127.402,36.419],[127.372,36.426],[127.375,36.443],[127.37,36.454],[127.361,36.458],[127.354,36.464],[127.35,36.471],[127.353,36.479],[127.357,36.489],[127.359,36.499],[127.358,36.504],[127.357,36.509],[127.354,36.516],[127.356,36.523],[127.361,36.533],[127.361,36.544],[127.285,36.548],[127.212,36.536],[127.216,36.566],[127.229,36.595],[127.227,36.612],[127.247,36.646],[127.274,36.678],[127.295,36.708],[127.304,36.715],[127.313,36.714],[127.322,36.716],[127.328,36.723],[127.329,36.732],[127.332,36.743],[127.337,36.754],[127.339,36.765],[127.337,36.776],[127.331,36.786],[127.322,36.792],[127.323,36.813],[127.31,36.82],[127.293,36.848],[127.28,36.854],[127.268,36.864],[127.26,36.879],[127.305,36.889],[127.347,36.906],[127.381,36.915],[127.39,36.944],[127.406,36.958],[127.432,36.967],[127.444,36.98],[127.452,36.996],[127.467,37.01],[127.487,37.006],[127.493,37],[127.518,37.014],[127.565,37.085],[127.57,37.094],[127.576,37.102],[127.584,37.107],[127.592,37.111],[127.6,37.121],[127.607,37.131],[127.713,37.154],[127.819,37.166],[127.81,37.118],[127.841,37.124],[127.871,37.122],[127.88,37.118],[127.888,37.114],[127.896,37.12],[127.903,37.126],[127.923,37.137],[127.918,37.186],[127.937,37.205],[127.988,37.218],[128.026,37.186],[128.026,37.165],[128.038,37.151],[128.071,37.157],[128.104,37.172],[128.124,37.184],[128.148,37.18],[128.168,37.189],[128.191,37.203],[128.247,37.187],[128.304,37.18],[128.322,37.175],[128.31,37.154],[128.282,37.138],[128.264,37.117],[128.275,37.107],[128.289,37.101],[128.298,37.1],[128.307,37.104],[128.338,37.112],[128.385,37.116],[128.395,37.108],[128.394,37.093],[128.413,37.077],[128.421,37.064],[128.439,37.065],[128.46,37.068],[128.484,37.074],[128.508,37.074],[128.532,37.06],[128.558,37.046],[128.585,37.042],[128.61,37.04],[128.63,37.033],[128.65,37.022]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Chungcheongbuk-do'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Chungcheongbuk-do?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Chungcheongbuk-do is located? </h2>Chungcheongbuk-do, is a province It belongs to the country of Korea, South. Its postal identifier is GB.Chungcheongbuk-do has an area of 7661 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

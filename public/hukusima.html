@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Hukusima?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[140.934,37.889],[140.953,37.821],[140.97,37.788],[140.994,37.761],[141.008,37.75],[141.018,37.74],[141.022,37.727],[141.022,37.707],[141.019,37.699],[141.01,37.685],[141.008,37.679],[141.012,37.672],[141.025,37.658],[141.029,37.648],[141.042,37.377],[141.036,37.345],[141.015,37.272],[141.015,37.24],[141.008,37.227],[141.008,37.134],[141.005,37.123],[140.988,37.09],[140.975,37.002],[140.961,36.966],[140.926,36.939],[140.918,36.937],[140.892,36.932],[140.859,36.914],[140.835,36.909],[140.821,36.894],[140.813,36.891],[140.805,36.886],[140.802,36.875],[140.803,36.857],[140.798,36.846],[140.698,36.869],[140.688,36.874],[140.614,36.896],[140.599,36.905],[140.588,36.915],[140.583,36.922],[140.576,36.927],[140.57,36.926],[140.561,36.918],[140.56,36.908],[140.561,36.897],[140.567,36.883],[140.57,36.871],[140.565,36.863],[140.532,36.846],[140.515,36.83],[140.506,36.82],[140.497,36.813],[140.481,36.797],[140.469,36.792],[140.45,36.795],[140.407,36.816],[140.379,36.836],[140.354,36.857],[140.328,36.874],[140.306,36.894],[140.286,36.906],[140.237,36.925],[140.241,36.943],[140.235,36.99],[140.231,37],[140.23,37.001],[140.229,37.002],[140.225,37.004],[140.207,37.012],[140.199,37.02],[140.194,37.031],[140.191,37.043],[140.185,37.053],[140.176,37.059],[140.164,37.066],[140.113,37.098],[140.098,37.106],[139.958,37.139],[139.917,37.144],[139.886,37.139],[139.861,37.13],[139.822,37.106],[139.791,37.081],[139.764,37.08],[139.747,37.077],[139.679,37.053],[139.51,36.975],[139.463,36.963],[139.446,36.956],[139.408,36.925],[139.36,36.902],[139.272,36.92],[139.247,36.92],[139.226,36.925],[139.217,36.93],[139.215,36.946],[139.227,36.962],[139.231,37.001],[139.239,37.028],[139.241,37.039],[139.235,37.091],[139.235,37.116],[139.236,37.129],[139.235,37.14],[139.231,37.149],[139.21,37.185],[139.204,37.192],[139.195,37.192],[139.187,37.19],[139.178,37.19],[139.173,37.196],[139.159,37.214],[139.156,37.226],[139.16,37.241],[139.188,37.284],[139.194,37.297],[139.208,37.355],[139.208,37.367],[139.204,37.38],[139.197,37.39],[139.189,37.399],[139.187,37.408],[139.189,37.418],[139.196,37.429],[139.209,37.441],[139.226,37.447],[139.264,37.447],[139.326,37.461],[139.341,37.462],[139.371,37.458],[139.381,37.461],[139.395,37.488],[139.404,37.496],[139.42,37.503],[139.467,37.501],[139.48,37.502],[139.503,37.508],[139.515,37.509],[139.544,37.504],[139.554,37.506],[139.556,37.518],[139.553,37.563],[139.55,37.577],[139.544,37.589],[139.539,37.597],[139.536,37.604],[139.533,37.614],[139.537,37.624],[139.548,37.638],[139.595,37.68],[139.666,37.764],[139.686,37.78],[139.725,37.82],[139.765,37.816],[139.776,37.809],[139.791,37.806],[139.806,37.806],[139.826,37.811],[139.85,37.812],[139.878,37.806],[139.89,37.805],[139.904,37.808],[139.917,37.815],[139.932,37.812],[139.946,37.8],[139.966,37.773],[139.979,37.762],[139.991,37.757],[139.999,37.754],[140.008,37.754],[140.036,37.757],[140.049,37.756],[140.061,37.752],[140.072,37.745],[140.094,37.727],[140.104,37.723],[140.117,37.723],[140.131,37.727],[140.149,37.738],[140.162,37.742],[140.173,37.743],[140.182,37.74],[140.192,37.739],[140.203,37.738],[140.214,37.741],[140.223,37.743],[140.231,37.747],[140.261,37.769],[140.269,37.781],[140.274,37.8],[140.267,37.831],[140.265,37.872],[140.267,37.907],[140.27,37.926],[140.27,37.964],[140.321,37.946],[140.353,37.946],[140.39,37.954],[140.405,37.955],[140.443,37.943],[140.458,37.936],[140.469,37.925],[140.485,37.903],[140.498,37.895],[140.508,37.893],[140.517,37.893],[140.575,37.903],[140.614,37.894],[140.632,37.887],[140.652,37.883],[140.67,37.872],[140.679,37.86],[140.683,37.847],[140.681,37.824],[140.683,37.816],[140.687,37.808],[140.695,37.799],[140.733,37.777],[140.764,37.77],[140.779,37.77],[140.785,37.775],[140.775,37.784],[140.778,37.786],[140.825,37.786],[140.841,37.791],[140.85,37.799],[140.853,37.81],[140.855,37.838],[140.855,37.847],[140.853,37.868],[140.855,37.876],[140.865,37.883],[140.878,37.888],[140.927,37.89],[140.934,37.889]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Hukusima'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Hukusima?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Hukusima is located? </h2>Hukusima, is a prefecture of the Tohoku region. It belongs to the country of Japan. Its postal identifier is FS.Hukusima has an area of 13966 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

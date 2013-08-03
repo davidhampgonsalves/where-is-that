@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Aconcagua?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[-80.715,-33.773],[-80.732,-33.775],[-80.749,-33.773],[-80.759,-33.767],[-80.777,-33.734],[-80.767,-33.701],[-80.741,-33.685],[-80.711,-33.705],[-80.707,-33.716],[-80.704,-33.734],[-80.702,-33.753],[-80.705,-33.767],[-80.715,-33.773]]],[[[-78.816,-33.609],[-78.807,-33.61],[-78.789,-33.609],[-78.78,-33.613],[-78.758,-33.643],[-78.769,-33.642],[-78.78,-33.643],[-78.79,-33.645],[-78.8,-33.651],[-78.808,-33.644],[-78.813,-33.651],[-78.841,-33.636],[-78.864,-33.63],[-78.885,-33.633],[-78.921,-33.648],[-78.945,-33.653],[-78.957,-33.657],[-78.979,-33.669],[-78.987,-33.668],[-78.992,-33.657],[-78.967,-33.633],[-78.943,-33.617],[-78.933,-33.613],[-78.911,-33.607],[-78.902,-33.602],[-78.898,-33.596],[-78.896,-33.587],[-78.892,-33.579],[-78.885,-33.576],[-78.87,-33.577],[-78.848,-33.581],[-78.828,-33.591],[-78.82,-33.606],[-78.816,-33.609]]],[[[-70.938,-31.984],[-70.835,-32.016],[-70.815,-32.013],[-70.793,-32.011],[-70.772,-32.012],[-70.745,-32.02],[-70.721,-32.03],[-70.692,-32.05],[-70.645,-32.093],[-70.603,-32.113],[-70.538,-32.129],[-70.511,-32.143],[-70.497,-32.156],[-70.478,-32.189],[-70.462,-32.205],[-70.444,-32.214],[-70.425,-32.219],[-70.381,-32.22],[-70.331,-32.21],[-70.331,-32.21],[-70.328,-32.22],[-70.328,-32.229],[-70.33,-32.247],[-70.33,-32.255],[-70.322,-32.28],[-70.31,-32.288],[-70.293,-32.291],[-70.27,-32.299],[-70.257,-32.314],[-70.243,-32.33],[-70.246,-32.404],[-70.228,-32.435],[-70.189,-32.453],[-70.173,-32.465],[-70.161,-32.485],[-70.159,-32.506],[-70.16,-32.525],[-70.159,-32.542],[-70.138,-32.569],[-70.148,-32.572],[-70.171,-32.573],[-70.177,-32.58],[-70.179,-32.589],[-70.182,-32.607],[-70.181,-32.63],[-70.156,-32.738],[-70.141,-32.768],[-70.088,-32.823],[-70.055,-32.851],[-70.037,-32.86],[-70.015,-32.867],[-70.001,-32.876],[-70.001,-32.889],[-70.018,-32.916],[-70.025,-32.935],[-70.035,-32.977],[-70.043,-32.993],[-70.057,-33.001],[-70.09,-33.008],[-70.104,-33.018],[-70.112,-33.038],[-70.107,-33.053],[-70.151,-33.058],[-70.243,-33.122],[-70.302,-33.171],[-70.327,-33.17],[-70.345,-33.139],[-70.388,-33.106],[-70.406,-33.086],[-70.468,-33.075],[-70.48,-33.071],[-70.491,-33.07],[-70.616,-32.974],[-70.653,-32.993],[-70.677,-33.013],[-70.702,-33.002],[-70.743,-32.958],[-70.798,-32.96],[-70.875,-32.981],[-70.893,-32.982],[-70.918,-32.985],[-70.946,-32.996],[-70.952,-32.999],[-70.967,-33.01],[-71.053,-33.044],[-71.066,-33.058],[-71.444,-33.337],[-71.462,-33.385],[-71.451,-33.433],[-71.367,-33.513],[-71.366,-33.574],[-71.36,-33.629],[-71.361,-33.656],[-71.367,-33.674],[-71.39,-33.69],[-71.406,-33.705],[-71.421,-33.73],[-71.418,-33.751],[-71.401,-33.781],[-71.401,-33.797],[-71.411,-33.808],[-71.43,-33.815],[-71.475,-33.819],[-71.497,-33.824],[-71.52,-33.836],[-71.573,-33.896],[-71.584,-33.905],[-71.597,-33.914],[-71.718,-33.971],[-71.733,-33.963],[-71.751,-33.959],[-71.76,-33.955],[-71.768,-33.95],[-71.78,-33.94],[-71.786,-33.941],[-71.791,-33.943],[-71.801,-33.946],[-71.809,-33.943],[-71.821,-33.937],[-71.829,-33.934],[-71.839,-33.933],[-71.87,-33.933],[-71.871,-33.933],[-71.86,-33.912],[-71.835,-33.826],[-71.816,-33.787],[-71.808,-33.777],[-71.802,-33.773],[-71.795,-33.77],[-71.785,-33.764],[-71.776,-33.76],[-71.754,-33.761],[-71.744,-33.757],[-71.725,-33.743],[-71.706,-33.733],[-71.688,-33.721],[-71.672,-33.698],[-71.654,-33.656],[-71.648,-33.634],[-71.645,-33.613],[-71.646,-33.579],[-71.645,-33.569],[-71.641,-33.561],[-71.627,-33.547],[-71.625,-33.541],[-71.641,-33.5],[-71.706,-33.434],[-71.707,-33.39],[-71.703,-33.379],[-71.697,-33.37],[-71.689,-33.365],[-71.675,-33.363],[-71.672,-33.358],[-71.671,-33.347],[-71.672,-33.326],[-71.676,-33.301],[-71.686,-33.284],[-71.697,-33.268],[-71.707,-33.247],[-71.72,-33.167],[-71.726,-33.154],[-71.752,-33.114],[-71.762,-33.102],[-71.743,-33.086],[-71.69,-33.086],[-71.679,-33.072],[-71.677,-33.061],[-71.673,-33.048],[-71.666,-33.036],[-71.659,-33.027],[-71.646,-33.019],[-71.638,-33.018],[-71.63,-33.02],[-71.593,-33.019],[-71.582,-33.017],[-71.573,-33.01],[-71.568,-33.002],[-71.564,-32.984],[-71.553,-32.964],[-71.554,-32.954],[-71.557,-32.943],[-71.556,-32.932],[-71.548,-32.922],[-71.529,-32.908],[-71.521,-32.896],[-71.518,-32.873],[-71.526,-32.851],[-71.537,-32.831],[-71.544,-32.804],[-71.548,-32.795],[-71.549,-32.785],[-71.542,-32.774],[-71.532,-32.769],[-71.509,-32.77],[-71.501,-32.767],[-71.495,-32.746],[-71.503,-32.726],[-71.507,-32.711],[-71.465,-32.699],[-71.454,-32.686],[-71.448,-32.666],[-71.446,-32.643],[-71.449,-32.597],[-71.455,-32.573],[-71.477,-32.535],[-71.471,-32.516],[-71.456,-32.499],[-71.44,-32.485],[-71.441,-32.472],[-71.432,-32.427],[-71.426,-32.41],[-71.418,-32.4],[-71.411,-32.394],[-71.408,-32.386],[-71.412,-32.37],[-71.446,-32.342],[-71.451,-32.339],[-71.464,-32.335],[-71.467,-32.332],[-71.467,-32.331],[-71.468,-32.316],[-71.467,-32.315],[-71.476,-32.277],[-71.481,-32.267],[-71.496,-32.252],[-71.514,-32.24],[-71.53,-32.226],[-71.542,-32.205],[-71.544,-32.193],[-71.544,-32.193],[-71.539,-32.193],[-71.46,-32.072],[-71.448,-32.043],[-71.424,-32.038],[-71.397,-32.061],[-71.339,-32.079],[-71.317,-32.069],[-71.223,-32.02],[-71.204,-32.005],[-71.181,-31.997],[-71.138,-31.989],[-71.045,-32.031],[-71.027,-32.024],[-71.005,-32.024],[-70.987,-31.987],[-70.96,-31.974],[-70.938,-31.984]]],[[[-109.279,-27.097],[-109.269,-27.099],[-109.261,-27.097],[-109.252,-27.093],[-109.242,-27.091],[-109.231,-27.092],[-109.22,-27.105],[-109.227,-27.119],[-109.243,-27.129],[-109.274,-27.136],[-109.292,-27.145],[-109.304,-27.148],[-109.324,-27.149],[-109.332,-27.151],[-109.341,-27.154],[-109.351,-27.16],[-109.359,-27.167],[-109.368,-27.173],[-109.379,-27.175],[-109.389,-27.175],[-109.396,-27.177],[-109.41,-27.182],[-109.418,-27.192],[-109.429,-27.199],[-109.441,-27.201],[-109.451,-27.195],[-109.454,-27.188],[-109.451,-27.179],[-109.447,-27.171],[-109.423,-27.099],[-109.413,-27.085],[-109.397,-27.069],[-109.379,-27.059],[-109.366,-27.062],[-109.311,-27.086],[-109.301,-27.088],[-109.279,-27.097]]],[[[-105.462,-26.461],[-105.459,-26.465],[-105.471,-26.458],[-105.466,-26.455],[-105.463,-26.457],[-105.462,-26.461]]],[[[-79.89,-26.356],[-79.897,-26.359],[-79.909,-26.358],[-79.902,-26.347],[-79.891,-26.352],[-79.89,-26.356]]],[[[-80.09,-26.274],[-80.099,-26.275],[-80.108,-26.275],[-80.096,-26.266],[-80.095,-26.268],[-80.093,-26.269],[-80.091,-26.271],[-80.09,-26.274]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Aconcagua'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Aconcagua?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Aconcagua is located? </h2>Aconcagua, is a region It belongs to the country of Chile. Its postal identifier is VS.Aconcagua has an area of 16814 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

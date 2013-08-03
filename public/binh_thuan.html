@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Binh Thuan?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[108.967,10.518],[108.961,10.503],[108.94,10.504],[108.93,10.515],[108.926,10.53],[108.93,10.545],[108.943,10.552],[108.959,10.538],[108.967,10.518]]],[[[108.709,11.525],[108.712,11.497],[108.715,11.486],[108.722,11.477],[108.731,11.472],[108.756,11.465],[108.763,11.459],[108.765,11.448],[108.768,11.42],[108.772,11.408],[108.779,11.402],[108.789,11.401],[108.821,11.403],[108.841,11.4],[108.868,11.388],[108.886,11.371],[108.899,11.352],[108.904,11.338],[108.906,11.324],[108.89,11.331],[108.874,11.334],[108.856,11.334],[108.838,11.331],[108.822,11.324],[108.788,11.301],[108.775,11.288],[108.766,11.276],[108.758,11.258],[108.746,11.207],[108.738,11.19],[108.73,11.182],[108.718,11.179],[108.701,11.179],[108.691,11.182],[108.67,11.191],[108.656,11.193],[108.647,11.191],[108.626,11.182],[108.616,11.179],[108.578,11.179],[108.572,11.176],[108.56,11.162],[108.531,11.153],[108.514,11.139],[108.501,11.121],[108.492,11.105],[108.482,11.064],[108.473,11.053],[108.447,11.049],[108.439,11.047],[108.404,11.029],[108.393,11.027],[108.377,11.026],[108.369,11.023],[108.363,11.01],[108.35,10.964],[108.345,10.954],[108.325,10.952],[108.316,10.944],[108.3,10.913],[108.294,10.913],[108.286,10.943],[108.259,10.952],[108.135,10.928],[108.107,10.918],[108.095,10.902],[108.089,10.892],[108.066,10.868],[108.061,10.854],[108.057,10.842],[108.043,10.814],[108.036,10.773],[107.999,10.699],[107.992,10.699],[107.981,10.706],[107.937,10.719],[107.92,10.721],[107.898,10.72],[107.883,10.717],[107.824,10.692],[107.782,10.658],[107.769,10.65],[107.732,10.638],[107.666,10.604],[107.645,10.601],[107.622,10.593],[107.587,10.573],[107.579,10.614],[107.517,10.756],[107.563,10.802],[107.578,10.823],[107.591,10.851],[107.592,10.881],[107.588,10.912],[107.579,10.94],[107.569,10.96],[107.557,10.98],[107.545,10.992],[107.531,11],[107.515,11.002],[107.498,10.999],[107.477,11.001],[107.46,11.009],[107.441,11.023],[107.431,11.038],[107.437,11.052],[107.453,11.078],[107.462,11.095],[107.466,11.122],[107.477,11.149],[107.496,11.182],[107.506,11.21],[107.511,11.221],[107.534,11.257],[107.548,11.289],[107.57,11.327],[107.58,11.342],[107.59,11.352],[107.597,11.358],[107.602,11.36],[107.61,11.362],[107.657,11.345],[107.691,11.328],[107.727,11.319],[107.756,11.315],[108.01,11.301],[108.032,11.294],[108.046,11.284],[108.053,11.271],[108.055,11.258],[108.056,11.244],[108.054,11.225],[108.053,11.217],[108.053,11.211],[108.057,11.205],[108.066,11.203],[108.078,11.207],[108.093,11.219],[108.118,11.254],[108.132,11.269],[108.153,11.282],[108.177,11.289],[108.22,11.295],[108.251,11.307],[108.281,11.322],[108.305,11.34],[108.325,11.356],[108.336,11.369],[108.339,11.379],[108.336,11.39],[108.321,11.416],[108.315,11.431],[108.314,11.449],[108.315,11.467],[108.319,11.483],[108.327,11.495],[108.341,11.508],[108.366,11.52],[108.386,11.524],[108.514,11.528],[108.535,11.525],[108.564,11.511],[108.58,11.505],[108.591,11.51],[108.6,11.521],[108.611,11.55],[108.62,11.564],[108.667,11.563],[108.683,11.556],[108.697,11.548],[108.705,11.537],[108.709,11.525]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Binh Thuan'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Binh Thuan?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Binh Thuan is located? </h2>Binh Thuan, is a province of the Ðông Nam B? region. It belongs to the country of Vietnam. Its postal identifier is BU.Binh Thuan has an area of 7580 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

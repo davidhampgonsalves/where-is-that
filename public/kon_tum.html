@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kon Tum?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[107.862,15.222],[107.88,15.221],[107.912,15.228],[107.929,15.23],[107.949,15.226],[107.972,15.216],[108.006,15.194],[108.062,15.146],[108.07,15.135],[108.074,15.121],[108.074,15.105],[108.069,15.07],[108.069,15.052],[108.075,15.039],[108.097,15.016],[108.105,15.003],[108.118,14.975],[108.128,14.963],[108.138,14.956],[108.153,14.958],[108.168,14.966],[108.19,14.987],[108.199,15.003],[108.201,15.018],[108.197,15.043],[108.196,15.056],[108.203,15.064],[108.216,15.066],[108.265,15.052],[108.297,15.048],[108.335,15.012],[108.351,15.001],[108.393,14.964],[108.429,14.894],[108.442,14.878],[108.465,14.857],[108.483,14.845],[108.502,14.838],[108.535,14.831],[108.549,14.826],[108.56,14.811],[108.572,14.784],[108.596,14.696],[108.618,14.641],[108.494,14.609],[108.483,14.61],[108.475,14.612],[108.453,14.623],[108.44,14.626],[108.426,14.627],[108.416,14.625],[108.409,14.62],[108.408,14.611],[108.41,14.603],[108.422,14.587],[108.425,14.579],[108.426,14.566],[108.423,14.545],[108.411,14.516],[108.383,14.474],[108.336,14.431],[108.261,14.379],[108.153,14.33],[107.787,14.216],[107.72,14.186],[107.681,14.159],[107.658,14.138],[107.643,14.113],[107.63,14.085],[107.608,14.05],[107.572,14.011],[107.532,13.976],[107.467,13.933],[107.446,13.922],[107.445,13.927],[107.431,13.956],[107.43,13.965],[107.431,13.975],[107.431,13.985],[107.424,13.994],[107.409,14],[107.371,13.997],[107.354,14.003],[107.343,14.021],[107.343,14.041],[107.347,14.062],[107.345,14.082],[107.334,14.099],[107.324,14.108],[107.32,14.12],[107.325,14.144],[107.358,14.239],[107.363,14.274],[107.364,14.283],[107.361,14.294],[107.352,14.313],[107.35,14.322],[107.352,14.342],[107.359,14.361],[107.379,14.396],[107.382,14.405],[107.384,14.414],[107.387,14.422],[107.395,14.429],[107.408,14.433],[107.414,14.429],[107.417,14.422],[107.424,14.419],[107.443,14.424],[107.456,14.434],[107.465,14.449],[107.477,14.475],[107.48,14.489],[107.481,14.496],[107.486,14.51],[107.5,14.53],[107.505,14.541],[107.506,14.557],[107.503,14.587],[107.504,14.602],[107.527,14.653],[107.532,14.678],[107.52,14.705],[107.522,14.719],[107.515,14.728],[107.504,14.737],[107.498,14.746],[107.509,14.759],[107.504,14.773],[107.494,14.789],[107.491,14.804],[107.499,14.818],[107.54,14.857],[107.555,14.876],[107.558,14.887],[107.55,14.895],[107.489,14.941],[107.474,14.948],[107.462,14.957],[107.454,14.968],[107.45,14.981],[107.451,14.996],[107.445,15.012],[107.446,15.026],[107.455,15.034],[107.455,15.034],[107.474,15.036],[107.502,15.044],[107.519,15.049],[107.535,15.051],[107.563,15.046],[107.578,15.048],[107.578,15.048],[107.589,15.058],[107.59,15.069],[107.581,15.087],[107.58,15.097],[107.585,15.105],[107.599,15.115],[107.605,15.121],[107.616,15.136],[107.621,15.155],[107.624,15.187],[107.627,15.197],[107.636,15.205],[107.637,15.205],[107.643,15.203],[107.647,15.198],[107.654,15.2],[107.654,15.2],[107.657,15.206],[107.664,15.253],[107.664,15.269],[107.658,15.283],[107.643,15.298],[107.598,15.331],[107.586,15.344],[107.58,15.361],[107.578,15.4],[107.576,15.403],[107.603,15.41],[107.632,15.405],[107.65,15.399],[107.689,15.371],[107.702,15.356],[107.71,15.342],[107.714,15.328],[107.716,15.314],[107.722,15.305],[107.729,15.3],[107.761,15.3],[107.777,15.296],[107.797,15.282],[107.812,15.269],[107.838,15.239],[107.851,15.228],[107.862,15.222]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Kon Tum'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Kon Tum?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Kon Tum is located? </h2>Kon Tum, is a province of the Nam Trung B? region. It belongs to the country of Vietnam.Kon Tum has an area of 10958 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

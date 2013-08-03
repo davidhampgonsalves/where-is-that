@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Koprivnicko-Krievacka?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[16.903,46.282],[16.94,46.252],[16.965,46.22],[16.974,46.211],[17.028,46.181],[17.036,46.173],[17.041,46.163],[17.053,46.154],[17.101,46.129],[17.116,46.123],[17.197,46.122],[17.208,46.117],[17.248,46.081],[17.254,46.071],[17.266,46.039],[17.269,46.029],[17.276,46.012],[17.291,46.008],[17.307,46.007],[17.316,45.998],[17.316,45.998],[17.309,45.997],[17.297,45.993],[17.29,45.992],[17.29,45.992],[17.29,45.985],[17.304,45.981],[17.307,45.98],[17.307,45.98],[17.306,45.979],[17.299,45.978],[17.289,45.978],[17.237,45.983],[17.227,45.983],[17.217,45.981],[17.198,45.973],[17.193,45.97],[17.187,45.965],[17.158,45.934],[17.142,45.922],[17.135,45.916],[17.133,45.912],[17.137,45.906],[17.138,45.904],[17.133,45.897],[17.132,45.894],[17.134,45.889],[17.14,45.87],[17.106,45.893],[17.092,45.901],[17.086,45.905],[17.08,45.91],[17.067,45.924],[17.059,45.931],[17.051,45.935],[17.037,45.936],[17.03,45.936],[17.023,45.934],[17.006,45.925],[17.001,45.925],[16.996,45.927],[16.992,45.935],[16.992,45.943],[16.994,45.953],[16.994,45.961],[16.984,45.97],[16.966,45.979],[16.925,45.994],[16.911,46.001],[16.905,46.009],[16.915,46.028],[16.916,46.033],[16.913,46.037],[16.908,46.039],[16.891,46.046],[16.885,46.05],[16.88,46.054],[16.877,46.058],[16.875,46.061],[16.874,46.065],[16.872,46.072],[16.869,46.075],[16.866,46.077],[16.859,46.08],[16.852,46.081],[16.845,46.082],[16.839,46.081],[16.835,46.078],[16.831,46.073],[16.827,46.062],[16.825,46.06],[16.821,46.056],[16.811,46.051],[16.809,46.048],[16.805,46.046],[16.801,46.046],[16.794,46.051],[16.79,46.056],[16.784,46.059],[16.776,46.058],[16.758,46.053],[16.741,46.046],[16.731,46.033],[16.719,46.019],[16.711,46.001],[16.697,45.981],[16.693,45.966],[16.693,45.924],[16.678,45.929],[16.648,45.92],[16.641,45.92],[16.635,45.921],[16.63,45.924],[16.622,45.927],[16.616,45.927],[16.608,45.925],[16.604,45.926],[16.601,45.927],[16.6,45.93],[16.596,45.934],[16.59,45.938],[16.551,45.954],[16.545,45.957],[16.52,45.975],[16.514,45.978],[16.51,45.978],[16.508,45.976],[16.505,45.974],[16.503,45.971],[16.5,45.966],[16.496,45.964],[16.489,45.961],[16.475,45.958],[16.469,45.959],[16.467,45.961],[16.469,45.967],[16.471,45.972],[16.472,45.974],[16.472,45.976],[16.47,45.979],[16.468,45.981],[16.46,45.987],[16.444,46.004],[16.433,46.008],[16.359,46.025],[16.353,46.042],[16.355,46.079],[16.353,46.09],[16.345,46.11],[16.346,46.118],[16.35,46.123],[16.365,46.126],[16.369,46.126],[16.383,46.125],[16.387,46.125],[16.393,46.127],[16.428,46.145],[16.431,46.146],[16.433,46.145],[16.435,46.144],[16.437,46.139],[16.439,46.137],[16.442,46.136],[16.447,46.135],[16.473,46.139],[16.485,46.143],[16.491,46.147],[16.494,46.151],[16.497,46.158],[16.5,46.162],[16.596,46.203],[16.632,46.212],[16.649,46.213],[16.654,46.212],[16.657,46.209],[16.66,46.202],[16.664,46.201],[16.676,46.204],[16.695,46.21],[16.732,46.227],[16.749,46.238],[16.758,46.247],[16.763,46.259],[16.771,46.269],[16.773,46.275],[16.774,46.28],[16.774,46.284],[16.772,46.287],[16.77,46.29],[16.768,46.291],[16.759,46.295],[16.745,46.306],[16.779,46.302],[16.791,46.298],[16.795,46.294],[16.801,46.288],[16.809,46.281],[16.812,46.282],[16.815,46.284],[16.845,46.332],[16.846,46.334],[16.847,46.339],[16.856,46.358],[16.859,46.365],[16.859,46.365],[16.865,46.359],[16.875,46.343],[16.871,46.328],[16.879,46.312],[16.889,46.293],[16.896,46.287],[16.903,46.282]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Koprivnicko-Krievacka'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Koprivnicko-Krievacka?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Koprivnicko-Krievacka is located? </h2>Koprivnicko-Krievacka, is a county It belongs to the country of Croatia. Its postal identifier is KK.Koprivnicko-Krievacka has an area of 1674 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

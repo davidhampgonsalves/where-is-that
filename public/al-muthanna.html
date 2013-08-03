@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Al-Muthanna?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[45.536,31.687],[45.713,31.637],[45.756,31.638],[45.777,31.644],[45.786,31.652],[45.817,31.62],[45.823,31.606],[45.822,31.601],[45.821,31.587],[45.823,31.574],[45.822,31.566],[45.819,31.561],[45.816,31.56],[45.811,31.561],[45.801,31.568],[45.796,31.571],[45.79,31.572],[45.785,31.569],[45.78,31.561],[45.773,31.539],[45.774,31.53],[45.777,31.524],[45.782,31.523],[45.788,31.522],[45.794,31.515],[45.799,31.504],[45.806,31.473],[45.807,31.46],[45.804,31.448],[45.735,31.374],[45.724,31.356],[45.726,31.342],[45.754,31.338],[45.81,31.336],[45.752,31.219],[45.741,31.187],[45.743,31.176],[45.763,31.17],[45.766,31.166],[45.778,31.158],[45.786,31.155],[45.792,31.152],[45.796,31.142],[45.794,31.124],[45.788,31.094],[45.781,31.083],[45.769,31.082],[45.749,31.088],[45.734,31.086],[45.726,31.073],[45.721,31.047],[45.716,31.029],[45.712,30.999],[45.706,30.977],[45.72,30.838],[46.211,30.782],[46.371,30.733],[46.463,30.603],[46.504,30.529],[46.515,30.516],[46.528,30.508],[46.542,30.507],[46.575,30.514],[46.591,30.452],[46.607,30.36],[46.616,30.332],[46.629,30.306],[46.727,30.182],[46.736,30.164],[46.742,30.144],[46.745,30.118],[46.745,30.089],[46.663,29.711],[46.65,29.61],[46.649,29.482],[46.645,29.456],[46.608,29.4],[46.597,29.377],[46.589,29.351],[46.567,29.15],[46.562,29.125],[46.562,29.125],[46.532,29.096],[46.532,29.096],[46.532,29.096],[46.428,29.076],[46.357,29.063],[44.717,29.193],[44.691,29.202],[43.824,29.814],[43.824,29.814],[43.837,29.833],[44.056,30.167],[44.236,30.615],[44.272,30.676],[44.313,30.722],[44.329,30.736],[44.378,30.767],[44.439,30.789],[44.445,30.793],[44.494,30.859],[44.533,30.898],[44.579,30.934],[44.627,31.007],[44.651,31.055],[44.727,31.407],[44.897,31.3],[44.978,31.263],[44.999,31.367],[45.062,31.513],[45.093,31.565],[45.109,31.601],[45.11,31.616],[45.088,31.625],[45.081,31.635],[45.077,31.647],[45.07,31.656],[45.064,31.659],[45.046,31.665],[45.036,31.669],[45.025,31.679],[45.048,31.681],[45.21,31.715],[45.22,31.73],[45.292,31.728],[45.536,31.687]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Al-Muthanna'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Al-Muthanna?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Find out  where Al-Muthanna is located? </h2>Al-Muthanna, is a province It belongs to the country of Iraq. Its postal identifier is MU.Al-Muthanna has an area of 52542 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

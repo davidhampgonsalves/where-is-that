@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Sidi Bel Abbes?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-0.165,35.123],[-0.182,35.125],[-0.189,35.124],[-0.195,35.123],[-0.199,35.119],[-0.207,35.112],[-0.212,35.109],[-0.218,35.107],[-0.232,35.106],[-0.238,35.105],[-0.243,35.102],[-0.247,35.099],[-0.251,35.094],[-0.254,35.086],[-0.254,35.073],[-0.254,35.066],[-0.25,35.048],[-0.247,35.041],[-0.238,35.034],[-0.236,35.03],[-0.236,35.024],[-0.242,35.016],[-0.248,35.012],[-0.254,35.01],[-0.26,35.011],[-0.272,35.015],[-0.278,35.016],[-0.284,35.015],[-0.288,35.011],[-0.292,35.005],[-0.293,34.995],[-0.298,34.988],[-0.299,34.982],[-0.297,34.979],[-0.294,34.975],[-0.293,34.968],[-0.295,34.941],[-0.294,34.932],[-0.29,34.926],[-0.28,34.921],[-0.276,34.917],[-0.272,34.914],[-0.271,34.909],[-0.273,34.904],[-0.279,34.9],[-0.285,34.898],[-0.31,34.892],[-0.331,34.884],[-0.336,34.884],[-0.346,34.888],[-0.352,34.888],[-0.357,34.886],[-0.362,34.883],[-0.365,34.879],[-0.368,34.874],[-0.368,34.87],[-0.364,34.864],[-0.358,34.861],[-0.319,34.848],[-0.313,34.845],[-0.304,34.839],[-0.3,34.835],[-0.299,34.83],[-0.298,34.816],[-0.297,34.808],[-0.293,34.804],[-0.287,34.801],[-0.268,34.795],[-0.263,34.793],[-0.261,34.791],[-0.258,34.787],[-0.256,34.784],[-0.252,34.782],[-0.247,34.782],[-0.241,34.782],[-0.227,34.782],[-0.221,34.781],[-0.216,34.778],[-0.213,34.774],[-0.211,34.766],[-0.21,34.755],[-0.206,34.749],[-0.2,34.745],[-0.194,34.743],[-0.189,34.74],[-0.181,34.732],[-0.148,34.711],[-0.114,34.682],[-0.061,34.618],[-0.057,34.609],[-0.055,34.604],[-0.053,34.588],[-0.053,34.581],[-0.055,34.568],[-0.061,34.55],[-0.068,34.535],[-0.072,34.53],[-0.486,34.229],[-0.502,34.266],[-0.509,34.276],[-0.523,34.29],[-0.538,34.3],[-0.557,34.308],[-0.578,34.313],[-0.598,34.314],[-0.617,34.311],[-0.637,34.305],[-0.679,34.283],[-0.742,34.241],[-0.765,34.23],[-0.79,34.222],[-0.836,34.215],[-0.912,34.22],[-0.935,34.225],[-0.955,34.234],[-0.97,34.244],[-0.989,34.254],[-1,34.258],[-1.013,34.258],[-1.042,34.251],[-1.063,34.249],[-1.081,34.253],[-1.094,34.258],[-1.12,34.271],[-1.096,34.305],[-1.056,34.339],[-0.896,34.452],[-0.88,34.468],[-0.876,34.475],[-0.873,34.484],[-0.872,34.49],[-0.873,34.495],[-0.875,34.501],[-0.877,34.504],[-0.882,34.513],[-0.886,34.517],[-0.897,34.526],[-0.902,34.531],[-0.905,34.538],[-0.904,34.547],[-0.896,34.555],[-0.884,34.561],[-0.84,34.573],[-0.833,34.576],[-0.83,34.578],[-0.826,34.582],[-0.81,34.621],[-0.79,34.656],[-0.776,34.677],[-0.761,34.702],[-0.758,34.712],[-0.759,34.719],[-0.767,34.732],[-0.771,34.735],[-0.776,34.737],[-0.84,34.732],[-0.866,34.734],[-0.886,34.743],[-0.897,34.761],[-0.897,34.785],[-0.89,34.818],[-0.888,34.835],[-0.891,34.844],[-0.901,34.845],[-0.915,34.843],[-0.928,34.839],[-0.936,34.839],[-0.941,34.843],[-0.943,34.851],[-0.939,34.86],[-0.924,34.877],[-0.924,34.882],[-0.929,34.886],[-0.935,34.888],[-0.939,34.889],[-0.942,34.889],[-0.947,34.89],[-0.953,34.896],[-0.96,34.907],[-0.966,34.923],[-0.967,34.929],[-0.967,34.942],[-0.965,34.962],[-0.954,35],[-0.953,35],[-0.949,35.007],[-0.939,35.021],[-0.929,35.04],[-0.93,35.047],[-0.933,35.052],[-0.99,35.083],[-0.993,35.084],[-1.001,35.087],[-0.973,35.125],[-0.959,35.138],[-0.939,35.146],[-0.923,35.147],[-0.905,35.151],[-0.89,35.16],[-0.878,35.18],[-0.875,35.2],[-0.878,35.217],[-0.885,35.231],[-0.887,35.243],[-0.881,35.254],[-0.87,35.261],[-0.846,35.264],[-0.831,35.264],[-0.814,35.266],[-0.8,35.274],[-0.768,35.308],[-0.754,35.318],[-0.669,35.332],[-0.664,35.301],[-0.655,35.297],[-0.645,35.295],[-0.632,35.298],[-0.622,35.304],[-0.612,35.31],[-0.601,35.32],[-0.594,35.332],[-0.589,35.344],[-0.58,35.384],[-0.576,35.395],[-0.569,35.405],[-0.561,35.41],[-0.556,35.412],[-0.545,35.412],[-0.525,35.414],[-0.502,35.419],[-0.482,35.426],[-0.464,35.429],[-0.459,35.427],[-0.454,35.421],[-0.455,35.407],[-0.466,35.392],[-0.482,35.374],[-0.478,35.367],[-0.464,35.358],[-0.43,35.347],[-0.409,35.342],[-0.396,35.342],[-0.38,35.356],[-0.373,35.36],[-0.362,35.359],[-0.206,35.31],[-0.198,35.306],[-0.189,35.299],[-0.189,35.287],[-0.194,35.268],[-0.198,35.251],[-0.2,35.247],[-0.203,35.243],[-0.205,35.236],[-0.207,35.228],[-0.206,35.214],[-0.207,35.208],[-0.209,35.204],[-0.213,35.201],[-0.216,35.197],[-0.217,35.191],[-0.214,35.183],[-0.195,35.167],[-0.181,35.153],[-0.165,35.123]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Sidi Bel Abbes'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Sidi Bel Abbes?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Sidi Bel Abbes is located? </h2>Sidi Bel Abbes, is a province It belongs to the country of Algeria. Its postal identifier is SB.Sidi Bel Abbes has an area of 7639 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

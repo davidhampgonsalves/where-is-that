@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Omaheke?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[20.428,-20.362],[20.449,-20.363],[20.484,-20.357],[20.524,-20.357],[20.632,-20.371],[20.683,-20.384],[20.72,-20.387],[20.79,-20.385],[20.804,-20.382],[20.858,-20.367],[20.922,-20.364],[20.936,-20.36],[20.954,-20.353],[20.979,-20.351],[20.981,-21.001],[20.984,-21.964],[20.971,-22.001],[20.971,-22.001],[19.978,-22.001],[19.978,-22.001],[19.98,-23.864],[19.344,-23.862],[19.275,-23.854],[19.271,-23.676],[19.266,-23.666],[19.257,-23.658],[19.233,-23.654],[19.218,-23.654],[19.206,-23.66],[19.161,-23.714],[19.156,-23.718],[19.152,-23.72],[19.058,-23.717],[19.039,-23.714],[19.035,-23.706],[19.037,-23.698],[19.041,-23.69],[19.041,-23.684],[19.034,-23.681],[18.98,-23.678],[18.971,-23.679],[18.785,-23.749],[18.772,-23.749],[18.69,-23.735],[18.67,-23.73],[18.654,-23.721],[18.605,-23.673],[18.594,-23.664],[18.582,-23.658],[18.573,-23.661],[18.563,-23.668],[18.546,-23.685],[18.54,-23.688],[18.534,-23.684],[18.442,-23.517],[18.443,-23.504],[18.503,-23.366],[18.506,-23.354],[18.505,-23.345],[18.496,-23.335],[18.355,-23.227],[18.349,-23.217],[18.349,-23.205],[18.354,-23.193],[18.36,-23.182],[18.369,-23.175],[18.379,-23.172],[18.435,-23.169],[18.444,-23.165],[18.45,-23.158],[18.442,-23.126],[18.433,-23.103],[18.428,-23.094],[18.422,-23.091],[18.413,-23.089],[18.391,-23.087],[18.381,-23.085],[18.371,-23.081],[18.35,-23.056],[18.335,-23.047],[18.33,-23.039],[18.325,-23.029],[18.324,-23.019],[18.325,-23.01],[18.332,-23.004],[18.337,-23.001],[18.381,-22.984],[18.39,-22.98],[18.394,-22.974],[18.395,-22.966],[18.397,-22.946],[18.397,-22.937],[18.395,-22.93],[18.387,-22.931],[18.316,-22.955],[18.306,-22.955],[18.299,-22.95],[18.297,-22.843],[18.294,-22.814],[18.265,-22.736],[18.26,-22.716],[18.248,-22.611],[18.22,-22.481],[18.216,-22.474],[18.212,-22.471],[18.203,-22.476],[18.173,-22.5],[18.171,-22.501],[18.169,-22.5],[18.144,-22.482],[18.136,-22.475],[18.132,-22.468],[18.14,-22.461],[18.174,-22.445],[18.178,-22.439],[18.17,-22.431],[18.151,-22.416],[18.137,-22.402],[18.11,-22.363],[18.104,-22.356],[18.096,-22.351],[18.057,-22.351],[18.044,-22.348],[18.032,-22.338],[17.999,-22.298],[17.972,-22.245],[17.966,-22.229],[17.963,-22.214],[17.974,-22.125],[17.979,-22.116],[17.987,-22.113],[17.996,-22.113],[18.011,-22.113],[18.021,-22.112],[18.057,-22.098],[18.066,-22.091],[18.071,-22.082],[18.071,-22.066],[18.069,-22.058],[18.063,-22.049],[18.06,-22.043],[18.063,-22.034],[18.091,-21.995],[18.1,-21.978],[18.108,-21.971],[18.115,-21.967],[18.122,-21.962],[18.128,-21.952],[18.126,-21.93],[18.122,-21.921],[18.118,-21.916],[18.114,-21.915],[18.11,-21.912],[18.107,-21.908],[18.099,-21.895],[18.092,-21.888],[18.076,-21.874],[18.073,-21.871],[18.07,-21.866],[18.068,-21.862],[18.068,-21.854],[18.072,-21.843],[18.088,-21.816],[18.113,-21.788],[18.126,-21.765],[18.118,-21.705],[18.13,-21.695],[18.193,-21.667],[18.215,-21.655],[18.242,-21.623],[18.245,-21.609],[18.246,-21.597],[18.237,-21.555],[18.24,-21.526],[18.24,-21.519],[18.238,-21.511],[18.235,-21.5],[18.235,-21.496],[18.236,-21.489],[18.262,-21.476],[18.264,-21.467],[18.264,-21.458],[18.259,-21.415],[18.259,-21.405],[18.261,-21.396],[18.276,-21.383],[18.278,-21.374],[18.277,-21.364],[18.269,-21.332],[18.266,-21.325],[18.262,-21.323],[18.245,-21.327],[18.224,-21.328],[18.214,-21.328],[18.209,-21.325],[18.207,-21.318],[18.209,-21.272],[18.212,-21.253],[18.221,-21.244],[18.231,-21.238],[18.242,-21.235],[18.251,-21.233],[18.261,-21.235],[18.366,-21.262],[18.372,-21.261],[18.369,-21.253],[18.354,-21.228],[18.351,-21.218],[18.35,-21.209],[18.351,-21.199],[18.359,-21.191],[18.394,-21.171],[18.407,-21.162],[18.413,-21.152],[18.416,-21.142],[18.418,-21.122],[18.418,-21.114],[18.415,-21.11],[18.407,-21.11],[18.374,-21.117],[18.365,-21.117],[18.361,-21.116],[18.361,-21.107],[18.365,-21.077],[18.376,-21.039],[18.396,-21.027],[18.468,-21.011],[18.484,-21.011],[18.494,-21.018],[18.501,-21.025],[18.508,-21.037],[18.535,-20.985],[18.542,-20.965],[18.573,-20.826],[18.579,-20.812],[18.757,-20.534],[18.786,-20.504],[18.821,-20.476],[18.831,-20.471],[19.312,-20.3],[19.343,-20.284],[19.375,-20.256],[19.395,-20.247],[19.422,-20.243],[19.482,-20.243],[19.509,-20.246],[20.32,-20.332],[20.338,-20.337],[20.363,-20.348],[20.383,-20.354],[20.428,-20.362]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Omaheke'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Omaheke?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Omaheke is located? </h2>Omaheke, is a region of the Gobabis region. It belongs to the country of Namibia. Its postal identifier is OH.Omaheke has an area of 83444 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

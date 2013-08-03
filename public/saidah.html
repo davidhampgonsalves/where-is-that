@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Saidah?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[43.75,17.346],[43.769,17.346],[43.806,17.35],[43.846,17.346],[43.863,17.347],[43.886,17.354],[43.892,17.351],[43.892,17.34],[43.892,17.34],[43.89,17.32],[43.89,17.32],[43.894,17.312],[43.897,17.308],[43.903,17.305],[43.915,17.302],[43.938,17.305],[43.954,17.32],[43.967,17.34],[43.982,17.357],[44.004,17.368],[44.021,17.366],[44.059,17.347],[44.085,17.344],[44.104,17.352],[44.119,17.37],[44.134,17.395],[44.149,17.405],[44.169,17.403],[44.211,17.391],[44.23,17.392],[44.307,17.409],[44.404,17.419],[44.465,17.417],[44.534,17.403],[44.562,17.405],[44.624,17.428],[44.646,17.432],[44.972,17.43],[44.95,17.111],[44.868,17.071],[44.809,17.078],[44.745,17.076],[44.678,17.062],[44.623,17.043],[44.491,16.979],[44.473,16.961],[44.433,16.906],[44.419,16.894],[44.401,16.864],[44.391,16.856],[44.377,16.854],[44.359,16.834],[44.318,16.809],[44.303,16.802],[44.295,16.796],[44.284,16.793],[44.271,16.787],[44.248,16.77],[44.236,16.753],[44.215,16.716],[44.203,16.666],[44.189,16.631],[44.118,16.611],[44.075,16.612],[44.03,16.621],[43.928,16.661],[43.857,16.679],[43.818,16.679],[43.792,16.671],[43.777,16.661],[43.749,16.646],[43.73,16.639],[43.6,16.609],[43.489,16.618],[43.413,16.613],[43.392,16.616],[43.374,16.626],[43.206,16.672],[43.186,16.685],[43.186,16.685],[43.18,16.708],[43.17,16.724],[43.168,16.738],[43.168,16.738],[43.183,16.758],[43.192,16.765],[43.201,16.768],[43.208,16.774],[43.213,16.784],[43.213,16.784],[43.211,16.797],[43.205,16.808],[43.194,16.816],[43.157,16.826],[43.146,16.835],[43.133,16.871],[43.112,16.91],[43.108,16.927],[43.108,16.927],[43.115,16.952],[43.131,16.991],[43.136,17.01],[43.136,17.032],[43.136,17.032],[43.13,17.054],[43.122,17.07],[43.118,17.087],[43.118,17.087],[43.124,17.107],[43.145,17.147],[43.151,17.167],[43.151,17.167],[43.15,17.19],[43.15,17.19],[43.156,17.21],[43.177,17.226],[43.203,17.237],[43.226,17.242],[43.248,17.252],[43.252,17.272],[43.252,17.272],[43.242,17.294],[43.222,17.308],[43.165,17.326],[43.165,17.326],[43.168,17.331],[43.216,17.387],[43.303,17.459],[43.391,17.512],[43.413,17.52],[43.435,17.523],[43.453,17.519],[43.487,17.518],[43.503,17.514],[43.577,17.483],[43.619,17.459],[43.689,17.384],[43.73,17.353],[43.75,17.346]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Saidah'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Saidah?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Saidah is located? </h2>Saidah, is a governorate It belongs to the country of Yemen. Its postal identifier is SD.Saidah has an area of 13452 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

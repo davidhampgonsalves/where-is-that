@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Alta Austria?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[13.915,48.731],[13.982,48.707],[13.991,48.701],[14.007,48.684],[14.014,48.675],[14.019,48.672],[14.026,48.67],[14.032,48.668],[14.034,48.662],[14.034,48.662],[14.033,48.655],[14.028,48.654],[14.023,48.655],[14.02,48.654],[14.013,48.644],[14.008,48.643],[14.006,48.64],[14.006,48.64],[14.011,48.626],[14.015,48.621],[14.032,48.607],[14.041,48.602],[14.075,48.592],[14.216,48.582],[14.315,48.558],[14.325,48.559],[14.333,48.561],[14.353,48.572],[14.405,48.587],[14.421,48.597],[14.443,48.637],[14.458,48.644],[14.482,48.625],[14.522,48.611],[14.533,48.609],[14.548,48.611],[14.578,48.621],[14.594,48.622],[14.6,48.618],[14.602,48.612],[14.602,48.605],[14.605,48.601],[14.613,48.6],[14.628,48.604],[14.634,48.603],[14.645,48.593],[14.651,48.584],[14.659,48.577],[14.675,48.577],[14.691,48.587],[14.691,48.587],[14.693,48.584],[14.712,48.572],[14.774,48.563],[14.807,48.553],[14.839,48.542],[14.876,48.539],[14.892,48.535],[14.906,48.527],[14.916,48.516],[14.918,48.506],[14.917,48.502],[14.914,48.5],[14.891,48.501],[14.887,48.5],[14.885,48.499],[14.884,48.495],[14.884,48.486],[14.882,48.48],[14.882,48.471],[14.887,48.461],[14.91,48.44],[14.934,48.434],[14.94,48.402],[14.959,48.392],[14.964,48.383],[14.975,48.334],[14.969,48.247],[14.968,48.225],[14.953,48.237],[14.941,48.242],[14.93,48.244],[14.88,48.242],[14.862,48.237],[14.847,48.227],[14.833,48.213],[14.819,48.206],[14.675,48.182],[14.655,48.187],[14.638,48.197],[14.61,48.223],[14.597,48.233],[14.582,48.24],[14.565,48.244],[14.52,48.245],[14.506,48.237],[14.5,48.235],[14.493,48.231],[14.49,48.229],[14.488,48.227],[14.487,48.225],[14.485,48.218],[14.479,48.178],[14.476,48.17],[14.471,48.162],[14.469,48.156],[14.474,48.128],[14.476,48.124],[14.478,48.121],[14.48,48.118],[14.48,48.114],[14.474,48.108],[14.463,48.099],[14.461,48.097],[14.461,48.094],[14.461,48.089],[14.459,48.086],[14.445,48.069],[14.441,48.065],[14.436,48.063],[14.428,48.062],[14.427,48.057],[14.445,48.043],[14.607,47.961],[14.659,47.944],[14.691,47.937],[14.712,47.929],[14.733,47.918],[14.744,47.91],[14.751,47.902],[14.75,47.883],[14.732,47.866],[14.719,47.829],[14.718,47.806],[14.716,47.794],[14.699,47.769],[14.636,47.734],[14.492,47.695],[14.481,47.685],[14.477,47.678],[14.466,47.671],[14.449,47.665],[14.417,47.659],[14.392,47.649],[14.347,47.626],[14.323,47.621],[14.293,47.621],[14.273,47.625],[14.251,47.631],[14.195,47.658],[14.186,47.659],[14.172,47.657],[14.135,47.645],[14.086,47.636],[14.066,47.626],[14.06,47.626],[14.055,47.636],[14.053,47.643],[14.042,47.662],[13.997,47.699],[13.953,47.695],[13.937,47.697],[13.911,47.704],[13.881,47.707],[13.868,47.711],[13.843,47.721],[13.834,47.722],[13.823,47.72],[13.717,47.685],[13.7,47.675],[13.687,47.664],[13.682,47.65],[13.679,47.637],[13.677,47.618],[13.678,47.608],[13.681,47.598],[13.689,47.587],[13.7,47.577],[13.713,47.568],[13.721,47.56],[13.73,47.546],[13.735,47.53],[13.735,47.516],[13.732,47.506],[13.728,47.501],[13.724,47.498],[13.699,47.483],[13.696,47.48],[13.684,47.478],[13.674,47.474],[13.582,47.486],[13.524,47.511],[13.489,47.536],[13.481,47.549],[13.479,47.564],[13.485,47.578],[13.5,47.595],[13.506,47.603],[13.509,47.613],[13.506,47.622],[13.489,47.641],[13.526,47.718],[13.521,47.726],[13.513,47.735],[13.488,47.737],[13.468,47.743],[13.458,47.747],[13.453,47.751],[13.449,47.754],[13.445,47.762],[13.446,47.766],[13.453,47.77],[13.493,47.771],[13.509,47.773],[13.521,47.784],[13.498,47.798],[13.317,47.825],[13.301,47.832],[13.292,47.841],[13.288,47.85],[13.275,47.886],[13.272,47.899],[13.271,47.912],[13.274,47.94],[13.276,47.952],[13.28,47.961],[13.283,47.966],[13.288,47.968],[13.295,47.969],[13.322,47.964],[13.337,47.963],[13.351,47.966],[13.36,47.973],[13.361,47.981],[13.352,47.988],[13.343,47.992],[13.333,47.995],[13.303,48.01],[13.235,47.989],[13.177,47.984],[13.139,47.987],[13.1,47.996],[13.095,47.998],[13.09,48],[13.061,48.021],[13.036,48.031],[13.011,48.033],[12.968,48.032],[12.95,48.028],[12.938,48.021],[12.93,48.006],[12.927,48.002],[12.915,47.997],[12.868,47.988],[12.848,47.982],[12.848,47.982],[12.845,47.994],[12.83,48.016],[12.76,48.065],[12.751,48.075],[12.742,48.087],[12.737,48.1],[12.739,48.114],[12.745,48.121],[12.751,48.122],[12.758,48.122],[12.764,48.124],[12.778,48.139],[12.782,48.142],[12.822,48.161],[12.835,48.171],[12.853,48.19],[12.862,48.197],[12.877,48.202],[12.933,48.21],[12.931,48.212],[12.947,48.22],[12.979,48.232],[13.016,48.256],[13.032,48.264],[13.136,48.291],[13.274,48.307],[13.307,48.32],[13.405,48.377],[13.419,48.393],[13.425,48.414],[13.427,48.419],[13.431,48.424],[13.436,48.431],[13.438,48.441],[13.436,48.47],[13.438,48.479],[13.443,48.488],[13.456,48.507],[13.459,48.517],[13.457,48.526],[13.447,48.535],[13.443,48.553],[13.44,48.558],[13.44,48.561],[13.445,48.568],[13.454,48.574],[13.487,48.582],[13.52,48.585],[13.624,48.566],[13.641,48.559],[13.658,48.552],[13.673,48.536],[13.714,48.524],[13.716,48.522],[13.725,48.549],[13.734,48.56],[13.737,48.56],[13.758,48.562],[13.766,48.564],[13.774,48.57],[13.779,48.574],[13.796,48.599],[13.802,48.612],[13.805,48.627],[13.806,48.643],[13.801,48.676],[13.803,48.688],[13.817,48.696],[13.804,48.7],[13.799,48.703],[13.788,48.717],[13.783,48.716],[13.786,48.725],[13.815,48.767],[13.816,48.767],[13.856,48.76],[13.875,48.753],[13.893,48.743],[13.915,48.731]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Alta Austria'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Alta Austria?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Alta Austria is located? </h2>Alta Austria, is a state It belongs to the country of Austria. Its postal identifier is OO.Alta Austria has an area of 11894 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

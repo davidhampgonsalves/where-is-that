@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Tchernovtsy?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[25.731,48.635],[25.742,48.63],[25.753,48.633],[25.757,48.64],[25.76,48.649],[25.767,48.658],[25.794,48.67],[25.809,48.661],[25.821,48.645],[25.839,48.637],[25.86,48.619],[25.863,48.613],[25.863,48.604],[25.863,48.601],[25.912,48.588],[25.928,48.587],[25.944,48.589],[25.96,48.596],[25.974,48.616],[25.986,48.624],[26.01,48.615],[26.02,48.616],[26.025,48.621],[26.029,48.638],[26.033,48.643],[26.049,48.648],[26.059,48.642],[26.062,48.628],[26.061,48.609],[26.061,48.616],[26.052,48.583],[26.053,48.572],[26.064,48.558],[26.08,48.547],[26.099,48.541],[26.117,48.542],[26.13,48.555],[26.114,48.57],[26.106,48.581],[26.102,48.592],[26.102,48.607],[26.105,48.611],[26.133,48.609],[26.146,48.596],[26.145,48.568],[26.149,48.54],[26.181,48.527],[26.239,48.534],[26.257,48.533],[26.269,48.53],[26.294,48.52],[26.327,48.512],[26.355,48.51],[26.381,48.517],[26.404,48.534],[26.422,48.53],[26.471,48.538],[26.489,48.53],[26.515,48.515],[26.522,48.507],[26.54,48.479],[26.553,48.466],[26.566,48.457],[26.583,48.453],[26.606,48.452],[26.622,48.458],[26.607,48.492],[26.616,48.507],[26.627,48.508],[26.635,48.503],[26.639,48.497],[26.644,48.493],[26.654,48.491],[26.688,48.493],[26.709,48.497],[26.705,48.507],[26.688,48.518],[26.671,48.527],[26.633,48.533],[26.614,48.54],[26.613,48.551],[26.633,48.562],[26.655,48.559],[26.691,48.54],[26.706,48.536],[26.722,48.535],[26.734,48.541],[26.739,48.558],[26.735,48.564],[26.716,48.578],[26.712,48.585],[26.717,48.595],[26.729,48.595],[26.741,48.589],[26.746,48.579],[26.75,48.562],[26.759,48.551],[26.773,48.551],[26.788,48.568],[26.789,48.578],[26.783,48.593],[26.788,48.602],[26.798,48.608],[26.808,48.609],[26.819,48.607],[26.829,48.602],[26.823,48.581],[26.828,48.561],[26.841,48.546],[26.859,48.54],[26.885,48.544],[26.899,48.552],[26.91,48.563],[26.925,48.575],[26.945,48.581],[26.967,48.581],[27.004,48.575],[27.017,48.565],[27.023,48.561],[27.028,48.563],[27.032,48.566],[27.038,48.568],[27.05,48.567],[27.07,48.563],[27.113,48.559],[27.123,48.561],[27.129,48.565],[27.141,48.579],[27.147,48.582],[27.181,48.582],[27.192,48.58],[27.214,48.57],[27.226,48.568],[27.237,48.569],[27.248,48.57],[27.256,48.574],[27.261,48.582],[27.262,48.596],[27.255,48.6],[27.246,48.601],[27.236,48.606],[27.234,48.618],[27.255,48.621],[27.295,48.616],[27.304,48.611],[27.313,48.605],[27.322,48.601],[27.335,48.602],[27.345,48.608],[27.359,48.624],[27.37,48.63],[27.41,48.621],[27.438,48.603],[27.458,48.577],[27.473,48.547],[27.494,48.482],[27.504,48.473],[27.503,48.473],[27.481,48.452],[27.48,48.452],[27.42,48.418],[27.403,48.412],[27.39,48.415],[27.361,48.433],[27.342,48.436],[27.306,48.424],[27.306,48.424],[27.252,48.379],[27.246,48.374],[27.246,48.374],[27.217,48.364],[27.208,48.361],[27.208,48.361],[27.176,48.362],[27.069,48.389],[27.048,48.398],[27.037,48.4],[27.026,48.397],[27.026,48.397],[27.025,48.39],[27.028,48.382],[27.027,48.375],[27.028,48.371],[27.032,48.366],[27.033,48.361],[27.029,48.359],[27.027,48.358],[27.015,48.36],[27.004,48.359],[26.998,48.362],[26.99,48.363],[26.99,48.363],[26.981,48.356],[26.981,48.356],[26.943,48.352],[26.908,48.366],[26.876,48.384],[26.843,48.394],[26.832,48.392],[26.832,48.392],[26.828,48.385],[26.825,48.378],[26.817,48.372],[26.817,48.372],[26.81,48.372],[26.793,48.377],[26.788,48.376],[26.788,48.376],[26.777,48.367],[26.778,48.358],[26.784,48.346],[26.789,48.326],[26.79,48.307],[26.785,48.294],[26.774,48.288],[26.774,48.288],[26.754,48.287],[26.736,48.292],[26.723,48.303],[26.713,48.315],[26.699,48.325],[26.679,48.331],[26.679,48.33],[26.674,48.322],[26.669,48.309],[26.669,48.309],[26.636,48.295],[26.636,48.295],[26.625,48.283],[26.618,48.268],[26.618,48.259],[26.618,48.259],[26.617,48.259],[26.587,48.25],[26.461,48.231],[26.444,48.228],[26.397,48.227],[26.38,48.224],[26.347,48.212],[26.33,48.209],[26.311,48.21],[26.303,48.212],[26.296,48.179],[26.296,48.179],[26.297,48.157],[26.297,48.157],[26.287,48.125],[26.27,48.094],[26.255,48.073],[26.243,48.063],[26.217,48.048],[26.204,48.038],[26.182,48.004],[26.173,47.994],[26.125,47.979],[26.102,47.979],[26.029,47.978],[25.965,47.965],[25.918,47.968],[25.901,47.966],[25.871,47.957],[25.818,47.953],[25.752,47.935],[25.261,47.899],[25.219,47.879],[25.122,47.771],[25.08,47.743],[25.08,47.743],[25.08,47.743],[25.017,47.725],[24.942,47.716],[24.929,47.714],[24.929,47.714],[24.928,47.726],[24.929,47.731],[24.933,47.754],[24.934,47.757],[24.981,47.828],[24.985,47.836],[24.985,47.84],[24.985,47.844],[24.984,47.848],[24.983,47.852],[24.981,47.855],[24.973,47.868],[24.97,47.874],[24.969,47.878],[24.969,47.899],[24.968,47.903],[24.967,47.907],[24.965,47.91],[24.963,47.912],[24.948,47.925],[24.945,47.928],[24.943,47.931],[24.935,47.947],[24.933,47.955],[24.932,47.971],[24.928,47.99],[24.928,47.994],[24.928,47.997],[24.931,48.006],[24.935,48.013],[24.98,48.071],[24.985,48.079],[24.988,48.096],[24.989,48.1],[24.993,48.105],[25.001,48.11],[25.017,48.119],[25.028,48.122],[25.046,48.125],[25.051,48.127],[25.054,48.129],[25.106,48.169],[25.117,48.175],[25.126,48.178],[25.132,48.178],[25.137,48.179],[25.14,48.182],[25.141,48.186],[25.14,48.19],[25.136,48.196],[25.134,48.2],[25.133,48.203],[25.133,48.207],[25.133,48.216],[25.133,48.22],[25.135,48.224],[25.136,48.228],[25.141,48.232],[25.148,48.237],[25.162,48.244],[25.177,48.25],[25.188,48.252],[25.196,48.257],[25.293,48.34],[25.37,48.38],[25.407,48.392],[25.447,48.4],[25.493,48.404],[25.513,48.403],[25.525,48.401],[25.545,48.396],[25.555,48.392],[25.564,48.389],[25.569,48.388],[25.575,48.388],[25.58,48.39],[25.585,48.393],[25.59,48.399],[25.594,48.407],[25.6,48.433],[25.606,48.522],[25.604,48.532],[25.578,48.581],[25.567,48.609],[25.565,48.621],[25.565,48.625],[25.567,48.631],[25.572,48.639],[25.577,48.643],[25.586,48.651],[25.599,48.658],[25.636,48.678],[25.649,48.671],[25.671,48.667],[25.715,48.664],[25.723,48.659],[25.731,48.635]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Tchernovtsy'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Tchernovtsy?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Tchernovtsy is located? </h2>Tchernovtsy, is a region It belongs to the country of Ukraine. Its postal identifier is CV.Tchernovtsy has an area of 8145 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

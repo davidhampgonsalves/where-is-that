@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Nord-Pas-de-Calais?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[2.537,51.065],[2.547,51.021],[2.557,51.002],[2.592,50.977],[2.608,50.961],[2.611,50.942],[2.605,50.936],[2.605,50.936],[2.582,50.921],[2.582,50.921],[2.577,50.912],[2.596,50.868],[2.595,50.861],[2.587,50.85],[2.586,50.846],[2.59,50.842],[2.602,50.838],[2.606,50.835],[2.615,50.823],[2.62,50.817],[2.627,50.815],[2.642,50.813],[2.65,50.813],[2.669,50.814],[2.678,50.814],[2.691,50.809],[2.697,50.803],[2.7,50.797],[2.706,50.789],[2.743,50.767],[2.749,50.76],[2.763,50.74],[2.768,50.734],[2.786,50.724],[2.867,50.7],[2.871,50.699],[2.887,50.697],[2.9,50.703],[2.9,50.703],[2.93,50.737],[2.948,50.749],[2.948,50.749],[2.971,50.758],[3.024,50.769],[3.103,50.784],[3.129,50.779],[3.146,50.769],[3.163,50.75],[3.176,50.734],[3.189,50.715],[3.197,50.71],[3.211,50.708],[3.224,50.706],[3.232,50.696],[3.243,50.672],[3.229,50.656],[3.237,50.627],[3.264,50.571],[3.265,50.539],[3.271,50.527],[3.286,50.514],[3.299,50.508],[3.343,50.493],[3.361,50.49],[3.385,50.492],[3.429,50.502],[3.442,50.509],[3.452,50.515],[3.462,50.52],[3.477,50.52],[3.491,50.517],[3.498,50.512],[3.496,50.504],[3.486,50.493],[3.499,50.487],[3.563,50.487],[3.586,50.484],[3.608,50.477],[3.628,50.465],[3.644,50.446],[3.652,50.407],[3.652,50.361],[3.661,50.32],[3.696,50.299],[3.696,50.299],[3.7,50.305],[3.7,50.305],[3.702,50.306],[3.703,50.305],[3.708,50.307],[3.708,50.307],[3.711,50.31],[3.715,50.318],[3.733,50.338],[3.741,50.343],[3.741,50.343],[3.755,50.347],[3.798,50.349],[3.84,50.346],[3.86,50.339],[3.878,50.331],[3.896,50.326],[3.918,50.326],[3.982,50.343],[4.003,50.344],[4.022,50.338],[4.056,50.315],[4.077,50.307],[4.097,50.295],[4.125,50.258],[4.143,50.252],[4.145,50.253],[4.151,50.257],[4.149,50.263],[4.15,50.27],[4.15,50.27],[4.162,50.273],[4.171,50.271],[4.185,50.266],[4.197,50.259],[4.203,50.252],[4.201,50.242],[4.191,50.235],[4.191,50.235],[4.167,50.223],[4.167,50.223],[4.157,50.213],[4.152,50.205],[4.147,50.187],[4.128,50.147],[4.125,50.128],[4.14,50.124],[4.16,50.13],[4.17,50.131],[4.18,50.128],[4.197,50.084],[4.203,50.075],[4.21,50.067],[4.21,50.06],[4.209,50.06],[4.186,50.053],[4.162,50.042],[4.162,50.042],[4.151,50.035],[4.144,50.031],[4.144,50.031],[4.137,50.025],[4.132,50.018],[4.128,50.006],[4.133,50.005],[4.138,49.99],[4.139,49.977],[4.139,49.977],[4.122,49.974],[4.118,49.972],[4.107,49.97],[4.099,49.969],[4.081,49.971],[3.997,49.992],[3.991,49.995],[3.987,49.998],[3.985,50.001],[3.984,50.004],[3.983,50.01],[3.986,50.031],[3.983,50.037],[3.975,50.041],[3.962,50.043],[3.942,50.038],[3.93,50.034],[3.922,50.031],[3.906,50.022],[3.896,50.02],[3.886,50.021],[3.876,50.027],[3.87,50.034],[3.863,50.04],[3.854,50.043],[3.752,50.051],[3.708,50.059],[3.697,50.06],[3.683,50.059],[3.654,50.049],[3.642,50.042],[3.63,50.038],[3.616,50.037],[3.597,50.04],[3.574,50.049],[3.564,50.05],[3.555,50.049],[3.527,50.036],[3.517,50.033],[3.501,50.03],[3.495,50.027],[3.486,50.024],[3.478,50.019],[3.465,50.016],[3.449,50.015],[3.408,50.022],[3.384,50.03],[3.373,50.032],[3.362,50.032],[3.351,50.029],[3.342,50.024],[3.33,50.02],[3.316,50.018],[3.257,50.028],[3.226,50.029],[3.157,50.019],[3.094,50.048],[3.032,50.073],[3.023,50.075],[3.011,50.077],[2.99,50.077],[2.979,50.073],[2.974,50.068],[2.976,50.053],[2.975,50.048],[2.971,50.042],[2.965,50.038],[2.945,50.035],[2.906,50.034],[2.889,50.03],[2.868,50.019],[2.86,50.018],[2.852,50.021],[2.849,50.029],[2.85,50.036],[2.851,50.044],[2.851,50.051],[2.849,50.057],[2.845,50.064],[2.84,50.069],[2.832,50.071],[2.823,50.068],[2.787,50.047],[2.766,50.038],[2.756,50.038],[2.747,50.04],[2.743,50.048],[2.746,50.054],[2.76,50.066],[2.764,50.072],[2.765,50.078],[2.763,50.085],[2.753,50.098],[2.743,50.109],[2.728,50.121],[2.72,50.126],[2.711,50.129],[2.703,50.126],[2.699,50.121],[2.697,50.114],[2.696,50.107],[2.696,50.094],[2.698,50.089],[2.699,50.084],[2.697,50.081],[2.691,50.078],[2.683,50.078],[2.677,50.08],[2.665,50.086],[2.65,50.092],[2.629,50.098],[2.585,50.103],[2.573,50.106],[2.568,50.112],[2.57,50.118],[2.574,50.124],[2.574,50.129],[2.567,50.134],[2.55,50.134],[2.538,50.132],[2.529,50.127],[2.519,50.123],[2.504,50.123],[2.481,50.128],[2.458,50.128],[2.442,50.125],[2.433,50.119],[2.428,50.113],[2.42,50.101],[2.415,50.096],[2.406,50.094],[2.396,50.096],[2.386,50.103],[2.38,50.11],[2.377,50.117],[2.374,50.123],[2.374,50.129],[2.375,50.136],[2.377,50.142],[2.381,50.149],[2.394,50.159],[2.415,50.171],[2.448,50.183],[2.46,50.189],[2.468,50.194],[2.467,50.201],[2.456,50.209],[2.41,50.225],[2.396,50.228],[2.384,50.226],[2.372,50.217],[2.364,50.214],[2.355,50.217],[2.346,50.224],[2.34,50.232],[2.333,50.238],[2.325,50.24],[2.316,50.237],[2.313,50.233],[2.31,50.224],[2.302,50.22],[2.289,50.218],[2.266,50.217],[2.24,50.21],[2.229,50.209],[2.213,50.21],[2.2,50.21],[2.174,50.205],[2.113,50.203],[2.098,50.204],[2.085,50.208],[2.069,50.219],[2.062,50.227],[2.058,50.235],[2.058,50.242],[2.057,50.249],[2.046,50.256],[2.028,50.264],[1.936,50.296],[1.935,50.302],[1.94,50.308],[1.948,50.314],[1.952,50.32],[1.948,50.325],[1.939,50.329],[1.922,50.328],[1.913,50.323],[1.907,50.318],[1.899,50.314],[1.887,50.314],[1.87,50.32],[1.86,50.327],[1.846,50.34],[1.838,50.345],[1.82,50.355],[1.804,50.357],[1.783,50.357],[1.742,50.354],[1.681,50.339],[1.668,50.338],[1.654,50.339],[1.64,50.343],[1.631,50.348],[1.604,50.369],[1.594,50.373],[1.611,50.371],[1.611,50.377],[1.555,50.405],[1.555,50.412],[1.574,50.445],[1.574,50.492],[1.579,50.533],[1.611,50.548],[1.584,50.575],[1.578,50.589],[1.574,50.636],[1.563,50.678],[1.563,50.699],[1.568,50.717],[1.589,50.756],[1.6,50.771],[1.606,50.79],[1.599,50.813],[1.583,50.85],[1.581,50.864],[1.581,50.869],[1.605,50.881],[1.614,50.883],[1.634,50.885],[1.654,50.889],[1.67,50.9],[1.699,50.926],[1.73,50.944],[1.922,50.997],[1.94,50.995],[1.974,51.007],[2.134,51.02],[2.306,51.056],[2.316,51.059],[2.325,51.06],[2.385,51.055],[2.466,51.069],[2.507,51.081],[2.522,51.088],[2.522,51.088],[2.537,51.065]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Nord-Pas-de-Calais'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Nord-Pas-de-Calais?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Nord-Pas-de-Calais is located? </h2>Nord-Pas-de-Calais, is a region of the Nord-Pas-de-Calais region. It belongs to the country of France.Nord-Pas-de-Calais has an area of 12327 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

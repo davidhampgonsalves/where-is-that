@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Hampshire?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-0.765,51.331],[-0.73,51.292],[-0.725,51.27],[-0.731,51.244],[-0.748,51.232],[-0.799,51.239],[-0.816,51.237],[-0.829,51.226],[-0.84,51.204],[-0.824,51.183],[-0.824,51.152],[-0.791,51.147],[-0.78,51.124],[-0.747,51.111],[-0.744,51.104],[-0.754,51.089],[-0.775,51.081],[-0.788,51.061],[-0.829,51.064],[-0.838,51.061],[-0.863,51.044],[-0.866,51.028],[-0.891,51.01],[-0.893,50.994],[-0.931,50.944],[-0.931,50.933],[-0.922,50.921],[-0.953,50.892],[-0.951,50.884],[-0.923,50.865],[-0.923,50.85],[-0.93,50.84],[-0.939,50.843],[-0.971,50.847],[-0.995,50.847],[-0.999,50.851],[-1.028,50.856],[-1.056,50.858],[-1.075,50.858],[-1.088,50.85],[-1.15,50.847],[-1.165,50.844],[-1.13,50.825],[-1.124,50.819],[-1.121,50.799],[-1.125,50.789],[-1.138,50.781],[-1.151,50.781],[-1.169,50.786],[-1.186,50.792],[-1.193,50.799],[-1.199,50.808],[-1.232,50.819],[-1.255,50.832],[-1.288,50.839],[-1.301,50.844],[-1.319,50.857],[-1.314,50.871],[-1.307,50.892],[-1.306,50.909],[-1.309,50.921],[-1.338,50.937],[-1.369,50.945],[-1.399,50.945],[-1.426,50.941],[-1.441,50.934],[-1.447,50.926],[-1.449,50.912],[-1.466,50.918],[-1.466,50.912],[-1.456,50.909],[-1.438,50.901],[-1.426,50.9],[-1.401,50.881],[-1.323,50.826],[-1.314,50.812],[-1.317,50.8],[-1.34,50.795],[-1.404,50.792],[-1.419,50.788],[-1.411,50.785],[-1.405,50.781],[-1.405,50.775],[-1.45,50.769],[-1.476,50.763],[-1.488,50.758],[-1.492,50.757],[-1.525,50.761],[-1.557,50.723],[-1.559,50.719],[-1.561,50.719],[-1.581,50.723],[-1.602,50.732],[-1.671,50.74],[-1.673,50.74],[-1.677,50.754],[-1.734,50.754],[-1.731,50.776],[-1.735,50.778],[-1.787,50.769],[-1.8,50.782],[-1.809,50.802],[-1.807,50.819],[-1.796,50.832],[-1.806,50.868],[-1.833,50.866],[-1.839,50.891],[-1.811,50.905],[-1.805,50.929],[-1.837,50.934],[-1.863,50.923],[-1.88,50.925],[-1.907,50.944],[-1.95,50.988],[-1.926,50.999],[-1.869,51.006],[-1.865,51.004],[-1.869,50.996],[-1.858,50.995],[-1.847,51.007],[-1.838,51.009],[-1.811,50.993],[-1.767,50.987],[-1.741,50.978],[-1.698,50.975],[-1.671,50.955],[-1.655,50.95],[-1.611,50.96],[-1.6,50.977],[-1.621,50.995],[-1.616,51.005],[-1.597,51.017],[-1.603,51.026],[-1.622,51.034],[-1.62,51.054],[-1.631,51.086],[-1.622,51.108],[-1.629,51.117],[-1.653,51.126],[-1.648,51.15],[-1.655,51.171],[-1.685,51.205],[-1.696,51.237],[-1.681,51.24],[-1.628,51.234],[-1.615,51.239],[-1.6,51.252],[-1.58,51.258],[-1.538,51.245],[-1.528,51.252],[-1.539,51.276],[-1.52,51.302],[-1.527,51.33],[-1.487,51.332],[-1.433,51.335],[-1.428,51.34],[-1.437,51.352],[-1.399,51.371],[-1.245,51.369],[-1.12,51.355],[-1.111,51.357],[-1.111,51.371],[-1.078,51.376],[-1.06,51.373],[-1.05,51.362],[-1.032,51.355],[-0.996,51.362],[-0.967,51.357],[-0.919,51.36],[-0.886,51.351],[-0.82,51.349],[-0.799,51.339],[-0.765,51.331]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Hampshire'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Hampshire?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Hampshire is located? </h2>Hampshire, is a administrative county of the England region. It belongs to the country of United Kingdom. Its postal identifier is HA.Hampshire has an area of 3643 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

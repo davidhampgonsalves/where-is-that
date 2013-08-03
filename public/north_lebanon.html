@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is North Lebanon?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[36.367,34.629],[36.391,34.623],[36.416,34.623],[36.44,34.63],[36.436,34.598],[36.429,34.594],[36.429,34.593],[36.418,34.601],[36.403,34.604],[36.389,34.597],[36.388,34.597],[36.386,34.585],[36.388,34.57],[36.383,34.554],[36.365,34.542],[36.364,34.541],[36.345,34.533],[36.336,34.529],[36.319,34.514],[36.329,34.499],[36.308,34.496],[36.296,34.492],[36.294,34.49],[36.249,34.462],[36.245,34.457],[36.244,34.456],[36.243,34.454],[36.243,34.452],[36.243,34.448],[36.242,34.445],[36.241,34.443],[36.222,34.423],[36.226,34.41],[36.225,34.408],[36.198,34.361],[36.193,34.356],[36.184,34.349],[36.164,34.336],[36.155,34.329],[36.152,34.324],[36.15,34.321],[36.139,34.289],[36.108,34.262],[36.071,34.223],[36.067,34.197],[36.064,34.188],[36.043,34.159],[36.04,34.156],[36.037,34.154],[36.034,34.154],[36.011,34.152],[36.002,34.156],[35.995,34.155],[35.989,34.155],[35.982,34.156],[35.949,34.17],[35.943,34.174],[35.941,34.175],[35.936,34.176],[35.933,34.177],[35.931,34.176],[35.928,34.173],[35.926,34.168],[35.924,34.167],[35.922,34.165],[35.919,34.165],[35.916,34.165],[35.909,34.167],[35.903,34.169],[35.896,34.169],[35.89,34.17],[35.87,34.181],[35.862,34.184],[35.85,34.192],[35.844,34.193],[35.837,34.193],[35.823,34.192],[35.811,34.19],[35.804,34.188],[35.799,34.187],[35.774,34.188],[35.76,34.185],[35.757,34.185],[35.738,34.187],[35.672,34.215],[35.646,34.217],[35.645,34.218],[35.648,34.222],[35.648,34.254],[35.653,34.285],[35.665,34.311],[35.689,34.328],[35.706,34.317],[35.722,34.337],[35.737,34.369],[35.751,34.39],[35.806,34.415],[35.824,34.435],[35.805,34.459],[35.805,34.465],[35.824,34.461],[35.903,34.478],[35.956,34.52],[35.957,34.52],[35.973,34.53],[35.983,34.539],[35.989,34.553],[35.99,34.6],[35.987,34.621],[35.981,34.639],[35.97,34.65],[35.982,34.65],[35.991,34.648],[35.998,34.646],[36.016,34.634],[36.037,34.629],[36.06,34.628],[36.087,34.631],[36.155,34.627],[36.16,34.628],[36.16,34.628],[36.172,34.634],[36.172,34.634],[36.178,34.636],[36.183,34.634],[36.195,34.626],[36.201,34.625],[36.261,34.627],[36.271,34.631],[36.271,34.631],[36.28,34.639],[36.284,34.649],[36.284,34.668],[36.288,34.676],[36.308,34.688],[36.308,34.688],[36.323,34.68],[36.347,34.644],[36.367,34.629]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'North Lebanon'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>North Lebanon?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where North Lebanon is located? </h2>North Lebanon, is a province It belongs to the country of Lebanon. Its postal identifier is AS.North Lebanon has an area of 1989 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

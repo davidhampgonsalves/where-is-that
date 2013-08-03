@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Karakose?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[43.174,39.989],[43.22,39.979],[43.265,39.987],[43.318,39.969],[43.341,39.913],[43.336,39.865],[43.335,39.841],[43.35,39.804],[43.366,39.793],[43.4,39.783],[43.464,39.817],[43.532,39.838],[43.563,39.833],[43.577,39.825],[43.611,39.813],[43.631,39.813],[43.664,39.796],[43.686,39.758],[43.716,39.728],[43.805,39.696],[43.868,39.684],[43.875,39.67],[43.881,39.655],[43.973,39.643],[44.073,39.653],[44.147,39.635],[44.225,39.628],[44.403,39.659],[44.442,39.652],[44.458,39.643],[44.457,39.639],[44.451,39.626],[44.418,39.575],[44.414,39.561],[44.411,39.545],[44.414,39.531],[44.417,39.518],[44.416,39.506],[44.406,39.494],[44.406,39.494],[44.406,39.494],[44.406,39.494],[44.401,39.472],[44.405,39.453],[44.404,39.435],[44.388,39.415],[44.368,39.404],[44.316,39.386],[44.294,39.381],[44.269,39.383],[44.2,39.41],[44.176,39.412],[44.122,39.401],[44.099,39.399],[44.077,39.401],[44.061,39.4],[44.046,39.396],[44.026,39.386],[44.014,39.374],[44.021,39.362],[44.047,39.338],[44.047,39.337],[44.047,39.337],[43.906,39.308],[43.868,39.314],[43.851,39.319],[43.792,39.323],[43.744,39.336],[43.706,39.34],[43.668,39.337],[43.639,39.32],[43.614,39.3],[43.579,39.3],[43.492,39.313],[43.447,39.335],[43.39,39.382],[43.321,39.406],[43.244,39.41],[43.2,39.384],[43.163,39.347],[43.129,39.338],[43.07,39.329],[43.045,39.321],[43.038,39.292],[43.075,39.274],[43.115,39.262],[43.122,39.231],[43.115,39.196],[43.113,39.162],[43.088,39.141],[42.972,39.104],[42.787,39.072],[42.754,39.051],[42.718,39.035],[42.671,39.023],[42.628,39.002],[42.624,39.054],[42.632,39.103],[42.642,39.142],[42.642,39.157],[42.636,39.171],[42.641,39.235],[42.606,39.277],[42.58,39.296],[42.563,39.323],[42.533,39.351],[42.501,39.373],[42.459,39.429],[42.431,39.491],[42.463,39.532],[42.473,39.579],[42.471,39.714],[42.481,39.741],[42.495,39.748],[42.353,39.792],[42.272,39.869],[42.307,39.881],[42.382,39.871],[42.418,39.88],[42.44,39.904],[42.463,39.912],[42.477,39.913],[42.503,39.913],[42.536,39.927],[42.564,39.952],[42.757,39.922],[43.064,39.989],[43.174,39.989]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Karakose'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Karakose?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Karakose is located? </h2>Karakose, is a province It belongs to the country of Turkey. Its postal identifier is AG.Karakose has an area of 10011 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

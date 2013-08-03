@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Afar?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[40.104,14.466],[40.194,14.445],[40.237,14.428],[40.277,14.405],[40.421,14.274],[40.479,14.245],[40.585,14.195],[40.614,14.186],[40.704,14.173],[40.772,14.148],[40.833,14.106],[41.043,13.873],[41.192,13.616],[41.222,13.587],[41.53,13.394],[41.711,13.248],[41.75,13.208],[41.784,13.165],[41.816,13.113],[41.894,12.948],[41.946,12.876],[42.024,12.827],[42.081,12.804],[42.137,12.773],[42.185,12.733],[42.25,12.624],[42.331,12.516],[42.379,12.466],[42.319,12.387],[42.288,12.321],[42.155,12.142],[42.14,12.106],[42.132,12.094],[42.132,12.094],[42.129,12.092],[42.108,12.082],[42.097,12.07],[42.057,11.996],[41.936,11.828],[41.925,11.817],[41.911,11.806],[41.901,11.801],[41.897,11.799],[41.886,11.796],[41.886,11.796],[41.877,11.79],[41.872,11.776],[41.862,11.763],[41.854,11.76],[41.823,11.746],[41.823,11.746],[41.808,11.736],[41.792,11.705],[41.778,11.629],[41.749,11.538],[41.749,11.484],[41.775,11.369],[41.787,11.26],[41.785,11.067],[41.779,11.025],[41.761,10.996],[41.766,10.989],[41.756,10.985],[41.739,10.974],[41.72,10.967],[41.691,10.964],[41.292,10.967],[41.27,10.96],[41.25,10.94],[41.242,10.914],[41.239,10.887],[41.232,10.861],[41.204,10.816],[41.127,10.741],[41.092,10.699],[41.083,10.679],[41.081,10.66],[41.087,10.619],[41.087,10.591],[40.943,10.047],[40.943,10.022],[40.952,9.997],[40.968,9.982],[41.013,9.965],[41.022,9.951],[41.007,9.929],[40.881,9.821],[40.826,9.76],[40.737,9.624],[40.722,9.586],[40.704,9.514],[40.695,9.444],[40.669,9.418],[40.642,9.403],[40.61,9.395],[40.528,9.382],[40.494,9.367],[40.464,9.343],[40.432,9.311],[40.405,9.278],[40.337,9.168],[40.324,9.151],[40.261,9.09],[40.253,9.076],[40.25,9.06],[40.248,9.038],[40.237,9.006],[40.215,8.987],[40.188,8.97],[40.155,8.968],[40.12,8.904],[40.1,8.885],[40.039,8.843],[40.026,8.846],[40.021,8.869],[40.045,8.935],[40.044,8.979],[40.026,8.999],[39.993,9.005],[39.95,9.006],[39.953,9.025],[39.948,9.036],[39.939,9.045],[39.931,9.056],[39.926,9.074],[39.919,9.118],[39.911,9.134],[39.891,9.145],[39.864,9.145],[39.811,9.139],[39.834,9.178],[39.867,9.222],[39.894,9.268],[39.895,9.315],[39.86,9.343],[39.847,9.349],[39.819,9.356],[39.809,9.361],[39.795,9.377],[39.797,9.393],[39.812,9.409],[39.833,9.424],[39.869,9.46],[39.888,9.505],[39.895,9.555],[39.892,9.607],[39.855,9.701],[39.852,9.741],[39.893,9.752],[39.977,9.728],[40.015,9.728],[40.029,9.756],[40.025,9.768],[40.018,9.779],[40.013,9.791],[40.013,9.804],[40.04,9.839],[40.049,9.858],[40.077,9.898],[40.085,9.919],[40.086,9.957],[40.077,9.978],[40.057,9.993],[40.026,10.011],[40.005,10.027],[39.992,10.045],[39.99,10.066],[40.001,10.091],[40.017,10.104],[40.041,10.109],[40.066,10.109],[40.086,10.105],[40.11,10.1],[40.124,10.098],[40.132,10.104],[40.133,10.124],[40.13,10.151],[40.124,10.177],[40.121,10.203],[40.125,10.23],[40.143,10.277],[40.147,10.295],[40.157,10.421],[40.162,10.441],[40.174,10.463],[40.178,10.482],[40.178,10.489],[40.177,10.495],[40.154,10.568],[40.154,10.592],[40.164,10.641],[40.164,10.663],[40.158,10.675],[40.127,10.713],[40.115,10.74],[40.115,10.762],[40.123,10.784],[40.152,10.834],[40.163,10.86],[40.165,10.887],[40.154,10.914],[40.129,10.941],[40.185,11.025],[40.192,11.04],[40.196,11.057],[40.197,11.076],[40.191,11.11],[40.189,11.158],[40.182,11.185],[40.172,11.211],[40.132,11.283],[40.117,11.303],[40.098,11.32],[40.067,11.352],[40.07,11.382],[40.069,11.411],[40.061,11.466],[40.052,11.49],[40.009,11.558],[40,11.581],[39.994,11.632],[39.988,11.654],[39.984,11.661],[39.979,11.664],[39.957,11.674],[39.937,11.691],[39.919,11.712],[39.883,11.775],[39.877,11.795],[39.876,11.823],[39.883,11.919],[39.882,11.924],[39.858,11.938],[39.85,11.947],[39.845,11.955],[39.838,11.968],[39.833,11.982],[39.832,11.996],[39.832,12.025],[39.83,12.041],[39.826,12.055],[39.82,12.069],[39.802,12.096],[39.8,12.108],[39.803,12.121],[39.803,12.135],[39.795,12.162],[39.769,12.214],[39.762,12.243],[39.761,12.257],[39.761,12.268],[39.763,12.278],[39.78,12.325],[39.797,12.34],[39.806,12.36],[39.808,12.383],[39.809,12.406],[39.806,12.427],[39.791,12.458],[39.788,12.474],[39.793,12.525],[39.804,12.566],[39.826,12.603],[39.86,12.639],[39.876,12.668],[39.887,12.714],[39.892,12.761],[39.885,12.794],[39.86,12.833],[39.844,12.849],[39.824,12.855],[39.801,12.858],[39.787,12.865],[39.756,12.889],[39.755,12.894],[39.762,12.91],[39.765,12.922],[39.764,12.944],[39.769,12.972],[39.77,12.992],[39.765,13.038],[39.778,13.04],[39.791,13.053],[39.802,13.071],[39.808,13.088],[39.806,13.094],[39.795,13.107],[39.789,13.117],[39.773,13.194],[39.767,13.205],[39.764,13.208],[39.754,13.212],[39.748,13.216],[39.733,13.232],[39.73,13.236],[39.723,13.253],[39.721,13.265],[39.742,13.367],[39.744,13.391],[39.741,13.416],[39.725,13.457],[39.724,13.482],[39.748,13.559],[39.756,13.571],[39.794,13.554],[39.823,13.572],[39.828,13.615],[39.819,13.664],[39.806,13.699],[39.798,13.735],[39.802,13.779],[39.821,13.872],[39.82,13.93],[39.819,13.936],[39.817,13.943],[39.813,13.951],[39.798,13.962],[39.792,13.974],[39.792,13.988],[39.797,14.024],[39.796,14.042],[39.792,14.062],[39.785,14.08],[39.773,14.091],[39.761,14.088],[39.745,14.082],[39.731,14.083],[39.724,14.101],[39.728,14.11],[39.761,14.145],[39.747,14.154],[39.729,14.158],[39.712,14.159],[39.698,14.159],[39.69,14.165],[39.695,14.183],[39.72,14.235],[39.766,14.282],[39.768,14.295],[39.753,14.309],[39.692,14.304],[39.669,14.316],[39.668,14.325],[39.676,14.334],[39.703,14.356],[39.735,14.374],[39.804,14.387],[39.821,14.385],[39.861,14.374],[39.937,14.365],[39.964,14.368],[39.967,14.37],[39.97,14.372],[39.977,14.381],[39.983,14.394],[39.984,14.398],[39.986,14.423],[39.985,14.437],[39.983,14.445],[39.992,14.452],[40,14.455],[40.023,14.451],[40.037,14.452],[40.086,14.466],[40.104,14.466]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Afar'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Afar?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Afar is located? </h2>Afar, is a administrative state It belongs to the country of Ethiopia. Its postal identifier is AF.Afar has an area of 94122 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

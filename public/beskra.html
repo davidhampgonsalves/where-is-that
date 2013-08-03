@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Beskra?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[6.588,34.779],[6.606,34.777],[6.618,34.779],[6.668,34.791],[6.685,34.792],[6.698,34.792],[6.707,34.791],[6.714,34.789],[6.72,34.785],[6.728,34.775],[6.743,34.743],[6.748,34.726],[6.75,34.712],[6.741,34.671],[6.74,34.638],[6.735,34.602],[6.72,34.539],[6.705,34.497],[6.7,34.489],[6.697,34.476],[6.697,34.464],[6.706,34.412],[6.696,34.376],[6.661,34.351],[6.626,34.333],[6.59,34.322],[6.559,34.317],[6.527,34.317],[6.505,34.32],[6.491,34.324],[6.472,34.331],[6.457,34.34],[6.446,34.35],[6.439,34.361],[6.429,34.37],[6.37,34.392],[6.211,34.428],[6.193,34.429],[5.999,34.395],[5.477,34.45],[5.382,34.475],[5.319,34.499],[5.316,34.5],[5.312,34.498],[5.306,34.493],[5.3,34.479],[5.301,34.463],[5.299,34.449],[5.288,34.439],[5.27,34.431],[5.229,34.418],[5.217,34.412],[5.206,34.403],[5.199,34.394],[5.192,34.381],[5.188,34.369],[5.185,34.357],[5.189,34.349],[5.194,34.344],[5.265,34.293],[5.302,34.256],[5.333,34.218],[5.344,34.201],[5.36,34.166],[5.37,34.129],[5.373,34.108],[5.374,34.058],[5.335,33.846],[5.326,33.823],[5.314,33.803],[5.271,33.766],[5.218,33.709],[5.122,33.573],[4.407,33.928],[4.362,33.957],[4.341,33.976],[4.335,33.986],[4.327,34.013],[4.309,34.114],[4.305,34.126],[4.298,34.136],[4.287,34.142],[4.254,34.149],[4.234,34.156],[4.218,34.166],[4.211,34.175],[4.209,34.182],[4.215,34.197],[4.216,34.207],[4.214,34.232],[4.286,34.236],[4.298,34.239],[4.313,34.244],[4.316,34.252],[4.315,34.263],[4.307,34.274],[4.294,34.286],[4.282,34.298],[4.267,34.329],[4.242,34.358],[4.23,34.377],[4.207,34.465],[4.201,34.477],[4.193,34.484],[4.187,34.493],[4.184,34.508],[4.196,34.526],[4.233,34.563],[4.247,34.58],[4.259,34.606],[4.273,34.626],[4.347,34.69],[4.365,34.709],[4.395,34.747],[4.414,34.762],[4.435,34.773],[4.453,34.775],[4.471,34.774],[4.5,34.77],[4.513,34.77],[4.529,34.772],[4.57,34.783],[4.615,34.789],[4.701,34.813],[4.717,34.815],[4.743,34.812],[4.759,34.813],[4.787,34.821],[4.799,34.822],[4.816,34.82],[4.832,34.819],[4.933,34.839],[4.96,34.85],[5.001,34.874],[5.028,34.9],[5.041,34.919],[5.044,34.937],[5.039,35.083],[5.074,35.081],[5.143,35.053],[5.185,35.031],[5.235,35.021],[5.272,35.018],[5.306,35.021],[5.331,35.031],[5.357,35.044],[5.378,35.053],[5.398,35.058],[5.515,35.063],[5.537,35.066],[5.551,35.072],[5.567,35.081],[5.576,35.085],[5.597,35.092],[5.609,35.098],[5.614,35.106],[5.613,35.119],[5.611,35.126],[5.605,35.137],[5.599,35.143],[5.558,35.174],[5.551,35.185],[5.555,35.191],[5.627,35.206],[5.713,35.251],[5.759,35.269],[5.821,35.288],[5.831,35.288],[5.842,35.285],[5.877,35.259],[5.963,35.231],[5.984,35.231],[5.998,35.23],[6.005,35.226],[6.006,35.215],[6,35.204],[5.989,35.193],[5.949,35.164],[5.937,35.152],[5.932,35.144],[5.945,35.108],[5.944,35.091],[5.927,35.062],[5.927,35.045],[5.94,35.03],[5.964,35.013],[5.975,35.003],[5.993,34.989],[6.012,34.989],[6.024,34.995],[6.031,35],[6.045,35.036],[6.053,35.049],[6.062,35.057],[6.072,35.059],[6.085,35.057],[6.097,35.052],[6.106,35.042],[6.112,35.031],[6.116,35.018],[6.122,35.007],[6.126,35.001],[6.133,34.997],[6.147,34.992],[6.167,34.992],[6.19,35.001],[6.193,35.001],[6.212,34.999],[6.215,35],[6.217,35.003],[6.225,35.021],[6.234,35.03],[6.264,35.045],[6.279,35.049],[6.296,35.051],[6.321,35.051],[6.371,35.059],[6.394,35.066],[6.413,35.069],[6.429,35.065],[6.448,35.046],[6.458,35.032],[6.46,35.017],[6.457,35.009],[6.449,34.992],[6.446,34.982],[6.444,34.967],[6.444,34.925],[6.431,34.872],[6.432,34.855],[6.44,34.838],[6.453,34.825],[6.469,34.812],[6.499,34.782],[6.509,34.776],[6.523,34.769],[6.54,34.766],[6.559,34.764],[6.574,34.768],[6.581,34.77],[6.588,34.779]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Beskra'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Beskra?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Beskra is located? </h2>Beskra, is a province It belongs to the country of Algeria. Its postal identifier is BS.Beskra has an area of 20812 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

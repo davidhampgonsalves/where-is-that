@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Kyoto?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[135.478,35.542],[135.476,35.54],[135.463,35.534],[135.452,35.527],[135.442,35.518],[135.439,35.509],[135.444,35.499],[135.45,35.49],[135.453,35.48],[135.453,35.475],[135.447,35.462],[135.447,35.452],[135.453,35.439],[135.485,35.406],[135.503,35.393],[135.51,35.382],[135.519,35.373],[135.539,35.364],[135.688,35.33],[135.743,35.338],[135.772,35.317],[135.827,35.263],[135.829,35.248],[135.819,35.212],[135.82,35.199],[135.834,35.154],[135.836,35.136],[135.837,35.121],[135.815,35.006],[135.815,35.001],[135.825,34.981],[135.839,34.961],[135.854,34.934],[135.856,34.919],[135.856,34.905],[135.855,34.89],[135.859,34.88],[135.863,34.874],[135.874,34.868],[135.886,34.865],[135.902,34.865],[135.916,34.867],[135.929,34.86],[135.936,34.849],[135.943,34.84],[135.952,34.834],[135.977,34.823],[135.989,34.814],[135.998,34.803],[136.002,34.793],[136.003,34.774],[136.036,34.715],[136.029,34.704],[136.02,34.698],[136.009,34.696],[135.999,34.698],[135.985,34.703],[135.965,34.714],[135.932,34.724],[135.91,34.724],[135.89,34.717],[135.873,34.707],[135.849,34.699],[135.832,34.699],[135.818,34.704],[135.809,34.709],[135.768,34.72],[135.753,34.726],[135.739,34.734],[135.722,34.749],[135.706,34.76],[135.715,34.785],[135.708,34.811],[135.701,34.823],[135.683,34.844],[135.646,34.899],[135.634,34.91],[135.621,34.914],[135.61,34.913],[135.598,34.92],[135.583,34.947],[135.574,34.951],[135.566,34.947],[135.561,34.94],[135.557,34.933],[135.561,34.925],[135.564,34.916],[135.557,34.911],[135.538,34.91],[135.504,34.925],[135.486,34.938],[135.472,34.955],[135.458,34.975],[135.444,34.984],[135.43,34.988],[135.393,34.99],[135.363,34.997],[135.342,35.015],[135.339,35.022],[135.339,35.03],[135.347,35.034],[135.36,35.039],[135.379,35.049],[135.397,35.064],[135.401,35.077],[135.396,35.088],[135.389,35.1],[135.379,35.108],[135.344,35.129],[135.331,35.133],[135.305,35.129],[135.294,35.132],[135.286,35.144],[135.274,35.152],[135.259,35.157],[135.244,35.158],[135.225,35.157],[135.201,35.17],[135.188,35.184],[135.172,35.209],[135.159,35.24],[135.153,35.245],[135.147,35.247],[135.127,35.248],[135.117,35.246],[135.094,35.235],[135.078,35.234],[135.065,35.241],[135.028,35.252],[135.014,35.264],[135.002,35.272],[134.99,35.278],[134.955,35.286],[134.937,35.294],[134.927,35.302],[134.922,35.311],[134.921,35.318],[134.924,35.357],[134.926,35.368],[134.93,35.38],[134.939,35.386],[134.95,35.387],[134.963,35.382],[134.985,35.37],[134.995,35.367],[135.003,35.366],[135.015,35.366],[135.024,35.37],[135.031,35.377],[135.038,35.385],[135.045,35.395],[135.049,35.406],[135.05,35.416],[135.047,35.482],[135.044,35.503],[135.035,35.513],[135.024,35.519],[135.012,35.518],[135.002,35.515],[134.971,35.501],[134.954,35.497],[134.934,35.501],[134.911,35.513],[134.884,35.544],[134.873,35.559],[134.868,35.571],[134.866,35.584],[134.865,35.601],[134.867,35.611],[134.867,35.622],[134.866,35.642],[134.875,35.644],[134.885,35.642],[134.905,35.638],[134.917,35.637],[134.927,35.641],[134.948,35.655],[134.954,35.658],[134.964,35.661],[134.979,35.675],[134.988,35.678],[135.011,35.68],[135.033,35.685],[135.049,35.696],[135.086,35.726],[135.105,35.732],[135.125,35.736],[135.184,35.76],[135.21,35.763],[135.228,35.756],[135.243,35.745],[135.262,35.74],[135.277,35.731],[135.293,35.712],[135.304,35.689],[135.306,35.672],[135.3,35.658],[135.283,35.662],[135.268,35.653],[135.256,35.636],[135.252,35.62],[135.244,35.61],[135.208,35.576],[135.197,35.562],[135.194,35.542],[135.199,35.531],[135.206,35.529],[135.21,35.538],[135.213,35.556],[135.222,35.568],[135.235,35.576],[135.252,35.582],[135.254,35.571],[135.259,35.563],[135.272,35.548],[135.264,35.548],[135.257,35.546],[135.251,35.543],[135.244,35.541],[135.314,35.507],[135.317,35.508],[135.322,35.511],[135.326,35.509],[135.327,35.496],[135.325,35.486],[135.316,35.467],[135.314,35.459],[135.319,35.447],[135.33,35.455],[135.345,35.469],[135.362,35.479],[135.381,35.479],[135.395,35.476],[135.403,35.482],[135.403,35.507],[135.374,35.502],[135.353,35.514],[135.347,35.535],[135.362,35.554],[135.374,35.558],[135.403,35.558],[135.416,35.562],[135.426,35.57],[135.436,35.58],[135.448,35.588],[135.464,35.589],[135.459,35.575],[135.462,35.562],[135.47,35.551],[135.478,35.542]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Kyoto'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Kyoto?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Kyoto is located? </h2>Kyoto, is a urban prefecture of the Kinki region. It belongs to the country of Japan. Its postal identifier is KY.Kyoto has an area of 4578 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

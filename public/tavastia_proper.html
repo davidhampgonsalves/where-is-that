@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Tavastia Proper?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[25.109,60.82],[25.116,60.805],[25.128,60.796],[25.15,60.785],[25.157,60.777],[25.156,60.772],[25.139,60.767],[25.122,60.764],[25.096,60.757],[25.076,60.744],[25.066,60.734],[25.06,60.721],[25.063,60.716],[25.1,60.731],[25.124,60.734],[25.173,60.728],[25.182,60.724],[25.104,60.705],[25.093,60.698],[25.105,60.671],[25.108,60.667],[25.096,60.664],[25.028,60.678],[24.995,60.68],[24.963,60.677],[24.911,60.665],[24.751,60.654],[24.612,60.661],[24.592,60.655],[24.575,60.636],[24.568,60.618],[24.57,60.59],[24.566,60.578],[24.525,60.559],[24.463,60.553],[24.414,60.563],[24.405,60.577],[24.397,60.596],[24.382,60.599],[24.341,60.602],[24.309,60.594],[24.304,60.582],[24.304,60.568],[24.284,60.565],[24.252,60.597],[24.235,60.607],[24.193,60.62],[23.948,60.653],[23.897,60.649],[23.766,60.652],[23.705,60.661],[23.653,60.69],[23.571,60.698],[23.528,60.713],[23.512,60.727],[23.477,60.747],[23.451,60.745],[23.356,60.727],[23.308,60.723],[23.267,60.728],[23.232,60.74],[23.176,60.764],[23.162,60.78],[23.169,60.788],[23.184,60.803],[23.203,60.814],[23.216,60.82],[23.212,60.829],[23.166,60.834],[23.142,60.846],[23.138,60.871],[23.158,60.89],[23.192,60.895],[23.251,60.891],[23.267,60.893],[23.265,60.897],[23.258,60.911],[23.256,60.915],[23.264,60.916],[23.275,60.916],[23.288,60.922],[23.295,60.936],[23.296,60.947],[23.28,60.958],[23.265,60.962],[23.24,60.972],[23.197,61],[23.275,61.019],[23.341,61.007],[23.437,60.969],[23.469,60.964],[23.46,60.979],[23.458,60.982],[23.474,60.986],[23.585,60.986],[23.663,61.004],[23.707,61.007],[23.723,61.002],[23.779,60.993],[23.836,60.95],[23.852,60.946],[23.866,60.959],[23.862,60.967],[23.851,60.98],[23.837,60.99],[23.828,60.994],[23.825,61],[23.853,61.009],[23.871,61.017],[23.878,61.027],[23.866,61.035],[23.854,61.035],[23.804,61.027],[23.796,61.028],[23.798,61.032],[23.803,61.045],[23.804,61.048],[23.8,61.052],[23.767,61.057],[23.779,61.068],[23.798,61.075],[23.933,61.093],[24.033,61.121],[24.089,61.129],[24.14,61.125],[24.137,61.136],[24.136,61.139],[24.187,61.147],[24.228,61.158],[24.282,61.184],[24.294,61.195],[24.288,61.197],[24.274,61.204],[24.266,61.216],[24.268,61.232],[24.279,61.237],[24.344,61.238],[24.38,61.244],[24.518,61.291],[24.551,61.296],[24.584,61.295],[24.656,61.279],[24.688,61.274],[24.714,61.284],[24.724,61.298],[24.737,61.31],[24.743,61.304],[24.765,61.277],[24.779,61.269],[24.804,61.267],[24.881,61.284],[24.891,61.293],[24.891,61.299],[24.894,61.308],[24.904,61.316],[24.918,61.322],[24.917,61.311],[24.921,61.292],[24.936,61.288],[24.95,61.287],[24.97,61.282],[24.99,61.279],[25.004,61.282],[25.017,61.275],[25.02,61.263],[25.032,61.254],[25.076,61.253],[25.188,61.24],[25.206,61.229],[25.209,61.219],[25.223,61.205],[25.252,61.192],[25.261,61.181],[25.26,61.174],[25.256,61.163],[25.249,61.154],[25.243,61.148],[25.238,61.139],[25.24,61.133],[25.241,61.128],[25.241,61.121],[25.265,61.114],[25.288,61.103],[25.287,61.076],[25.252,61.029],[25.237,61.014],[25.231,61.014],[25.222,61.013],[25.209,61.011],[25.212,61.007],[25.227,61.002],[25.244,60.994],[25.25,60.99],[25.255,60.982],[25.254,60.977],[25.237,60.969],[25.22,60.963],[25.191,60.949],[25.165,60.93],[25.142,60.909],[25.098,60.855],[25.088,60.848],[25.084,60.838],[25.086,60.829],[25.093,60.821],[25.096,60.822],[25.103,60.821],[25.109,60.82]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Tavastia Proper'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Tavastia Proper?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Tavastia Proper is located? </h2>Tavastia Proper, is a region It belongs to the country of Finland.Tavastia Proper has an area of 5891 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

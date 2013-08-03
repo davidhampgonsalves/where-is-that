@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Skane?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[14.541,56.477],[14.473,56.423],[14.457,56.408],[14.414,56.346],[14.411,56.338],[14.413,56.33],[14.433,56.307],[14.44,56.294],[14.444,56.279],[14.45,56.265],[14.461,56.256],[14.489,56.248],[14.499,56.245],[14.508,56.243],[14.522,56.241],[14.534,56.24],[14.542,56.239],[14.549,56.236],[14.557,56.229],[14.576,56.2],[14.584,56.178],[14.587,56.155],[14.583,56.138],[14.569,56.12],[14.556,56.096],[14.553,56.054],[14.534,56.046],[14.525,56.044],[14.498,56.041],[14.479,56.032],[14.446,56.003],[14.408,55.977],[14.386,55.966],[14.367,55.962],[14.347,55.953],[14.334,55.935],[14.323,55.916],[14.312,55.907],[14.271,55.895],[14.235,55.863],[14.209,55.821],[14.199,55.78],[14.194,55.742],[14.196,55.726],[14.206,55.709],[14.223,55.697],[14.261,55.68],[14.274,55.668],[14.276,55.657],[14.275,55.646],[14.276,55.635],[14.285,55.623],[14.295,55.615],[14.317,55.602],[14.358,55.564],[14.368,55.546],[14.363,55.524],[14.349,55.511],[14.295,55.476],[14.277,55.468],[14.265,55.461],[14.229,55.424],[14.219,55.414],[14.2,55.399],[14.181,55.391],[14.159,55.387],[14.094,55.388],[14.064,55.391],[14.036,55.397],[13.956,55.427],[13.93,55.433],[13.897,55.435],[13.883,55.433],[13.857,55.425],[13.842,55.421],[13.828,55.421],[13.78,55.428],[13.648,55.421],[13.63,55.418],[13.618,55.411],[13.609,55.402],[13.596,55.393],[13.581,55.389],[13.538,55.393],[13.504,55.389],[13.411,55.352],[13.381,55.346],[13.313,55.343],[13.281,55.346],[13.116,55.38],[13.062,55.381],[13.042,55.386],[13.031,55.387],[13.025,55.388],[13.009,55.397],[13,55.4],[12.979,55.403],[12.959,55.4],[12.947,55.396],[12.933,55.388],[12.921,55.387],[12.911,55.388],[12.897,55.392],[12.887,55.393],[12.867,55.389],[12.848,55.382],[12.833,55.383],[12.829,55.4],[12.86,55.435],[12.866,55.435],[12.872,55.434],[12.878,55.431],[12.887,55.424],[12.905,55.418],[12.93,55.419],[12.953,55.425],[12.966,55.435],[12.96,55.448],[12.963,55.454],[12.973,55.454],[12.986,55.448],[12.976,55.475],[12.929,55.52],[12.918,55.547],[12.93,55.579],[12.959,55.598],[13.028,55.627],[13.038,55.635],[13.05,55.647],[13.058,55.661],[13.062,55.675],[13.055,55.694],[13.041,55.705],[13.027,55.712],[13.012,55.729],[12.993,55.726],[12.975,55.727],[12.966,55.746],[12.941,55.745],[12.923,55.75],[12.911,55.764],[12.924,55.765],[12.932,55.77],[12.937,55.778],[12.939,55.791],[12.926,55.834],[12.891,55.854],[12.851,55.866],[12.821,55.887],[12.811,55.902],[12.809,55.91],[12.808,55.925],[12.805,55.929],[12.799,55.935],[12.791,55.94],[12.784,55.941],[12.771,55.948],[12.765,55.965],[12.76,55.983],[12.753,55.997],[12.735,56.006],[12.72,56.012],[12.709,56.021],[12.705,56.041],[12.698,56.052],[12.61,56.117],[12.602,56.123],[12.565,56.172],[12.554,56.182],[12.545,56.213],[12.541,56.223],[12.517,56.252],[12.505,56.275],[12.465,56.292],[12.452,56.305],[12.646,56.257],[12.654,56.254],[12.666,56.24],[12.674,56.236],[12.682,56.234],[12.697,56.225],[12.705,56.223],[12.714,56.224],[12.728,56.228],[12.736,56.229],[12.778,56.227],[12.797,56.228],[12.806,56.232],[12.815,56.236],[12.828,56.25],[12.834,56.266],[12.83,56.279],[12.784,56.293],[12.763,56.315],[12.732,56.36],[12.644,56.396],[12.622,56.419],[12.657,56.455],[12.714,56.467],[12.833,56.443],[12.89,56.455],[12.905,56.467],[12.911,56.474],[12.93,56.461],[12.976,56.444],[12.981,56.439],[12.985,56.434],[12.988,56.427],[12.988,56.421],[12.985,56.414],[12.98,56.405],[12.976,56.396],[12.976,56.387],[12.979,56.381],[12.985,56.377],[13.016,56.371],[13.155,56.357],[13.169,56.351],[13.18,56.344],[13.193,56.339],[13.208,56.338],[13.231,56.343],[13.257,56.357],[13.275,56.371],[13.296,56.383],[13.32,56.394],[13.391,56.419],[13.421,56.425],[13.452,56.428],[13.501,56.424],[13.577,56.424],[13.993,56.479],[14.024,56.486],[14.042,56.493],[14.047,56.499],[14.052,56.512],[14.056,56.518],[14.063,56.526],[14.077,56.534],[14.095,56.541],[14.109,56.542],[14.123,56.539],[14.146,56.526],[14.162,56.523],[14.278,56.524],[14.308,56.52],[14.359,56.507],[14.541,56.477]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Skane'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Skane?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Skane is located? </h2>Skane, is a county It belongs to the country of Sweden. Its postal identifier is SN.Skane has an area of 11480 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

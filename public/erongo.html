@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Erongo?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[15.601,-20.563],[15.596,-20.669],[15.599,-20.679],[15.606,-20.693],[15.656,-20.708],[15.665,-20.709],[15.675,-20.708],[15.709,-20.701],[15.72,-20.7],[15.725,-20.704],[15.728,-20.71],[15.743,-20.761],[15.753,-20.772],[15.832,-20.84],[16.033,-20.942],[16.092,-20.996],[16.14,-21.013],[16.181,-21.036],[16.193,-21.04],[16.2,-21.038],[16.206,-21.033],[16.249,-20.99],[16.255,-20.986],[16.259,-20.988],[16.261,-20.993],[16.268,-21.027],[16.275,-21.04],[16.286,-21.052],[16.312,-21.074],[16.326,-21.084],[16.343,-21.092],[16.351,-21.097],[16.385,-21.129],[16.388,-21.134],[16.396,-21.148],[16.401,-21.156],[16.408,-21.159],[16.417,-21.161],[16.515,-21.172],[16.515,-21.23],[16.507,-21.263],[16.537,-21.386],[16.533,-21.416],[16.493,-21.452],[16.454,-21.502],[16.441,-21.515],[16.438,-21.524],[16.434,-21.536],[16.423,-21.615],[16.393,-21.728],[16.432,-21.843],[16.433,-21.865],[16.439,-21.882],[16.443,-21.884],[16.451,-21.888],[16.461,-21.896],[16.477,-21.92],[16.479,-21.935],[16.477,-21.948],[16.471,-21.957],[16.467,-21.966],[16.466,-21.975],[16.472,-21.984],[16.479,-21.994],[16.481,-21.999],[16.481,-22.003],[16.477,-22.009],[16.47,-22.036],[16.469,-22.065],[16.461,-22.075],[16.452,-22.079],[16.441,-22.078],[16.432,-22.079],[16.428,-22.081],[16.432,-22.09],[16.464,-22.135],[16.468,-22.144],[16.462,-22.147],[16.442,-22.156],[16.431,-22.169],[16.397,-22.192],[16.391,-22.199],[16.393,-22.209],[16.421,-22.269],[16.421,-22.276],[16.418,-22.281],[16.411,-22.289],[16.408,-22.294],[16.406,-22.302],[16.409,-22.313],[16.414,-22.324],[16.447,-22.374],[16.406,-22.39],[16.359,-22.423],[16.348,-22.439],[16.343,-22.455],[16.342,-22.499],[16.341,-22.504],[16.337,-22.511],[16.326,-22.512],[16.313,-22.512],[16.298,-22.511],[16.285,-22.511],[16.274,-22.513],[16.264,-22.523],[16.229,-22.55],[16.216,-22.569],[16.187,-22.593],[16.172,-22.601],[16.159,-22.606],[16.147,-22.605],[16.085,-22.589],[16.071,-22.589],[16.057,-22.597],[15.979,-22.673],[15.961,-22.695],[15.964,-22.7],[15.969,-22.702],[16.044,-22.7],[16.053,-22.701],[16.06,-22.704],[16.063,-22.712],[16.063,-22.721],[16.062,-22.824],[16.06,-22.836],[16.056,-22.845],[16.045,-22.848],[15.985,-22.849],[15.973,-22.85],[15.956,-22.854],[15.94,-22.864],[15.913,-22.877],[15.902,-22.891],[15.895,-22.904],[15.884,-22.995],[15.884,-23],[15.885,-23.004],[15.887,-23.013],[15.892,-23.034],[15.894,-23.055],[15.894,-23.066],[15.891,-23.076],[15.873,-23.126],[15.871,-23.136],[15.871,-23.146],[15.876,-23.155],[15.921,-23.205],[15.924,-23.213],[15.918,-23.218],[15.908,-23.222],[15.826,-23.247],[15.851,-23.368],[15.851,-23.374],[15.85,-23.38],[15.845,-23.383],[15.836,-23.385],[15.803,-23.39],[15.793,-23.394],[15.787,-23.401],[15.781,-23.41],[15.755,-23.469],[15.752,-23.478],[15.752,-23.486],[15.758,-23.492],[15.765,-23.496],[15.841,-23.529],[15.849,-23.535],[15.851,-23.543],[15.852,-23.552],[15.84,-23.696],[15.842,-23.704],[15.852,-23.744],[15.853,-23.75],[15.846,-23.788],[15.826,-23.806],[15.742,-23.814],[15.452,-23.694],[15.338,-23.665],[15.324,-23.664],[15.303,-23.666],[15.202,-23.65],[15.129,-23.656],[15.107,-23.655],[15.095,-23.653],[15.087,-23.65],[15.083,-23.647],[15.079,-23.644],[15.071,-23.637],[15.047,-23.602],[14.484,-23.551],[14.447,-23.46],[14.434,-23.415],[14.435,-23.406],[14.443,-23.397],[14.467,-23.356],[14.48,-23.345],[14.479,-23.366],[14.484,-23.375],[14.49,-23.37],[14.493,-23.348],[14.492,-23.309],[14.474,-23.193],[14.463,-23.157],[14.446,-23.131],[14.431,-23.103],[14.421,-23.071],[14.414,-23.036],[14.41,-22.971],[14.411,-22.961],[14.416,-22.952],[14.429,-22.933],[14.432,-22.923],[14.432,-22.882],[14.435,-22.88],[14.441,-22.88],[14.444,-22.884],[14.438,-22.892],[14.443,-22.899],[14.448,-22.908],[14.452,-22.912],[14.446,-22.933],[14.444,-22.953],[14.452,-22.963],[14.473,-22.954],[14.471,-22.965],[14.459,-22.995],[14.474,-22.982],[14.497,-22.942],[14.51,-22.933],[14.522,-22.923],[14.529,-22.9],[14.534,-22.854],[14.528,-22.679],[14.508,-22.548],[14.485,-22.512],[14.474,-22.468],[14.438,-22.399],[14.419,-22.34],[14.386,-22.277],[14.38,-22.269],[14.315,-22.2],[14.294,-22.167],[14.294,-22.143],[14.291,-22.135],[14.137,-21.946],[14.062,-21.881],[14.054,-21.865],[13.972,-21.793],[13.952,-21.784],[13.952,-21.773],[13.956,-21.763],[13.959,-21.758],[13.965,-21.733],[13.966,-21.727],[13.963,-21.714],[13.958,-21.705],[13.878,-21.592],[13.863,-21.528],[13.832,-21.457],[13.729,-21.33],[13.667,-21.232],[13.628,-21.188],[13.692,-21.15],[13.727,-21.138],[13.735,-21.134],[13.745,-21.126],[13.756,-21.11],[13.76,-21.107],[13.768,-21.104],[13.803,-21.096],[13.815,-21.095],[13.825,-21.093],[13.831,-21.09],[13.835,-21.082],[13.837,-21.076],[13.841,-21.071],[13.847,-21.069],[13.863,-21.067],[13.871,-21.065],[13.884,-21.05],[13.904,-21.037],[13.98,-21.011],[14.025,-21.01],[14.031,-21.009],[14.039,-21.006],[14.065,-20.993],[14.079,-20.988],[14.101,-20.983],[14.129,-20.981],[14.136,-20.979],[14.144,-20.976],[14.154,-20.969],[14.163,-20.965],[14.173,-20.962],[14.19,-20.959],[14.2,-20.958],[14.208,-20.959],[14.271,-20.986],[14.277,-20.988],[14.283,-20.988],[14.289,-20.988],[14.295,-20.987],[14.346,-20.971],[14.372,-20.966],[14.415,-20.97],[14.42,-20.972],[14.426,-20.974],[14.447,-20.989],[14.452,-20.991],[14.458,-20.992],[14.482,-20.988],[14.51,-20.988],[14.523,-20.985],[14.532,-20.984],[14.541,-20.984],[14.547,-20.986],[14.584,-21],[14.591,-21.002],[14.647,-21.001],[14.678,-21.004],[14.685,-21.004],[14.7,-21.001],[14.709,-21],[14.729,-20.999],[14.737,-20.997],[14.763,-20.986],[14.78,-20.981],[14.789,-20.979],[14.795,-20.977],[14.802,-20.972],[14.812,-20.961],[14.82,-20.954],[14.843,-20.943],[14.867,-20.925],[14.872,-20.922],[14.876,-20.922],[14.896,-20.921],[14.908,-20.919],[14.913,-20.916],[14.917,-20.912],[14.921,-20.904],[14.926,-20.899],[14.935,-20.894],[14.942,-20.891],[14.948,-20.887],[14.952,-20.882],[14.959,-20.869],[14.962,-20.866],[14.965,-20.864],[14.982,-20.857],[14.988,-20.853],[14.997,-20.843],[15.051,-20.802],[15.073,-20.792],[15.12,-20.764],[15.126,-20.759],[15.131,-20.746],[15.141,-20.734],[15.28,-20.611],[15.289,-20.605],[15.345,-20.533],[15.368,-20.509],[15.375,-20.497],[15.384,-20.487],[15.456,-20.495],[15.465,-20.501],[15.471,-20.508],[15.478,-20.518],[15.493,-20.531],[15.514,-20.54],[15.556,-20.554],[15.601,-20.563]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Erongo'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Erongo?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where Erongo is located? </h2>Erongo, is a region of the Karibib region. It belongs to the country of Namibia. Its postal identifier is ER.Erongo has an area of 64066 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

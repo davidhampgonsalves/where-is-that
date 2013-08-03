@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Buzau?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[27.423,45.387],[27.42,45.367],[27.402,45.345],[27.395,45.331],[27.387,45.308],[27.378,45.3],[27.366,45.298],[27.351,45.3],[27.335,45.3],[27.316,45.294],[27.31,45.286],[27.309,45.276],[27.315,45.253],[27.311,45.238],[27.305,45.234],[27.297,45.236],[27.29,45.24],[27.279,45.242],[27.266,45.242],[27.227,45.233],[27.214,45.233],[27.167,45.238],[27.087,45.218],[27.072,45.21],[27.064,45.201],[27.063,45.194],[27.064,45.187],[27.079,45.16],[27.085,45.155],[27.095,45.154],[27.106,45.155],[27.115,45.162],[27.118,45.168],[27.119,45.174],[27.119,45.181],[27.126,45.186],[27.134,45.188],[27.144,45.188],[27.152,45.184],[27.159,45.179],[27.163,45.171],[27.164,45.163],[27.163,45.143],[27.164,45.132],[27.169,45.126],[27.179,45.122],[27.191,45.119],[27.199,45.115],[27.205,45.107],[27.207,45.097],[27.205,45.077],[27.206,45.069],[27.21,45.062],[27.217,45.058],[27.23,45.057],[27.254,45.057],[27.263,45.055],[27.268,45.048],[27.27,45.039],[27.269,45.023],[27.265,45.002],[27.254,44.965],[27.246,44.948],[27.238,44.938],[27.202,44.932],[27.191,44.928],[27.178,44.918],[27.175,44.909],[27.177,44.9],[27.187,44.894],[27.197,44.885],[27.203,44.873],[27.197,44.826],[27.201,44.819],[27.179,44.811],[27.175,44.807],[27.174,44.801],[27.181,44.796],[27.192,44.791],[27.199,44.786],[27.203,44.781],[27.199,44.777],[27.189,44.773],[27.167,44.769],[27.138,44.761],[27.131,44.76],[27.124,44.76],[27.12,44.763],[27.119,44.768],[27.119,44.773],[27.121,44.779],[27.122,44.786],[27.12,44.793],[27.115,44.8],[27.105,44.807],[27.092,44.813],[27.076,44.818],[27.052,44.823],[27.037,44.822],[27.024,44.816],[27.014,44.809],[27,44.803],[26.986,44.803],[26.972,44.807],[26.943,44.82],[26.919,44.826],[26.9,44.827],[26.865,44.822],[26.85,44.822],[26.838,44.824],[26.828,44.827],[26.768,44.835],[26.702,44.831],[26.678,44.832],[26.66,44.836],[26.626,44.857],[26.604,44.865],[26.585,44.889],[26.547,44.916],[26.543,44.926],[26.544,44.935],[26.55,44.943],[26.568,44.956],[26.576,44.964],[26.578,44.977],[26.573,44.986],[26.565,44.994],[26.543,45.009],[26.534,45.012],[26.506,45.018],[26.489,45.025],[26.483,45.035],[26.478,45.05],[26.476,45.088],[26.474,45.102],[26.469,45.118],[26.463,45.128],[26.454,45.137],[26.43,45.15],[26.416,45.161],[26.413,45.173],[26.415,45.183],[26.417,45.191],[26.416,45.198],[26.411,45.201],[26.403,45.198],[26.386,45.187],[26.379,45.184],[26.371,45.185],[26.36,45.192],[26.355,45.205],[26.345,45.21],[26.334,45.213],[26.29,45.211],[26.276,45.212],[26.262,45.218],[26.255,45.225],[26.252,45.233],[26.251,45.241],[26.248,45.252],[26.237,45.263],[26.209,45.283],[26.204,45.294],[26.206,45.302],[26.212,45.309],[26.214,45.319],[26.208,45.334],[26.174,45.387],[26.161,45.401],[26.147,45.41],[26.106,45.432],[26.046,45.482],[26.1,45.564],[26.14,45.573],[26.189,45.575],[26.201,45.577],[26.208,45.583],[26.211,45.602],[26.216,45.612],[26.224,45.623],[26.235,45.626],[26.245,45.624],[26.255,45.619],[26.274,45.607],[26.285,45.603],[26.302,45.602],[26.319,45.609],[26.329,45.618],[26.336,45.641],[26.343,45.655],[26.358,45.673],[26.367,45.685],[26.371,45.699],[26.372,45.71],[26.377,45.722],[26.395,45.75],[26.397,45.761],[26.395,45.773],[26.389,45.782],[26.38,45.803],[26.425,45.773],[26.466,45.731],[26.532,45.65],[26.551,45.634],[26.569,45.625],[26.597,45.622],[26.611,45.622],[26.623,45.624],[26.634,45.628],[26.647,45.628],[26.669,45.621],[26.733,45.583],[26.755,45.563],[26.789,45.546],[26.831,45.528],[26.843,45.525],[26.863,45.523],[26.878,45.519],[26.888,45.518],[26.895,45.519],[26.899,45.522],[26.901,45.526],[26.901,45.529],[26.901,45.532],[26.899,45.534],[26.898,45.538],[26.9,45.542],[26.907,45.545],[26.922,45.546],[26.946,45.542],[26.976,45.533],[26.993,45.524],[26.999,45.515],[26.999,45.507],[26.999,45.495],[27.006,45.482],[27.032,45.462],[27.05,45.454],[27.064,45.451],[27.077,45.452],[27.088,45.455],[27.112,45.465],[27.124,45.467],[27.138,45.468],[27.144,45.464],[27.146,45.457],[27.143,45.439],[27.147,45.43],[27.156,45.429],[27.165,45.431],[27.174,45.437],[27.181,45.444],[27.191,45.449],[27.201,45.451],[27.217,45.449],[27.228,45.445],[27.238,45.438],[27.246,45.436],[27.264,45.437],[27.276,45.435],[27.283,45.43],[27.287,45.423],[27.288,45.416],[27.291,45.408],[27.298,45.4],[27.308,45.397],[27.356,45.387],[27.378,45.385],[27.423,45.387]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Buzau'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Buzau?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you questioned  where Buzau is located? </h2>Buzau, is a county It belongs to the country of Romania. Its postal identifier is BZ.Buzau has an area of 5988 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

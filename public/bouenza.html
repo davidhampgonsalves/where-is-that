@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Bouenza?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[14.285,-3.564],[14.284,-3.579],[14.289,-3.602],[14.293,-3.61],[14.3,-3.62],[14.305,-3.627],[14.307,-3.632],[14.303,-3.634],[14.278,-3.647],[14.271,-3.649],[14.263,-3.652],[14.249,-3.669],[14.239,-3.676],[14.225,-3.678],[14.215,-3.675],[14.211,-3.675],[14.213,-3.691],[14.239,-3.739],[14.261,-3.764],[14.294,-3.818],[14.294,-3.836],[14.297,-3.852],[14.306,-3.864],[14.325,-3.869],[14.344,-3.879],[14.355,-3.902],[14.365,-3.93],[14.377,-3.951],[14.365,-3.955],[14.357,-3.962],[14.343,-3.979],[14.327,-4.002],[14.322,-4.007],[14.281,-4.007],[14.248,-3.987],[14.239,-3.986],[14.235,-3.991],[14.23,-4.011],[14.226,-4.02],[14.22,-4.027],[14.169,-4.062],[14.156,-4.075],[14.144,-4.095],[14.162,-4.135],[14.161,-4.151],[14.144,-4.163],[14.151,-4.17],[14.135,-4.177],[14.102,-4.186],[14.089,-4.191],[14.078,-4.199],[14.048,-4.232],[14.026,-4.249],[13.99,-4.267],[13.975,-4.27],[13.969,-4.274],[13.964,-4.28],[13.962,-4.284],[13.953,-4.313],[13.948,-4.381],[13.946,-4.391],[13.934,-4.414],[13.931,-4.422],[13.927,-4.436],[13.923,-4.444],[13.913,-4.461],[13.905,-4.489],[13.905,-4.49],[13.905,-4.49],[13.904,-4.49],[13.876,-4.492],[13.867,-4.489],[13.856,-4.48],[13.841,-4.453],[13.832,-4.441],[13.81,-4.426],[13.789,-4.424],[13.726,-4.446],[13.726,-4.447],[13.721,-4.449],[13.715,-4.453],[13.714,-4.453],[13.711,-4.464],[13.721,-4.561],[13.718,-4.58],[13.702,-4.621],[13.698,-4.643],[13.712,-4.686],[13.706,-4.694],[13.705,-4.694],[13.698,-4.693],[13.69,-4.691],[13.682,-4.695],[13.681,-4.695],[13.677,-4.706],[13.68,-4.725],[13.675,-4.732],[13.675,-4.732],[13.666,-4.733],[13.643,-4.726],[13.633,-4.725],[13.625,-4.731],[13.613,-4.739],[13.591,-4.779],[13.591,-4.779],[13.582,-4.782],[13.58,-4.783],[13.579,-4.779],[13.574,-4.75],[13.572,-4.742],[13.569,-4.735],[13.563,-4.727],[13.552,-4.719],[13.535,-4.708],[13.496,-4.689],[13.424,-4.639],[13.416,-4.637],[13.4,-4.634],[13.393,-4.629],[13.387,-4.622],[13.383,-4.611],[13.381,-4.593],[13.379,-4.586],[13.374,-4.577],[13.363,-4.567],[13.352,-4.553],[13.343,-4.536],[13.333,-4.523],[13.327,-4.509],[13.319,-4.491],[13.276,-4.431],[13.255,-4.412],[13.24,-4.404],[13.223,-4.403],[13.208,-4.397],[13.2,-4.396],[13.193,-4.395],[13.185,-4.393],[13.17,-4.387],[13.163,-4.386],[13.148,-4.388],[13.141,-4.387],[13.133,-4.383],[13.127,-4.379],[13.119,-4.377],[13.112,-4.378],[13.104,-4.379],[13.096,-4.38],[13.08,-4.377],[13.064,-4.378],[13.055,-4.374],[13.045,-4.366],[13.029,-4.347],[13.018,-4.34],[13.01,-4.335],[13.003,-4.335],[12.999,-4.333],[12.989,-4.32],[12.918,-4.18],[12.883,-4.129],[12.864,-4.093],[12.852,-4.076],[12.83,-4.054],[12.785,-4.02],[12.778,-4.013],[12.725,-3.952],[12.689,-3.89],[12.666,-3.86],[12.659,-3.853],[12.643,-3.842],[12.613,-3.823],[12.607,-3.817],[12.605,-3.809],[12.611,-3.795],[12.616,-3.786],[12.623,-3.778],[12.629,-3.773],[12.636,-3.77],[12.642,-3.766],[12.645,-3.759],[12.633,-3.731],[12.631,-3.724],[12.63,-3.707],[12.638,-3.691],[12.64,-3.682],[12.628,-3.656],[12.617,-3.605],[12.617,-3.587],[12.618,-3.576],[12.62,-3.569],[12.622,-3.562],[12.631,-3.55],[12.657,-3.528],[12.66,-3.533],[12.672,-3.531],[12.692,-3.522],[12.701,-3.519],[12.724,-3.525],[12.718,-3.55],[12.739,-3.56],[12.779,-3.558],[12.796,-3.562],[12.808,-3.581],[12.794,-3.588],[12.809,-3.593],[12.812,-3.602],[12.812,-3.614],[12.814,-3.629],[12.818,-3.632],[12.831,-3.634],[12.836,-3.635],[12.838,-3.641],[12.839,-3.652],[12.842,-3.657],[12.85,-3.666],[12.854,-3.673],[12.87,-3.719],[12.877,-3.728],[12.89,-3.732],[12.883,-3.751],[12.88,-3.756],[12.875,-3.763],[12.879,-3.768],[12.89,-3.773],[12.89,-3.811],[12.9,-3.832],[12.931,-3.856],[12.943,-3.86],[12.945,-3.863],[12.954,-3.868],[12.978,-3.875],[12.985,-3.882],[12.989,-3.889],[12.992,-3.895],[12.997,-3.899],[13.001,-3.901],[13.006,-3.902],[13.011,-3.905],[13.015,-3.911],[13.019,-3.917],[13.023,-3.923],[13.03,-3.928],[13.04,-3.929],[13.051,-3.928],[13.07,-3.925],[13.122,-3.92],[13.129,-3.92],[13.137,-3.921],[13.162,-3.93],[13.174,-3.928],[13.218,-3.913],[13.233,-3.911],[13.245,-3.912],[13.267,-3.926],[13.274,-3.93],[13.283,-3.93],[13.308,-3.926],[13.327,-3.93],[13.334,-3.931],[13.34,-3.926],[13.347,-3.928],[13.351,-3.933],[13.356,-3.94],[13.359,-3.948],[13.357,-3.955],[13.354,-3.963],[13.353,-3.97],[13.354,-3.978],[13.37,-4.026],[13.375,-4.033],[13.381,-4.039],[13.388,-4.043],[13.395,-4.044],[13.411,-4.046],[13.443,-4.052],[13.454,-4.052],[13.471,-4.048],[13.486,-4.043],[13.498,-4.038],[13.502,-4.035],[13.508,-4.029],[13.513,-4.021],[13.521,-3.983],[13.521,-3.976],[13.521,-3.96],[13.521,-3.953],[13.526,-3.944],[13.534,-3.934],[13.56,-3.907],[13.567,-3.894],[13.568,-3.886],[13.568,-3.877],[13.569,-3.87],[13.572,-3.863],[13.582,-3.854],[13.59,-3.845],[13.598,-3.832],[13.6,-3.826],[13.6,-3.822],[13.592,-3.819],[13.588,-3.816],[13.588,-3.812],[13.591,-3.8],[13.591,-3.798],[13.589,-3.797],[13.586,-3.796],[13.581,-3.797],[13.576,-3.796],[13.571,-3.794],[13.569,-3.789],[13.568,-3.772],[13.568,-3.77],[13.569,-3.768],[13.572,-3.766],[13.577,-3.764],[13.59,-3.761],[13.598,-3.761],[13.604,-3.762],[13.609,-3.765],[13.614,-3.766],[13.62,-3.766],[13.627,-3.763],[13.644,-3.753],[13.648,-3.749],[13.648,-3.738],[13.65,-3.734],[13.658,-3.732],[13.666,-3.731],[13.673,-3.731],[13.688,-3.736],[13.693,-3.736],[13.703,-3.735],[13.708,-3.736],[13.713,-3.736],[13.717,-3.733],[13.719,-3.724],[13.718,-3.711],[13.719,-3.705],[13.725,-3.697],[13.731,-3.69],[13.745,-3.68],[13.754,-3.676],[13.765,-3.672],[13.769,-3.668],[13.772,-3.663],[13.777,-3.65],[13.777,-3.642],[13.777,-3.635],[13.776,-3.631],[13.776,-3.626],[13.778,-3.621],[13.78,-3.616],[13.784,-3.611],[13.789,-3.607],[13.798,-3.604],[13.805,-3.602],[13.822,-3.59],[13.86,-3.538],[13.896,-3.559],[13.905,-3.561],[13.934,-3.563],[13.946,-3.567],[13.961,-3.574],[13.972,-3.577],[13.981,-3.578],[14.023,-3.575],[14.032,-3.572],[14.04,-3.569],[14.096,-3.5],[14.104,-3.494],[14.124,-3.481],[14.13,-3.475],[14.137,-3.461],[14.144,-3.456],[14.15,-3.458],[14.162,-3.47],[14.169,-3.474],[14.207,-3.49],[14.229,-3.494],[14.243,-3.5],[14.249,-3.508],[14.257,-3.515],[14.262,-3.522],[14.271,-3.539],[14.278,-3.549],[14.283,-3.557],[14.285,-3.564]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Bouenza'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Bouenza?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Bouenza is located? </h2>Bouenza, is a region It belongs to the country of Congo (Brazzaville). Its postal identifier is BO.Bouenza has an area of 12409 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

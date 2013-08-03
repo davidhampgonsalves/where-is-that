@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Surigao del Sur?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[126.383,7.899],[126.363,7.906],[126.335,7.919],[126.314,7.94],[126.299,7.966],[126.291,7.996],[126.278,8.053],[126.217,8.154],[126.205,8.215],[126.224,8.318],[126.223,8.349],[126.204,8.359],[126.1,8.373],[126.078,8.381],[126.069,8.391],[126.06,8.426],[126.055,8.436],[126.017,8.495],[125.998,8.532],[125.991,8.569],[126.006,8.601],[126.022,8.621],[126.031,8.644],[126.032,8.667],[126.024,8.688],[125.99,8.723],[125.952,8.755],[125.946,8.765],[125.948,8.777],[125.952,8.789],[125.951,8.801],[125.942,8.811],[125.93,8.817],[125.919,8.823],[125.905,8.849],[125.895,8.859],[125.884,8.868],[125.874,8.879],[125.864,8.897],[125.856,8.932],[125.849,8.951],[125.84,8.957],[125.827,8.956],[125.813,8.956],[125.802,8.967],[125.802,8.974],[125.809,9.001],[125.808,9.057],[125.802,9.111],[125.789,9.163],[125.767,9.213],[125.749,9.233],[125.737,9.251],[125.73,9.27],[125.727,9.297],[125.729,9.313],[125.934,9.492],[125.939,9.484],[125.94,9.475],[125.949,9.463],[125.952,9.453],[125.964,9.472],[125.966,9.48],[125.973,9.48],[125.973,9.464],[125.971,9.454],[125.968,9.447],[125.96,9.439],[125.949,9.434],[125.92,9.427],[125.912,9.418],[125.911,9.405],[125.917,9.395],[125.927,9.389],[125.939,9.385],[125.956,9.382],[125.967,9.384],[125.994,9.398],[125.992,9.358],[125.997,9.325],[126.012,9.294],[126.058,9.246],[126.066,9.242],[126.076,9.239],[126.089,9.241],[126.11,9.251],[126.144,9.261],[126.179,9.297],[126.2,9.308],[126.22,9.306],[126.225,9.291],[126.22,9.272],[126.2,9.241],[126.193,9.216],[126.186,9.172],[126.186,9.138],[126.179,9.093],[126.184,9.081],[126.194,9.077],[126.207,9.076],[126.217,9.072],[126.223,9.064],[126.234,9.039],[126.24,9.028],[126.313,8.956],[126.322,8.935],[126.324,8.922],[126.336,8.884],[126.332,8.87],[126.332,8.861],[126.345,8.853],[126.343,8.845],[126.338,8.838],[126.336,8.836],[126.329,8.813],[126.317,8.788],[126.3,8.768],[126.278,8.76],[126.24,8.735],[126.234,8.734],[126.234,8.719],[126.242,8.71],[126.261,8.699],[126.261,8.693],[126.258,8.69],[126.257,8.69],[126.257,8.688],[126.255,8.685],[126.242,8.69],[126.232,8.692],[126.21,8.693],[126.198,8.688],[126.174,8.669],[126.138,8.654],[126.119,8.631],[126.111,8.607],[126.13,8.586],[126.148,8.541],[126.158,8.527],[126.167,8.527],[126.2,8.527],[126.22,8.522],[126.229,8.521],[126.24,8.527],[126.221,8.54],[126.214,8.548],[126.221,8.555],[126.232,8.555],[126.245,8.549],[126.258,8.547],[126.268,8.555],[126.292,8.545],[126.357,8.534],[126.356,8.536],[126.359,8.539],[126.364,8.542],[126.37,8.542],[126.37,8.539],[126.373,8.531],[126.381,8.518],[126.401,8.502],[126.405,8.493],[126.398,8.479],[126.402,8.476],[126.407,8.47],[126.412,8.466],[126.385,8.467],[126.374,8.464],[126.37,8.455],[126.367,8.432],[126.37,8.427],[126.384,8.432],[126.388,8.415],[126.38,8.395],[126.357,8.364],[126.352,8.362],[126.341,8.355],[126.333,8.347],[126.34,8.343],[126.343,8.338],[126.357,8.312],[126.365,8.305],[126.38,8.302],[126.389,8.293],[126.378,8.267],[126.346,8.231],[126.339,8.214],[126.347,8.195],[126.362,8.187],[126.378,8.191],[126.393,8.2],[126.423,8.211],[126.459,8.24],[126.463,8.23],[126.457,8.145],[126.454,8.129],[126.455,8.115],[126.466,8.095],[126.443,8.081],[126.432,8.046],[126.434,8.006],[126.453,7.98],[126.435,7.962],[126.396,7.933],[126.384,7.911],[126.383,7.899]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Surigao del Sur'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Surigao del Sur?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever wondered where Surigao del Sur is located? </h2>Surigao del Sur, is a province of the Northern Mindanao region. It belongs to the country of Philippines. Its postal identifier is SS.Surigao del Sur has an area of 5159 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

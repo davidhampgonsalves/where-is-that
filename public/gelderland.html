@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Gelderland?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[5.931,52.481],[5.939,52.479],[5.97,52.485],[6.002,52.502],[6.031,52.511],[6.043,52.508],[6.05,52.505],[6.056,52.499],[6.064,52.489],[6.082,52.478],[6.089,52.474],[6.095,52.468],[6.104,52.452],[6.112,52.44],[6.133,52.421],[6.135,52.419],[6.136,52.416],[6.135,52.404],[6.12,52.38],[6.087,52.373],[6.084,52.372],[6.082,52.371],[6.087,52.364],[6.087,52.359],[6.078,52.351],[6.069,52.329],[6.068,52.322],[6.071,52.318],[6.081,52.309],[6.086,52.306],[6.107,52.3],[6.125,52.271],[6.124,52.263],[6.122,52.259],[6.124,52.256],[6.128,52.254],[6.139,52.251],[6.144,52.249],[6.146,52.244],[6.142,52.237],[6.142,52.237],[6.142,52.235],[6.143,52.233],[6.146,52.23],[6.154,52.226],[6.158,52.225],[6.16,52.225],[6.167,52.232],[6.177,52.237],[6.18,52.238],[6.189,52.237],[6.259,52.229],[6.323,52.229],[6.332,52.231],[6.347,52.238],[6.382,52.247],[6.411,52.245],[6.417,52.238],[6.418,52.237],[6.466,52.194],[6.495,52.177],[6.519,52.179],[6.558,52.176],[6.586,52.18],[6.592,52.179],[6.597,52.178],[6.601,52.173],[6.602,52.169],[6.602,52.166],[6.606,52.165],[6.61,52.165],[6.646,52.17],[6.654,52.168],[6.663,52.166],[6.667,52.164],[6.669,52.162],[6.671,52.158],[6.672,52.148],[6.672,52.142],[6.662,52.127],[6.76,52.114],[6.771,52.109],[6.771,52.109],[6.766,52.109],[6.75,52.103],[6.732,52.092],[6.727,52.087],[6.719,52.074],[6.711,52.068],[6.699,52.064],[6.688,52.063],[6.68,52.061],[6.673,52.05],[6.673,52.05],[6.675,52.035],[6.691,52.028],[6.712,52.024],[6.778,52.002],[6.804,51.985],[6.809,51.98],[6.811,51.973],[6.811,51.973],[6.81,51.961],[6.805,51.958],[6.798,51.957],[6.789,51.952],[6.767,51.926],[6.743,51.909],[6.716,51.9],[6.628,51.898],[6.528,51.877],[6.479,51.853],[6.462,51.849],[6.442,51.849],[6.378,51.86],[6.378,51.86],[6.386,51.838],[6.386,51.838],[6.382,51.828],[6.345,51.821],[6.342,51.837],[6.325,51.843],[6.287,51.847],[6.282,51.85],[6.271,51.862],[6.264,51.867],[6.256,51.867],[6.225,51.863],[6.191,51.872],[6.159,51.888],[6.127,51.897],[6.093,51.886],[6.093,51.886],[6.105,51.88],[6.142,51.856],[6.156,51.842],[6.156,51.842],[6.14,51.845],[6.116,51.849],[6.084,51.854],[6.043,51.847],[6.029,51.843],[6.008,51.833],[5.989,51.828],[5.948,51.823],[5.931,51.816],[5.928,51.807],[5.928,51.807],[5.95,51.796],[5.964,51.777],[5.964,51.777],[5.962,51.757],[5.945,51.746],[5.944,51.746],[5.941,51.745],[5.916,51.756],[5.912,51.758],[5.894,51.773],[5.89,51.777],[5.887,51.778],[5.882,51.778],[5.872,51.777],[5.863,51.773],[5.863,51.759],[5.76,51.763],[5.69,51.793],[5.671,51.796],[5.661,51.8],[5.649,51.819],[5.643,51.824],[5.599,51.83],[5.535,51.824],[5.52,51.827],[5.501,51.835],[5.482,51.83],[5.462,51.821],[5.441,51.816],[5.401,51.818],[5.381,51.812],[5.373,51.792],[5.368,51.775],[5.355,51.763],[5.337,51.753],[5.318,51.747],[5.135,51.735],[5.126,51.737],[5.137,51.753],[5.137,51.769],[5.1,51.785],[5.089,51.783],[5.065,51.783],[5.028,51.801],[5.012,51.811],[5.01,51.82],[5.009,51.825],[5.008,51.835],[5.011,51.843],[5.011,51.845],[5.004,51.851],[5.033,51.852],[5.11,51.872],[5.121,51.876],[5.121,51.878],[5.121,51.881],[5.12,51.886],[5.118,51.892],[5.153,51.93],[5.158,51.935],[5.183,51.967],[5.197,51.966],[5.221,51.968],[5.239,51.977],[5.254,51.979],[5.311,51.96],[5.331,51.963],[5.361,51.977],[5.383,51.98],[5.409,51.974],[5.42,51.974],[5.43,51.977],[5.449,51.986],[5.462,51.988],[5.505,51.982],[5.582,51.953],[5.616,51.948],[5.619,51.953],[5.62,51.969],[5.618,51.974],[5.616,51.978],[5.612,51.982],[5.605,51.991],[5.585,52.005],[5.572,52.019],[5.563,52.049],[5.565,52.073],[5.563,52.079],[5.562,52.085],[5.553,52.105],[5.537,52.102],[5.541,52.095],[5.541,52.091],[5.539,52.087],[5.535,52.082],[5.531,52.08],[5.527,52.078],[5.523,52.078],[5.52,52.077],[5.509,52.072],[5.5,52.07],[5.472,52.078],[5.47,52.08],[5.469,52.082],[5.476,52.086],[5.481,52.09],[5.484,52.093],[5.49,52.104],[5.498,52.114],[5.508,52.113],[5.509,52.115],[5.509,52.117],[5.508,52.12],[5.508,52.127],[5.513,52.133],[5.513,52.136],[5.51,52.139],[5.502,52.144],[5.494,52.147],[5.49,52.149],[5.482,52.158],[5.475,52.161],[5.454,52.164],[5.43,52.169],[5.424,52.175],[5.425,52.177],[5.427,52.179],[5.433,52.182],[5.437,52.186],[5.439,52.196],[5.402,52.214],[5.397,52.22],[5.399,52.231],[5.403,52.248],[5.409,52.267],[5.426,52.264],[5.497,52.269],[5.533,52.277],[5.552,52.298],[5.563,52.32],[5.579,52.345],[5.601,52.358],[5.628,52.372],[5.655,52.381],[5.689,52.39],[5.733,52.403],[5.771,52.414],[5.796,52.427],[5.815,52.441],[5.838,52.462],[5.855,52.481],[5.866,52.505],[5.867,52.522],[5.867,52.522],[5.875,52.522],[5.891,52.52],[5.904,52.509],[5.925,52.484],[5.931,52.481]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Gelderland'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Gelderland?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Gelderland is located? </h2>Gelderland, is a province It belongs to the country of Netherlands. Its postal identifier is GE.Gelderland has an area of 5130 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+

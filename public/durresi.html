@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Durresi?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[20.236,41.344],[20.23,41.333],[20.227,41.33],[20.223,41.327],[20.169,41.315],[20.159,41.311],[20.137,41.297],[20.12,41.273],[20.104,41.272],[20.097,41.268],[20.081,41.256],[20.076,41.253],[20.069,41.252],[20.061,41.253],[20.054,41.256],[20.05,41.259],[20.043,41.258],[20.036,41.254],[20.021,41.241],[20.009,41.226],[19.978,41.2],[19.971,41.195],[19.927,41.177],[19.905,41.174],[19.858,41.159],[19.834,41.143],[19.835,41.141],[19.837,41.138],[19.843,41.136],[19.847,41.135],[19.846,41.133],[19.841,41.128],[19.829,41.125],[19.809,41.122],[19.778,41.124],[19.746,41.122],[19.744,41.111],[19.741,41.107],[19.735,41.102],[19.711,41.093],[19.703,41.087],[19.7,41.077],[19.699,41.069],[19.699,41.06],[19.695,41.056],[19.692,41.054],[19.671,41.057],[19.673,41.064],[19.674,41.066],[19.673,41.068],[19.672,41.07],[19.67,41.07],[19.667,41.07],[19.662,41.069],[19.645,41.061],[19.639,41.059],[19.634,41.06],[19.632,41.062],[19.629,41.063],[19.619,41.063],[19.618,41.064],[19.617,41.065],[19.616,41.065],[19.608,41.066],[19.601,41.069],[19.597,41.069],[19.59,41.067],[19.58,41.062],[19.562,41.051],[19.554,41.048],[19.544,41.047],[19.529,41.047],[19.525,41.048],[19.52,41.049],[19.515,41.049],[19.511,41.046],[19.505,41.04],[19.501,41.036],[19.497,41.034],[19.491,41.037],[19.483,41.045],[19.479,41.048],[19.476,41.048],[19.471,41.047],[19.469,41.047],[19.468,41.047],[19.472,41.042],[19.473,41.038],[19.472,41.036],[19.467,41.034],[19.464,41.034],[19.461,41.032],[19.459,41.03],[19.448,41.009],[19.448,41.01],[19.441,41.021],[19.442,41.026],[19.446,41.031],[19.457,41.107],[19.451,41.123],[19.446,41.13],[19.441,41.137],[19.442,41.144],[19.464,41.151],[19.467,41.163],[19.467,41.176],[19.469,41.188],[19.51,41.237],[19.517,41.257],[19.516,41.26],[19.541,41.263],[19.569,41.254],[19.587,41.244],[19.607,41.272],[19.633,41.289],[19.639,41.296],[19.642,41.307],[19.643,41.319],[19.642,41.331],[19.644,41.348],[19.644,41.356],[19.642,41.361],[19.632,41.364],[19.627,41.368],[19.621,41.378],[19.62,41.39],[19.622,41.446],[19.648,41.451],[19.669,41.447],[19.675,41.449],[19.679,41.453],[19.682,41.459],[19.688,41.463],[19.691,41.461],[19.694,41.455],[19.698,41.439],[19.7,41.434],[19.703,41.429],[19.708,41.427],[19.71,41.424],[19.713,41.421],[19.715,41.416],[19.719,41.41],[19.725,41.407],[19.737,41.407],[19.746,41.409],[19.756,41.413],[19.785,41.429],[19.827,41.441],[19.832,41.444],[19.834,41.448],[19.835,41.452],[19.837,41.454],[19.841,41.453],[19.851,41.447],[19.859,41.446],[19.868,41.449],[19.885,41.461],[19.893,41.469],[19.906,41.488],[19.909,41.494],[19.91,41.499],[19.911,41.51],[19.923,41.509],[19.931,41.506],[19.943,41.498],[19.962,41.482],[19.983,41.458],[19.986,41.452],[19.987,41.448],[19.988,41.445],[19.994,41.439],[19.995,41.435],[19.997,41.431],[20,41.427],[20.018,41.415],[20.035,41.408],[20.042,41.402],[20.051,41.391],[20.057,41.388],[20.064,41.389],[20.075,41.397],[20.08,41.403],[20.108,41.403],[20.146,41.372],[20.16,41.364],[20.236,41.344]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Durresi'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Durresi?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where Durresi is located? </h2>Durresi, is a county It belongs to the country of Albania. Its postal identifier is DU.Durresi has an area of 1630 square kilometeres.
+      </div>
+    </div>
+    
+    <div id=ads-container><div id=ads> </div></div>
+    
+    <div id="map-canvas"></div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+
+
+
