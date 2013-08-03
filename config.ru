@@ -1,5 +1,6 @@
 use Rack::Static, 
   :urls => [],
+  :index => "index.html",
   :root => "public"
 
 run lambda { |env|
@@ -9,6 +10,6 @@ run lambda { |env|
       'Content-Type'  => 'text/html', 
       'Cache-Control' => 'public, max-age=86400' 
     },
-    File.open( 'archive' + env['PATH_INFO'], File::RDONLY)
+    File.open( 'public' + env['PATH_INFO'], File::RDONLY)
   ]
 }
