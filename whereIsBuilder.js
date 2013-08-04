@@ -13,6 +13,12 @@ fs.readdirSync(directory).forEach(function(file) {
 console.log('creating robots.txt');
 fs.writeFile(directory + 'robots.txt', 'User-agent: *\nDisallow:\nsitemap: http://whereisthis.herokuapp.com/sitemap.xml');
 
+//move images directory
+fs.writeFileSync(directory + 'background.jpg', fs.readFileSync('background.jpg'));
+
+//move the favicon to the output folder
+fs.writeFileSync(directory + 'favicon.ico', fs.readFileSync('favicon.ico'));
+
 //creating sitemap
 console.log('creating sitemap.xml');
 fs.writeFileSync(directory + 'sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n\t<url><loc>http://whereisthis.herokuapp.com</loc></url>');
@@ -284,7 +290,7 @@ function generateBlurb(name, type, country, region, size, abbrev, postal) {
 		blurb.push('.');
 	}
 
-	if(abbrev) {
+	if(abbrev && name !== abbrev) {
 		blurb.push(' Its abbreviated name is ');
 		blurb.push(abbrev);
 		if(!postal)
