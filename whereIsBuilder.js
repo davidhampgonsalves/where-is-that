@@ -161,7 +161,7 @@ function generateTemplate(name, blurb, json) {
 }
 
 function buildFileName(name) {
-	return name.replace(/ /g, '_').replace(/\./g, '_').replace(/\//g, '_').replace(/`/g, '').toLowerCase() + '.html';
+	return encodeURIComponent(name.replace(/ /g, '_').replace(/\./g, '_').replace(/\//g, '_').replace(/`/g, '').toLowerCase()) + '.html';
 }
 
 function addPageToSitemap(fileName) {
