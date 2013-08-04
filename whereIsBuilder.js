@@ -11,7 +11,7 @@ fs.readdirSync(directory).forEach(function(file) {
 
 //creating robots.txt
 console.log('creating robots.txt');
-fs.writeFile(directory + 'robots.txt', 'User-agent: *\nDisallow:\nsitemap: www.iswhere.us/sitemap.xml');
+fs.writeFile(directory + 'robots.txt', 'sitemap: http://www.iswhere.us/sitemap.xml');
 
 //move images directory
 fs.writeFileSync(directory + 'background.jpg', fs.readFileSync('background.jpg'));
@@ -165,7 +165,7 @@ function buildFileName(name) {
 }
 
 function addPageToSitemap(fileName) {
-	var sitemapEntry = '\n\t<url><loc>http://www.iswhere.us' + fileName + '</loc></url>';
+	var sitemapEntry = '\n\t<url><loc>http://www.iswhere.us/' + fileName + '</loc></url>';
 	fs.appendFileSync(directory + 'sitemap.xml', sitemapEntry);
 }
 
