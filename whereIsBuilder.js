@@ -11,7 +11,7 @@ fs.readdirSync(directory).forEach(function(file) {
 
 //creating robots.txt
 console.log('creating robots.txt');
-fs.writeFile(directory + 'robots.txt', 'User-agent: *\nDisallow:\nsitemap: http://whereisthis.herokuapp.com/sitemap.xml');
+fs.writeFile(directory + 'robots.txt', 'User-agent: *\nDisallow:\nsitemap: www.iswhere.us/sitemap.xml');
 
 //move images directory
 fs.writeFileSync(directory + 'background.jpg', fs.readFileSync('background.jpg'));
@@ -21,7 +21,7 @@ fs.writeFileSync(directory + 'favicon.ico', fs.readFileSync('favicon.ico'));
 
 //creating sitemap
 console.log('creating sitemap.xml');
-fs.writeFileSync(directory + 'sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n\t<url><loc>http://whereisthis.herokuapp.com</loc></url>');
+fs.writeFileSync(directory + 'sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n\t<url><loc>http://www.iswhere.us</loc></url>');
 
 console.log('building files for states and provinces');
 var template = fs.readFileSync('template.html' ,'utf8');
@@ -165,7 +165,7 @@ function buildFileName(name) {
 }
 
 function addPageToSitemap(fileName) {
-	var sitemapEntry = '<url><loc>http://iswhere.us' + fileName + '</loc></url>\n'; //TODO: encode url
+	var sitemapEntry = '\n\t<url><loc>http://www.iswhere.us' + fileName + '</loc></url>';
 	fs.appendFileSync(directory + 'sitemap.xml', sitemapEntry);
 }
 
