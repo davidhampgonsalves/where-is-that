@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Alejandr¡a?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta name="description" content="Find out where places in the world are located.">
+    <meta name="keywords" content="Where, is, Canada, United States, China, Ontario, Nova scotia">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[30.099,31.285],[30.096,31.278],[30.038,31.181],[30.011,31.149],[30,31.141],[29.932,31.106],[29.875,31.084],[29.87,31.081],[29.869,31.079],[29.868,31.076],[29.867,31.072],[29.868,31.064],[29.87,31.06],[29.871,31.057],[29.875,31.052],[29.881,31.042],[29.901,31.032],[29.91,31.005],[29.909,30.999],[29.897,30.982],[29.879,30.964],[29.864,30.94],[29.867,30.917],[29.874,30.899],[29.939,30.809],[29.985,30.761],[29.999,30.736],[30.013,30.698],[29.986,30.654],[29.961,30.621],[29.928,30.591],[29.892,30.569],[29.729,30.503],[29.684,30.462],[29.625,30.337],[29.598,31.009],[29.598,31.01],[29.604,31.012],[29.611,31.022],[29.619,31.029],[29.766,31.122],[29.782,31.148],[29.809,31.142],[29.839,31.154],[29.885,31.19],[29.876,31.201],[29.872,31.2],[29.864,31.196],[29.869,31.207],[29.877,31.214],[29.885,31.214],[29.891,31.203],[29.898,31.203],[29.91,31.214],[29.956,31.25],[29.97,31.258],[29.983,31.263],[30.003,31.287],[30.011,31.293],[30.025,31.295],[30.033,31.301],[30.04,31.307],[30.049,31.313],[30.046,31.314],[30.043,31.314],[30.042,31.316],[30.042,31.321],[30.07,31.334],[30.067,31.305],[30.095,31.286],[30.099,31.285]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Alejandr¡a'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Alejandr¡a?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Wondering  where Alejandr¡a is located? </h2>Alejandr¡a, is a governorate It belongs to the country of Egypt. Its postal identifier is IK.Alejandr¡a has an area of 2305 square kilometeres.
+      </div>
+    </div>
+    
+    <!--div id=ads-container><div id=ads> </div></div-->
+    
+    <div id="map-canvas"></div>
+  </body>
+</html>
+
+
+

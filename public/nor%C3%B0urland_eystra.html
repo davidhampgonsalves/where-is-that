@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Norðurland eystra?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta name="description" content="Find out where places in the world are located.">
+    <meta name="keywords" content="Where, is, Canada, United States, China, Ontario, Nova scotia">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"MultiPolygon","coordinates":[[[[-17.025,65.971],[-16.77,65.96],[-16.743,65.954],[-16.727,65.946],[-16.72,65.94],[-16.717,65.934],[-16.719,65.929],[-16.723,65.925],[-16.728,65.917],[-16.73,65.907],[-16.72,65.878],[-16.718,65.869],[-16.719,65.861],[-16.722,65.852],[-16.726,65.844],[-16.741,65.823],[-16.742,65.818],[-16.737,65.815],[-16.617,65.804],[-16.391,65.818],[-16.387,65.816],[-16.384,65.814],[-16.386,65.811],[-16.393,65.801],[-16.394,65.797],[-16.395,65.793],[-16.394,65.789],[-16.393,65.785],[-16.39,65.781],[-16.387,65.774],[-16.384,65.765],[-16.383,65.761],[-16.382,65.753],[-16.383,65.749],[-16.388,65.729],[-16.394,65.718],[-16.397,65.71],[-16.397,65.705],[-16.395,65.7],[-16.391,65.693],[-16.386,65.689],[-16.379,65.686],[-16.335,65.677],[-16.285,65.661],[-16.21,65.619],[-16.204,65.613],[-16.196,65.599],[-16.192,65.596],[-16.188,65.593],[-16.185,65.592],[-16.153,65.584],[-16.14,65.579],[-16.135,65.575],[-16.135,65.571],[-16.139,65.568],[-16.151,65.56],[-16.154,65.558],[-16.156,65.555],[-16.157,65.553],[-16.158,65.549],[-16.157,65.532],[-16.155,65.521],[-16.152,65.513],[-16.147,65.509],[-16.141,65.505],[-16.134,65.503],[-16.132,65.501],[-16.13,65.499],[-16.128,65.496],[-16.121,65.487],[-16.12,65.482],[-16.12,65.479],[-16.122,65.475],[-16.125,65.473],[-16.13,65.47],[-16.151,65.454],[-16.163,65.447],[-16.168,65.443],[-16.172,65.437],[-16.176,65.426],[-16.177,65.42],[-16.176,65.417],[-16.174,65.414],[-16.166,65.408],[-16.162,65.405],[-16.085,65.383],[-16.066,65.373],[-16.038,65.352],[-16.033,65.345],[-16.027,65.333],[-16.029,65.327],[-16.033,65.318],[-16.046,65.302],[-16.055,65.294],[-16.066,65.289],[-16.118,65.273],[-16.128,65.268],[-16.158,65.242],[-16.186,65.224],[-16.192,65.219],[-16.198,65.21],[-16.205,65.196],[-16.205,65.189],[-16.204,65.184],[-16.202,65.182],[-16.202,65.18],[-16.204,65.173],[-16.206,65.165],[-16.206,65.156],[-16.203,65.144],[-16.202,65.126],[-16.203,65.122],[-16.217,65.088],[-16.219,65.084],[-16.224,65.074],[-16.224,65.07],[-16.223,65.066],[-16.219,65.063],[-16.201,65.057],[-16.202,65.051],[-16.209,65.043],[-16.234,65.026],[-16.249,65.019],[-16.261,65.015],[-16.328,65.006],[-16.339,65.002],[-16.382,64.983],[-16.435,64.951],[-16.446,64.946],[-16.453,64.944],[-16.471,64.943],[-16.511,64.942],[-16.528,64.94],[-16.586,64.928],[-16.612,64.927],[-16.617,64.924],[-16.622,64.918],[-16.628,64.903],[-16.63,64.896],[-16.63,64.891],[-16.628,64.887],[-16.624,64.879],[-16.624,64.875],[-16.626,64.87],[-16.633,64.864],[-16.648,64.855],[-16.674,64.83],[-16.677,64.826],[-16.678,64.821],[-16.676,64.814],[-16.652,64.786],[-16.648,64.778],[-16.645,64.77],[-16.639,64.762],[-16.635,64.754],[-16.633,64.745],[-16.633,64.737],[-16.636,64.728],[-16.641,64.714],[-16.663,64.675],[-16.687,64.639],[-16.877,64.472],[-17.443,64.619],[-17.948,64.747],[-17.96,64.791],[-17.964,64.818],[-17.964,64.827],[-17.961,64.838],[-17.952,64.858],[-17.94,64.915],[-17.909,65.004],[-17.896,65.054],[-17.875,65.107],[-17.87,65.126],[-17.868,65.136],[-17.868,65.146],[-17.881,65.224],[-17.879,65.243],[-17.875,65.256],[-17.868,65.263],[-17.863,65.271],[-17.863,65.281],[-17.868,65.294],[-17.914,65.348],[-17.921,65.359],[-17.925,65.37],[-17.926,65.381],[-17.923,65.399],[-17.918,65.412],[-17.913,65.418],[-17.907,65.423],[-17.899,65.428],[-17.854,65.442],[-17.849,65.446],[-17.845,65.45],[-17.843,65.464],[-17.841,65.471],[-17.838,65.477],[-17.837,65.486],[-17.839,65.495],[-17.847,65.511],[-17.847,65.517],[-17.844,65.521],[-17.838,65.524],[-17.834,65.526],[-17.833,65.53],[-17.834,65.537],[-17.84,65.543],[-17.848,65.549],[-17.865,65.557],[-17.879,65.566],[-17.896,65.581],[-17.904,65.591],[-17.921,65.62],[-17.928,65.629],[-17.957,65.654],[-17.963,65.661],[-17.969,65.675],[-17.979,65.68],[-17.988,65.683],[-18.055,65.682],[-18.06,65.694],[-18.07,65.706],[-18.078,65.71],[-18.099,65.717],[-18.105,65.72],[-18.109,65.732],[-18.106,65.738],[-18.101,65.743],[-18.098,65.748],[-18.098,65.758],[-18.101,65.765],[-18.101,65.772],[-18.098,65.782],[-18.092,65.786],[-18.075,65.793],[-18.07,65.796],[-18.064,65.815],[-18.067,65.831],[-18.098,65.878],[-18.098,65.881],[-18.098,65.895],[-18.1,65.899],[-18.106,65.899],[-18.113,65.898],[-18.119,65.899],[-18.138,65.916],[-18.146,65.92],[-18.147,65.921],[-18.149,65.923],[-18.151,65.925],[-18.157,65.926],[-18.161,65.924],[-18.17,65.914],[-18.173,65.912],[-18.187,65.916],[-18.218,65.932],[-18.228,65.939],[-18.219,65.954],[-18.222,65.967],[-18.235,65.977],[-18.264,65.985],[-18.284,66.006],[-18.297,66.015],[-18.297,66.022],[-18.289,66.022],[-18.289,66.03],[-18.316,66.057],[-18.329,66.104],[-18.324,66.151],[-18.297,66.18],[-18.284,66.182],[-18.194,66.18],[-18.18,66.176],[-18.156,66.168],[-18.142,66.166],[-18.1,66.168],[-18.084,66.166],[-18.086,66.162],[-18.086,66.161],[-18.087,66.16],[-18.091,66.159],[-18.054,66.15],[-17.955,66.16],[-17.913,66.152],[-17.904,66.145],[-17.894,66.125],[-17.885,66.118],[-17.874,66.115],[-17.834,66.118],[-17.816,66.113],[-17.784,66.095],[-17.766,66.09],[-17.752,66.085],[-17.713,66.06],[-17.7,66.049],[-17.684,66.021],[-17.673,66.007],[-17.641,65.997],[-17.624,65.987],[-17.598,65.967],[-17.564,65.925],[-17.55,65.912],[-17.546,65.931],[-17.554,65.946],[-17.567,65.96],[-17.577,65.974],[-17.558,65.974],[-17.535,65.976],[-17.513,65.981],[-17.495,65.988],[-17.587,65.986],[-17.611,65.994],[-17.452,65.995],[-17.44,65.99],[-17.433,65.979],[-17.419,65.961],[-17.413,65.961],[-17.408,65.968],[-17.407,65.975],[-17.41,65.982],[-17.419,65.988],[-17.419,65.994],[-17.406,65.999],[-17.395,66.006],[-17.389,66.017],[-17.392,66.03],[-17.376,66.037],[-17.37,66.042],[-17.365,66.049],[-17.364,66.055],[-17.366,66.071],[-17.365,66.084],[-17.352,66.097],[-17.327,66.11],[-17.297,66.121],[-17.272,66.124],[-17.261,66.13],[-17.256,66.142],[-17.255,66.153],[-17.259,66.159],[-17.27,66.162],[-17.265,66.169],[-17.244,66.183],[-17.217,66.194],[-17.156,66.204],[-17.145,66.221],[-17.119,66.211],[-17.019,66.207],[-16.992,66.2],[-16.991,66.199],[-16.997,66.195],[-17.024,66.176],[-17.029,66.161],[-17.033,66.139],[-17.034,66.129],[-17.032,66.119],[-17.023,66.1],[-17.024,66.094],[-17.029,66.088],[-17.037,66.082],[-17.048,66.07],[-17.051,66.06],[-17.051,66.05],[-17.046,66.027],[-17.045,66.018],[-17.046,65.999],[-17.042,65.982],[-17.035,65.976],[-17.025,65.971]]],[[[-17.98,66.539],[-18,66.533],[-18.017,66.545],[-18.02,66.561],[-18.009,66.564],[-17.984,66.551],[-17.976,66.548],[-17.98,66.539]]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Norðurland eystra'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Norðurland eystra?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to find where Norðurland eystra is located? </h2>Norðurland eystra, is a region of the Hálshreppur region. It belongs to the country of Iceland. Its postal identifier is NE.Norðurland eystra has an area of 12057 square kilometeres.
+      </div>
+    </div>
+    
+    <!--div id=ads-container><div id=ads> </div></div-->
+    
+    <div id="map-canvas"></div>
+  </body>
+</html>
+
+
+

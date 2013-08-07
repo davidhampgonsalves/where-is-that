@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Le¢n?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta name="description" content="Find out where places in the world are located.">
+    <meta name="keywords" content="Where, is, Canada, United States, China, Ontario, Nova scotia">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[-78.397,-0.684],[-78.405,-0.71],[-78.405,-0.72],[-78.394,-0.756],[-78.389,-0.791],[-78.388,-0.814],[-78.391,-0.833],[-78.402,-0.853],[-78.413,-0.869],[-78.418,-0.883],[-78.42,-0.893],[-78.419,-0.907],[-78.422,-0.916],[-78.427,-0.923],[-78.434,-0.927],[-78.439,-0.932],[-78.442,-0.938],[-78.438,-0.945],[-78.431,-0.95],[-78.407,-0.954],[-78.391,-0.964],[-78.42,-0.988],[-78.424,-0.997],[-78.43,-1.006],[-78.434,-1.016],[-78.435,-1.027],[-78.434,-1.044],[-78.446,-1.065],[-78.455,-1.075],[-78.468,-1.081],[-78.492,-1.082],[-78.504,-1.078],[-78.513,-1.072],[-78.518,-1.066],[-78.525,-1.062],[-78.533,-1.059],[-78.543,-1.058],[-78.553,-1.061],[-78.563,-1.07],[-78.564,-1.076],[-78.564,-1.089],[-78.568,-1.097],[-78.575,-1.103],[-78.585,-1.106],[-78.611,-1.108],[-78.621,-1.111],[-78.645,-1.131],[-78.661,-1.139],[-78.677,-1.143],[-78.702,-1.142],[-78.75,-1.131],[-78.767,-1.132],[-78.786,-1.136],[-78.811,-1.144],[-78.838,-1.167],[-78.866,-1.178],[-78.895,-1.17],[-78.907,-1.172],[-78.924,-1.18],[-78.951,-1.203],[-78.968,-1.209],[-78.991,-1.209],[-79.015,-1.203],[-79.034,-1.194],[-79.064,-1.174],[-79.071,-1.167],[-79.076,-1.16],[-79.082,-1.155],[-79.096,-1.153],[-79.109,-1.152],[-79.138,-1.156],[-79.161,-1.163],[-79.235,-1.2],[-79.281,-1.203],[-79.288,-1.17],[-79.314,-1.136],[-79.323,-1.121],[-79.323,-1.097],[-79.32,-1.072],[-79.305,-1.002],[-79.307,-0.985],[-79.307,-0.967],[-79.304,-0.949],[-79.291,-0.914],[-79.282,-0.899],[-79.272,-0.889],[-79.26,-0.88],[-79.248,-0.87],[-79.222,-0.82],[-79.214,-0.811],[-79.204,-0.804],[-79.196,-0.799],[-79.187,-0.793],[-79.181,-0.785],[-79.166,-0.759],[-79.098,-0.597],[-79.087,-0.552],[-79.072,-0.575],[-79.068,-0.579],[-79.062,-0.583],[-79.054,-0.585],[-79.047,-0.585],[-79.037,-0.581],[-79.032,-0.573],[-79.028,-0.566],[-79.025,-0.551],[-79.02,-0.546],[-79.013,-0.542],[-79.001,-0.538],[-78.995,-0.535],[-78.991,-0.532],[-78.991,-0.526],[-78.993,-0.519],[-78.996,-0.51],[-79.001,-0.503],[-79.009,-0.497],[-79.026,-0.489],[-79.031,-0.485],[-79.033,-0.48],[-79.032,-0.476],[-79.028,-0.47],[-79.019,-0.454],[-79.007,-0.424],[-79.003,-0.419],[-78.998,-0.414],[-78.994,-0.412],[-78.977,-0.404],[-78.973,-0.4],[-78.969,-0.395],[-78.967,-0.388],[-78.966,-0.38],[-78.962,-0.373],[-78.958,-0.366],[-78.953,-0.362],[-78.949,-0.36],[-78.938,-0.358],[-78.934,-0.354],[-78.931,-0.35],[-78.927,-0.347],[-78.922,-0.345],[-78.913,-0.353],[-78.91,-0.358],[-78.91,-0.371],[-78.907,-0.377],[-78.87,-0.425],[-78.855,-0.453],[-78.843,-0.471],[-78.84,-0.48],[-78.834,-0.505],[-78.829,-0.516],[-78.816,-0.527],[-78.752,-0.572],[-78.735,-0.596],[-78.726,-0.617],[-78.724,-0.633],[-78.721,-0.644],[-78.714,-0.653],[-78.708,-0.656],[-78.698,-0.653],[-78.672,-0.635],[-78.663,-0.63],[-78.655,-0.628],[-78.648,-0.625],[-78.641,-0.621],[-78.63,-0.613],[-78.618,-0.607],[-78.609,-0.605],[-78.601,-0.613],[-78.596,-0.619],[-78.59,-0.622],[-78.579,-0.618],[-78.552,-0.603],[-78.542,-0.602],[-78.527,-0.602],[-78.503,-0.606],[-78.49,-0.604],[-78.462,-0.615],[-78.397,-0.684]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'Le¢n'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Le¢n?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Want to discover where Le¢n is located? </h2>Le¢n, is a province It belongs to the country of Ecuador. Its postal identifier is CT.Le¢n has an area of 5987 square kilometeres.
+      </div>
+    </div>
+    
+    <!--div id=ads-container><div id=ads> </div></div-->
+    
+    <div id="map-canvas"></div>
+  </body>
+</html>
+
+
+

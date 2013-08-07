@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is kocjan?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta name="description" content="Find out where places in the world are located.">
+    <meta name="keywords" content="Where, is, Canada, United States, China, Ontario, Nova scotia">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[15.363,45.935],[15.354,45.916],[15.353,45.9],[15.351,45.892],[15.361,45.884],[15.356,45.874],[15.348,45.87],[15.344,45.868],[15.341,45.868],[15.34,45.871],[15.329,45.875],[15.304,45.864],[15.302,45.875],[15.306,45.881],[15.303,45.885],[15.298,45.89],[15.289,45.899],[15.278,45.904],[15.269,45.907],[15.239,45.924],[15.238,45.932],[15.255,45.939],[15.257,45.942],[15.257,45.944],[15.26,45.945],[15.266,45.945],[15.279,45.936],[15.284,45.936],[15.287,45.94],[15.285,45.945],[15.285,45.949],[15.286,45.952],[15.29,45.954],[15.296,45.956],[15.317,45.957],[15.327,45.956],[15.335,45.954],[15.343,45.951],[15.346,45.944],[15.363,45.935]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'kocjan'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>kocjan?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have you ever asked where kocjan is located? </h2>kocjan, is a commune|municipality of the Jugovzhodna Slovenija region. It belongs to the country of Slovenia. Its postal identifier is SK.kocjan has an area of 58 square kilometeres.
+      </div>
+    </div>
+    
+    <!--div id=ads-container><div id=ads> </div></div-->
+    
+    <div id="map-canvas"></div>
+  </body>
+</html>
+
+
+

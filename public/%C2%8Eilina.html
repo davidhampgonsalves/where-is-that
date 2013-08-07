@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is ilina?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta name="description" content="Find out where places in the world are located.">
+    <meta name="keywords" content="Where, is, Canada, United States, China, Ontario, Nova scotia">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[19.627,49.402],[19.627,49.402],[19.626,49.402],[19.624,49.4],[19.627,49.402],[19.627,49.402],[19.627,49.402],[19.684,49.389],[19.706,49.388],[19.726,49.389],[19.76,49.398],[19.769,49.394],[19.778,49.375],[19.783,49.358],[19.789,49.31],[19.788,49.306],[19.787,49.305],[19.78,49.298],[19.78,49.298],[19.779,49.294],[19.783,49.29],[19.797,49.284],[19.798,49.281],[19.806,49.276],[19.808,49.271],[19.806,49.266],[19.806,49.266],[19.8,49.263],[19.794,49.262],[19.789,49.26],[19.789,49.26],[19.78,49.25],[19.751,49.22],[19.751,49.219],[19.747,49.206],[19.76,49.195],[19.786,49.189],[19.832,49.186],[19.854,49.192],[19.868,49.201],[19.868,49.201],[19.869,49.198],[19.89,49.174],[19.895,49.166],[19.899,49.157],[19.9,49.145],[19.901,49.138],[19.906,49.133],[19.909,49.131],[19.912,49.132],[19.913,49.134],[19.917,49.136],[19.921,49.138],[19.928,49.138],[19.934,49.137],[19.94,49.134],[19.945,49.129],[19.951,49.119],[19.955,49.115],[19.958,49.114],[19.961,49.116],[19.964,49.117],[19.967,49.116],[19.97,49.112],[19.973,49.109],[19.976,49.107],[19.98,49.107],[19.999,49.11],[20.013,49.114],[20.018,49.115],[20.024,49.115],[20.026,49.111],[20.027,49.103],[20.021,49.074],[20.021,49.063],[20.019,49.054],[20.015,49.04],[20.014,49.027],[20.012,49.021],[20.008,49.019],[20.001,49.018],[19.991,49.015],[19.985,49.015],[19.978,49.015],[19.975,49.015],[19.974,49.012],[19.975,49.008],[20.009,48.979],[20.015,48.975],[20.02,48.971],[20.023,48.966],[20.024,48.957],[20.028,48.947],[20.03,48.943],[20.033,48.941],[20.036,48.939],[20.041,48.937],[20.052,48.936],[20.054,48.934],[20.052,48.93],[20.041,48.922],[20.03,48.917],[19.996,48.907],[19.983,48.913],[19.979,48.914],[19.973,48.913],[19.956,48.908],[19.944,48.907],[19.941,48.906],[19.845,48.908],[19.817,48.913],[19.808,48.913],[19.762,48.904],[19.75,48.9],[19.747,48.9],[19.743,48.901],[19.738,48.904],[19.735,48.906],[19.732,48.908],[19.728,48.909],[19.718,48.911],[19.715,48.913],[19.709,48.917],[19.702,48.92],[19.637,48.936],[19.562,48.942],[19.394,48.924],[19.36,48.896],[19.339,48.888],[19.328,48.879],[19.327,48.875],[19.325,48.869],[19.324,48.867],[19.323,48.865],[19.321,48.864],[19.316,48.861],[19.31,48.86],[19.27,48.856],[19.266,48.856],[19.265,48.856],[19.267,48.861],[19.268,48.862],[19.269,48.862],[19.273,48.863],[19.274,48.863],[19.274,48.865],[19.274,48.869],[19.272,48.877],[19.27,48.881],[19.268,48.883],[19.265,48.884],[19.263,48.885],[19.261,48.889],[19.26,48.891],[19.252,48.891],[19.087,48.875],[19.039,48.877],[19.028,48.859],[19.025,48.857],[19.02,48.853],[19.003,48.848],[19.001,48.845],[19.001,48.842],[19.007,48.83],[19.008,48.824],[19.007,48.82],[19.003,48.816],[19,48.813],[18.999,48.81],[19,48.806],[19.005,48.799],[19.019,48.791],[19.02,48.79],[19.021,48.786],[19.02,48.781],[19.017,48.77],[19.015,48.764],[19.001,48.747],[18.916,48.75],[18.899,48.753],[18.899,48.754],[18.896,48.757],[18.894,48.758],[18.893,48.759],[18.892,48.761],[18.891,48.763],[18.89,48.765],[18.888,48.767],[18.876,48.764],[18.833,48.744],[18.83,48.754],[18.827,48.757],[18.793,48.785],[18.787,48.792],[18.783,48.797],[18.78,48.804],[18.78,48.807],[18.78,48.81],[18.783,48.812],[18.782,48.813],[18.779,48.814],[18.773,48.816],[18.758,48.826],[18.753,48.827],[18.751,48.828],[18.747,48.83],[18.745,48.831],[18.74,48.831],[18.738,48.832],[18.735,48.833],[18.712,48.847],[18.708,48.851],[18.706,48.854],[18.706,48.859],[18.707,48.866],[18.708,48.868],[18.707,48.871],[18.706,48.875],[18.706,48.878],[18.707,48.881],[18.709,48.887],[18.71,48.891],[18.709,48.896],[18.703,48.911],[18.703,48.915],[18.705,48.917],[18.707,48.92],[18.709,48.922],[18.71,48.924],[18.71,48.926],[18.711,48.927],[18.712,48.928],[18.714,48.929],[18.716,48.93],[18.719,48.932],[18.721,48.934],[18.726,48.937],[18.706,48.954],[18.702,48.956],[18.696,48.958],[18.677,48.959],[18.636,48.966],[18.603,48.96],[18.594,48.96],[18.592,48.962],[18.586,48.97],[18.583,48.972],[18.581,48.972],[18.568,48.962],[18.566,48.961],[18.566,48.959],[18.565,48.957],[18.562,48.954],[18.555,48.95],[18.528,48.939],[18.521,48.938],[18.517,48.939],[18.503,48.942],[18.485,48.944],[18.476,48.948],[18.471,48.956],[18.5,48.968],[18.504,48.97],[18.51,48.974],[18.519,48.985],[18.525,48.988],[18.531,48.991],[18.561,48.996],[18.571,49.001],[18.582,49.01],[18.595,49.023],[18.601,49.03],[18.603,49.035],[18.6,49.049],[18.6,49.051],[18.601,49.053],[18.603,49.056],[18.603,49.057],[18.603,49.059],[18.602,49.06],[18.602,49.061],[18.602,49.063],[18.604,49.067],[18.604,49.069],[18.604,49.07],[18.603,49.072],[18.601,49.073],[18.599,49.074],[18.595,49.075],[18.594,49.076],[18.593,49.077],[18.59,49.082],[18.588,49.083],[18.586,49.085],[18.584,49.086],[18.582,49.087],[18.568,49.09],[18.564,49.09],[18.562,49.091],[18.561,49.093],[18.564,49.096],[18.591,49.115],[18.579,49.127],[18.578,49.129],[18.577,49.133],[18.578,49.137],[18.577,49.144],[18.574,49.149],[18.566,49.157],[18.561,49.16],[18.543,49.168],[18.537,49.168],[18.533,49.17],[18.529,49.171],[18.517,49.179],[18.513,49.18],[18.511,49.181],[18.508,49.181],[18.506,49.181],[18.482,49.192],[18.476,49.195],[18.471,49.2],[18.458,49.215],[18.457,49.217],[18.457,49.218],[18.457,49.22],[18.455,49.222],[18.45,49.228],[18.45,49.23],[18.45,49.231],[18.451,49.234],[18.452,49.235],[18.451,49.238],[18.448,49.241],[18.387,49.308],[18.385,49.31],[18.385,49.312],[18.385,49.314],[18.384,49.322],[18.366,49.326],[18.361,49.331],[18.361,49.331],[18.385,49.343],[18.387,49.39],[18.416,49.386],[18.439,49.395],[18.482,49.429],[18.514,49.441],[18.523,49.446],[18.528,49.455],[18.53,49.474],[18.535,49.482],[18.556,49.491],[18.6,49.486],[18.629,49.496],[18.636,49.497],[18.643,49.496],[18.675,49.485],[18.704,49.48],[18.732,49.481],[18.773,49.505],[18.792,49.51],[18.833,49.511],[18.833,49.511],[18.833,49.511],[18.932,49.505],[18.961,49.493],[18.952,49.476],[18.953,49.462],[18.958,49.449],[18.961,49.434],[18.956,49.401],[18.962,49.39],[18.982,49.387],[19.007,49.389],[19.045,49.403],[19.067,49.407],[19.076,49.404],[19.096,49.395],[19.106,49.392],[19.116,49.391],[19.141,49.395],[19.172,49.403],[19.172,49.403],[19.179,49.411],[19.182,49.423],[19.189,49.442],[19.189,49.443],[19.192,49.443],[19.204,49.443],[19.209,49.445],[19.209,49.445],[19.211,49.452],[19.209,49.457],[19.206,49.46],[19.204,49.461],[19.22,49.493],[19.234,49.507],[19.234,49.508],[19.248,49.517],[19.265,49.522],[19.284,49.525],[19.315,49.524],[19.325,49.525],[19.339,49.529],[19.347,49.533],[19.433,49.596],[19.434,49.596],[19.437,49.6],[19.437,49.601],[19.443,49.602],[19.449,49.601],[19.457,49.598],[19.474,49.579],[19.481,49.574],[19.505,49.564],[19.517,49.544],[19.535,49.493],[19.551,49.461],[19.556,49.454],[19.574,49.446],[19.594,49.442],[19.634,49.442],[19.63,49.435],[19.628,49.43],[19.629,49.414],[19.627,49.402]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        var marker = new google.maps.Marker({
+          position: regionOverlay.getBounds().getCenter(),
+          map: map,
+          title: 'ilina'
+        });          
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>ilina?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Maybe you were curious about where ilina is located? </h2>ilina, is a region of the Stredoslovensky region. It belongs to the country of Slovakia. Its postal identifier is ZI.ilina has an area of 6640 square kilometeres.
+      </div>
+    </div>
+    
+    <!--div id=ads-container><div id=ads> </div></div-->
+    
+    <div id="map-canvas"></div>
+  </body>
+</html>
+
+
+
