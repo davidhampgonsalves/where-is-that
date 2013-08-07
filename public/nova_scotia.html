@@ -61,14 +61,14 @@
               bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
             }
           } else
-            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+            bounds = addPolygonToMap(map, rawData.coordinates[0], true);
 
           var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
           map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
           map.fitBounds(bounds);
       }
 
-      function addPolygonToMap(map, data) {
+      function addPolygonToMap(map, data, isSinglePolygon) {
 
         var regionCoords = [];
         var regionBounds = new google.maps.LatLngBounds();
@@ -97,11 +97,13 @@
         overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
         var regionOverlay2 = new google.maps.Polygon(overlayOptions);
 
-        var marker = new google.maps.Marker({
-          position: regionOverlay.getBounds().getCenter(),
-          map: map,
-          title: 'Nova Scotia'
-        });          
+        if(isSinglePolygon) {
+          new google.maps.Marker({
+            position: regionOverlay.getBounds().getCenter(),
+            map: map,
+            title: 'Nova Scotia'
+          });
+        }
 
         regionOverlay.setMap(map);
         regionOverlay2.setMap(map);
@@ -204,7 +206,7 @@
     
     <div id=content-container>
       <div id=content>
-          <h2>Have you questioned  where Nova Scotia is located? </h2> Nova Scotia is one of three Canadian maritime provinces. It is located at the eastern side of canada bordering the atlantic ocean. It is located at 44º 39' N Longitude which is centered between the equator and the north pole. <br><br> It has a population of nearly a million which combined with its small relative size(55 000 square kilometers) makes it the province with the second highest population density.
+          <h2>Maybe you were curious about where Nova Scotia is located? </h2> Nova Scotia is one of three Canadian maritime provinces. It is located at the eastern side of canada bordering the atlantic ocean. It is located at 44º 39' N Longitude which is centered between the equator and the north pole. <br><br> It has a population of nearly a million which combined with its small relative size(55 000 square kilometers) makes it the province with the second highest population density.
       </div>
     </div>
     

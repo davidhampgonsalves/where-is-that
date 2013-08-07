@@ -61,14 +61,14 @@
               bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
             }
           } else
-            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+            bounds = addPolygonToMap(map, rawData.coordinates[0], true);
 
           var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
           map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
           map.fitBounds(bounds);
       }
 
-      function addPolygonToMap(map, data) {
+      function addPolygonToMap(map, data, isSinglePolygon) {
 
         var regionCoords = [];
         var regionBounds = new google.maps.LatLngBounds();
@@ -97,11 +97,13 @@
         overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
         var regionOverlay2 = new google.maps.Polygon(overlayOptions);
 
-        var marker = new google.maps.Marker({
-          position: regionOverlay.getBounds().getCenter(),
-          map: map,
-          title: 'Quang Nam'
-        });          
+        if(isSinglePolygon) {
+          new google.maps.Marker({
+            position: regionOverlay.getBounds().getCenter(),
+            map: map,
+            title: 'Quang Nam'
+          });
+        }
 
         regionOverlay.setMap(map);
         regionOverlay2.setMap(map);
@@ -204,7 +206,7 @@
     
     <div id=content-container>
       <div id=content>
-          <h2>Have you ever wondered where Quang Nam is located? </h2>Quang Nam which belongs to the country of Vietnam. Its postal identifier is DA. has an area of 10993 square kilometeres.
+          <h2>Have you questioned  where Quang Nam is located? </h2>Quang Nam which belongs to the country of Vietnam. Its postal identifier is DA. has an area of 10993 square kilometeres.
       </div>
     </div>
     

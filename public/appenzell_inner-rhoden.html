@@ -61,14 +61,14 @@
               bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
             }
           } else
-            bounds = addPolygonToMap(map, rawData.coordinates[0]);
+            bounds = addPolygonToMap(map, rawData.coordinates[0], true);
 
           var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
           map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
           map.fitBounds(bounds);
       }
 
-      function addPolygonToMap(map, data) {
+      function addPolygonToMap(map, data, isSinglePolygon) {
 
         var regionCoords = [];
         var regionBounds = new google.maps.LatLngBounds();
@@ -97,11 +97,13 @@
         overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
         var regionOverlay2 = new google.maps.Polygon(overlayOptions);
 
-        var marker = new google.maps.Marker({
-          position: regionOverlay.getBounds().getCenter(),
-          map: map,
-          title: 'Appenzell Inner-Rhoden'
-        });          
+        if(isSinglePolygon) {
+          new google.maps.Marker({
+            position: regionOverlay.getBounds().getCenter(),
+            map: map,
+            title: 'Appenzell Inner-Rhoden'
+          });
+        }
 
         regionOverlay.setMap(map);
         regionOverlay2.setMap(map);
@@ -204,7 +206,7 @@
     
     <div id=content-container>
       <div id=content>
-          <h2>Have you ever wondered where Appenzell Inner-Rhoden is located? </h2>Appenzell Inner-Rhoden, is a canton of the Appenzell Innerrhoden region. It belongs to the country of Switzerland. Its postal identifier is AI.Appenzell Inner-Rhoden has an area of 166 square kilometeres.
+          <h2>Have you ever asked where Appenzell Inner-Rhoden is located? </h2>Appenzell Inner-Rhoden, is a canton of the Appenzell Innerrhoden region. It belongs to the country of Switzerland. Its postal identifier is AI.Appenzell Inner-Rhoden has an area of 166 square kilometeres.
       </div>
     </div>
     
