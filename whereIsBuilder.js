@@ -27,10 +27,16 @@ console.log('building files for states and provinces');
 var template = fs.readFileSync('template.html' ,'utf8');
 var indexTemplate = fs.readFileSync('index_template.html' ,'utf8');
 
-loadStaticBlurbs();
+//load the static blurbs, then the external country data
+loadStaticBlurbs(function() {
+	loadExternalCountryData('HDR-2011.csv', function() {
+		loadExternalCountryData('worldbank.csv', generateStates);
+	});
+});
+
 
 var _staticBlurbs = {};
-function loadStaticBlurbs() {
+function loadStaticBlurbs(callback) {
 	console.log('loading static blurbs');
 
  	var reader = csv.createCsvFileReader('static-blurbs.csv', {
@@ -46,12 +52,48 @@ function loadStaticBlurbs() {
 	});
 
 	reader.addListener('end', function() {
-		generateStates();
+		callback();
 	});
 }
 
 function getStaticBlurb(name) {
 	return _staticBlurbs[name.toLowerCase()];
+}
+
+var _externalCountryData = [];
+function loadExternalCountryData(fileName, callback) {
+	console.log('loading external country data file ' + fileName);
+	//load HDR data
+	var reader = csv.createCsvFileReader(fileName, {
+		separator: ',',
+		quote: '"',
+		'escape': '"',       
+		comment: '',
+		columnsFromHeader: true
+	});
+
+	reader.addListener('data', function(data) {
+
+		var name = data.name.toLowerCase().trim();
+
+		var countryData = _externalCountryData[name];
+		if(!countryData) {
+			countryData = {};
+			_externalCountryData[name] = countryData;
+		}
+
+		for(var field in data)
+			if(field !== 'name' && data[field] !== '')
+				countryData[field] = data[field];
+	});
+
+	reader.addListener('end', function() {
+		callback();
+	});
+}
+ 
+function getExternalCountryData(name) {
+	return _externalCountryData[name.toLowerCase()];
 }
 
 function generateStates() {
@@ -81,7 +123,7 @@ function generateStates() {
 			if(name.indexOf('?') >= 0 || name === '')
 				continue;
 
-			var pageName = createProvincePage(name, data.engtype_1, data.country, data.region, data.area_sqkm, data.abbrev, data.postal, data.json);
+			var pageName = createProvincePage(name, data.engtype_1, data.country, data.region, data.area_sqkm, data.abbrev, data.postal, data.json, i > 0);
 			addPageToSitemap(pageName);
 
 			//don't want to add aliases
@@ -130,14 +172,26 @@ function limitNameToAscii(name) {
 	return name.replace(/`/g,'');
 }
 
-function createProvincePage(name, type, country, region, size, abbrev, postal, json) {
+var _countriesAndStates = {};
+function createProvincePage(name, type, country, region, size, abbrev, postal, json, isVariant) {
 	//open template
 	var blurb = generateBlurb(name, type, country, region, size, abbrev, postal);
 
+	country = country.toLowerCase();
+	var countriesAndStates = _countriesAndStates[country];
+	if(!countriesAndStates) {
+		countriesAndStates = [];
+		_countriesAndStates[country.toLowerCase()] = countriesAndStates;
+	}
+
+	if(!isVariant)
+		countriesAndStates.push(name);
+
 	var fileName = buildFileName(name);
 
+	var desc = 'Want to know where the ' + type + ' of ' + name + ' is located?';
 	//write to new file
-	fs.writeFileSync(directory + fileName,  generateTemplate(name, blurb, json));
+	fs.writeFileSync(directory + fileName,  generateTemplate(name, blurb, json, desc));
 
 	//return new file name
 	return fileName;
@@ -149,15 +203,17 @@ function createCountryPage(name, type, sovereignt, abbrev, postal, json) {
 
 	var fileName = buildFileName(name);
 
+	var desc = 'Where is the country of ' + name + ' located?';
+
 	//write to new file
-	fs.writeFileSync(directory + fileName,  generateTemplate(name, blurb, json));
+	fs.writeFileSync(directory + fileName,  generateTemplate(name, blurb, json, desc));
 
 	//return new file name
 	return fileName;
 }
 
-function generateTemplate(name, blurb, json) {
-	return template.replace(/<% name %>/g, name).replace(/<% blurb %>/g, blurb).replace(/<% json %>/g, json);
+function generateTemplate(name, blurb, json, desc) {
+	return template.replace(/<% name %>/g, name).replace(/<% blurb %>/g, blurb).replace(/<% json %>/g, json).replace(/<% desc %>/g, desc);
 }
 
 function buildFileName(name) {
@@ -220,43 +276,6 @@ function generateBlurbHeader(name) {
 	return '<h2>' + getRandomTitlePrefix() + ' where ' + name + ' is located? </h2>';
 }
 
-function generateCountryBlurb(name, type, sovereignt, abbrev, postal) {
-	var blurb = getStaticBlurb(name);
-	if(blurb)
-		return generateBlurbHeader(name) + blurb;
-
-	blurb = [generateBlurbHeader(name), name];
-
-	blurb.push(' is a ');
-	blurb.push(type);
-
-	if(type && type.toLowerCase() === 'dependency') {
-		blurb.push(' of ');
-		blurb.push(sovereignt);
-	} 
-	blurb.push('.');
-
-	if(abbrev) {
-		blurb.push(' Its abbreviated name is ');
-		blurb.push(abbrev);
-		if(!postal)
-			blurb.push('.');
-	}
-
-	if(postal) {
-		if(abbrev) 
-			blurb.push(' and its');
-		else
-			blurb.push(' Its');
-
-		blurb.push(' postal identifier is ');
-		blurb.push(postal);
-		blurb.push('.');	
-	}
-
-	return blurb.join('');
-}
-
 function generateBlurb(name, type, country, region, size, abbrev, postal) {
 	
 	var blurb = getStaticBlurb(name);
@@ -286,7 +305,7 @@ function generateBlurb(name, type, country, region, size, abbrev, postal) {
 		else
 			blurb.push(' which')
 		blurb.push(' belongs to the country of ');
-		blurb.push(country);
+		blurb.push('<a href="'+ buildFileName(country) + '">' + country + '</a>');
 		blurb.push('.');
 	}
 
@@ -322,6 +341,99 @@ function generateBlurb(name, type, country, region, size, abbrev, postal) {
 	return blurb.join('');
 }
 
+
+function generateCountryBlurb(name, type, sovereignt, abbrev, postal) {
+	var blurb = getStaticBlurb(name);
+	if(blurb)
+		return generateBlurbHeader(name) + blurb;
+	
+	var countryNames = [name, 'It', 'The country', 'The nation', 'The state'];
+	blurb = [];
+
+	var countryData = getExternalCountryData(name);
+	if(countryData) {
+		if(countryData.educationExpenditure && countryData.adultLiteracy && countryData.educationIndex)
+			blurb.push(' spends ' + countryData.educationExpenditure + '% of its annual GDP on education which has contributed to an adult adult literacy rate of ' + countryData.adultLiteracy +  ' and its education index rating of ' + countryData.educationIndex + '.');
+		else if(countryData.educationExpenditure && countryData.adultLiteracy)
+				blurb.push(' spends ' + countryData.educationExpenditure + '% of its annual GDP on education which has contributed to an adult adult literacy rate of ' + countryData.adultLiteracy + '.');
+		else if(countryData.educationExpenditure)
+			blurb.push(' <country> spends ' + countryData.educationExpenditure + '% of its annual GDP on education.');
+
+		if(countryData.healthExpendature && countryData.healthIndex)
+			blurb.push(' <country> spends ' + countryData.healthExpendature + '% of its annual GDP on public health care which has resulted in a health index of ' + countryData.healthIndex + (countryData.lifeExpectancy ? (' and a life life expectancy of ' + countryData.lifeExpectancy) : '') + ' years.');
+		else if(countryData.healthExpendature)
+			blurb.push(' <country> spends ' + countryData.healthExpendature + '% of its annual GDP on public health care ' + (countryData.lifeExpectancy ? ' and a life life expectancy of ' + countryData.lifeExpectancy : '') + '.');
+
+		if(countryData.gILGenderEquality)
+			blurb.push(' <country> has recieved a gender equality index of ' + countryData.gILGenderEquality + ' which is ' + (countryData.gILGenderEquality < 50 ? 'bellow':'above') + ' average.');
+
+		if(countryData.populationFemale	&& countryData.populationMale)
+			blurb.push(' <country> has a female population of ' + countryData.populationFemale + ' compared to its male population of ' + countryData.populationMale + '.');
+
+		if(countryData.populationUrban)
+			blurb.push(' The ' + (countryData.populationUrban > 50 ? 'majority' : 'minority' ) + ' of the population of ' + name + ' lives in urban centers which is typical of the region.');
+
+		if(countryData.currency)
+			blurb.push(' <country> uses the ' + countryData.currency + ' as its primary currency.');
+
+		if(countryData.maternalMortalityRate)
+			blurb.push(' <country>\'s maternal mortality rate is ' + countryData.maternalMortalityRate + ' deaths per 1 000 000 live births.');
+
+		if(countryData.humanDevelopmentIndex)
+			blurb.push(' <country> has revieved a human development index of ' + countryData.humanDevelopmentIndex + '.');
+
+		if(countryData.carbonDioxideInTons)
+			blurb.push(' <country> produces ' + countryData.carbonDioxideInTons + ' tons of carbon dioxide annually derived from agriculture, transportation and factories.');
+				
+		if(countryData.endangeredSpeciesPercent && countryData.endangeredSpeciesPercent > 0)
+			blurb.push(' ' + countryData.endangeredSpeciesPercent + '% of all species that reside in ' + name + ' are considered to be endangered' +(countryData.endangeredSpeciesPercent > 5 ? ' which is quite high' : '') + '.');
+	
+		if(countryData.forrestAreaInThousandsOfHectares)
+			blurb.push(' ' + name + '\'s forrest regions cover ' + countryData.forrestAreaInThousandsOfHectares + ' thousand hectares of the country.');
+
+		if(countryData.longName)
+			countryNames.push(countryData.longName);
+	}
+
+
+	if(type)
+	 	blurb.push(' <country> is a ' + type + (type.toLowerCase() === 'dependency' ? ' of ' + sovereignt : '') +  (type.toLowerCase() === 'sovereign nation' ? ' which means that it governs territory outside of its own borders': '') + '.');
+
+	if(abbrev && !postal)
+		blurb.push(' <country>\'s abbreviated(two character) name is ' + abbrev + '.');
+
+	if(abbrev && postal)
+		blurb.push(' <country>\'s abbreviated(two character) name is ' + abbrev + ' and its postal identifier is ' + postal + '.');
+
+	blurb = shuffle(blurb);
+	blurb = blurb.join('');
+
+	if(countryData && countryData.region)
+		blurb = countryData.region + ' is where ' + name + ' is located.' + blurb;
+
+	//add the related places links
+	var relatedPlaces = _countriesAndStates[name.toLowerCase()];
+	if(relatedPlaces) {
+		blurb += '<br><br> ' + name + ' is comprised of';
+		for(var i=0 ; i < relatedPlaces.length ; i++) {
+			blurb += (i === 0 ? ' ' : ', ') + '<a href="/'+ buildFileName(relatedPlaces[i]) + '">' + relatedPlaces[i] + '</a>';
+		}
+		blurb += '.';
+	}
+
+	//replace country place holders randomly
+	while(blurb.indexOf('<country>') !== -1)
+		blurb = blurb.replace('<country>', countryNames[Math.floor(Math.random() * countryNames.length)]);
+
+
+	return generateBlurbHeader(name) + blurb;
+}
+
+
+function shuffle(o){
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+};
 
 
 var _defaultDiacriticsRemovalMap = [
