@@ -143,7 +143,8 @@
 	<url><loc>http://www.iswhere.us/castella-la_manxa.html</loc></url>
 	<url><loc>http://www.iswhere.us/castilha-la_mancha.html</loc></url>
 	<url><loc>http://www.iswhere.us/centre.html</loc></url>
-	<url><loc>http://www.iswhere.us/region_centrale%2C_region_du_centre.html</loc></url>
+	<url><loc>http://www.iswhere.us/region_centrale.html</loc></url>
+	<url><loc>http://www.iswhere.us/region_du_centre.html</loc></url>
 	<url><loc>http://www.iswhere.us/kebili.html</loc></url>
 	<url><loc>http://www.iswhere.us/kebilli.html</loc></url>
 	<url><loc>http://www.iswhere.us/qbili.html</loc></url>
@@ -411,8 +412,12 @@
 	<url><loc>http://www.iswhere.us/ataq.html</loc></url>
 	<url><loc>http://www.iswhere.us/neutral_zone.html</loc></url>
 	<url><loc>http://www.iswhere.us/fujayrah.html</loc></url>
-	<url><loc>http://www.iswhere.us/al_foudjairah%2C_fudjayra.html</loc></url>
-	<url><loc>http://www.iswhere.us/al_fujayrah%2C_fujaira%2C_fujairah%2C_fujeira.html</loc></url>
+	<url><loc>http://www.iswhere.us/al_foudjairah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fudjayra.html</loc></url>
+	<url><loc>http://www.iswhere.us/al_fujayrah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujaira.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujairah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujeira.html</loc></url>
 	<url><loc>http://www.iswhere.us/samarkand.html</loc></url>
 	<url><loc>http://www.iswhere.us/samarqand.html</loc></url>
 	<url><loc>http://www.iswhere.us/sumatera_utara.html</loc></url>
@@ -607,7 +612,8 @@
 	<url><loc>http://www.iswhere.us/cherkasskaya_oblast'.html</loc></url>
 	<url><loc>http://www.iswhere.us/cherkassy.html</loc></url>
 	<url><loc>http://www.iswhere.us/balkan.html</loc></url>
-	<url><loc>http://www.iswhere.us/krasnovodsk%2C_krasnovodskaya_oblast.html</loc></url>
+	<url><loc>http://www.iswhere.us/krasnovodsk.html</loc></url>
+	<url><loc>http://www.iswhere.us/krasnovodskaya_oblast.html</loc></url>
 	<url><loc>http://www.iswhere.us/andijon.html</loc></url>
 	<url><loc>http://www.iswhere.us/andijan.html</loc></url>
 	<url><loc>http://www.iswhere.us/andizhan.html</loc></url>
@@ -832,7 +838,8 @@
 	<url><loc>http://www.iswhere.us/dubay.html</loc></url>
 	<url><loc>http://www.iswhere.us/dibay.html</loc></url>
 	<url><loc>http://www.iswhere.us/doubai.html</loc></url>
-	<url><loc>http://www.iswhere.us/dubai%2C_dubayy.html</loc></url>
+	<url><loc>http://www.iswhere.us/dubai.html</loc></url>
+	<url><loc>http://www.iswhere.us/dubayy.html</loc></url>
 	<url><loc>http://www.iswhere.us/surkhandarya.html</loc></url>
 	<url><loc>http://www.iswhere.us/sukhan-dar'ya.html</loc></url>
 	<url><loc>http://www.iswhere.us/surxondaryo.html</loc></url>
@@ -1312,8 +1319,12 @@
 	<url><loc>http://www.iswhere.us/ra's_al_khayma.html</loc></url>
 	<url><loc>http://www.iswhere.us/ra's_al_khaymah.html</loc></url>
 	<url><loc>http://www.iswhere.us/neutral_zone.html</loc></url>
-	<url><loc>http://www.iswhere.us/al_foudjairah%2C_fudjayra.html</loc></url>
-	<url><loc>http://www.iswhere.us/al_fujayrah%2C_fujaira%2C_fujairah%2C_fujeira.html</loc></url>
+	<url><loc>http://www.iswhere.us/al_foudjairah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fudjayra.html</loc></url>
+	<url><loc>http://www.iswhere.us/al_fujayrah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujaira.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujairah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujeira.html</loc></url>
 	<url><loc>http://www.iswhere.us/namangan.html</loc></url>
 	<url><loc>http://www.iswhere.us/leninabad.html</loc></url>
 	<url><loc>http://www.iswhere.us/sogd.html</loc></url>
@@ -1423,7 +1434,8 @@
 	<url><loc>http://www.iswhere.us/az_zarqa'.html</loc></url>
 	<url><loc>http://www.iswhere.us/moyo.html</loc></url>
 	<url><loc>http://www.iswhere.us/river_nile.html</loc></url>
-	<url><loc>http://www.iswhere.us/an_nil%2C_nahr_an_nil.html</loc></url>
+	<url><loc>http://www.iswhere.us/an_nil.html</loc></url>
+	<url><loc>http://www.iswhere.us/nahr_an_nil.html</loc></url>
 	<url><loc>http://www.iswhere.us/nil.html</loc></url>
 	<url><loc>http://www.iswhere.us/nile.html</loc></url>
 	<url><loc>http://www.iswhere.us/nile_river.html</loc></url>
@@ -1608,11 +1620,19 @@
 	<url><loc>http://www.iswhere.us/al-mahra.html</loc></url>
 	<url><loc>http://www.iswhere.us/mahra.html</loc></url>
 	<url><loc>http://www.iswhere.us/fujayrah.html</loc></url>
-	<url><loc>http://www.iswhere.us/al_foudjairah%2C_fudjayra.html</loc></url>
-	<url><loc>http://www.iswhere.us/al_fujayrah%2C_fujaira%2C_fujairah%2C_fujeira.html</loc></url>
+	<url><loc>http://www.iswhere.us/al_foudjairah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fudjayra.html</loc></url>
+	<url><loc>http://www.iswhere.us/al_fujayrah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujaira.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujairah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujeira.html</loc></url>
 	<url><loc>http://www.iswhere.us/neutral_zone.html</loc></url>
-	<url><loc>http://www.iswhere.us/al_foudjairah%2C_fudjayra.html</loc></url>
-	<url><loc>http://www.iswhere.us/al_fujayrah%2C_fujaira%2C_fujairah%2C_fujeira.html</loc></url>
+	<url><loc>http://www.iswhere.us/al_foudjairah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fudjayra.html</loc></url>
+	<url><loc>http://www.iswhere.us/al_fujayrah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujaira.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujairah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujeira.html</loc></url>
 	<url><loc>http://www.iswhere.us/bukhoro.html</loc></url>
 	<url><loc>http://www.iswhere.us/bukhara.html</loc></url>
 	<url><loc>http://www.iswhere.us/buxoro.html</loc></url>
@@ -1743,7 +1763,8 @@
 	<url><loc>http://www.iswhere.us/lukovica.html</loc></url>
 	<url><loc>http://www.iswhere.us/mozirje.html</loc></url>
 	<url><loc>http://www.iswhere.us/notranjsko-kra%C2%9Aka.html</loc></url>
-	<url><loc>http://www.iswhere.us/kra%C2%9Aka%2C_notranj.html</loc></url>
+	<url><loc>http://www.iswhere.us/kra%C2%9Aka.html</loc></url>
+	<url><loc>http://www.iswhere.us/notranj.html</loc></url>
 	<url><loc>http://www.iswhere.us/semic.html</loc></url>
 	<url><loc>http://www.iswhere.us/koro%C2%9Aka.html</loc></url>
 	<url><loc>http://www.iswhere.us/trebnje.html</loc></url>
@@ -1757,7 +1778,8 @@
 	<url><loc>http://www.iswhere.us/latgale.html</loc></url>
 	<url><loc>http://www.iswhere.us/bishkek.html</loc></url>
 	<url><loc>http://www.iswhere.us/ysyk-kol.html</loc></url>
-	<url><loc>http://www.iswhere.us/issyk-kul%2C_issyk-kul'skaya_oblast'.html</loc></url>
+	<url><loc>http://www.iswhere.us/issyk-kul.html</loc></url>
+	<url><loc>http://www.iswhere.us/issyk-kul'skaya_oblast'.html</loc></url>
 	<url><loc>http://www.iswhere.us/talas.html</loc></url>
 	<url><loc>http://www.iswhere.us/bhaktapur.html</loc></url>
 	<url><loc>http://www.iswhere.us/madhyamanchal.html</loc></url>
@@ -2036,7 +2058,8 @@
 	<url><loc>http://www.iswhere.us/al_gummayalah.html</loc></url>
 	<url><loc>http://www.iswhere.us/al_gummaylah.html</loc></url>
 	<url><loc>http://www.iswhere.us/naryn.html</loc></url>
-	<url><loc>http://www.iswhere.us/tien-shanskaya_oblast'%2C_tyan'-shan'.html</loc></url>
+	<url><loc>http://www.iswhere.us/tien-shanskaya_oblast'.html</loc></url>
+	<url><loc>http://www.iswhere.us/tyan'-shan'.html</loc></url>
 	<url><loc>http://www.iswhere.us/mahakali.html</loc></url>
 	<url><loc>http://www.iswhere.us/achham.html</loc></url>
 	<url><loc>http://www.iswhere.us/sudur_pashchimanchal.html</loc></url>
@@ -2143,7 +2166,8 @@
 	<url><loc>http://www.iswhere.us/causeni.html</loc></url>
 	<url><loc>http://www.iswhere.us/soroca.html</loc></url>
 	<url><loc>http://www.iswhere.us/al_asimah.html</loc></url>
-	<url><loc>http://www.iswhere.us/capital%2C_kuwait.html</loc></url>
+	<url><loc>http://www.iswhere.us/capital.html</loc></url>
+	<url><loc>http://www.iswhere.us/kuwait.html</loc></url>
 	<url><loc>http://www.iswhere.us/al_jahrah.html</loc></url>
 	<url><loc>http://www.iswhere.us/jahra.html</loc></url>
 	<url><loc>http://www.iswhere.us/tavush.html</loc></url>
@@ -2398,7 +2422,8 @@
 	<url><loc>http://www.iswhere.us/beloutchistanbeluchistan.html</loc></url>
 	<url><loc>http://www.iswhere.us/baluchistao.html</loc></url>
 	<url><loc>http://www.iswhere.us/jalal-abad.html</loc></url>
-	<url><loc>http://www.iswhere.us/djalal-abad%2C_dzhalal-abadskaya_oblast'.html</loc></url>
+	<url><loc>http://www.iswhere.us/djalal-abad.html</loc></url>
+	<url><loc>http://www.iswhere.us/dzhalal-abadskaya_oblast'.html</loc></url>
 	<url><loc>http://www.iswhere.us/%C2%8Ealal-abad.html</loc></url>
 	<url><loc>http://www.iswhere.us/kedah.html</loc></url>
 	<url><loc>http://www.iswhere.us/kedah_darul_aman.html</loc></url>
@@ -2899,7 +2924,8 @@
 	<url><loc>http://www.iswhere.us/mourne.html</loc></url>
 	<url><loc>http://www.iswhere.us/caerphilly.html</loc></url>
 	<url><loc>http://www.iswhere.us/blackburn_with_darwen.html</loc></url>
-	<url><loc>http://www.iswhere.us/blackburn%2C_blackburn_and_darwen.html</loc></url>
+	<url><loc>http://www.iswhere.us/blackburn.html</loc></url>
+	<url><loc>http://www.iswhere.us/blackburn_and_darwen.html</loc></url>
 	<url><loc>http://www.iswhere.us/lancashire.html</loc></url>
 	<url><loc>http://www.iswhere.us/wrexham.html</loc></url>
 	<url><loc>http://www.iswhere.us/anglesey.html</loc></url>
@@ -3354,7 +3380,8 @@
 	<url><loc>http://www.iswhere.us/banbridge.html</loc></url>
 	<url><loc>http://www.iswhere.us/north_down.html</loc></url>
 	<url><loc>http://www.iswhere.us/sennar.html</loc></url>
-	<url><loc>http://www.iswhere.us/al_wusta%2C_al_awsat.html</loc></url>
+	<url><loc>http://www.iswhere.us/al_wusta.html</loc></url>
+	<url><loc>http://www.iswhere.us/al_awsat.html</loc></url>
 	<url><loc>http://www.iswhere.us/an_nil_al_azraq.html</loc></url>
 	<url><loc>http://www.iswhere.us/central.html</loc></url>
 	<url><loc>http://www.iswhere.us/western.html</loc></url>
@@ -4864,7 +4891,9 @@
 	<url><loc>http://www.iswhere.us/labwor.html</loc></url>
 	<url><loc>http://www.iswhere.us/nakapiripirit.html</loc></url>
 	<url><loc>http://www.iswhere.us/southern_nations%2C_nationalities_and_peoples.html</loc></url>
-	<url><loc>http://www.iswhere.us/southern_nations%2C_nationalities%2C_and_people's_region.html</loc></url>
+	<url><loc>http://www.iswhere.us/southern_nations.html</loc></url>
+	<url><loc>http://www.iswhere.us/nationalities.html</loc></url>
+	<url><loc>http://www.iswhere.us/and_people's_region.html</loc></url>
 	<url><loc>http://www.iswhere.us/gambela_peoples.html</loc></url>
 	<url><loc>http://www.iswhere.us/gambella.html</loc></url>
 	<url><loc>http://www.iswhere.us/gambela_hizboch.html</loc></url>
@@ -5130,7 +5159,8 @@
 	<url><loc>http://www.iswhere.us/southwestern.html</loc></url>
 	<url><loc>http://www.iswhere.us/murzuq.html</loc></url>
 	<url><loc>http://www.iswhere.us/misratah.html</loc></url>
-	<url><loc>http://www.iswhere.us/misrata%2C_misurata.html</loc></url>
+	<url><loc>http://www.iswhere.us/misrata.html</loc></url>
+	<url><loc>http://www.iswhere.us/misurata.html</loc></url>
 	<url><loc>http://www.iswhere.us/mizdah.html</loc></url>
 	<url><loc>http://www.iswhere.us/mizda.html</loc></url>
 	<url><loc>http://www.iswhere.us/dojran.html</loc></url>
@@ -5525,9 +5555,11 @@
 	<url><loc>http://www.iswhere.us/tearce.html</loc></url>
 	<url><loc>http://www.iswhere.us/bogovinje.html</loc></url>
 	<url><loc>http://www.iswhere.us/sabha.html</loc></url>
-	<url><loc>http://www.iswhere.us/sabhah%2C_sebha.html</loc></url>
+	<url><loc>http://www.iswhere.us/sabhah.html</loc></url>
+	<url><loc>http://www.iswhere.us/sebha.html</loc></url>
 	<url><loc>http://www.iswhere.us/zlitan.html</loc></url>
-	<url><loc>http://www.iswhere.us/misrata%2C_misurata.html</loc></url>
+	<url><loc>http://www.iswhere.us/misrata.html</loc></url>
+	<url><loc>http://www.iswhere.us/misurata.html</loc></url>
 	<url><loc>http://www.iswhere.us/al_jifarah.html</loc></url>
 	<url><loc>http://www.iswhere.us/al_jfara.html</loc></url>
 	<url><loc>http://www.iswhere.us/al_aziziyah.html</loc></url>
@@ -5598,8 +5630,12 @@
 	<url><loc>http://www.iswhere.us/egentliga_finland.html</loc></url>
 	<url><loc>http://www.iswhere.us/pavlodar.html</loc></url>
 	<url><loc>http://www.iswhere.us/fujayrah.html</loc></url>
-	<url><loc>http://www.iswhere.us/al_foudjairah%2C_fudjayra.html</loc></url>
-	<url><loc>http://www.iswhere.us/al_fujayrah%2C_fujaira%2C_fujairah%2C_fujeira.html</loc></url>
+	<url><loc>http://www.iswhere.us/al_foudjairah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fudjayra.html</loc></url>
+	<url><loc>http://www.iswhere.us/al_fujayrah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujaira.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujairah.html</loc></url>
+	<url><loc>http://www.iswhere.us/fujeira.html</loc></url>
 	<url><loc>http://www.iswhere.us/hamadan.html</loc></url>
 	<url><loc>http://www.iswhere.us/hamedan.html</loc></url>
 	<url><loc>http://www.iswhere.us/zanjan.html</loc></url>
@@ -5650,9 +5686,11 @@
 	<url><loc>http://www.iswhere.us/neath_port_talbot.html</loc></url>
 	<url><loc>http://www.iswhere.us/neath_and_port_talbot.html</loc></url>
 	<url><loc>http://www.iswhere.us/telford_and_wrekin.html</loc></url>
-	<url><loc>http://www.iswhere.us/the_wrekin%2C_wrekin.html</loc></url>
+	<url><loc>http://www.iswhere.us/the_wrekin.html</loc></url>
+	<url><loc>http://www.iswhere.us/wrekin.html</loc></url>
 	<url><loc>http://www.iswhere.us/east_riding_of_yorkshire.html</loc></url>
-	<url><loc>http://www.iswhere.us/east_riding%2C_east_yorkshire.html</loc></url>
+	<url><loc>http://www.iswhere.us/east_riding.html</loc></url>
+	<url><loc>http://www.iswhere.us/east_yorkshire.html</loc></url>
 	<url><loc>http://www.iswhere.us/conwy.html</loc></url>
 	<url><loc>http://www.iswhere.us/aberconwy_and_colwyn.html</loc></url>
 	<url><loc>http://www.iswhere.us/gwynedd.html</loc></url>
@@ -6715,7 +6753,8 @@
 	<url><loc>http://www.iswhere.us/hadramauthadramout.html</loc></url>
 	<url><loc>http://www.iswhere.us/kagoshima.html</loc></url>
 	<url><loc>http://www.iswhere.us/hawalli.html</loc></url>
-	<url><loc>http://www.iswhere.us/hawali%2C_howali.html</loc></url>
+	<url><loc>http://www.iswhere.us/hawali.html</loc></url>
+	<url><loc>http://www.iswhere.us/howali.html</loc></url>
 	<url><loc>http://www.iswhere.us/ghadamis.html</loc></url>
 	<url><loc>http://www.iswhere.us/gadamis.html</loc></url>
 	<url><loc>http://www.iswhere.us/ghadames.html</loc></url>
@@ -6918,7 +6957,7 @@
 	<url><loc>http://www.iswhere.us/salavane.html</loc></url>
 	<url><loc>http://www.iswhere.us/saravane.html</loc></url>
 	<url><loc>http://www.iswhere.us/xaisomboun.html</loc></url>
-	<url><loc>http://www.iswhere.us/saysomboune%2C.html</loc></url>
+	<url><loc>http://www.iswhere.us/saysomboune.html</loc></url>
 	<url><loc>http://www.iswhere.us/xaysomboun.html</loc></url>
 	<url><loc>http://www.iswhere.us/louangphrabang.html</loc></url>
 	<url><loc>http://www.iswhere.us/loang_prabang.html</loc></url>

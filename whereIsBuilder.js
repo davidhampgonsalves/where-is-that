@@ -111,7 +111,7 @@ function generateStates() {
 		var names = [simplifyUtfToAscii(data.name)];
 
 		if(data.alias.trim() !== '') {
-			var aliases = data.alias.split('|');
+			var aliases = data.alias.split(/[|,]/);
 			for(var i in aliases)
 				names.push(simplifyUtfToAscii(aliases[i]));
 		}	
@@ -400,10 +400,10 @@ function generateCountryBlurb(name, type, sovereignt, abbrev, postal, json) {
 	 	blurb.push(' <country> is a ' + type + (type.toLowerCase() === 'dependency' ? ' of ' + sovereignt : '') +  (type.toLowerCase() === 'sovereign nation' ? ' which means that it governs territory outside of its own borders': '') + '.');
 
 	if(abbrev && !postal)
-		blurb.push(' <country>\'s abbreviated(two character) name is ' + abbrev + '.');
+		blurb.push(' <country>\'s abbreviated name is ' + abbrev + '.');
 
 	if(abbrev && postal)
-		blurb.push(' <country>\'s abbreviated(two character) name is ' + abbrev + ' and its postal identifier is ' + postal + '.');
+		blurb.push(' <country>\'s abbreviated name is ' + abbrev + ' and its postal identifier is ' + postal + '.');
 
 	blurb = shuffle(blurb);
 	blurb = blurb.join('');

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Where is Notranj?</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta name="description" content="Want to know where the Statistical Region of Notranj is located?">
+    <meta name="keywords" content="Where, is,Notranj, located, country, city, place, region, state, province">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-19849283-5', 'iswhere.us');
+      ga('send', 'pageview');
+
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyB_e-AsGPAjXRJiYxzX1w9k4PGANpjFVoQ"></script>
+   <script>
+    // 4326 rather then googles one 3857
+      var rawData = {"type":"Polygon","coordinates":[[[14.386,45.707],[14.393,45.689],[14.417,45.671],[14.426,45.662],[14.426,45.644],[14.379,45.652],[14.369,45.66],[14.347,45.672],[14.333,45.672],[14.328,45.671],[14.331,45.668],[14.328,45.664],[14.317,45.659],[14.286,45.655],[14.247,45.644],[14.238,45.641],[14.227,45.633],[14.216,45.631],[14.194,45.63],[14.152,45.631],[14.128,45.63],[14.11,45.626],[14.103,45.623],[14.091,45.624],[14.08,45.628],[14.08,45.63],[14.083,45.636],[14.078,45.645],[14.073,45.653],[14.069,45.66],[14.069,45.674],[14.065,45.68],[14.063,45.686],[14.065,45.694],[14.072,45.703],[14.083,45.707],[14.093,45.714],[14.117,45.707],[14.134,45.704],[14.15,45.704],[14.172,45.707],[14.202,45.716],[14.22,45.717],[14.256,45.727],[14.272,45.735],[14.323,45.754],[14.328,45.74],[14.386,45.707]]]};
+
+      function initialize() {
+
+          google.maps.visualRefresh = true;
+          google.maps.Polygon.prototype.getBounds = function() {
+            var bounds = new google.maps.LatLngBounds();
+            var paths = this.getPaths();
+            for (var i = 0; i < paths.getLength(); i++) {
+                var path = paths.getAt(i);
+                for (var ii = 0; ii < path.getLength(); ii++)
+                    bounds.extend(path.getAt(ii));
+            }
+            return bounds;
+          }
+
+          var MY_MAPTYPE_ID = 'Simplified';
+          var map = new google.maps.Map(document.getElementById('map-canvas'), {
+            zoom: 8,
+            panControl : false, 
+            streetViewControl : false, 
+            zoomControl : false, 
+            scaleControl : false,
+            center: new google.maps.LatLng(170,150),
+            mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]},
+            //scaleControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //streetViewControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            //zoomControlOptions: {position : google.maps.ControlPosition.LEFT_CENTER},
+            mapTypeId: MY_MAPTYPE_ID
+          });
+
+          var polygonToFocusOn;
+          var bounds = new google.maps.LatLngBounds();
+          if(rawData.type === 'MultiPolygon') {
+            var polygonCount = rawData.coordinates.length;
+            
+            for(var i=0 ; i < polygonCount ; i++) {
+              bounds.union(addPolygonToMap(map, rawData.coordinates[i][0]));
+            }
+          } else
+            bounds = addPolygonToMap(map, rawData.coordinates[0], true);
+
+          var customMapType = new google.maps.StyledMapType([], {name: MY_MAPTYPE_ID});
+          map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+          map.fitBounds(bounds);
+      }
+
+      function addPolygonToMap(map, data, isSinglePolygon) {
+
+        var regionCoords = [];
+        var regionBounds = new google.maps.LatLngBounds();
+        for(var i=0 ; i < data.length ; i++) {
+          var point = new google.maps.LatLng(data[i][1], data[i][0]);
+          regionCoords.push(point);
+          regionBounds.extend(point);
+        }
+
+        var overlayOptions = {
+          paths: regionCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.5,
+          strokeWeight: 6,
+          fillColor: '#FFFFFF', 
+          fillOpacity: 0,
+          clickable: false,
+          strokePosition: google.maps.StrokePosition.OUTSIDE
+        };
+
+        var regionOverlay = new google.maps.Polygon(overlayOptions);
+
+        overlayOptions.strokeColor = "#FFFFFF";
+        overlayOptions.strokeWeight = 8;
+        overlayOptions.strokeOpacity = 0.7;
+        overlayOptions.strokePosition = google.maps.StrokePosition.INSIDE;
+        var regionOverlay2 = new google.maps.Polygon(overlayOptions);
+
+        if(isSinglePolygon) {
+          new google.maps.Marker({
+            position: regionOverlay.getBounds().getCenter(),
+            map: map,
+            title: 'Notranj'
+          });
+        }
+
+        regionOverlay.setMap(map);
+        regionOverlay2.setMap(map);
+        
+        return regionBounds;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+
+    <style>
+      * {
+        margin:0;padding:0;
+      }
+
+      html, body, #map-canvas {
+        height: 100%;
+      }
+
+      body {
+        font-family:'Open Sans', sans-serif;
+        font-weight:300;
+      }
+
+      h1 {
+        position:absolute;
+        margin: 50px 50px;
+        font-size: 85px;
+        line-height:65%;
+        font-weight:400;
+        text-shadow: 0 0 20px #000;
+        color:#FFF;
+        top:0;
+        left:0;
+        z-index: 99;
+      }
+
+      h1 a {
+        text-decoration: none;
+        color:#FFF;
+      }
+
+      h1 span {
+        color: rgb(253,253,253);
+        font-size:80px;
+      }
+
+      h1, h2 {
+        font-family: 'Abril Fatface', serif;
+      }
+
+      #content-container, #ads-container {
+        position:absolute;
+        z-index: 99;
+        margin:50px;
+        padding:15px;
+        background:#FFF;
+        box-shadow: 0 0 5px #000;
+      }
+
+      #ads-container {
+        left:0;
+        bottom:0;
+        height:500px;
+        width:200px;
+      }
+
+      #ads {
+        border:2px dashed #444;
+        padding:30px;
+        position:static;
+        height:436px;
+      }
+
+      #content-container {
+        bottom:0;
+        right:0;
+      }
+
+      #content {
+        position:static;
+        font-weight:300;
+        width:400px;
+        padding:30px;
+        border:2px dashed #444;
+      }
+
+      #map-canvas {
+        width:100%;
+        height:100%;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><a href='/'><span>Where is</span><br>Notranj?</a></h1>
+    
+    <div id=content-container>
+      <div id=content>
+          <h2>Have a quandary about where Notranj is located? </h2>Notranj, is a statistical region It belongs to the country of <a href="slovenia.html">Slovenia</a>. Its postal identifier is NO.Notranj has an area of 224 square kilometeres.
+      </div>
+    </div>
+    
+    <!--div id=ads-container><div id=ads> </div></div-->
+    
+    <div id="map-canvas"></div>
+  </body>
+</html>
+
+
+
