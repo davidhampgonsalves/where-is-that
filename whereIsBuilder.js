@@ -199,7 +199,7 @@ function createProvincePage(name, type, country, region, size, abbrev, postal, j
 
 function createCountryPage(name, type, sovereignt, abbrev, postal, json) {
 	//open template
-	var blurb = generateCountryBlurb(name, type,  sovereignt, abbrev, postal);
+	var blurb = generateCountryBlurb(name, type,  sovereignt, abbrev, postal, json);
 
 	var fileName = buildFileName(name);
 
@@ -342,7 +342,7 @@ function generateBlurb(name, type, country, region, size, abbrev, postal) {
 }
 
 
-function generateCountryBlurb(name, type, sovereignt, abbrev, postal) {
+function generateCountryBlurb(name, type, sovereignt, abbrev, postal, json) {
 	var blurb = getStaticBlurb(name);
 	if(blurb)
 		return generateBlurbHeader(name) + blurb;
@@ -408,8 +408,11 @@ function generateCountryBlurb(name, type, sovereignt, abbrev, postal) {
 	blurb = shuffle(blurb);
 	blurb = blurb.join('');
 
-	if(countryData && countryData.region)
-		blurb = countryData.region + ' is where ' + name + ' is located.' + blurb;
+	if(countryData && countryData.region) {
+		var latLon = getLatAndLonFromJson(json);
+		var firstLine = countryData.region + ' is where ' + name + ' is located <span itemscope itemtype="http://schema.org/Place">' + name + ' at Latitude: ' + latLon.lat + ' and Longitude: ' + latLon.lon + '<span itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates" sameAs="http://en.wikipedia.org/wiki/' + name + '"><meta itemprop="latitude" content="' + latLon.lat + '" /> <meta itemprop="longitude" content="' + latLon.lon + '" /></span></span>.';
+		blurb = firstLine + blurb;
+	}
 
 	//add the related places links
 	var relatedPlaces = _countriesAndStates[name.toLowerCase()];
@@ -419,7 +422,7 @@ function generateCountryBlurb(name, type, sovereignt, abbrev, postal) {
 			blurb += (i === 0 ? ' ' : ', ') + '<a href="/'+ buildFileName(relatedPlaces[i]) + '">' + relatedPlaces[i] + '</a>';
 		}
 		blurb += '.';
-	}
+	}	
 
 	//replace country place holders randomly
 	while(blurb.indexOf('<country>') !== -1)
@@ -427,6 +430,17 @@ function generateCountryBlurb(name, type, sovereignt, abbrev, postal) {
 
 
 	return generateBlurbHeader(name) + blurb;
+}
+
+function getLatAndLonFromJson(json) {
+	json = JSON.parse(json);
+
+	if(json.type === 'MultiPolygon')
+		var point = json.coordinates[0][0][0];
+	else
+		var point =  json.coordinates[0][0];
+
+	return {lat:point[1], lon:point[0]};
 }
 
 
