@@ -92,8 +92,12 @@ function loadExternalCountryData(fileName, callback) {
 	});
 }
  
-function getExternalCountryData(name) {
-	return _externalCountryData[name.toLowerCase()];
+function getExternalCountryData(name, name2) {
+	var data = _externalCountryData[name.toLowerCase()];
+	if(data)
+		return data;
+
+	return _externalCountryData[name2.toLowerCase()];;
 }
 
 function generateStates() {
@@ -149,15 +153,17 @@ function generateCountries() {
 		columnsFromHeader: true
 	});
 	reader.addListener('data', function(data) {
-		if(data.name_forma && data.name_forma.indexOf('?') < 0 && data.name_forma !== '') {
-			var pageName1 = createCountryPage(simplifyUtfToAscii(data.name_forma), data.type, data.sovereignt, data.abbrev, data.postal, data.json_4326);
-			addPageToSitemap(pageName1);
-		}
+		if(data.name && data.name_forma && data.name_forma.indexOf('?') < 0 && data.name_forma !== '') {
+			var name = simplifyUtfToAscii(data.name);
+			var name2 = simplifyUtfToAscii(data.name_forma);
 
-		if(data.name && data.name.indexOf('?') < 0 && data.name !== '') {
-			var pageName2 = createCountryPage(simplifyUtfToAscii(data.name), data.type, data.sovereignt, data.abbrev, data.postal, data.json_4326);
-			addPageToSitemap(pageName2);
-		}
+			var pageName = createCountryPage(name, name2, data.type, data.sovereignt, data.abbrev, data.postal, data.json_4326);
+			addPageToSitemap(pageName);
+
+			pageName = createCountryPage(name2, name, data.type, data.sovereignt, data.abbrev, data.postal, data.json_4326);
+			addPageToSitemap(pageName);
+		} else
+		 console.log('skipping ' + data.name);
 	});
 
 	reader.addListener('end', function() {
@@ -197,9 +203,9 @@ function createProvincePage(name, type, country, region, size, abbrev, postal, j
 	return fileName;
 }
 
-function createCountryPage(name, type, sovereignt, abbrev, postal, json) {
+function createCountryPage(name, name2, type, sovereignt, abbrev, postal, json) {
 	//open template
-	var blurb = generateCountryBlurb(name, type,  sovereignt, abbrev, postal, json);
+	var blurb = generateCountryBlurb(name, name2, type,  sovereignt, abbrev, postal, json);
 
 	var fileName = buildFileName(name);
 
@@ -342,15 +348,16 @@ function generateBlurb(name, type, country, region, size, abbrev, postal) {
 }
 
 
-function generateCountryBlurb(name, type, sovereignt, abbrev, postal, json) {
+function generateCountryBlurb(name, name2, type, sovereignt, abbrev, postal, json) {
 	var blurb = getStaticBlurb(name);
 	if(blurb)
 		return generateBlurbHeader(name) + blurb;
 	
-	var countryNames = [name, 'It', 'The country', 'The nation', 'The state'];
+	var countryNames = [name, name2, 'It', 'The country', 'The nation', 'The state'];
 	blurb = [];
 
-	var countryData = getExternalCountryData(name);
+	var countryData = getExternalCountryData(name, name2);
+
 	if(countryData) {
 		if(countryData.educationExpenditure && countryData.adultLiteracy && countryData.educationIndex)
 			blurb.push(' spends ' + countryData.educationExpenditure + '% of its annual GDP on education which has contributed to an adult adult literacy rate of ' + countryData.adultLiteracy +  ' and its education index rating of ' + countryData.educationIndex + '.');
@@ -393,7 +400,8 @@ function generateCountryBlurb(name, type, sovereignt, abbrev, postal, json) {
 
 		if(countryData.longName)
 			countryNames.push(countryData.longName);
-	}
+	} else 
+		console.log('country data not found for: ' + name);
 
 
 	if(type)
@@ -415,11 +423,11 @@ function generateCountryBlurb(name, type, sovereignt, abbrev, postal, json) {
 	}
 
 	//add the related places links
-	var relatedPlaces = _countriesAndStates[name.toLowerCase()];
+	var relatedPlaces = getRelatedPlaces(name, name2);
 	if(relatedPlaces) {
 		blurb += '<br><br> ' + name + ' is comprised of';
 		for(var i=0 ; i < relatedPlaces.length ; i++) {
-			blurb += (i === 0 ? ' ' : ', ') + '<a href="/'+ buildFileName(relatedPlaces[i]) + '">' + relatedPlaces[i] + '</a>';
+			blurb += (i === 0 ? ' ' : ', ') + '<a href="'+ buildFileName(relatedPlaces[i]) + '">' + relatedPlaces[i] + '</a>';
 		}
 		blurb += '.';
 	}	
@@ -430,6 +438,14 @@ function generateCountryBlurb(name, type, sovereignt, abbrev, postal, json) {
 
 
 	return generateBlurbHeader(name) + blurb;
+}
+
+function getRelatedPlaces(name, name2) {
+	var places = _countriesAndStates[name.toLowerCase()];
+	if(places)
+		return places;
+
+	return _countriesAndStates[name2.toLowerCase()]
 }
 
 function getLatAndLonFromJson(json) {
